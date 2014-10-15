@@ -1,0 +1,145 @@
+div.button {
+    pointer-events: auto;
+    z-index: 10;
+    position: absolute;
+}
+
+div.toggle_sound {
+    text-align: center;
+    width: 4em;
+    margin: 0.2em;
+}
+
+
+div.skip_intro {
+    position: absolute;
+    width: auto;
+    right: 0.5em;
+    font-size: 3em;
+    bottom: 0.6em;
+    padding: 0.4em;
+    width: 5em;
+    border-radius: 2em;
+    background-size: 100% 100%;
+}
+
+div.bet_button_container {
+    position: relative;
+    display: block;
+    left: -0.1em;
+    margin-top: 1.8em;
+    margin-bottom: 4.5em;
+    height: 15.4em;
+    width: 10.6em;
+}
+
+#spin_button_container {
+    position: absolute;
+    top: 12.4em;
+    left: -2em;
+    width: 20.4em;
+    height: 26.5em;
+}
+
+#regularspin_button{
+    top: 5.5em;
+    position: absolute;
+}
+
+#freespin_button{
+    display: none;
+}
+
+div.settings_button_container {
+    position: absolute;
+    height: auto;
+    top: 0em;
+    right: 0em;
+    width: 14.2em;
+    height: 6.0em;
+    margin:1em;
+    background-size: 100% 100%;
+}
+
+
+
+div.lobby_button_container {
+    position: absolute;
+    background-position: 0px -799px ;
+    width: 9.4em;
+    height: 6em;
+    top: 0em;
+    left: 0em;
+    margin:1em;
+}
+
+
+div.spin_button_label {
+    text-align: center;
+
+    font-family: 'Berlin Sans Roman';
+    font-size: 2.2em;
+    font-weight: 400;
+    color: #f2e0f7;
+    text-shadow: 0 0 10px rgba(214,66,203,.5), 0 1px 1px #3d3460;
+    padding-top: 0.5em;
+}
+
+div.spin_button_value {
+    width: 100%;
+    text-align: center;
+
+    font-family: 'Berlin Sans Demi';
+    font-size: 4em;
+    font-weight: 400;
+    color: #f2e0f7;
+    text-shadow: 0 0 10px rgba(214,66,203,.5), 0 1px 1px #3d3460;
+    letter-spacing: 0.05em;
+    line-height: 0.8em;
+}
+
+div.button_value_label {
+    width: 100%;
+    text-align: center;
+
+    font-family: 'Berlin Sans Demi';
+    font-size: 3em;
+    font-weight: 400;
+    color: #f2e0f7;
+    text-shadow: 0 2px 4px #3d3460;
+
+    position: relative;
+    top: 0.1em;
+
+}
+
+div.bet_button {
+    position: absolute;
+    height: auto;
+    left: 0px;
+    right: 0px;
+    bottom: 20%;
+    top: 49%;
+    background-size: 100%;
+    background-position: center;
+}
+
+div.close_overlay_button {
+    position: absolute;
+    height: auto;
+    left: 1em;
+    font-size: 2em;
+    padding:0.2em;
+    margin:0.2em;
+}
+
+
+div.dialogue_button {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    right: 1em;
+    font-size: 4em;
+    padding:0.2em;
+    margin:0.2em;
+}

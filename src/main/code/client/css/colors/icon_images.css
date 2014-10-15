@@ -1,0 +1,88 @@
+
+div.close_x {
+    position: absolute;
+    top:0.5em;
+    right: 0.5em;
+    width: 4em;
+    height: 4em;
+    background-size: 100% 100%;
+    background-image: url(../../resources/images/icons/cross.png);
+    background-color: #000;
+    border: 0.3em solid #bd0200;
+    border-radius: 1.5em;
+}
+
+div.close_x:hover {
+    background-color: #bd0200;
+    border-color: #bd0200;
+}
+
+div.close_x:active {
+    background-color: #ff0200;
+    border-color: #ff6b5b;
+}
+
+div.icon_mouse_left {
+    background-image: url(../../resources/images/icons/mouse_left.png);
+}
+
+div.icon_mouse_right {
+    background-image: url(../../resources/images/icons/mouse_right.png);
+}
+
+div.icon_mouse_wheel {
+    background-image: url(../../resources/images/icons/mouse_wheel.png);
+}
+
+div.icon_mouse_both {
+    background-image: url(../../resources/images/icons/mouse_both.png);
+}
+
+div.icon_carrier_patrol {
+    background-image: url(../../resources/images/icons/scenarios/carrier.jpg);
+}
+
+div.icon_tunnan_takeoff {
+    background-image: url(../../resources/images/icons/scenarios/tunnan_takeoff.jpg);
+}
+
+div.icon_tunnan_freeflight {
+    background-image: url(../../resources/images/icons/scenarios/tunnan_freeflight.jpg);
+}
+
+div.icon_tomcat_freeflight {
+    background-image: url(../../resources/images/icons/scenarios/tomcat_ff.png);
+}
+
+div.icon_draken_freeflight {
+    background-image: url(../../resources/images/icons/scenarios/draken_freeflight.jpg);
+}
+
+div.icon_cougar_freeflight {
+    background-image: url(../../resources/images/icons/scenarios/cougar_ff.jpg);
+}
+div.icon_b52_freeflight {
+    background-image: url(../../resources/images/icons/scenarios/b52_ff.jpg);
+}
+
+div.icon_draken_takeoff {
+    background-image: url(../../resources/images/icons/scenarios/draken_to.jpg);
+}
+
+div.icon_cougar_takeoff {
+    background-image: url(../../resources/images/icons/scenarios/cougar_to.jpg);
+}
+
+div.icon_pilot_car {
+    background-image: url(../../resources/images/icons/scenarios/pilot.jpg);
+}
+
+
+div.icon_battleship {
+    background-image: url(../../resources/images/icons/scenarios/battleship.jpg);
+}
+
+
+div.icon_tri_isles {
+    background-image: url(../../resources/images/icons/scenarios/tri_isles.jpg);
+}

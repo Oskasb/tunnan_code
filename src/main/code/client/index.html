@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client Scaffolding</title>
+
+    <meta name="viewport" content="width=960, user-scalable=no" />
+
+    <link rel="stylesheet" type="text/css" href="css/layout/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/layout/buttons.css" />
+    <link rel="stylesheet" type="text/css" href="css/layout/branding.css" />
+    <link rel="stylesheet" type="text/css" href="css/layout/plane_ui.css" />
+    <link rel="stylesheet" type="text/css" href="css/layout/scenarios.css" />
+    <link rel="stylesheet" type="text/css" href="css/colors/button_colors.css" />
+    <link rel="stylesheet" type="text/css" href="css/colors/page_colors.css" />
+    <link rel="stylesheet" type="text/css" href="css/colors/hud_colors.css" />
+    <!--
+        <script data-main="js/Main" src="js/lib/jiglib.js"></script>
+        <script data-main="js/Main" src="js/lib/glge-compiled.js"></script>
+     -->
+
+        <script data-main="js/Main" src="js/lib/require.js"></script>
+    </head>
+
+    <!--
+    <body id="body"  style="width:960px; height:538px"   >
+    -->
+<body id="body">
+
+<div id="viewporter" class="full_size">
+    <div id="client_page" class="full_size" style="z-index:1"></div>
+    <div id="plane_controls"></div>
+    <div id="air_params"></div>
+    <div id="loading_screen" class="loading_screen full_size" style="z-index:21">
+        <div id="loading_text">This is J-29 Tunnan. </br> Controls: Throttle (r & f), Gears (g), Flaps (x), Steering (WASD+QE)</div>
+
+        <h1>This is J-29 Tunnan!</h1>
+        <h2></br> Controls: </bt> Throttle (r / f) </br> Canopy (o) </br> Gears (g) </br> Flaps (x) </br> Steering (WASD+QE)</h1>
+        </h2>
+        <div class="progress_container">
+            <div id="progress_title">Loading...</div>
+            <div id="progress_bar"></div>
+            <div id="progress_label"></div>
+        </div>
+    </div>
+
+    <div id="menu_parent" class="full_size" style="z-index:20; display:none"></div>
+
+</div>
+</div>
+
+<script>
+    var gameUtil;
+
+    function suppressBackspace(evt) {
+        evt = evt || window.event;
+        var target = evt.target || evt.srcElement;
+
+        if (evt.keyCode == 8 && !/input|textarea/i.test(target.nodeName)) {
+            return false;
+        }
+    }
+</script>
+
+</body>
+</html>

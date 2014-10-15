@@ -1,0 +1,102 @@
+div.title_label {
+    font-weight: 400;
+    font-size: 6em;
+    color: #f7f3ff;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0.4em;
+    text-align: center;
+}
+
+div.hover_state_label {
+    position: absolute;
+}
+
+div.menu_list_header {
+    position: absolute;
+    top: 1.3em;
+    left: 5.3em;
+    font-size: 1.8em;
+    margin: 0.4em;
+    width: 60%;
+}
+
+div.icon_text {
+    font-size: 2em;
+    margin-top: 0.2em;
+}
+
+div.help_section_header {
+    position: absolute;
+    top: 0.2em;
+    left: 4.7em;
+    font-size: 1.6em;
+    margin: 0.1em;
+    width: 60%;
+}
+
+div.help_section_text {
+    position: absolute;
+    top: 1.5em;
+    left: 5.3em;
+    font-size: 1.5em;
+    margin: 0.4em;
+    width: 85%;
+}
+
+div.key_list {
+    top: 0.5em;
+    left: 0.5em;
+}
+
+div.option_control {
+    text-align: left;
+    display: inline-block;
+    margin-left: 0.2em;
+    top: 0.5em;
+    left: 0.5em;
+    width: 10em;
+}
+
+div.key_control {
+    text-align: left;
+    display: inline-block;
+    margin-left: 7.2em;
+    top: 0.5em;
+    left: 0.5em;
+    width: 29em;
+}
+
+div.bound_key {
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    right: 0px;
+    margin:2px;
+    background-color: #666;
+    width: 4em;
+}
+
+
+div.scenario_category_label {
+    font-weight: 400;
+    font-size: 2.5em;
+    color: #f7f3ff;
+    position: absolute;
+    left: 0px;
+    margin-top: 0.1em;
+    right: 0px;
+    text-align: center;
+}
+
+div.scenario_title_label {
+    font-weight: 400;
+    font-size: 1.2em;
+    color: #f7f3ff;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0.4em;
+    text-align: center;
+}

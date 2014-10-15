@@ -1,0 +1,157 @@
+div.scenario_type_container {
+    position: absolute;
+    text-align: center;
+    left: 21em;
+    right: 1em;
+    top: 11em;
+    height: 32em;
+    padding: 0.4em;
+}
+
+div.options_box {
+    background-color: #555;
+    position: absolute;
+    text-align: center;
+    top: 13em;
+    bottom: 7em;
+    left: 1em;
+    width: 24em;
+}
+
+div.settings_box {
+    background-color: #555;
+    position: absolute;
+    text-align: center;
+    height: 3.6em;
+    bottom: 5em;
+    right: 1em;
+    width: 20em;
+}
+
+div.settings_button {
+    pointer-events: auto;
+    background-color: #222;
+    color: #cec;
+    font-size: 2em;
+    position: absolute;
+    text-align: center;
+    top: 0.6em;
+    left: 0.1em;
+    right: 0.1em;
+    bottom: 0.1em;
+
+}
+
+
+div.settings_button:hover {
+    background-color: #777;
+    color: #dfd;
+}
+
+div.settings_button:active {
+    background-color: #888;
+    color: #fff;
+}
+
+div.settings_subtitle {
+    pointer-events: auto;
+    background-color: #858585;
+    position:relative;
+    color: #c3c9c8;
+    font-size: 0.8em;
+    position: absolute;
+    text-align: center;
+    top: 100%;
+    left: 0.1em;
+    right: 0.1em;
+    height: 1.4em;
+
+}
+
+
+div.options_container {
+    background-color: #111;
+    position: absolute;
+    top: 1.5em;
+    bottom: 0.2em;
+    left: 0.2em;
+    right: 0.2em;
+
+}
+
+div.scenario_container {
+    display: inline-block;
+    position: relative;
+    background-color: #222;
+    width: 20em;
+    height: 100%;
+}
+
+div.scenarios_list {
+    position: absolute;
+    top: 3em;
+    bottom:0px;
+    left: 0.5em;
+    width: 19em;
+}
+
+div.scenario_title_container {
+    position: relative;
+    height: 3em;
+    pointer-events: none;
+}
+
+div.help_section {
+    pointer-events: auto;
+    position: relative;
+    background-color: #000000;
+    margin-top: 0.5em;
+    height: 8em;
+}
+
+div.help_section_icon {
+    display: inline-block;
+    left: 0.3em;
+    width: 8em;
+    position: relative;
+    height: 7em;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+div.scenario_selection {
+    pointer-events: auto;
+    position: relative;
+    background-color: #000000;
+    margin-top: 0.5em;
+    height: 6em;
+}
+
+div.scenario_selection:hover {
+    background-color: #888888;
+}
+
+div.scenario_selection:active {
+    background-color: #9b9a9e;
+}
+
+div.scenario_icon {
+    display: inline-block;
+    left: 0.3em;
+    width: 8em;
+    position: relative;
+    height: 6em;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    pointer-events: none;
+}
+
+div.scenario_name_container {
+    display: inline-block;
+    position: relative;
+    width: 10em;
+    bottom: 100%;
+    pointer-events: none;
+}

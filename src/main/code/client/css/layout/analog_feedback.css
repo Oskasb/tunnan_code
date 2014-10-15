@@ -1,0 +1,211 @@
+div.config_overlay {
+    background-color: rgba(0, 0, 0, 0.8);
+    pointer-events: auto;
+    color: #999;
+}
+
+div.config_cancel {
+    overflow:hidden;
+    position:absolute;
+    text-align: center;
+    font-size: 2em;
+    bottom: 3em;
+    right: 2em;
+    width: 5em;
+    height: 1em;
+    color: #300;
+    border: 1px solid #111;
+    background-color: #f00;
+}
+
+div.config_cancel:hover {
+    color: #fff;
+    border: 1px solid #f33;
+    background-color: #f00;
+}
+
+div.config_cancel:active {
+    color: #faa;
+    border: 1px solid #f55;
+    background-color: #a00;
+}
+
+div.config_done {
+    overflow:hidden;
+    position:absolute;
+    text-align: center;
+    font-size: 2em;
+    bottom: 3em;
+    right: 9em;
+    width: 5em;
+    height: 1em;
+    color: #0b330b;
+    border: 1px solid #111;
+    background-color: #32ff11;
+}
+
+div.config_done:hover {
+    color: #fff;
+    border: 1px solid #9dff74;
+    background-color: #a0ff94;
+}
+
+div.config_done:active {
+    border: 1px solid #d3ffd5;
+    background-color: #90ff8d;
+}
+
+div.config_use {
+    overflow:hidden;
+    position:absolute;
+    text-align: center;
+    font-size: 2em;
+    bottom: 3em;
+    right: 16em;
+    width: 5em;
+    height: 1em;
+    color: #0b330b;
+    border: 1px solid #111;
+    background-color: #32ff11;
+}
+
+div.config_use:hover {
+    color: #fff;
+    border: 1px solid #9dff74;
+    background-color: #a0ff94;
+}
+
+div.config_use:active {
+    border: 1px solid #d3ffd5;
+    background-color: #90ff8d;
+}
+
+div.sample_prompt {
+    overflow:hidden;
+    color: #dfd;
+    position:absolute;
+    top: 10em;
+    left: 12em;
+    width: 76em;
+    height: 2em;
+    border: 1px solid #666;
+}
+
+div.all_candidates {
+    overflow:hidden;
+    color: #dfd;
+    position:absolute;
+    top: 0.3em;
+    left: 2em;
+    right: 2em;
+    height: 1.7em;
+    border: 1px solid #666;
+}
+
+div.possible_axis {
+    position: relative;
+    display: inline-block;
+    width: 5em;
+    margin-left: 0.3em;
+    top: 0.2em;
+    bottom: 0.2em;
+    border: 1px solid #888;
+    background-color: #1e4441;
+}
+
+div.possible_button {
+    position: relative;
+    display: inline-block;
+    width: 1.5em;
+    margin-left: 0.3em;
+    top: 0.2em;
+    bottom: 0.2em;
+    border: 1px solid #888;
+    background-color: #1e4441;
+
+}
+
+div.ctrl_detect {
+    overflow:hidden;
+    position:absolute;
+    top: 13em;
+    left: 12em;
+    width: 76em;
+    height: 2em;
+    border: 1px solid #666;
+}
+
+div.ctrl_buttons {
+    overflow:hidden;
+    position:absolute;
+    top: 16em;
+    left: 12em;
+    width: 76em;
+    height: 6em;
+    border: 1px solid #666;
+}
+
+div.ctrl_button_detect {
+    overflow:hidden;
+    position:relative;
+    display: inline-block;
+    bottom: -2.5em;
+    margin-left: 1em;
+    width: 8em;
+    height: 3em;
+    border: 1px solid #666;
+}
+
+div.crtl_axis {
+    position: absolute;
+    width: 10%;
+    height: 0.8em;
+    top: 0.1em;
+    left: 5%;
+    background-color: #AFA;
+}
+
+div.ctrl_axes_detect {
+    overflow:hidden;
+    position:relative;
+    display: inline-block;
+    top: 4em;
+    margin-left: 1em;
+    width: 5em;
+    height: 14em;
+    border: 1px solid #666;
+}
+
+div.ctrl_axes_value {
+    overflow:hidden;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -1em;
+    margin-left: -1em;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background-color: #afa;
+    border: 1px solid #666;
+}
+
+div.ctrl_axes {
+    overflow:hidden;
+    position:absolute;
+    top: 24em;
+    left: 12em;
+    width: 76em;
+    height: 20em;
+    border: 1px solid #666;
+}
+
+div.sampling_activated {
+    color: #fffcaa;
+    border-color: #ffea51;
+}
+
+div.sampling_successful {
+    color: #afffe2;
+    border-color: #4fffc3;
+}

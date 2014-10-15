@@ -1,0 +1,31 @@
+
+div.loading_header {
+    position: absolute;
+    font-size: 10em;
+    top: 1.2em;
+    color: #f7f6ff;
+    width: 100%;
+    left: 0px;
+    display: block;
+    text-align: center;
+}
+
+div.loading_tagline {
+    position: absolute;
+    font-size: 4.5em;
+    top: 5.6em;
+    color: #f7f6ff;
+    width: 100%;
+    left: 0px;
+    display: block;
+    text-align: center;
+}
+
+div.game_title {
+    font-size: 6em;
+    color: #cdf;
+    width: 100%;
+    left: 0px;
+    display: inline-block;
+    text-align: center;
+}

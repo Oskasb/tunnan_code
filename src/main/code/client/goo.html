@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title></title>
+
+    <link rel="stylesheet" type="text/css" href="css/layout/base.css" />
+    <script src="js/lib/OculusBridge.js"></script>
+    <script src="js/lib/excluded/ammo.js"></script>
+    <script data-main="js/Main" src="js/lib/require.js"></script>
+</head>
+
+<body id="game_window">
+
+</div>
+
+<script>
+
+    function suppressBackspace(evt) {
+        evt = evt || window.event;
+        var target = evt.target || evt.srcElement;
+
+        if (evt.keyCode == 8 && !/input|textarea/i.test(target.nodeName)) {
+            return false;
+        }
+    }
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-43521007-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+</html>

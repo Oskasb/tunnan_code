@@ -1,0 +1,453 @@
+#air_params {
+    position: absolute;
+    top: 0.25em;
+    bottom: 0.25em;
+    left: 35em;
+    width: 25em;
+}
+
+div.params_list_container {
+    font-size: 0.75em;
+
+}
+
+div.point_div {
+    position: absolute;
+    top: -12px;
+    height: 24px;
+    left: -12px;
+    width: 24px;
+    z-index: 3;
+    border-radius: 12px;
+    box-shadow: 0px 0px 2px #fa7;
+}
+
+div.point_end {
+    position: absolute;
+    top: -3px;
+    height: 6px;
+    left: -3px;
+    width: 6px;
+    z-index: 3;
+    background-color: rgba(246, 235, 177, 0.68);
+    border-radius: 4px;
+}
+
+div.line_shape_connector {
+
+    position:absolute;
+    height: 2px;
+    z-index: 2;
+    background-color: rgba(246, 206, 184, 0.32);
+}
+
+div.drag_frame {
+    position:absolute;
+    z-index:1;
+    border:1px solid rgba(238, 246, 102, 0.22);
+}
+
+div.vertical_input_state {
+    position:absolute;
+    z-index:1;
+    left: 5%;
+    width: 90%;
+    height: 4px;
+    bottom: -2px;
+    background-color: rgba(246, 233, 206, 0.58);
+}
+
+div.horizontal_input_state {
+    position:absolute;
+    z-index:1;
+    top: 5%;
+    width: 4px;
+    height: 90%;
+    right: -2px;
+    background-color: rgba(246, 233, 206, 0.58);
+}
+
+div.hover_frame {
+    font-size: 1.4em;
+    color: rgba(246, 226, 189, 0.81);
+    position:absolute;
+    z-index:1;
+    border:1px solid rgba(255, 237, 200, 0.56);
+    box-shadow: 0px 0px 2px #7f7;
+}
+
+div.axis_root {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+div.axis_center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+div.axis_horizontal {
+    position: absolute;
+    top: 50%;
+    left: 0em;
+    right: 0em;
+    height: 1px;
+    background-color: #64C8D1;
+    box-shadow: 0em 0em 0.3em #1232DB;
+}
+
+div.axis_vertical {
+    position: absolute;
+    left: 50%;
+    top: 0em;
+    bottom: 0em;
+    width: 1px;
+    background-color: #64C8D1;
+    box-shadow: 0em 0em 0.3em #1232DB;
+}
+
+div.state_roll {
+    position: absolute;
+    top: -0em;
+    left: -2.5em;
+    width: 5em;
+    height: 0.2em;
+
+    background: rgb(255,136,0);
+    background: -moz-linear-gradient(top,  rgba(255,136,0,1) 1%, rgba(255,237,147,1) 35%, rgba(255,249,216,1) 50%, rgba(255,237,147,1) 66%, rgba(244,114,0,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(255,136,0,1)), color-stop(35%,rgba(255,237,147,1)), color-stop(50%,rgba(255,249,216,1)), color-stop(66%,rgba(255,237,147,1)), color-stop(100%,rgba(244,114,0,1)));
+    background: -webkit-linear-gradient(top,  rgba(255,136,0,1) 1%,rgba(255,237,147,1) 35%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 66%,rgba(244,114,0,1) 100%);
+    background: -o-linear-gradient(top,  rgba(255,136,0,1) 1%,rgba(255,237,147,1) 35%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 66%,rgba(244,114,0,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(255,136,0,1) 1%,rgba(255,237,147,1) 35%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 66%,rgba(244,114,0,1) 100%);
+    background: linear-gradient(to bottom,  rgba(255,136,0,1) 1%,rgba(255,237,147,1) 35%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 66%,rgba(244,114,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8800', endColorstr='#f47200',GradientType=0 );
+
+    box-shadow: 0em 0em 1em #FF5C00;
+}
+
+div.state_horizontal {
+    position: absolute;
+    top: -0.1em;
+    left: -1em;
+    width: 2em;
+    height: 0.3em;
+
+    background: rgb(255,136,0);
+    background: -moz-linear-gradient(top,  rgba(255,136,0,1) 1%, rgba(255,237,147,1) 27%, rgba(255,249,216,1) 50%, rgba(255,237,147,1) 74%, rgba(244,114,0,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(255,136,0,1)), color-stop(27%,rgba(255,237,147,1)), color-stop(50%,rgba(255,249,216,1)), color-stop(74%,rgba(255,237,147,1)), color-stop(100%,rgba(244,114,0,1)));
+    background: -webkit-linear-gradient(top,  rgba(255,136,0,1) 1%,rgba(255,237,147,1) 27%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 74%,rgba(244,114,0,1) 100%);
+    background: -o-linear-gradient(top,  rgba(255,136,0,1) 1%,rgba(255,237,147,1) 27%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 74%,rgba(244,114,0,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(255,136,0,1) 1%,rgba(255,237,147,1) 27%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 74%,rgba(244,114,0,1) 100%);
+    background: linear-gradient(to bottom,  rgba(255,136,0,1) 1%,rgba(255,237,147,1) 27%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 74%,rgba(244,114,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8800', endColorstr='#f47200',GradientType=0 );
+
+    box-shadow: 0em 0em 1em #FF5C00;
+}
+div.state_vertical {
+    position: absolute;
+    top: -1em;
+    left: -0.11em;
+    width: 0.3em;
+    height: 2em;
+
+    background: rgb(255,136,0);
+    background: -moz-linear-gradient(left,  rgba(255,136,0,1) 13%, rgba(255,237,147,1) 31%, rgba(255,249,216,1) 50%, rgba(255,237,147,1) 69%, rgba(244,114,0,1) 87%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(13%,rgba(255,136,0,1)), color-stop(31%,rgba(255,237,147,1)), color-stop(50%,rgba(255,249,216,1)), color-stop(69%,rgba(255,237,147,1)), color-stop(87%,rgba(244,114,0,1)));
+    background: -webkit-linear-gradient(left,  rgba(255,136,0,1) 13%,rgba(255,237,147,1) 31%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 69%,rgba(244,114,0,1) 87%);
+    background: -o-linear-gradient(left,  rgba(255,136,0,1) 13%,rgba(255,237,147,1) 31%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 69%,rgba(244,114,0,1) 87%);
+    background: -ms-linear-gradient(left,  rgba(255,136,0,1) 13%,rgba(255,237,147,1) 31%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 69%,rgba(244,114,0,1) 87%);
+    background: linear-gradient(to right,  rgba(255,136,0,1) 13%,rgba(255,237,147,1) 31%,rgba(255,249,216,1) 50%,rgba(255,237,147,1) 69%,rgba(244,114,0,1) 87%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8800', endColorstr='#f47200',GradientType=1 );
+
+    box-shadow: 0em 0em 1em #FF5C00;
+}
+
+div.value_container {
+    display: inline-block;
+    position: relative;
+    width: 10em;
+    font-size: 1em;
+    text-shadow: 0.1em 0.1em 0.1em #000;
+}
+
+div.air_property_container {
+    display: inline-block;
+    position: relative;
+    width: 3em;
+}
+
+div.air_value_container {
+    display: inline-block;
+    position: relative;
+}
+
+div.air_value_unit {
+    display: inline-block;
+    position: relative;
+}
+
+#plane_controls {
+    text-shadow: 0.1em 0.1em 0.1em #000;
+    position: absolute;
+    bottom: 0em;
+    height: 10em;
+    left: 0px;
+    right: 0px;
+}
+
+div.gears_container {
+    position: absolute;
+    top: 0.6em;
+    left: 0.3em;
+    bottom: 0em;
+    width: 7em;
+}
+
+div.engine_container {
+    position: absolute;
+    top: 1.4em;
+    left: 7em;
+    bottom: 0.7em;
+    width: 5em;
+}
+
+div.flaps_container {
+    position: absolute;
+    top: 1.4em;
+    left: 13em;
+    bottom: 0.7em;
+    width: 5em;
+}
+
+div.breaks_container {
+    position: absolute;
+    top: 1.4em;
+    left: 19em;
+    bottom: 0.7em;
+    width: 5em;
+}
+
+div.steer_container {
+    position: absolute;
+    top: 0.1em;
+    width: 10em;
+    bottom: 0.1em;
+    right: 20em;
+}
+
+div.trim_container {
+    position: absolute;
+    top: 2.0em;
+    right: 12em;
+    bottom: 0.2em;
+    width: 7.5em;
+}
+
+
+div.throttle_container {
+    border: 0.15em solid #05093D;
+    position: absolute;
+    top: 1.2em;
+    left: 0.7em;
+    bottom: 0.2em;
+    width: 0.6em;
+    background: rgb(224, 132, 10);
+}
+
+div.trim_control {
+    border: 0.14em solid #0393ae;
+    box-shadow: 0em 0em 0.3em #1232DB;
+    border-radius: 0.7em;
+    position: absolute;
+    top: 0.2em;
+    left: 0.2em;
+    bottom: 0.2em;
+    right: 0.2em;
+}
+
+div.throttle_lever {
+    position: absolute;
+    top: 0%;
+    left: 0em;
+    right: 0em;
+    background: rgb(35, 21, 84);
+}
+
+
+div.lever_target {
+    position: absolute;
+    bottom: 0%;
+    left: 0em;
+    width: 33%;
+    background: rgb(174, 255, 253);
+}
+
+div.ui_light {
+    position: absolute;
+    border: 0.15em solid #05161B;
+    border-radius: 50%;
+    background-image: url(../../assets/images/lights/light_overlay.png);
+    background-size: 100% 100%;
+    width: 1em;
+    height: 1em;
+    -webkit-transition: background-color, box-shadow, 0.5s linear;
+}
+
+div.button_light {
+    position: absolute;
+    background-color: #170047;
+    color: rgb(127, 147, 252);
+
+    border: 0.12em solid #324F8D;
+    border-radius: 50%;
+    background-color: rgb(0, 25, 64);
+    border-radius: 0.5em;
+    width: 2.6em;
+    height: 1.2em;
+    -webkit-transition: all 0.5s linear;
+}
+
+div.button_light:hover {
+    border-color: #AAEDF3;
+}
+
+div.button_light:active {
+    border-color: #e1fcff;
+}
+
+
+div.backlit_control_button {
+    position: absolute;
+    color: inherit;
+    border-radius: 0.3em;
+    background-image: url(../../assets/images/lights/light_overlay.png);
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+
+div.light_on {
+    background-color: rgb(83, 255, 252);
+    color: rgb(235, 255, 255);
+    border-color: #cffdff;
+    box-shadow: 0px 0px 2em #3CFFFF;
+}
+
+div.light_transition {
+    background-color: rgb(254, 204, 0);
+    color: rgb(255, 248, 161);
+    border-color: #fffdbd;
+    box-shadow: 0px 0px 1.2em #FAFF8E;
+
+}
+
+div.light_off {
+    background-color: #170047;
+    color: rgb(127, 147, 252);
+}
+
+div.gear_button {
+    position: absolute;
+    background-color: #629291;
+    border-radius: 0.3em;
+    width: 3em;
+    height: 1.5em;
+}
+
+div.control_button {
+    position: absolute;
+    border: 0.15em solid #4291F5;
+    background-color: #2B9CF5;
+    color: #C5E7FA;
+    background-image: url(../../assets/images/lights/button_light.png);
+    background-size: 100% 100%;
+    border-radius: 0.3em;
+    width: 2.2em;
+    height: 1.2em;
+}
+
+div.control_button:hover {
+    text-shadow: 0em 0em 0.7em #40b3ff;
+    color: #f0fcff;
+    background-color: #40b3ff;
+    background-image: url(../../assets/images/lights/light_overlay_hover.png);
+}
+
+div.control_button:active {
+    text-shadow: 0em 0em 0.8em #f0fcff;
+    color: #fff;
+    background-color: #96d4ff;
+    background-image: url(../../assets/images/lights/light_overlay_active.png);
+}
+
+div.bottom_bar_button {
+    text-align: center;
+    font-size: 1.3em;
+    padding-top: 0.45em;
+    width: 4.3em;
+    top: 0.35em;
+    bottom: 0.4em;
+    position: absolute;
+    border: 0.13em solid #E9B30A;
+    background-color: #ee9200;
+    color: #FAF0BA;
+    text-shadow: 0em 0em 0.7em #9B06B8;
+    background-image: url(../../assets/images/lights/light_overlay.png);
+    background-size: 100% 100%;
+    border-radius: 0.3em;
+    box-shadow: 0em 0em 0.4em #500;
+}
+
+div.bottom_bar_button:hover {
+    color: #fffef0;
+    text-shadow: 0em 0em 0.8em #ffe759;
+    border-color: #ffe500;
+    background-color: #ffbb00;
+    box-shadow: 0em 0em 0.6em #ffe759;
+    background-image: url(../../assets/images/lights/light_overlay_hover.png);
+}
+
+div.bottom_bar_button:active {
+    color: #fff;
+    text-shadow: 0em 0em 1.2em #fff;
+    border-color: #ffe759;
+    background-color: #ffc824;
+    box-shadow: 0em 0em 0.7em #fff789;
+    background-image: url(../../assets/images/lights/light_overlay_active.png);
+}
+
+div.control_label {
+    color: #C5E1FF;
+    position: absolute;
+    font-size: 1.3em;
+    width: 2.7em;
+    height: 1.2em;
+    top:-1em;
+}
+
+
+
+
+div.button {
+    text-align: center;
+}
+
+div.button:hover {
+    border-color: #95c6ff;
+}
+
+div.button:active {
+    border-color: #bddcff;
+}
+
+div.button_up {
+     background-color: #a6c7ce;
+}
+
+div.button_down {
+    background-color: #5d7281;
+}
