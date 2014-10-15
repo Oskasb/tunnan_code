@@ -31,8 +31,6 @@ define(["application/EventManager"],
             if (get_browser() == "Firefox") return false;
         }
 
-        event.registerListener(event.list().WINDOW_RESIZED, handleResize);
-
         return {
             handleClientSetupDone:handleClientSetupDone,
             getBrowser:get_browser,
