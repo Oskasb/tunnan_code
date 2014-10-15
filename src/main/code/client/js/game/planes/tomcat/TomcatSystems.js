@@ -4,7 +4,8 @@ define(["game/ModelDefinitions", "game/weapons/WeaponData"],function(modelDefini
 
     return {
          SYSTEMS:{
-             auto_trim: {
+
+			 auto_trim: {
 				 pieceInput:{
 					 auto_trim:{value:0, controlState:0}
 				 },
@@ -19,6 +20,7 @@ define(["game/ModelDefinitions", "game/weapons/WeaponData"],function(modelDefini
                  inputBehavior:{type:"toggle", speed:1},
                  controls: {
                      lights:['wheels'],
+
                      doors:{door_nose_r:[-1.9, 0, 0], door_nose_l:[1.9,0,0], door_main_l:[1.3,0,0], door_main_r:[-1.3,0,0], door_rear_l:[1.2,0,0], door_rear_r:[-1.2,0,0], door_inner_l:[-1.5,0,0], door_inner_r:[1.5,0,0]},
                      stands:{gear_nose:[-1.66, 0, 0], gear_r:[-1.66, 0, 0], gear_l:[1.66, 0, 0], gear_susp_l:[1.5, 0, 0], gear_susp_r:[-1.5, 0, 0]}
                  },

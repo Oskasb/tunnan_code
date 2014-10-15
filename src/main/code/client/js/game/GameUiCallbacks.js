@@ -30,7 +30,7 @@ define([
 			},
 
 			fetchAerodynamicCurves : function() {
-				return PipelineAPI.subscribeToCategoryKey('game_data', 'aerodynamic_curves').wings;
+				return PipelineAPI.readCachedConfigKey('game_data', 'aerodynamic_curves').wings;
 			},
 
 			applied_control_update :function(control) {
@@ -47,6 +47,10 @@ define([
 
 			fetchControlState : function(control) {
 				return playerPiece.pieceInput.getInputState(control);
+			},
+
+			fetchPlayerPiece : function() {
+				return playerPiece;
 			},
 
 			more_stats : function() {

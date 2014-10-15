@@ -1,6 +1,6 @@
 "use strict";
 
-define(["application/EventManager", "3d/GooJointAnimator", 'game/parts/WheelPart'], function(event, GooJointAnimator, WheelPart) {
+define(["application/EventManager", "3d/GooJointAnimator", 'game/parts/WheelPart', "game/controls/SurfaceController"], function(event, GooJointAnimator, WheelPart, surfaceController) {
 
     var addWheels = function(wheelData) {
         var wheels = [];
@@ -77,6 +77,7 @@ define(["application/EventManager", "3d/GooJointAnimator", 'game/parts/WheelPart
         updateGearBones(stands, "stands", Math.max((1.6 * controlValue) - 0.6, 0));
 		entity.pieceInput.setAppliedState("gears", controlValue);
         system.currentState = controlValue;
+		surfaceController.applyControlStateToSurface(entity, controlValue, "gears");
     };
 
     return {

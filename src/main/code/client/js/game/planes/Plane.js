@@ -12,7 +12,9 @@ define(['game/parts/Vehicle',
 
 		Plane.prototype.parseWingData = function(wingData, aerodynamics) {
 
+			wingData.liftCurveId = wingData.liftCurve;
 			wingData.liftCurve = aerodynamics.wings[wingData.liftCurve];
+
 			for (var i = 0; i < wingData.stallLiftCoeff.length; i++) {
 				if (typeof(wingData.stallLiftCoeff[i]) == 'string') {
 					wingData.stallLiftCoeff[i] = aerodynamics.coefficients[wingData.stallLiftCoeff[i]]

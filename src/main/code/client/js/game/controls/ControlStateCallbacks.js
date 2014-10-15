@@ -78,7 +78,11 @@ define(["application/EventManager",
 					break;
 				case "gears":
 					return function(entity, value, control) {
-						if (value) gearController.setEntityGearTargetState(entity, !entity.systems.gears.targetState);
+						if (value) {
+							gearController.setEntityGearTargetState(entity, !entity.systems.gears.targetState);
+
+						}
+
 					};
 
 					break;

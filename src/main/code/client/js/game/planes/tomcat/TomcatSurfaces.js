@@ -45,6 +45,13 @@ define(function() {
                 },
                 speed:0.01
             },
+			gears:{
+				inputBehavior:{release:0, speed:0.1},
+				controls: {
+					gears:{}
+				},
+				speed:0.1
+			},
             wing_sweep:{
                 inputBehavior:{release:0, speed:0.08},
                 lights:['wing_sweep'],

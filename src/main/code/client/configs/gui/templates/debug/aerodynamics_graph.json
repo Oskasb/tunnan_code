@@ -37,6 +37,10 @@
                 "layers": [{
                     "shape":"curves_debug_graphs_panel_open",
                     "id":"debug_mechanics_graph_panel"
+                },{
+                    "id":"aerodynamic_graph_label",
+                    "text":{"key":"aerodynamic_graph"},
+                    "shape":"container_menu_label"
                 }]
             }]
         }

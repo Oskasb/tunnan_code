@@ -44,7 +44,7 @@ define([
 
         function PlaneWing(entity, data, wingId) {
 
-            this.wingId = wingId;
+            this.wingId = data.id;
 			this.worldPos = null;
 			this.entity = entity;
             this.sourceData = data;
@@ -70,6 +70,9 @@ define([
             this.liftCurve = data.liftCurve;
             this.stallAngle = data.stallAngle;
             this.stallLiftCoeff = data.stallLiftCoeff;
+			this.angleOfAttack = 0;
+			this.angleOfAttackYaw = 0;
+			this.dragAmount = 0;
             this.controlSurfaces = {};
 			this.waterForce = 0;
 			this.integrity = 1;
@@ -402,6 +405,9 @@ define([
 			xAoA = shapePhysics.calcSurfaceAxisAngleOfAttack(va.data[0], angles.data[0], Math.sin(pitchYawAngle));
 			yAoA = shapePhysics.calcSurfaceAxisAngleOfAttack(va.data[1], angles.data[0], Math.cos(pitchYawAngle));
 
+			this.angleOfAttack = yAoA*3.14;
+			this.angleOfAttackYaw = xAoA*3.14;
+
 			xAoA -= 0.25 * this.entity.spatial.angularVelocity.data[1]*this.pos.data[2];
 			yAoA += 0.2 * rollVelocity*this.pos.data[0];
 			yAoA -= 0.12 * this.entity.spatial.angularVelocity.data[0]*this.pos.data[2];
@@ -454,6 +460,7 @@ define([
 			this.force.data[2] += dragForce //// this.attitudeAffectedLift(this.entity, va.data[0], 0, this)  // Drag composant
 			this.force.data[2] = this.force.data[2]  * (1 - (Math.max(zCross*dragForce, -1)))
 
+			this.dragAmount = dragForce;
             //    this.entity.forces.lift.add_d(this.force[0], this.force[1], 0);
             //    this.entity.forces.drag.add_d(dragForce, dragForce, dragForce);
 
