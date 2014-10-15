@@ -4,11 +4,11 @@
             "templates": [
                 "menu_option_container",
                 "init_menu",
-                "messages",
-                "top_bar"
+                "messages"
             ]
         },
-		"state_flight":{
+
+		"messages_only":{
 			"templates": [
                 "messages"
 			]

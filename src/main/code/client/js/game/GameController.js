@@ -1,7 +1,7 @@
 "use strict";
 
 define(["application/EventManager",
-	"gui/CanvasGuiMain",
+	"gui/CanvasGuiAPI",
 	"application/Sequencer",
 	"3d/SceneController",
 	"game/PieceController",
@@ -13,7 +13,7 @@ define(["application/EventManager",
 	'data_pipeline/data/ConfigCache'
 ],
     function(event,
-			 CanvasGuiMain,
+             CanvasGuiAPI,
 			 Sequencer,
 			 SceneController,
 			 pieceController,
@@ -32,21 +32,16 @@ define(["application/EventManager",
 		var GameController = function() {
 			this.sequencer = new Sequencer();
 			this.sceneController = new SceneController();
-
+			this.canvasGuiAPI = new CanvasGuiAPI(1024, true);
 			this.pointerInputHandler = new PointerInputHandler();
 			this.guiWidgetComposer = new GuiWidgetComposer();
 		};
 
 	    GameController.prototype.tickGui = function(time) {
 			ConfigCache.tickDataPipeline(time);
-		    if (!ready) return
+		    if (!ready) return;
 		    this.pointerInputHandler.tickInput(time);
-		    if (this.canvasGuiMain) {
-			    if (this.canvasGuiMain.canvasGuiState) {
-				    this.canvasGuiMain.tickGuiMain(time);
-			    }
-
-			}
+			this.canvasGuiAPI.updateCanvasGui(time);
 	    };
 
 		GameController.prototype.tickGame = function(time) {
@@ -65,16 +60,20 @@ define(["application/EventManager",
         };
 
 		GameController.prototype.setGuiState = function(state) {
-			this.canvasGuiMain.setMainUiState(state);
+			this.canvasGuiAPI.setUiToStateId(state);
+
+			if (useDebugGui) {
+				this.canvasGuiAPI.attachUiSubstateId('debug_state');
+			}
+
 		};
 
 		GameController.prototype.addCanvasGui = function(camera) {
-			this.canvasGuiMain = new CanvasGuiMain();
+
 			var handleSetControlledEntity = function(e) {
+				this.setGuiState('messages_only');
 				this.applyPlayerPiece(event.eventArgs(e).entity);
-				if (useDebugGui) {
-					this.canvasGuiMain.canvasGuiState.enableDebugGui();
-				}
+
 			}.bind(this);
 
 			var ok = function() {
@@ -82,8 +81,7 @@ define(["application/EventManager",
 					ready = true;
 				}, 200)
 
-				this.canvasGuiMain.initCanvasGui(camera, GameUiCallbacks.getCallbackMap());
-				this.canvasGuiMain.setMainUiState('init_app_state');
+				this.setGuiState('init_app_state');
 				event.registerListener(event.list().SET_PLAYER_CONTROLLED_ENTITY, handleSetControlledEntity);
 			}.bind(this);
 
@@ -91,7 +89,7 @@ define(["application/EventManager",
 				console.log("Gui failed to init: ", err)
 			};
 
-			this.canvasGuiMain.loadMasterConfig(guiRegUrl, ok, fail);
+			this.canvasGuiAPI.initCanvasGui(guiRegUrl, camera, GameUiCallbacks.getCallbackMap(), ok, fail);
 		};
 
 	    GameController.prototype.applyPlayerPiece = function(playerPiece) {
@@ -99,7 +97,10 @@ define(["application/EventManager",
 		    this.pointerInputHandler.applyGuiWidgets(this.guiWidgetComposer);
 
 		    var pieceConfigUpdated = function(state) {
-			    this.canvasGuiMain.setMainUiState(state);
+			    this.setGuiState(state);
+
+
+
 		    }.bind(this);
 
 			if ( playerPiece.pieceData.onScreenInput) {

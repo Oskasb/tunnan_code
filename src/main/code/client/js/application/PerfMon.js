@@ -53,7 +53,7 @@ define([
 
 			var getGui = function() {
 			//	if (this.gameController.canvasGuiMain)
-				return gameCtrl.canvasGuiMain.canvasCalls
+				return gameCtrl.canvasGuiAPI.canvasGuiMain.canvasCalls
 			};
 
 			var stats = {
