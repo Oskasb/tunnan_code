@@ -1,11 +1,11 @@
 "use strict";
 
 define([
-	'data_pipeline/data/ConfigCache',
+	'data_pipeline/PipelineAPI',
 	'gui/layout/GuiConstants'
 ],
 	function(
-		ConfigCache,
+		PipelineAPI,
 		GuiConstants
 		) {
 
@@ -33,7 +33,7 @@ define([
 					gamePiece.addWings(wingData, aeroData);
 				};
 
-				ConfigCache.subscribeToCategoryKey('game_data', 'aerodynamic_curves', applyAerodynamics);
+				PipelineAPI.subscribeToCategoryKey('game_data', 'aerodynamic_curves', applyAerodynamics);
 			}
 
 
@@ -46,7 +46,7 @@ define([
 			};
 
 			for (var i = 0; i <  gamePiece.entity.pieceData.configs.dataKeys.length; i++) {
-				ConfigCache.subscribeToCategoryKey('piece_data', gamePiece.entity.pieceData.configs.dataKeys[i], applyConfig);
+				PipelineAPI.subscribeToCategoryKey('piece_data', gamePiece.entity.pieceData.configs.dataKeys[i], applyConfig);
 			}
 
 		};

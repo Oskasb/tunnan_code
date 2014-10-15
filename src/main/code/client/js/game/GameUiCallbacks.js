@@ -4,14 +4,14 @@ define([
 	'application/PerfMon',
 	'application/EventManager',
 	'goo/entities/SystemBus',
-	'data_pipeline/data/ConfigCache',
+	'data_pipeline/PipelineAPI',
 	'gui/functions/UiCallbacks'
 ],
 	function(
 		PerfMon,
 		event,
 		SystemBus,
-		ConfigCache,
+		PipelineAPI,
 		UiCallbacks
 		) {
 
@@ -30,7 +30,7 @@ define([
 			},
 
 			fetchAerodynamicCurves : function() {
-				return ConfigCache.getConfigKey('game_data', 'aerodynamic_curves').wings;
+				return PipelineAPI.subscribeToCategoryKey('game_data', 'aerodynamic_curves').wings;
 			},
 
 			applied_control_update :function(control) {

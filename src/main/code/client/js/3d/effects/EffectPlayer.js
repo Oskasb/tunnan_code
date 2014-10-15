@@ -6,7 +6,7 @@ define(
 		'3d/effects/MusicPlayer',
 		'3d/effects/SoundHandler',
 		'3d/effects/SimpleParticles',
-		'data_pipeline/data/ConfigCache',
+		'data_pipeline/PipelineAPI'
 	],
 	function(
 		Vector3,
@@ -15,7 +15,7 @@ define(
 		MusicPlayer,
 		SoundHandler,
 		SimpleParticles,
-		ConfigCache
+		PipelineAPI
 		) {
 
 		var goo;
@@ -82,7 +82,7 @@ define(
 				simpleParticles.createSystem(path, name, particle);
 			}
 		//	particleDataUpdated(ConfigCache.getCategory("particle_effects"));
-			ConfigCache.registerCategoryUpdatedCallback("particle_effects", particleDataUpdated);
+			PipelineAPI.subscribeToCategoryUpdate("particle_effects", particleDataUpdated);
 
 			for (var index in systemsData) {
 				var name = systemsData[index].id;

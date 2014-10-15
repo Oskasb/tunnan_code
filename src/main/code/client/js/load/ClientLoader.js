@@ -10,8 +10,7 @@ define(["application/EventManager",
     "game/planes/PlaneData",
     "game/characters/CharacterData",
     'game/world/ZoneData',
-	'gui/GuiConfigLoader',
-	'data_pipeline/data/ConfigCache'
+	'gui/GuiConfigLoader'
 ],
     function(event,
              soundManager,
@@ -152,39 +151,6 @@ define(["application/EventManager",
         var getLoadedImageByUrl = function(url) {
             return imageCache[url];
         };
-
-		var processGameSetupConfig = function(data) {
-
-
-			var loadPieceFile = function(url) {
-
-				var success = function(url, data) {
-					console.log("Piecedaga loaded ok: ", data)
-				};
-
-				var fail = function(err) {
-					console.error("Failed to load", err);
-				};
-
-				ConfigCache.cacheFromUrl(url, success, fail);
-			};
-
-			var loadGamePieceConfig = function(setup) {
-				for (var i = 0; i < setup.jsonFiles.length; i++) {
-					loadPieceFile(setup.srcUrl+setup.jsonFiles[i] +'.json');
-				}
-			};
-
-			for (var i = 0; i < data.length; i ++) {
-				for (var index in data[i].game_pieces) {
-					loadGamePieceConfig(data[i].game_pieces[index]);
-				}
-			}
-
-
-
-		};
-
 
         var preloadClientData = function(pageTitles) {
 

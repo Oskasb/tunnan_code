@@ -10,7 +10,7 @@ define(["application/EventManager",
 	"game/GameUiCallbacks",
 	'io/PointerInputHandler',
 	'gui/GuiWidgetComposer',
-	'data_pipeline/data/ConfigCache'
+	'data_pipeline/PipelineAPI'
 ],
     function(event,
              CanvasGuiAPI,
@@ -22,7 +22,7 @@ define(["application/EventManager",
 			 GameUiCallbacks,
 			 PointerInputHandler,
 			 GuiWidgetComposer,
-			 ConfigCache
+			 PipelineAPI
 		) {
 
 	    var useDebugGui = true;
@@ -38,7 +38,7 @@ define(["application/EventManager",
 		};
 
 	    GameController.prototype.tickGui = function(time) {
-			ConfigCache.tickDataPipeline(time);
+		    PipelineAPI.updateDataPipeline(time);
 		    if (!ready) return;
 		    this.pointerInputHandler.tickInput(time);
 			this.canvasGuiAPI.updateCanvasGui(time);
