@@ -33,7 +33,7 @@ define(["application/EventManager",
 			this.sequencer = new Sequencer();
 			this.sceneController = new SceneController();
 			this.canvasGuiAPI = new CanvasGuiAPI(1024, true);
-			this.pointerInputHandler = new PointerInputHandler();
+			this.pointerInputHandler = new PointerInputHandler(this.canvasGuiAPI.getPointerCursor());
 			this.guiWidgetComposer = new GuiWidgetComposer();
 		};
 
@@ -77,6 +77,7 @@ define(["application/EventManager",
 			}.bind(this);
 
 			var ok = function() {
+				console.log("Gui init ok!")
 				setTimeout(function() {
 					ready = true;
 				}, 200)

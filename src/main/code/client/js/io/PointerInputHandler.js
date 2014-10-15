@@ -4,7 +4,7 @@ define([
 	'goo/entities/SystemBus',
     "application/EventManager",
     'io/InputSettersGetters',
-	'gui/PointerCursor',
+
 	'io/GameScreen'
 ],
     function(
@@ -39,9 +39,7 @@ define([
 			widgets = guiWidgetComposer.widgets;
         };
 
-		var registerGuiLayer = function(canvasGuiLayer) {
-			guiLayers[canvasGuiLayer.id] =  canvasGuiLayer;
-		};
+
 
 	    var hintCount = 0;
         var tickInput = function(time) {
@@ -155,7 +153,7 @@ define([
 		var readInputRectsAtXY = function(x, y) {
 			ptX = x;
 			ptY = y;
-
+			guiLayers = pointerCursor.interactiveLayers;
 
 
 			nx = pointerCursor.pxXtoPercentX(x);
@@ -278,8 +276,8 @@ define([
 		};
 
 
-		var PointerInputHandler = function() {
-			pointerCursor = new PointerCursor();
+		var PointerInputHandler = function(cursor) {
+			pointerCursor = cursor;
 			event.registerListener(event.list().MOUSE_ACTION, handleMouseAction);
 			event.registerListener(event.list().MOUSE_POSITION_UPDATE, handleMouseXY);
 			event.registerListener(event.list().START_POINTER_DRAG, handleStartPointerDrag);
@@ -301,11 +299,6 @@ define([
 		PointerInputHandler.prototype.applyGuiWidgets = function(guiWidgetComposer) {
 			loadControlTargets(guiWidgetComposer);
 		};
-
-		PointerInputHandler.registerGuiLayer = function(canvasGuiLayer) {
-			registerGuiLayer(canvasGuiLayer);
-		};
-
 
 
 		return PointerInputHandler;
