@@ -168,8 +168,4 @@ require(["application/EventManager","io/InputSettersGetters"], function(event, i
     event.registerListener(event.list().ADD_KEYBINDINGS, handleAddEntityKeyBindings);
     event.registerListener(event.list().MOUSE_ACTION, handleMouseAction);
 
-    return {
-        setMouseForward:setMouseForward,
-        setMouseAction:setMouseAction
-    }
-})
+});

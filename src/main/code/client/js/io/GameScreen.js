@@ -6,7 +6,7 @@ define([
 	function(
 		event
 		) {
-
+	/*
 		var gameScreen;
 		var width;
 		var height;
@@ -42,5 +42,5 @@ define([
 			getWidth:getWidth,
 			getHeight:getHeight
 		}
-
+   */
 	});

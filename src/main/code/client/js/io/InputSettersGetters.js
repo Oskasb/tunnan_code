@@ -6,14 +6,16 @@ define([
 	"io/MouseListener",
 	"io/GameScreen",
 	"io/AnalogInput",
-	"io/KeyboardHandler"
+	"io/KeyboardHandler",
+	'gui/CanvasGuiAPI'
 ], function(
 	event,
 	playerMovementInput,
 	mouseListener,
 	GameScreen,
 	AnalogInput,
-	keyboardHandler
+	keyboardHandler,
+	CanvasGuiAPI
 	) {
 
     var mouseWheelDelta = 0;
@@ -106,7 +108,7 @@ define([
     };
 
     var getMouseXY = function() {
-        return [mouseX, mouseY];
+        return [CanvasGuiAPI.getPointerState().x, CanvasGuiAPI.getPointerState().y];
     };
 
     var getDragState = function() {
@@ -126,10 +128,10 @@ define([
     var clearTimer;
 
     var setMouseMove = function(dx, dy) {
-        frameDX = mouseMoveX - dx;
-        frameDY = mouseMoveY- dy;
-        mouseMoveX = dx;
-        mouseMoveY = dy;
+        frameDX = dx;
+        frameDY = dy;
+        mouseMoveX += dx;
+        mouseMoveY += dy;
 
         clearTimeout(clearTimer);
         clearTimer = setTimeout(function() {
@@ -224,25 +226,49 @@ define([
         return keyBindings;
     };
 
-//    event.registerListener(event.list().CLIENT_SETUP_OK, initInput);
-    event.registerListener(event.list().ENINGE_READY, initInput);
+	var guiApi;
+	var setGuiApi = function(api) {
+		guiApi = api;
+	};
+
+	var lastAction = [0, 0];
+
+	var tickInput = function() {
+		var pointerState = guiApi.getPointerState();
+
+		setMouseMove(pointerState.dx, pointerState.dy);
+		setMouseCoords(pointerState.x, pointerState.y);
+		if (pointerState.wheelDelta) {
+			event.fireEvent(event.list().MOUSE_WHEEL_UPDATE, {delta:pointerState.wheelDelta})
+		}
+
+		if (pointerState.drag) {
+			setStartDragXY(pointerState.startDrag[0], pointerState.startDrag[1]);
+		}
+
+		if (lastAction[0] != pointerState.action[0] || lastAction[1] != pointerState.action[1]) {
+			event.fireEvent(event.list().MOUSE_ACTION, {action:pointerState.action, xy:[pointerState.x, pointerState.y]});
+		}
+
+		lastAction[0] = pointerState.action[0];
+		lastAction[1] = pointerState.action[1];
+
+
+	};
+
+    event.registerListener(event.list().RENDER_TICK, tickInput);
+ //   event.registerListener(event.list().ENINGE_READY, initInput);
     event.registerListener(event.list().START_POINTER_DRAG, handleStartDrag);
     event.registerListener(event.list().START_CAMERA_DRAG, handleStartDrag);
     event.registerListener(event.list().STOP_CAMERA_DRAG, handleStopDrag);
     event.registerListener(event.list().FETCH_DRAG_DELTA, handleFetchDragDelta);
 
     return {
-        getMouseXY:getMouseXY,
-        getDragState:getDragState,
+		setGuiApi:setGuiApi,
         registeKeyBinding:registeKeyBinding,
         unregisteKeyBinding:unregisteKeyBinding,
         getDragDeltaXY:getDragDeltaXY,
-        getBoundKeys:getBoundKeys,
+        getBoundKeys:getBoundKeys
 
-        getMouseMove:getMouseMove,
-
-        setMouseMove:setMouseMove,
-        setMouseWheelDelta: setMouseWheelDelta,
-        setMouseCoords:setMouseCoords
     }
 });

@@ -20,7 +20,7 @@ define([
         ) {
 
         var playerController;
-		var pointerInputHandler;
+
         require(['game/player/PlayerController'], function(pc) {
             playerController = pc;
         });

@@ -33,14 +33,14 @@ define(["application/EventManager",
 			this.sequencer = new Sequencer();
 			this.sceneController = new SceneController();
 			this.canvasGuiAPI = new CanvasGuiAPI(1024, true);
-			this.pointerInputHandler = new PointerInputHandler(this.canvasGuiAPI.getPointerCursor());
+		//	this.pointerInputHandler = new PointerInputHandler(this.canvasGuiAPI.getPointerCursor());
 			this.guiWidgetComposer = new GuiWidgetComposer();
 		};
 
 	    GameController.prototype.tickGui = function(time) {
 		    PipelineAPI.updateDataPipeline(time);
 		    if (!ready) return;
-		    this.pointerInputHandler.tickInput(time);
+		//    this.pointerInputHandler.tickInput(time);
 			this.canvasGuiAPI.updateCanvasGui(time);
 	    };
 
@@ -94,8 +94,8 @@ define(["application/EventManager",
 		};
 
 	    GameController.prototype.applyPlayerPiece = function(playerPiece) {
-		    this.pointerInputHandler.setPlayerGamePiece(playerPiece);
-		    this.pointerInputHandler.applyGuiWidgets(this.guiWidgetComposer);
+		//    this.pointerInputHandler.setPlayerGamePiece(playerPiece);
+		//    this.pointerInputHandler.applyGuiWidgets(this.guiWidgetComposer);
 
 		    var pieceConfigUpdated = function(state) {
 			    this.setGuiState(state);

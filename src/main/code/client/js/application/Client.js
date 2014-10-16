@@ -35,6 +35,7 @@ define([
 			this.clientLoader = new clientLoader.ClientLoader();
 			this.scenarioSelector = new ScenarioSelector(this.gooController.goo, this.clientLoader);
 			this.gameController = new GameController();
+			inputSettersGetters.setGuiApi(this.gameController.canvasGuiAPI);
 			this.updateLoop = new UpdateLoop();
 			this.perfMon = new PerfMon(this.gooController, this.gameController);
 			this.preload();

@@ -55,7 +55,6 @@ define(["application/EventManager"], function(event) {
                   }
              break;
          }
-    //    playerMovementInput.setMouseAction(mouseAction, inputSettersGetters.getMouseXY())
         return mouseAction;
     };
 
