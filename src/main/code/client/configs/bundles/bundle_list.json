@@ -8,6 +8,12 @@
 				"file":"root.bundle",
 				"entities":["tree_leafy_40m"]
 			},
+            {
+                "id":"pilot",
+                "folder":"tunnan_resources/bundles/pilot_animated/",
+                "file":"root.bundle",
+                "entities":["pilot_bind_AO"]
+            },
 			{
 				"id":"tomcat",
 				"folder":"tunnan_resources/bundles/tomcat/",

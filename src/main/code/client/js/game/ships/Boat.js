@@ -39,6 +39,7 @@ define(['game/world/PhysicalWorld',
                 };
 
                 var visualEntityReady = function(gooEntity) {
+					if (entity.geometries[0]) entity.geometries[0].removeFromWorld();
                     entity.geometries[0] = gooEntity;
                     if (gooEntity.animationComponent) GooJointAnimator.printClipInitialTransform(entity);
                     entity.spatial.velocity.data[2] = 0.3*(Math.random()-0.5);

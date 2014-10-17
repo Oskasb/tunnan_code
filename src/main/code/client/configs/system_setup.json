@@ -17,7 +17,7 @@
 			"gooPipe":{
 				"polling":{
 					"enabled":true,
-					"frequency":0.2
+					"frequency":3
 				}
 			}
 		},

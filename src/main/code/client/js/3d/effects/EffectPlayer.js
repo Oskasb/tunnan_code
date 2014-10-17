@@ -67,7 +67,7 @@ define(
 
 		function processEffectData(systemsData, particlesConfig, audioConfig) {
 
-			function particleDataUpdated(config) {
+			function particleDataUpdated(srcKey, config) {
 				for (var index in config) {
 					var name = config[index].id;
 					var particle = config[index];
@@ -81,7 +81,7 @@ define(
 				var particle = particlesConfig[index];
 				simpleParticles.createSystem(path, name, particle);
 			}
-		//	particleDataUpdated(ConfigCache.getCategory("particle_effects"));
+
 			PipelineAPI.subscribeToCategoryUpdate("particle_effects", particleDataUpdated);
 
 			for (var index in systemsData) {

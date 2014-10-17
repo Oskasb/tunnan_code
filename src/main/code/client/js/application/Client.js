@@ -61,7 +61,7 @@ define([
 
 			event.registerListener(event.list().LOADING_COMPLETED, completed);
 			event.registerListener(event.list().CLIENT_SETUP_OK, setupOk);
-			this.clientLoader.preloadClientData(gameConfig.GAME_IDENTITY);
+		//	this.clientLoader.preloadClientData(gameConfig.GAME_IDENTITY);
 		};
 
 

@@ -389,18 +389,9 @@ define([
         piece_root.addToWorld();
 	};
 
-    var handleBuildPiece = function(e) {
-        var callback = event.eventArgs(e).callback;
-        var pieceName = event.eventArgs(e).modelPath;
-        var projPath = event.eventArgs(e).projPath;
-        var piece_root = GooEntityDataLoader.cloneCachedEntity(pieceName);
-    //    piece_root.setComponent(new ScriptComponent());
-        callback(piece_root);
-    };
 
 
 
-    event.registerListener(event.list().BUILD_GOO_GAMEPIECE, handleBuildPiece);
 	event.registerListener(event.list().ACTIVATE_GOO_ENTITY, handleActivateEntity);
 	event.registerListener(event.list().BUILD_GOO_PRIMITIVE, handleBuildPrimitive);
 	event.registerListener(event.list().UN_LOAD_3D, clearCaches);

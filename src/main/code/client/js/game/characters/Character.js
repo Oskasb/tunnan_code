@@ -24,6 +24,7 @@ define(['game/world/PhysicalWorld',
                 entity.combat.hitPoints = entity.pieceData.hitPoints;
 
                 var visualEntityReady = function(gooEntity) {
+					if (entity.geometries[0]) entity.geometries[0].removeFromWorld();
                     entity.geometries[0] = gooEntity;
                     GooJointAnimator.printClipInitialTransform(entity);
                     entity.spatial.pos.set(pos);

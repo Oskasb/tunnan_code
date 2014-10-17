@@ -20,6 +20,7 @@ define(['game/world/PhysicalWorld',
                 entity.combat.destroyed = function(entity) {};
 
                 var visualEntityReady = function(gooEntity) {
+					if (entity.geometries[0]) entity.geometries[0].removeFromWorld();
                     entity.geometries[0] = gooEntity;
 
 			//		if (gooEntity.animationComponent) gooEntity.animationComponent = gooEntity.animationComponent.clone();

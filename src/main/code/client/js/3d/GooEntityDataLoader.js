@@ -35,7 +35,7 @@ define([
 
         };
 
-        event.registerListener(event.list().LOAD_GOO_PROJECT, handleLoadGooProject);
+    //    event.registerListener(event.list().LOAD_GOO_PROJECT, handleLoadGooProject);
 
 
 		var cloneCachedEntity = function(name) {

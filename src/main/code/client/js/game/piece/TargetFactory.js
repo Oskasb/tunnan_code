@@ -36,6 +36,7 @@ define(['game/world/PhysicalWorld',
                 entity.combat.hitPoints = entity.pieceData.hitPoints;
                 entity.combat.destroyed = destroyed;
                 var visualEntityReady = function(gooEntity) {
+					if (entity.geometries[0]) entity.geometries[0].removeFromWorld();
                     entity.geometries[0] = gooEntity;
                     entity.spatial.velocity.data[2] = 0.3*(Math.random()-0.5);
                     entity.spatial.velocity.data[0] = 0.3*(Math.random()-0.5);

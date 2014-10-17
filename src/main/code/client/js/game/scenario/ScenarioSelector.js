@@ -34,23 +34,36 @@ define(["load/ClientLoader",
 		};
 
 		ScenarioSelector.prototype.resetScenario = function(resetCallback) {
+			var goo = this.goo;
 
+			goo.world.processEntityChanges();
 			var initLevelCallback = function() {
+
+
+				goo.renderer.preloadBuffers(goo.renderSystem._activeEntities);
+				goo.renderer.preloadMaterials(goo.renderSystem._activeEntities);
+				goo.renderer.precompileShaders(goo.renderSystem._activeEntities, goo.renderSystem.lights);
 				levelController.addPlayerToLevel(resetCallback);
+
+
+
+				setTimeout(function() {
+					goo.startGameLoop();
+				}, 100)
+
 			};
 
 			event.fireEvent(event.list().SCENARIO_LOADED, {callback:initLevelCallback});
 		};
 
 		ScenarioSelector.prototype.loadScenario = function(scen) {
-
+			this.goo.stopGameLoop();
 			scenario = scen;
 
 			console.log("Init scenario Load: ", scenario);
 
 			var almostThere = false;
 
-			event.fireEvent(event.list().LOAD_PROGRESS, {started:1, completed:0, errors:0, id:'scenario_init'});
 			event.fireEvent(event.list().LOAD_PROGRESS, {started:1, completed:0, errors:0, id:'data_loaded'});
 			event.fireEvent(event.list().LOAD_PROGRESS, {started:1, completed:0, errors:0, id:'load_env'});
 			event.fireEvent(event.list().LOAD_PROGRESS, {started:1, completed:0, errors:0, id:'terrain_loaded'});
@@ -68,11 +81,8 @@ define(["load/ClientLoader",
 
 						var resetCallback = function() {
 
-							var callback = function() {
 								event.fireEvent(event.list().LOAD_PROGRESS, {started:0, completed:1, errors:0, id:'game_loop'});
-							};
 
-							clientLoader.loadBaseProject(GameConfiguration.GOO_PROJECTS.environment, callback);
 						};
 						_this.resetScenario(resetCallback);
 
@@ -119,54 +129,11 @@ define(["load/ClientLoader",
 		};
 
 		ScenarioSelector.prototype.handleScenarioSelected = function(e) {
-			var loaded = function(result) {
-				console.log("Load result: ", result)
-				this.loadScenario(event.eventArgs(e).scenario)
-			}.bind(this);
-
-			this.clientLoader.loadScenarioData(event.eventArgs(e).scenario, loaded);
+			this.loadScenario(event.eventArgs(e).scenario)
 		};
 
 		ScenarioSelector.prototype.openScenarioScreen = function() {
 
-			/*
-			var selected = function(e) {
-				this.handleScenarioSelected(e)
-			}.bind(this);
-
-			event.fireEvent(event.list().LOAD_UI_TEMPLATE, {templateId:"UI_SCENARIOS"});
-			event.registerListener(event.list().SCENARIO_SELECTED, selected);
-
-			var resetScen = function(resetOk) {
-				this.goo.world.process();
-				this.resetScenario(resetOk);
-			}.bind(this);
-
-			var unloadScenario = function() {
-
-
-				var resetOk = function() {
-					console.log("Scenario reset OK")
-				};
-
-				var cb = function() {
-					setTimeout(function() {
-						resetScen(resetOk)
-					}, 225)
-				};
-
-				//    var exitCb = function() {
-				setTimeout(function() {
-					event.fireEvent(event.list().UN_LOAD_3D, {callback:cb});
-				}, 60)
-
-				//	};
-
-			//	event.fireEvent(event.list().EXIT_CONTROLLED_ENTITY, {callback:exitCb});
-			}
-
-			event.registerListener(event.list().EXIT_SCENARIO, unloadScenario);
-                                           */
 			this.clientLoader.clientLoaded();
 		};
 
