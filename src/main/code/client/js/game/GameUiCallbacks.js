@@ -5,14 +5,14 @@ define([
 	'application/EventManager',
 	'goo/entities/SystemBus',
 	'data_pipeline/PipelineAPI',
-	'gui/functions/UiCallbacks'
+	'game/PieceController'
 ],
 	function(
 		PerfMon,
 		event,
 		SystemBus,
 		PipelineAPI,
-		UiCallbacks
+		PieceController
 		) {
 
 		var GameUiCallbacks = function() {};
@@ -27,6 +27,11 @@ define([
 
 			fetchTpfStack : function() {
 				return PerfMon.getTpfStack();
+			},
+
+
+			fetchActiveGamePieces: function() {
+				return PieceController.getGameEntities();
 			},
 
 			fetchAerodynamicCurves : function() {

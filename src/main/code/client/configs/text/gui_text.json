@@ -19,6 +19,9 @@
             "elevator_label":"PITCH",
             "aeilrons_label":"ROLL",
             "rudder_label":"YAW",
+
+            "radar_overview_page_label":"Radar Overview",
+            "radar_button_label":"Radar",
             "lights_button_label":"Lights",
             "cockpit_button_label":"Cockpit",
             "cockpit_lights_label":"Cockpit",

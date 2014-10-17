@@ -5,6 +5,19 @@
 
                 "shape":"anchor_mid_right",
                 "layers": [{
+                    "shape":"radar_control_panel_button",
+                    "id":"radar_control_panel_button",
+                    "on_apply":[{"call":"gui_toggle_template", "params":{"template":"radar_overview", "enabler":"radar_control_button_state_light"}}],
+                    "layers": [{
+                        "id":"radar_control_button_state_light",
+                        "text":{"key":"radar_button_label"},
+                        "shape":"lights_control_button_state_light"
+                    }]
+                }]
+            },{
+
+                "shape":"anchor_mid_right",
+                "layers": [{
                     "shape":"lights_control_panel_button",
                     "id":"lights_control_panel_button",
                     "on_apply":[{"call":"gui_toggle_template", "params":{"template":"tomcat_lights_controls", "enabler":"lights_control_button_state_light"}}],
@@ -15,7 +28,6 @@
                     }]
                 }]
             },{
-
                 "shape":"anchor_mid_right",
                 "layers": [{
                     "shape":"cockpit_control_panel_button",

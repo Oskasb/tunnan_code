@@ -455,6 +455,9 @@ define([
             listenerPos.set(event.eventArgs(e).pos);
         };
 
+		var getGameEntities = function() {
+			return gameEntities;
+		}
 
     //    event.registerListener(event.list().UPDATE_ACTIVE_ENTITIES, tickEntities);
         event.registerListener(event.list().REGISTER_ACTIVE_ENTITY, handleRegisterEntity);
@@ -463,6 +466,7 @@ define([
         event.registerListener(event.list().MOVE_AUDIO_LISTENER, handleListenerPosition);
 
 		return {
-			tickEntities:tickEntities
+			tickEntities:tickEntities,
+			getGameEntities:getGameEntities
 		}
     });

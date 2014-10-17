@@ -15,8 +15,6 @@
 		},
         "debug_state":{
             "templates": [
-                "debug_buttons",
-                "aerodynamics_graph",
                 "top_bar"
             ]
         },
@@ -26,7 +24,10 @@
                 "tomcat_controls",
                 "tomcat_hud_buttons",
                 "tomcat_lights_controls",
-                "tomcat_cockpit_controls"
+                "tomcat_cockpit_controls",
+                "debug_buttons",
+                "aerodynamics_graph",
+                "radar_overview"
 			]
 		}
 	}

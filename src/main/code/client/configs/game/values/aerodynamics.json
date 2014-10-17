@@ -11,7 +11,7 @@
                 "baseDragCoeff"  : 0.2,
                 "skidStallCoeff" : 0.4,
                 "baseStallCoeff" : 2,
-                "wingStallCoeff" : 3,
+                "wingStallCoeff" : 7,
                 "flapStallCoeff" : 8
             }
         }

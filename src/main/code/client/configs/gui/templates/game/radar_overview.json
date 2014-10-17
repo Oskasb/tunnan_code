@@ -1,0 +1,45 @@
+[{
+    "template":{
+        "radar_overview":{
+            "hidden":true,
+            "layers": [{
+                "shape":"canvas_parent",
+                "layers": [{
+                    "shape":"radar_overview_panel_open",
+                    "id":"radar_overview_page"
+                },{
+                    "id":"radar_overview_label",
+                    "text":{"key":"radar_overview_page_label"},
+                    "shape":"container_menu_label"
+                }]
+            }]
+        }
+    },
+    "shapes": {
+        "radar_overview_panel_open":{
+            "passive":{
+                "pos":{
+                    "unit":"%",
+                    "top":10,
+                    "left":10
+                },
+                "shape":{
+                    "unit":"%",
+                    "width":80,
+                    "height":80
+                },
+                "border": {
+                    "unit":"px",
+                    "color":  "color_slider_border_hover",
+                    "line_width":1
+                },
+                "draw_callback":{
+                    "source":"radar_overview",
+                    "line_width": 3,
+                    "top_value": 1,
+                    "color": [1, 0.2, 0.5,1]
+                }
+            }
+        }
+    }
+}]
