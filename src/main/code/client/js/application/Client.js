@@ -124,7 +124,7 @@ define([
 			this.gameController.tickGame(tpf*1000);
 			event.fireEvent(event.list().RENDER_TICK, {frameTime:this.now, lastFrameDuration:tpf*1000});
 		    this.gooController.updateWorld();
-			this.gameController.tickGui(tpf*1000);
+			this.gameController.tickGui(tpf);
 		};
 
 		Client.prototype.loadingCompleted = function() {
