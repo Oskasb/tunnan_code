@@ -26,10 +26,11 @@ define(["application/EventManager",
 		) {
 
 	    var useDebugGui = true;
-	    var guiRegUrl = 'configs/config_urls.json';
+
 	    var ready = false;
 
 		var GameController = function() {
+
 			this.sequencer = new Sequencer();
 			this.sceneController = new SceneController();
 			this.canvasGuiAPI = new CanvasGuiAPI(1024, true);
@@ -68,7 +69,7 @@ define(["application/EventManager",
 
 		};
 
-		GameController.prototype.addCanvasGui = function(camera) {
+		GameController.prototype.addCanvasGui = function(camera, guiRegUrl) {
 
 			var handleSetControlledEntity = function(e) {
 				this.setGuiState('messages_only');

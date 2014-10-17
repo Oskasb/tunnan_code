@@ -24,6 +24,10 @@ define([
 		ScenarioSelector
         ) {
 
+		var bundleMasterUrl = 'configs/bundles/bundle_list.json';
+		var guiRegUrl = 'configs/config_urls.json';
+		var resourcePath = '../../../../../../';
+
 		var Client = function() {
 
 		};
@@ -102,8 +106,8 @@ define([
 					if (this.gooController.gooCameraController.getCamera()) {
 						this.gameController.setupGame();
 						this.gooController.registerGooUpdateCallback(handleGooTick);
-						this.gameController.addCanvasGui(this.gooController.gooCameraController.getCamera());
-
+						this.gameController.addCanvasGui(this.gooController.gooCameraController.getCamera(), guiRegUrl);
+						this.clientLoader.runGooPipeline(resourcePath, this.gooController.goo, bundleMasterUrl);
 					} else {
 						lookForReady();
 					}

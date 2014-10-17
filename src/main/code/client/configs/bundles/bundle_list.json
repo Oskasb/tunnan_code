@@ -1,0 +1,32 @@
+[{
+
+	"bundle_index":{
+		"bundles":[
+			{
+				"id":"nature",
+				"folder":"tunnan_resources/bundles/nature/",
+				"file":"root.bundle",
+				"entities":["tree_leafy_40m"]
+			},
+			{
+				"id":"tomcat",
+				"folder":"tunnan_resources/bundles/tomcat/",
+				"file":"root.bundle",
+				"entities":["TomcatSkinned"]
+			},
+            {
+                "id":"carrier",
+                "folder":"tunnan_resources/bundles/carrier/",
+                "file":"root.bundle",
+                "entities":["carrier"]
+            },
+            {
+                "id":"environment",
+                "folder":"tunnan_resources/bundles/environment/",
+                "file":"root.bundle",
+                "entities":["Default Environment", "Post effects"]
+            }
+
+		]
+	}
+}]

@@ -10,7 +10,7 @@ define(["application/EventManager",
     "game/planes/PlaneData",
     "game/characters/CharacterData",
     'game/world/ZoneData',
-	'gui/GuiConfigLoader'
+	'data_pipeline/PipelineAPI'
 ],
     function(event,
              soundManager,
@@ -21,12 +21,47 @@ define(["application/EventManager",
              targetData,
              planeData,
              characterData,
-             zoneData) {
+             zoneData,
+			 PipelineAPI) {
 
 
 		var ClientLoader = function() {
 
 		};
+
+
+
+		ClientLoader.prototype.initBundleData = function(path, goo, srcUrl, downloadOk, fail) {
+
+
+			var assetUpdated = function(srcKey, data) {
+				downloadOk(srcKey, data);
+				console.log("Asset Updated: ", srcKey, data);
+			};
+
+			PipelineAPI.initBundleDownload(path, goo, srcUrl, assetUpdated, fail);
+		};
+
+
+		ClientLoader.prototype.runGooPipeline = function(path, goo, bundleMasterUrl) {
+			var bundlesReady = function(sourceKey, res) {
+				console.log("Bundle update OK", sourceKey, res);
+			};
+
+			var bundleFail = function(err) {
+				console.error("Bundle update FAIL:", err);
+			};
+
+			var bundles = function() {
+				this.initBundleData(path, goo, bundleMasterUrl, bundlesReady, bundleFail);
+			}.bind(this);
+
+			setTimeout(function(){
+				bundles()
+			}, 100)
+
+		};
+
 
 		ClientLoader.prototype.loadScenarioData		= function(scenario, dataLoaded) {
 				console.log("Load Scenario: ", scenario)
