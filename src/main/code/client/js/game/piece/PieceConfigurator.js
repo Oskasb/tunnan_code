@@ -27,7 +27,7 @@ define([
 
 			if (config[wingsKey]) {
 
-				var applyAerodynamics = function(aerodynamics) {
+				var applyAerodynamics = function(srcKey, aerodynamics) {
 					var wingData = GuiConstants.clone(config[wingsKey]);
 					var aeroData = GuiConstants.clone(aerodynamics);
 					gamePiece.addWings(wingData, aeroData);
@@ -41,7 +41,7 @@ define([
 
 
 		PieceConfigurator.configurePiece = function(gamePiece) {
-			var applyConfig = function(data) {
+			var applyConfig = function(srcKey, data) {
 				PieceConfigurator.applyConfigData(gamePiece, data);
 			};
 
