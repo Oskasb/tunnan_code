@@ -78,8 +78,8 @@
             "passive":{
                 "pos": {
                     "unit": "px",
-                    "top": -30,
-                    "left": -80
+                    "top": -50,
+                    "left": -100
                 },
                 "shape":"shape_panel_input_box",
                 "border": "border_control_slider_passive",
@@ -92,8 +92,8 @@
             "passive":{
                 "pos": {
                     "unit": "px",
-                    "top": -60,
-                    "left": -80
+                    "top": -90,
+                    "left": -100
                 },
                 "shape":"shape_panel_input_box",
                 "border": "border_control_slider_passive",
@@ -102,26 +102,13 @@
             "on_hover":"shape_panel_activation_button_hover",
             "on_active":"shape_panel_activation_button_active"
         },
-        "control_panel_button_4": {
-            "passive":{
-                "pos": {
-                    "unit": "px",
-                    "top": -120,
-                    "left": -80
-                },
-                "shape":"shape_panel_input_box",
-                "border": "border_control_slider_passive",
-                "background": "background_control_slider_passive"
-            },
-            "on_hover":"shape_panel_activation_button_hover",
-            "on_active":"shape_panel_activation_button_active"
-        },
+
         "control_panel_button_3": {
             "passive":{
                 "pos": {
                     "unit": "px",
-                    "top": -90,
-                    "left": -80
+                    "top": -130,
+                    "left": -100
                 },
                 "shape":"shape_panel_input_box",
                 "border": "border_control_slider_passive",
@@ -130,6 +117,22 @@
             "on_hover":"shape_panel_activation_button_hover",
             "on_active":"shape_panel_activation_button_active"
         },
+
+        "control_panel_button_4": {
+            "passive":{
+                "pos": {
+                    "unit": "px",
+                    "top": -170,
+                    "left": -100
+                },
+                "shape":"shape_panel_input_box",
+                "border": "border_control_slider_passive",
+                "background": "background_control_slider_passive"
+            },
+            "on_hover":"shape_panel_activation_button_hover",
+            "on_active":"shape_panel_activation_button_active"
+        },
+
         "lights_control_button_state_light": {
             "passive":{
                 "pos": {
@@ -152,8 +155,8 @@
             "passive":{
                 "pos":{
                     "unit":"px",
-                    "top":-120,
-                    "left":-370
+                    "top":-40,
+                    "left":-480
                 },
                 "shape":{
                     "unit":"px",
@@ -174,8 +177,8 @@
             "passive":{
                 "pos":{
                     "unit":"px",
-                    "top":-268,
-                    "left":-370
+                    "top":-288,
+                    "left":-480
                 },
                 "shape":{
                     "unit":"px",

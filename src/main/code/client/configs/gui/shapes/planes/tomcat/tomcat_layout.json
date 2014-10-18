@@ -15,8 +15,8 @@
             "passive":{
                 "pos": {
                     "unit": "px",
-                    "top": -260,
-                    "left": -310
+                    "top": -340,
+                    "left": 200
                 },
                 "shape": "square_fixed_container_box",
                 "border": "border_control_slider_passive"

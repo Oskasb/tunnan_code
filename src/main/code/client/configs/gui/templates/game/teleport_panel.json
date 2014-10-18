@@ -1,7 +1,7 @@
 [{
     "template":{
         "teleport_panel":{
-            "hidden":true,
+            "hidden":false,
             "layers": [{
                 "shape":"anchor_mid_right",
                 "layers": [{
@@ -78,13 +78,13 @@
             "passive":{
                 "pos":{
                     "unit":"px",
-                    "top": -160,
-                    "left": -240
+                    "top": -260,
+                    "left": -245
                 },
                 "shape":{
                     "unit":"px",
-                    "width":135,
-                    "height":178
+                    "width":130,
+                    "height":185
                 },
                 "border": {
                     "unit":"px",

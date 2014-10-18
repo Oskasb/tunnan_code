@@ -150,7 +150,7 @@ define([
             aggregates.g += playerEntity.forces.g.data[1] // gameConfig.RENDER_SETUP.physicsFPS;
             var stepTime = 250;
             var partOfsecond = 1000 / timeElapsed;
-            updatePlayerValues(playerEntity, partOfsecond, timeElapsed)
+        //    updatePlayerValues(playerEntity, partOfsecond, timeElapsed)
             updatePlayerAnimations();
         };
 

@@ -65,6 +65,11 @@ define([
             strafe:             {value:0, controlState:0},
             jump:               {value:0, controlState:0}
         };
+		entity.stats = {
+			altitude:0,
+			speed:0,
+			heading:0
+		};
         entity.spatial = {
             pos:new Vector3(0, 0, 0),
             visualPos:new Vector3(0, 0, 0),

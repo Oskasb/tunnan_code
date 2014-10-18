@@ -19,6 +19,10 @@ define([
 
 		var playerPiece;
 
+		var parameterCallbacks = function(sampleParams) {
+			return '' + playerPiece[sampleParams.source][sampleParams.key]
+		};
+
 		var callbackMap = {
 			frame_tpf : function() {
 				var tpfStack = PerfMon.getTpfStack();
@@ -29,6 +33,9 @@ define([
 				return PerfMon.getTpfStack();
 			},
 
+			fetchGameParameter : function(params) {
+				return parameterCallbacks(params)
+			},
 
 			fetchActiveGamePieces: function() {
 				return PieceController.getGameEntities();

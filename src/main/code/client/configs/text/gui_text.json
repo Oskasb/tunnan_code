@@ -20,7 +20,9 @@
             "aeilrons_label":"ROLL",
             "rudder_label":"YAW",
 
-
+            "altitude_param_label":"ALT:",
+            "throttle_param_label":"THR:",
+            "indicated_air_speed_label":"IAS:",
 
             "teleport_button_label":"Teleport",
 

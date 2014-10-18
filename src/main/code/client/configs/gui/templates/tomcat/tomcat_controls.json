@@ -57,7 +57,7 @@
                     ]
                 },
                 {
-                    "shape":"anchor_bottom_right",
+                    "shape":"anchor_bottom_center",
                     "layers": [{
                         "shape":"vector_input_control_container",
                         "layers": [{

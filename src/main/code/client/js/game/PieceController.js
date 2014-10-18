@@ -401,6 +401,7 @@ define([
 				calcVec.mul(1/physStepPartOfSecond);
 				entity.spatial.audioVel.set(calcVec);
 			}
+			updateGamepieceStats(entity, 1/physicsFps);
 		};
 
 		var updateGamePieceGooTransform = function(entity) {
@@ -430,11 +431,41 @@ define([
 			entity.pilot.geometries[0].transformComponent.setUpdated();
 		};
 
+		var updateGamepieceStats = function(gamePiece, partOfsecond) {
+			gamePiece.stats.update += partOfsecond;
+			if (gamePiece.stats.update < 0.5) return;
+			gamePiece.stats = {
+				update:0,
+				altitude:Math.round(gamePiece.spatial.pos.y),
+				speed:Math.round(3.6 * gamePiece.spatial.speed / partOfsecond),
+				heading:gamePiece.spatial.angle,
+				thrust:0
+			//	g:Math.round(Math.sqrt(gamePiece.forces.g.lengthSquared()*10)/10)
+			};
+
+			if (gamePiece.systems) {
+				if (gamePiece.systems.engines) {
+					for (var i = 0; i < gamePiece.systems.engines.length; i++) {
+						gamePiece.stats.thrust += Math.round((gamePiece.systems.engines[i].thrust *0.00001 / partOfsecond))
+					}
+				}
+			}
+		};
+  /*
+		if(entity.measurements.throttle) event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"throttle", amount:playerEntity.systems.engines[0].thrust * 0.001});
+		if(entity.measurements.speed)    event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"speed",    amount:3.6 * aggregates.speed * partOfsecond});
+		if(entity.measurements.altitude) event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"altitude", amount:playerEntity.spatial.pos[1]});
+		if(entity.measurements.airflowx) event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"airflowx", amount:90*playerEntity.spatial.axisAttitudes.data[0]});
+		if(entity.measurements.airflowy) event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"airflowy", amount:90*playerEntity.spatial.axisAttitudes.data[1]});
+		if(entity.measurements.airflowz) event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"airflowz", amount:90*playerEntity.spatial.axisAttitudes.data[2]});
+		if(entity.measurements.gForce)   event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"gForce",   amount:1 + aggregates.g * 9.81 / (dt * 0.001) });
+   */
 		var updateGamePiece = function(time, gamePiece) {
 			updateEntityGameState(time, gamePiece);
 			if (gamePiece.pilot) {
 				updatePilotGamePiece(gamePiece)
 			}
+
 			updateGamePieceGooTransform(gamePiece);
 		};
 
