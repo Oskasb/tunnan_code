@@ -19,18 +19,23 @@
         {
             "id":"white_smoke_stream",
             "texture": "images/particles/smoke.png",
-            "color": [0.85, 0.88, 0.95, 0.1],
-            "size": [100,280],
-            "growth": [300,7400],
+            "color": [0.88, 0.9, 0.96, 0.8],
+            "size": [150,680],
+            "growth": [660,7400],
             "rotation": [0,360],
             "spin": [-30,30],
             "gravity": 0,
-            "count": 1,
-            "spread": 1,
-            "strength": 3,
-            "acceleration": 1.0007,
-            "lifespan": [2.1,15.8],
-            "poolCount": 1200
+            "count": 4,
+            "spread": 2,
+            "stretch": 1,
+            "strength": 2,
+            "acceleration": 1.0006,
+            "lifespan": [0.1,14.8],
+            "poolCount":5500,
+            "curves":{
+                "alpha":[[0, 1], [0.1, 0.04],[0.3, 0.02], [1, 0]],
+                "size":[[0, 1], [0.5,1], [1, 1]]
+            }
         },
         {
             "id":"hit_smoke_puff",
@@ -58,12 +63,16 @@
             "rotation": [ 0,360],
             "spin": [ -150,150 ],
             "gravity": 0,
-            "count": 7,
+            "count": 55,
             "spread": 0,
             "strength": 1,
             "acceleration": 1,
-            "lifespan": [0.02, 0.03],
-            "poolCount": 1502
+            "lifespan": [0.01, 0.03],
+            "poolCount": 5000,
+            "curves":{
+                "alpha":[[0, 1], [1, 1]],
+                "size":[[0, 1], [0.5,1], [1, 1]]
+            }
         },
         {
             "id": "splash_water",

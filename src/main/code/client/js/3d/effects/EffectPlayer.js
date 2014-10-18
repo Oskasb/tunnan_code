@@ -75,13 +75,13 @@ define(
 					simpleParticles.createSystem(path, name, particle);
 				}
 			}
-
+		/*
 			for (var index in particlesConfig) {
 				var name = particlesConfig[index].id;
 				var particle = particlesConfig[index];
 				simpleParticles.createSystem(path, name, particle);
 			}
-
+        */
 			PipelineAPI.subscribeToCategoryUpdate("particle_effects", particleDataUpdated);
 
 			for (var index in systemsData) {

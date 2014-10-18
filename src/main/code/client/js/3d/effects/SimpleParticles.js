@@ -34,6 +34,13 @@ function(
 		this.dead = true;
 	};
 
+
+	var curves = {
+		alpha:[[0, 0], [0.5,1], [1, 0]],
+		size:[[0, 1], [0.5,1], [1, 1]]
+
+	};
+
 	function Simulator(path, goo, particleSettings) {
 		var texture = new TextureCreator().loadTexture2D(path+particleSettings.texture, {
 			wrapS: 'EdgeClamp',
@@ -42,11 +49,12 @@ function(
 		// texture.wrapS = 'EdgeClamp';
 		// texture.wrapT = 'EdgeClamp';
 
-	// particle.size, particle.gravity, 'CustomBlending', particle.color, particle.spread, particle.strength, particle.lifespan, particle.count
-
 		this.particleSettings = particleSettings;
 		particleSettings.poolCount = particleSettings.poolCount !== undefined ? particleSettings.poolCount : 500;
-		
+
+		particleSettings.curves = particleSettings.curves !== undefined ? particleSettings.curves : curves;
+		particleSettings.stretch = particleSettings.stretch !== undefined ? particleSettings.stretch : 0;
+
 		particleSettings.size = particleSettings.size !== undefined ? particleSettings.size : [10, 10];
 		particleSettings.growth = particleSettings.growth !== undefined ? particleSettings.growth : [0, 0];
 		particleSettings.rotation = particleSettings.rotation !== undefined ? particleSettings.rotation : [0, 360];
@@ -113,68 +121,82 @@ function(
 		return Math.random() * (max - min) + min;
 	}
 	var calcVec = new Vector3();
+
 	Simulator.prototype.spawn = function(position, normal, effectData) {
 		var col = this.meshData.getAttributeBuffer(MeshData.COLOR);
 		var data = this.meshData.getAttributeBuffer('DATA');
-		
+
+		var stretch = this.particleSettings.stretch;
 		var color = this.particleSettings.color;
-		if (this.inheritColor) {
-			if (effectData != undefined) {
+		var count = this.particleSettings.count;
+		var size = [this.particleSettings.size[0],this.particleSettings.size[1]];
+		var growth = [this.particleSettings.growth[0],this.particleSettings.growth[1]];
+		var strength = this.particleSettings.strength;
+		var gravity = this.particleSettings.gravity;
+		var spread = this.particleSettings.spread;
+		if (effectData) {
+			if (effectData.intensity) {
+				count = Math.ceil(count*effectData.intensity);
+			}
+			if (effectData.color) {
+				color = effectData.color;
+			}
+			if (effectData.strength) {
+				strength = effectData.strength;
+			}
 
-
-				if (effectData.particleColor === undefined) {
-					color = [1,1,1,1];
-				} else {
-					color = effectData.particleColor;
-				}
+			if (effectData.size) {
+				size[0] = effectData.size;
+				size[1] = effectData.size;
+			}
+			if (effectData.gravity) {
+				gravity = effectData.gravity;
+			}
+			if (effectData.scale) {
+				size[0] = size[0] * effectData.scale;
+				size[1] = size[1] * effectData.scale;
+				growth[0] = growth[0] * effectData.scale;
+				growth[1] = growth[1] * effectData.scale;
+				strength *= effectData.scale;
+			}
+			if (effectData.spread) {
+				spread = effectData.spread;
 			}
 		}
 
 
-		var count = this.particleSettings.count;
-
-		if (effectData) {
-			if (effectData.intensity) count = Math.floor(count*effectData.intensity);
-		}
-
-		var strength = this.particleSettings.strength;
-		var spread = this.particleSettings.spread;
-		var size = this.particleSettings.size;
-		var growth = this.particleSettings.growth;
 		var rotation = this.particleSettings.rotation;
 		var spin = this.particleSettings.spin;
 		var lifeSpan = this.particleSettings.lifespan;
+
 		for (var i = 0, l = this.particles.length; i < l && count > 0; i++) {
 			var particle = this.particles[i];
 
 			if (particle.dead) {
-				var ratio = -particle.stretch * (this.particleSettings.count-count) * 4/this.particleSettings.count;
+
+				var ratio = particle.stretch / particle.entity._world.tpf * (this.particleSettings.count-count) /  this.particleSettings.count;
+
+				particle.position.x = position.x + normal.x*ratio;
+				particle.position.y = position.y + normal.y*ratio;
+				particle.position.z = position.z + normal.z*ratio;
+
+
 				particle.lifeSpanTotal = particle.lifeSpan = randomBetween(lifeSpan[0], lifeSpan[1]);
-				position.data[0] += normal.data[0]*ratio;
-				position.data[1] += normal.data[1]*ratio;
-				position.data[2] += normal.data[2]*ratio;
-				particle.position.setv(position);
-			//	var mult = (1 + Math.random() * 4) * strength;
 
 				particle.velocity.set(
-					(Math.random() -0.5) * (2*spread) + (1-spread)*normal.data[0], // + 1.0 - spread * 0.5,
-					(Math.random() -0.5) * (2*spread) + (1-spread)*normal.data[1], // + 1.0 - spread * 0.5,
-					(Math.random() -0.5) * (2*spread) + (1-spread)*normal.data[2]  // + 1.0 - spread * 0.5
+					strength*((Math.random() -0.5) * (2*spread) + (1-spread)*normal.x),
+					strength*((Math.random() -0.5) * (2*spread) + (1-spread)*normal.y),
+					strength*((Math.random() -0.5) * (2*spread) + (1-spread)*normal.z)
 				);
-				calcVec.set(normal);
-				calcVec.mul(ratio);
-				particle.position.add(calcVec);
-			//	particle.velocity.normalize();
-				particle.velocity.mul(strength);
+
 				particle.dead = false;
 				this.aliveParticles++;
+				particle.gravity = gravity;
 				count--;
 
-				var rand = Math.random() * 0.1 - 0.05;
-				
-				col[4 * i + 0] = color[0] + rand;
-				col[4 * i + 1] = color[1] + rand;
-				col[4 * i + 2] = color[2] + rand;
+				col[4 * i + 0] = color[0];
+				col[4 * i + 1] = color[1];
+				col[4 * i + 2] = color[2];
 
 				data[4 * i + 0] = randomBetween(size[0], size[1]); // size
 				data[4 * i + 1] = randomBetween(growth[0], growth[1]); // size change
@@ -182,6 +204,19 @@ function(
 				data[4 * i + 3] = randomBetween(spin[0], spin[1]) * MathUtils.DEG_TO_RAD; // spin
 			}
 		}
+	};
+
+
+	Simulator.prototype.getInterpolatedInCurveAboveIndex = function(value, curve, index) {
+		return curve[index][1] + (value - curve[index][0]) / (curve[index+1][0] - curve[index][0])*(curve[index+1][1]-curve[index][1]);
+	};
+
+	Simulator.prototype.fitValueInCurve = function(value, curve) {
+		for (var i = 0; i < curve.length; i++) {
+			if (!curve[i+1]) return 0;
+			if (curve[i+1][0] > value) return this.getInterpolatedInCurveAboveIndex(value, curve, i)
+		}
+		return 0;
 	};
 
 	Simulator.prototype.update = function(tpf) {
@@ -215,7 +250,7 @@ function(
 			particle.position.addv(calcVec);
 			particle.velocity.muld(acceleration, acceleration, acceleration);
 			particle.velocity.add_d(0, gravity * tpf, 0);
-			particle.alpha = alpha * particle.lifeSpan / particle.lifeSpanTotal;
+			particle.alpha = alpha * this.fitValueInCurve(1-(particle.lifeSpan / particle.lifeSpanTotal), this.particleSettings.curves.alpha);
 
 			pos[3 * i + 0] = particle.position.data[0];
 			pos[3 * i + 1] = particle.position.data[1];
