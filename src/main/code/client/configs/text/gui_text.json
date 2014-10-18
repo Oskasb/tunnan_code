@@ -20,9 +20,13 @@
             "aeilrons_label":"ROLL",
             "rudder_label":"YAW",
 
-            "altitude_param_label":"ALT:",
-            "throttle_param_label":"THR:",
-            "indicated_air_speed_label":"IAS:",
+            "altitude_param_label":"ALT",
+            "throttle_param_label":"THR",
+            "indicated_air_speed_label":"IAS",
+
+            "unit_kilometers_per_hour":"km/h",
+            "unit_kilo_newton":"kN",
+            "unit_meters":"m",
 
             "teleport_button_label":"Teleport",
 

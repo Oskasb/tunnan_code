@@ -12,8 +12,13 @@
                             "shape":"parameter_container_left_1",
 
                             "layers": [{
-                                "text":{"key":"altitude_param_label"},
+                                "text":{"key":"altitude_param_label",
+                                    "on_hover":
+                                    {
+                                        "key":"unit_meters"}
+                                    },
                                 "shape":"parameter_label"
+
                             },{
                                 "text":{"callback":"game_parameter", "params":{"source":"stats", "key":"altitude"}},
                                 "shape":"parameter_value"
@@ -22,7 +27,11 @@
                             "shape":"parameter_container_left_2",
 
                             "layers": [{
-                                "text":{"key":"indicated_air_speed_label"},
+                                "text":{"key":"indicated_air_speed_label",
+                                    "on_hover":
+                                    {
+                                        "key":"unit_kilometers_per_hour"
+                                    }},
                                 "shape":"parameter_label"
                             },{
                                 "text":{"callback":"game_parameter", "params":{"source":"stats", "key":"speed"}},
@@ -32,7 +41,11 @@
                             "shape":"parameter_container_left_3",
 
                             "layers": [{
-                                "text":{"key":"throttle_param_label"},
+                                "text":{"key":"throttle_param_label",
+                                    "on_hover":
+                                    {
+                                        "key":"unit_kilo_newton"
+                                    }},
                                 "shape":"parameter_label"
                             },{
                                 "text":{"callback":"game_parameter", "params":{"source":"stats", "key":"thrust"}},
@@ -123,16 +136,29 @@
                 },
                 "text":{
                     "unit":"px",
-                    "source":{
-                        "key":"frame_tpf",
-                        "callback":"frame_tpf"
-                    },
                     "text_align":"right",
                     "font_size":24,
                     "top":8,
                     "left":38,
                     "font_family":"font_game_labels",
-                    "color": "color_sub_menu_header"
+                    "color": "color_hud_digit_label"
+                }
+            },
+            "on_hover":{
+                "background":{
+                    "color":[0,0,0, 0]
+                },
+                "shape": {
+                    "width": 40,
+                    "height": 100
+                },
+                "text":{
+                    "top":12,
+                    "left":38,
+                    "text_align":"right",
+                    "font_size":34,
+                    "line_spacing":4,
+                    "color":"color_menu_label_header"
                 }
             }
         },
@@ -159,7 +185,7 @@
                     "top":8,
                     "left":2,
                     "font_family":"font_game_labels",
-                    "color": "color_sub_menu_header"
+                    "color": "color_hud_digit_value_label"
                 }
             }
         }

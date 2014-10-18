@@ -32,6 +32,11 @@
         "color_sub_menu_header":       [1,0.8,0.5, 0.4],
         "color_menu_label_header":     [1,0.8,0.5, 0.7],
 
+        "color_hud_digit_label":       [0.8,0.5,0.2, 0.4],
+        "color_hud_digit_label_hover": [1,0.8,0.3, 0.5],
+        "color_hud_digit_value_label": [0.2,0.8,0.5, 0.7],
+        "color_hud_digit_value_hover": [1,0.8,0.5, 0.7],
+
         "color_button_label_weak":     [0.4,1,1,0.2],
         "color_button_label_subtle":   [0.6,1,1,0.4],
         "color_button_label_base":     [0.4,0.9,0.9,0.8],
