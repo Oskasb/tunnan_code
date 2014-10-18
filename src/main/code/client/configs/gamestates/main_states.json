@@ -28,6 +28,7 @@
                 "debug_buttons",
                 "aerodynamics_graph",
                 "teleport_panel",
+                "flight_metrics",
                 "radar_overview"
 			]
 		}

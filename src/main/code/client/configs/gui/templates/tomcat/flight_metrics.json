@@ -1,12 +1,12 @@
 [{
     "template":{
-        "teleport_panel":{
-            "hidden":true,
+        "flight_metrics":{
+            "hidden":false,
             "layers": [{
-                "shape":"anchor_mid_right",
+                "shape":"anchor_bottom_center",
                 "layers": [{
-                    "shape":"teleport_panel_open",
-                    "id":"radar_overview_page",
+                    "shape":"flight_metrics_container",
+                    "id":"flight_metrics_panel",
 
                     "layers": [{
                         "shape":"anchor_top_left",
@@ -74,22 +74,22 @@
         }
     },
     "shapes": {
-        "teleport_panel_open":{
+        "flight_metrics_container":{
             "passive":{
                 "pos":{
                     "unit":"px",
-                    "top": -160,
-                    "left": -240
+                    "top": -35,
+                    "left": -105
                 },
                 "shape":{
                     "unit":"px",
-                    "width":135,
-                    "height":178
+                    "width":420,
+                    "height":60
                 },
                 "border": {
                     "unit":"px",
                     "color":  "color_slider_border_hover",
-                    "line_width":1
+                    "line_width":3
                 }
             }
         }

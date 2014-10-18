@@ -75,6 +75,16 @@
                 "shape": "shape_anchor_point"
             }
         },
+        "anchor_bottom_center": {
+            "passive":{
+                "pos": {
+                    "unit": "%",
+                    "top": 100,
+                    "left": 50
+                },
+                "shape": "shape_anchor_point"
+            }
+        },
         "anchor_bottom_right": {
             "passive":{
                 "pos": {

@@ -39,7 +39,7 @@
             "configs/gui/templates/tomcat/tomcat_controls.json",
             "configs/gui/templates/tomcat/tomcat_lights_controls.json",
             "configs/gui/templates/tomcat/tomcat_cockpit_controls.json",
-
+            "configs/gui/templates/tomcat/flight_metrics.json",
 
 			"configs/gui/images/image_refs.json",
 			"configs/gui/shapes/anchor_points.json",
