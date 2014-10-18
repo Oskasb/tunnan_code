@@ -22,6 +22,7 @@ define(['game/world/PhysicalWorld',
                 var visualEntityReady = function(gooEntity) {
 					if (entity.geometries[0]) entity.geometries[0].removeFromWorld();
                     entity.geometries[0] = gooEntity;
+					entity.geometries[0].addToWorld();
 
 			//		if (gooEntity.animationComponent) gooEntity.animationComponent = gooEntity.animationComponent.clone();
 

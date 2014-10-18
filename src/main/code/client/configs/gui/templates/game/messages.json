@@ -41,7 +41,7 @@
                     "shape":"data_update_container",
                     "on_message":{
                         "channels":["data_update_channel"],
-                        "duration":3
+                        "duration":6
                     }
                 },
                 {
@@ -49,7 +49,7 @@
                     "shape":"center_container",
                     "on_message":{
                         "channels":["alert_channel"],
-                        "duration":5
+                        "duration":6
                     }
                 },
                 {

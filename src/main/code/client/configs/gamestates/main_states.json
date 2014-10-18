@@ -27,6 +27,7 @@
                 "tomcat_cockpit_controls",
                 "debug_buttons",
                 "aerodynamics_graph",
+                "teleport_panel",
                 "radar_overview"
 			]
 		}

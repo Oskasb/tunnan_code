@@ -74,12 +74,12 @@
             "on_hover":"shape_panel_input_box_hover",
             "on_active":"shape_panel_input_box_active"
         },
-        "cockpit_control_panel_button": {
+        "control_panel_button_1": {
             "passive":{
                 "pos": {
                     "unit": "px",
-                    "top": -50,
-                    "left": -100
+                    "top": -30,
+                    "left": -80
                 },
                 "shape":"shape_panel_input_box",
                 "border": "border_control_slider_passive",
@@ -88,12 +88,12 @@
             "on_hover":"shape_panel_activation_button_hover",
             "on_active":"shape_panel_activation_button_active"
         },
-        "lights_control_panel_button": {
+        "control_panel_button_2": {
             "passive":{
                 "pos": {
                     "unit": "px",
-                    "top": -80,
-                    "left": -100
+                    "top": -60,
+                    "left": -80
                 },
                 "shape":"shape_panel_input_box",
                 "border": "border_control_slider_passive",
@@ -102,12 +102,26 @@
             "on_hover":"shape_panel_activation_button_hover",
             "on_active":"shape_panel_activation_button_active"
         },
-        "radar_control_panel_button": {
+        "control_panel_button_4": {
             "passive":{
                 "pos": {
                     "unit": "px",
-                    "top": -110,
-                    "left": -100
+                    "top": -120,
+                    "left": -80
+                },
+                "shape":"shape_panel_input_box",
+                "border": "border_control_slider_passive",
+                "background": "background_control_slider_passive"
+            },
+            "on_hover":"shape_panel_activation_button_hover",
+            "on_active":"shape_panel_activation_button_active"
+        },
+        "control_panel_button_3": {
+            "passive":{
+                "pos": {
+                    "unit": "px",
+                    "top": -90,
+                    "left": -80
                 },
                 "shape":"shape_panel_input_box",
                 "border": "border_control_slider_passive",

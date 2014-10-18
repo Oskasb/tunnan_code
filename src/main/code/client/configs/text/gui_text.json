@@ -20,6 +20,15 @@
             "aeilrons_label":"ROLL",
             "rudder_label":"YAW",
 
+
+
+            "teleport_button_label":"Teleport",
+
+            "teleport_strat_label":"50k",
+            "teleport_high_label":"10k",
+            "teleport_mid_label":"1000m",
+            "teleport_low_label":"30m",
+
             "radar_overview_page_label":"Radar Overview",
             "radar_button_label":"Radar",
             "lights_button_label":"Lights",

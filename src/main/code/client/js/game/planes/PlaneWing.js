@@ -41,6 +41,7 @@ define([
         var dragXSec;
         var dragForce;
         var rollVelocity;
+		var pitchVelocity;
 
         function PlaneWing(entity, data, wingId) {
 
@@ -68,7 +69,6 @@ define([
             this.drag = new Vector3(0, 0, 0);
             this.formDragCoeff = data.formDragCoeff;
             this.liftCurve = data.liftCurve;
-            this.stallAngle = data.stallAngle;
             this.stallLiftCoeff = data.stallLiftCoeff;
 			this.angleOfAttack = 0;
 			this.angleOfAttackYaw = 0;
@@ -386,15 +386,15 @@ define([
 			return -indDrag;
 		};
 
-
 		PlaneWing.prototype.calcLiftForces = function() {
 			angles = this.frameRot.toAngles();
 
-			pitchYawAngle = this.sourceData.rot[2];
+			pitchYawAngle = -this.sourceData.rot[2];
 
 			aoas = this.entity.spatial.axisAttitudes; // Airflow Angles X / Y / Z  (Z should be close to 1)
 
 			rollVelocity = this.entity.spatial.angularVelocity.data[2];
+			pitchVelocity = this.entity.spatial.angularVelocity.data[0];
 
 			va.set(aoas);
 
@@ -408,10 +408,11 @@ define([
 			this.angleOfAttack = yAoA*3.14;
 			this.angleOfAttackYaw = xAoA*3.14;
 
-			xAoA -= 0.25 * this.entity.spatial.angularVelocity.data[1]*this.pos.data[2];
-			yAoA += 0.2 * rollVelocity*this.pos.data[0];
-			yAoA -= 0.12 * this.entity.spatial.angularVelocity.data[0]*this.pos.data[2];
-			yAoA += 0.3 * this.entity.spatial.angularVelocity.data[1]*this.pos.data[0] / (this.entity.spatial.speed+0.1);
+			xAoA -= this.entity.spatial.angularVelocity.data[1]*this.pos.data[2];
+			xAoA += pitchVelocity*this.pos.data[2];
+			yAoA += rollVelocity*this.pos.data[0];
+			yAoA -= this.entity.spatial.angularVelocity.data[0]*this.pos.data[2];
+			yAoA += this.entity.spatial.angularVelocity.data[1]*this.pos.data[0] / (this.entity.spatial.speed+0.001);
 
 			eArea = Math.abs(zCross) *this.size.data[2] * this.size.data[0] * this.airSpeed;
 

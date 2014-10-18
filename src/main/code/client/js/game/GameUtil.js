@@ -22,17 +22,17 @@ define(function() {
         }
     };
 
-    var getInterpolatedInCurveAboveIndex = function(value, curve, index) {
-		if (!curve[index+1]) return 0;
-        return curve[index][1] + (value - curve[index][0]) / (curve[index+1][0] - curve[index][0])*(curve[index+1][1]-curve[index][1]);
-    };
+	var getInterpolatedInCurveAboveIndex = function(value, curve, index) {
+		return curve[index][1] + (value - curve[index][0]) / (curve[index+1][0] - curve[index][0])*(curve[index+1][1]-curve[index][1]);
+	};
 
-    var fitValueInCurve = function(value, curve) {
-        for (var i = 0; i < curve.length; i++) {
-            if (curve[i+1][0] > value) return getInterpolatedInCurveAboveIndex(value, curve, i)
-        }
-        return 0;
-    };
+	var fitValueInCurve = function(value, curve) {
+		for (var i = 0; i < curve.length; i++) {
+			if (!curve[i+1]) return 0;
+			if (curve[i+1][0] > value) return getInterpolatedInCurveAboveIndex(value, curve, i)
+		}
+		return 0;
+	};
 
 	var angleBetweenPoints = function(fromX, fromY, toX, toY) {
 		return Math.atan2(toY - fromY, fromX - toX);

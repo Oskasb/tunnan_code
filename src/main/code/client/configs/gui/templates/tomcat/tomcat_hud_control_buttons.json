@@ -2,10 +2,22 @@
     "template":{
         "tomcat_hud_buttons":{
             "layers": [{
+                "shape":"anchor_mid_right",
+                "layers": [{
+                    "shape":"control_panel_button_4",
+                    "id":"teleport_control_panel_button",
+                    "on_apply":[{"call":"gui_toggle_template", "params":{"template":"teleport_panel", "enabler":"teleport_control_button_state_light"}}],
+                    "layers": [{
+                        "id":"teleport_control_button_state_light",
+                        "text":{"key":"teleport_button_label"},
+                        "shape":"lights_control_button_state_light"
+                    }]
+                }]
+            },{
 
                 "shape":"anchor_mid_right",
                 "layers": [{
-                    "shape":"radar_control_panel_button",
+                    "shape":"control_panel_button_3",
                     "id":"radar_control_panel_button",
                     "on_apply":[{"call":"gui_toggle_template", "params":{"template":"radar_overview", "enabler":"radar_control_button_state_light"}}],
                     "layers": [{
@@ -18,7 +30,7 @@
 
                 "shape":"anchor_mid_right",
                 "layers": [{
-                    "shape":"lights_control_panel_button",
+                    "shape":"control_panel_button_2",
                     "id":"lights_control_panel_button",
                     "on_apply":[{"call":"gui_toggle_template", "params":{"template":"tomcat_lights_controls", "enabler":"lights_control_button_state_light"}}],
                     "layers": [{
@@ -30,7 +42,7 @@
             },{
                 "shape":"anchor_mid_right",
                 "layers": [{
-                    "shape":"cockpit_control_panel_button",
+                    "shape":"control_panel_button_1",
                     "id":"cockpit_control_panel_button",
                     "on_apply":[{"call":"gui_toggle_template", "params":{"template":"tomcat_cockpit_controls", "enabler":"cockpit_control_button_state_light"}}],
                     "layers": [{
@@ -43,7 +55,7 @@
 
                 "shape":"anchor_bottom_right",
                 "layers": [{
-                    "shape":"lights_control_panel_button",
+                    "shape":"control_panel_button_2",
                     "id":"wing_smoke_button",
                     "on_apply":[{"call":"player_control_event", "params":{"control":"wing_smoke", "value":1, "enabler":"wing_smoke_button_light"}}],
                     "layers": [{

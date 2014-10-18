@@ -57,7 +57,7 @@
             "passive":{
                 "pos": {
                     "unit": "px",
-                    "top": -20,
+                    "top": -12,
                     "left": -30
                 },
                 "shape":{

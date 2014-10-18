@@ -67,9 +67,6 @@
 									"rot":{
 										"type":"array"
 									},
-									"stallAngle":{
-										"type":"array"
-									},
 									"liftCurve":{
 										"type":"string"
 									},
@@ -80,7 +77,7 @@
 										"type":"string"
 									}
 								},
-								"required": ["pos", "size", "rot", "stallAngle", "liftCurve", "stallLiftCoeff", "formDragCoeff"]
+								"required": ["pos", "size", "rot", "liftCurve", "stallLiftCoeff", "formDragCoeff"]
 							}
 						}
 					}

@@ -1,0 +1,97 @@
+[{
+    "template":{
+        "teleport_panel":{
+            "hidden":false,
+            "layers": [{
+                "shape":"anchor_mid_right",
+                "layers": [{
+                    "shape":"teleport_panel_open",
+                    "id":"radar_overview_page",
+
+                    "layers": [{
+                        "shape":"anchor_top_left",
+                        "layers": [{
+                            "shape":"sub_menu_label",
+                            "text":{"key":"teleport_button_label"}
+                        }]
+                    },{
+                        "shape":"anchor_bottom_right",
+                        "layers": [{
+                            "shape":"anchor_mid_right",
+                            "layers": [{
+                                "shape":"control_panel_button_4",
+                                "id":"teleport_control_panel_button",
+                                "on_apply":[{"call":"fire_game_event", "params":{"event":"PLAYER_MOVE_TO_POINT", "args":{"pos":[0, 50000, 0]}}}],
+                                "layers": [{
+                                    "id":"teleport_btn_4",
+                                    "text":{"key":"teleport_strat_label"},
+                                    "shape":"lights_control_button_state_light"
+                                }]
+                            }]
+                        },{
+
+                            "shape":"anchor_mid_right",
+                            "layers": [{
+                                "shape":"control_panel_button_3",
+                                "id":"radar_control_panel_button",
+                                "on_apply":[{"call":"fire_game_event", "params":{"event":"PLAYER_MOVE_TO_POINT", "args":{"pos":[0, 10000, 0]}}}],
+                                "layers": [{
+                                    "id":"teleport_btn_3",
+                                    "text":{"key":"teleport_high_label"},
+                                    "shape":"lights_control_button_state_light"
+                                }]
+                            }]
+                        },{
+
+                            "shape":"anchor_mid_right",
+                            "layers": [{
+                                "shape":"control_panel_button_2",
+                                "id":"lights_control_panel_button",
+                                "on_apply":[{"call":"fire_game_event", "params":{"event":"PLAYER_MOVE_TO_POINT", "args":{"pos":[0, 1000, 0]}}}],
+                                "layers": [{
+                                    "id":"teleport_btn_2",
+                                    "text":{"key":"teleport_mid_label"},
+                                    "shape":"lights_control_button_state_light"
+                                }]
+                            }]
+                        },{
+                            "shape":"anchor_mid_right",
+                            "layers": [{
+                                "shape":"control_panel_button_1",
+                                "id":"cockpit_control_panel_button",
+                                "on_apply":[{"call":"fire_game_event", "params":{"event":"PLAYER_MOVE_TO_POINT", "args":{"pos":[0, 30, 0]}}}],
+                                "layers": [{
+                                    "id":"teleport_btn_1",
+                                    "text":{"key":"teleport_low_label"},
+                                    "shape":"lights_control_button_state_light"
+                                }]
+                            }]
+                        }]
+                    }]
+
+                }]
+            }]
+        }
+    },
+    "shapes": {
+        "teleport_panel_open":{
+            "passive":{
+                "pos":{
+                    "unit":"px",
+                    "top": -160,
+                    "left": -240
+                },
+                "shape":{
+                    "unit":"px",
+                    "width":135,
+                    "height":178
+                },
+                "border": {
+                    "unit":"px",
+                    "color":  "color_slider_border_hover",
+                    "line_width":1
+                }
+            }
+        }
+    }
+}]
