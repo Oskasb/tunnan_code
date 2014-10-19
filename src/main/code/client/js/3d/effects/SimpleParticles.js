@@ -23,6 +23,7 @@ function(
 	}
 
 	function Particle(entity) {
+		this.frameCount = 0;
 		this.entity = entity;
 		this.position = new Vector3();
 		this.velocity = new Vector3();
@@ -66,6 +67,7 @@ function(
 		particleSettings.acceleration = particleSettings.acceleration !== undefined ? particleSettings.acceleration : 0.999;
 		particleSettings.strength = particleSettings.strength !== undefined ? particleSettings.strength : 1;
 		particleSettings.lifespan = particleSettings.lifespan !== undefined ? particleSettings.lifespan : [3, 3];
+
 		particleSettings.count = particleSettings.count !== undefined ? particleSettings.count : 1;
 
 		var attributeMap = MeshData.defaultMap([MeshData.POSITION, MeshData.COLOR]);
@@ -197,7 +199,7 @@ function(
 			var particle = this.particles[i];
 
 			if (particle.dead) {
-
+				particle.frameCount = 0;
 				var ratio = -particle.stretch / particle.entity._world.tpf * (this.particleSettings.count-count) /  this.particleSettings.count;
 
 				particle.position.x = position.x + normal.x*ratio;
@@ -248,6 +250,8 @@ function(
 
 	Simulator.prototype.update = function(tpf) {
 
+
+
 		var pos = this.meshData.getAttributeBuffer(MeshData.POSITION);
 		var col = this.meshData.getAttributeBuffer(MeshData.COLOR);
 		var data = this.meshData.getAttributeBuffer('DATA');
@@ -262,7 +266,10 @@ function(
 			}
 
 			particle.lifeSpan -= tpf;
-			if (particle.lifeSpan <= 0) {
+
+
+
+			if (particle.lifeSpan <= 0 && particle.frameCount) {
 				particle.dead = true;
 				particle.position.setd(0, 0, 0);
 				pos[3 * i + 0] = 0;
@@ -271,10 +278,10 @@ function(
 				this.aliveParticles--;
 				continue;
 			}
-
+			particle.progress = 1-((particle.lifeSpan - particle.frameOffset*0.016)  / particle.lifeSpanTotal);
 		//	particle.frameOffset;
 
-			particle.progress = 1-((particle.lifeSpan - particle.frameOffset*tpf)  / particle.lifeSpanTotal);
+
 
 			calcVec.setv(particle.velocity).muld(tpf, tpf, tpf);
 			particle.position.addv(calcVec);
@@ -289,7 +296,9 @@ function(
 
 			data[4 * i + 0] += data[4 * i + 1] * particle.progress;
 			data[4 * i + 2] += data[4 * i + 3] * particle.progress;
+			particle.frameCount += 1;
 			lastAlive = i;
+
 		}
 
 		this.meshData.indexLengths = [lastAlive];
@@ -354,7 +363,8 @@ function(
 		uniforms: {
 			viewProjectionMatrix: Shader.VIEW_PROJECTION_MATRIX,
 			worldMatrix: Shader.WORLD_MATRIX,
-			particleMap: 'PARTICLE_MAP'
+			particleMap: 'PARTICLE_MAP',
+			resolution: Shader.RESOLUTION
 		},
 		vshader: [
 			'attribute vec3 vertexPosition;',
@@ -362,17 +372,17 @@ function(
 			'attribute vec4 vertexData;',
 			'uniform mat4 viewProjectionMatrix;',
 			'uniform mat4 worldMatrix;',
+			'uniform vec2 resolution;',
 
 			'varying vec4 color;',
 			'varying mat3 spinMatrix;',
 
 			'void main(void) {',
-				'gl_Position = viewProjectionMatrix * worldMatrix * vec4(vertexPosition.xyz, 1.0);',
-				'gl_PointSize = vertexData.x * 1.4142 / gl_Position.w;',
-				'color = vertexColor;',
-				'float c = cos(vertexData.z);',
-				'float s = sin(vertexData.z);',
-				'spinMatrix = mat3(c, s, 0.0, -s, c, 0.0, (s-c+1.0)*0.5, (-s-c+1.0)*0.5, 1.0);',
+			'gl_Position = viewProjectionMatrix * worldMatrix * vec4(vertexPosition.xyz, 1.0);',
+			'gl_PointSize = vertexData.x * resolution.x / 1000.0 / gl_Position.w;',
+			'color = vertexColor;',
+			'float c = cos(vertexData.z); float s = sin(vertexData.z);',
+			'spinMatrix = mat3(c, s, 0.0, -s, c, 0.0, (s-c+1.0)*0.5, (-s-c+1.0)*0.5, 1.0);',
 			'}'
 		].join('\n'),
 		fshader: [
@@ -383,12 +393,53 @@ function(
 
 			'void main(void)',
 			'{',
-				'vec2 coords = ((spinMatrix * vec3(gl_PointCoord, 1.0)).xy - 0.5) * 1.4142 + 0.5;',
-				'vec4 col = color * texture2D(particleMap, coords);',
-			//	'if (col.a <= 0.0) discard;',
-				'gl_FragColor = col;',
+			'vec2 coords = ((spinMatrix * vec3(gl_PointCoord, 1.0)).xy - 0.5) * 1.4142 + 0.5;',
+			'vec4 col = color * texture2D(particleMap, coords);',
+			'if (col.a <= 0.0) discard;',
+			'gl_FragColor = col;',
 			'}'
 		].join('\n')
+	};
+
+
+	var bulletShader = {
+		attributes: {
+			vertexPosition: MeshData.POSITION
+		},
+		uniforms: {
+			viewProjectionMatrix: Shader.VIEW_PROJECTION_MATRIX,
+			worldMatrix: Shader.WORLD_MATRIX
+			// pointSize: 1.0
+		},
+		vshader: [
+			'attribute vec3 vertexPosition;',
+			'uniform mat4 viewProjectionMatrix;',
+			'uniform mat4 worldMatrix;',
+
+			'varying float pointSize;',
+
+			'void main(void) {',
+			'	gl_Position = viewProjectionMatrix * worldMatrix * vec4(vertexPosition.xyz, 1.0);',
+			'	pointSize = 10.0 / gl_Position.w;',
+			'	gl_PointSize = pointSize;',
+			'}'
+		].join('\n'),
+		fshader: [
+			// 'uniform sampler2D particleMap;',
+
+			'varying float pointSize;',
+
+			'void main(void)',
+			'{',
+			// '	gl_FragColor = vec4(0.0, 0.0, 0.0, 0.15);',
+			'	gl_FragColor = vec4(0.0, 0.0, 0.0, smoothstep(0.1, 0.5, pointSize)) * 0.2;',
+			'}'
+		].join('\n')
+	};
+
+
+	SimpleParticles.getBulletShader = function() {
+		return bulletShader;
 	};
 
 	return SimpleParticles;

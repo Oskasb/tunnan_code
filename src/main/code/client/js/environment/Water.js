@@ -28,7 +28,7 @@ define([
 
 		var Water = function(goo, skySphere, resourcePath) {
 			this.folderUrl = resourcePath;
-			var meshData = Surface.createTessellatedFlat(91500, 91500, 40, 40);
+			var meshData = Surface.createTessellatedFlat(291500, 291500, 40, 40);
 			var material = makeWaterMaterial(this.folderUrl+waterColorTexturePath);
 			this.waterEntity = goo.world.createEntity(meshData, material);
 

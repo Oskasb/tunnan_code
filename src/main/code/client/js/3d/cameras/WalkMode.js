@@ -23,6 +23,9 @@ define([
 			this.camPos = new Vector3();
 			this.camDistance = 6;
 			this.azimuth = 0.4;
+			this.baseFov = 45;
+			this.fov = this.baseFov;
+			this.targetFov = this.baseFov;
 			this.worldUpVector = new Vector3(0,1,0);
 			this.camera = null;
 		}
@@ -102,8 +105,8 @@ define([
 			this.camera = cam;
 		}
 
-		WalkMode.prototype.adjustFov = function() {
-
+		WalkMode.prototype.adjustFov = function(fv) {
+			this.targetFov = fv;
 		}
 
 		return WalkMode

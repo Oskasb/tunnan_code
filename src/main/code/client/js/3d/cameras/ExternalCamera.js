@@ -37,7 +37,8 @@ define([
 			this.worldUpVector = new Vector3(0,1,0);
 			this.camera = null;
 			this.baseFov = 45;
-			this.fov = null;
+			this.targetFov = this.baseFov;
+			this.fov = this.baseFov;
 			this.baseZoomIndex = 1;
 			this.zoomIndex = 1;
 			this.vehicleLength = 10;
@@ -62,7 +63,8 @@ define([
 		}
 
 		ExternalCamera.prototype.setFov = function(fv) {
-			this.camera.setFrustumPerspective(fv, null, null, null);
+			this.targetFov = fv;
+
 		}
 
 		ExternalCamera.prototype.updateZoomLevel = function() {
@@ -78,7 +80,7 @@ define([
 			}
 
 			this.zoomIndex += delta;
-			if (this.zoomIndex < 0) {
+			if (this.zoomIndex <= 0) {
 				this.zoomIndex = 0;
 				event.fireEvent(event.list().SET_CAMERA_TARGET, {spatial:this.targetSpatial, geometry:this.vehicle.pilot.geometries[0], controlScript:"pilotCam"});
 				return;

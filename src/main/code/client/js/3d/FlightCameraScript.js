@@ -265,6 +265,11 @@ define([
             this.spherical.x = MathUtils.lerp(delta, this.spherical.x, this.targetSpherical.x);
             this.spherical.z = MathUtils.lerp(delta, this.spherical.z, this.targetSpherical.z);
 
+			if (this.controlScript.fov != this.controlScript.targetFov) {
+				this.camera.setFrustumPerspective(MathUtils.lerp(0.05, this.controlScript.targetFov, this.controlScript.fov), null, null, null);
+			}
+
+
             MathUtils.sphericalToCartesian(this.spherical.x, this.spherical.y, this.spherical.z, this.cartesian);
         };
 
@@ -280,6 +285,9 @@ define([
 			}
 
             this.calcFrameCartesian(entity);
+
+
+
 
             this.controlScript.calcCamPos(this.cartesian);
             this.controlScript.calcCamRot(entity, this.targetSpherical);

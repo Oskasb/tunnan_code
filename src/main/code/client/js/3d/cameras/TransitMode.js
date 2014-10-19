@@ -36,7 +36,8 @@ define([
 			this.worldUpVector = new Vector3(0,1,0);
 			this.camera = null;
 			this.baseFov = 45;
-			this.fov = null;
+			this.targetFov = this.baseFov;
+				this.fov = this.baseFov;
 			this.baseZoomIndex = 0;
 			this.zoomIndex = null;
 
@@ -61,7 +62,7 @@ define([
 		}
 
 		TransitMode.prototype.setFov = function(fv) {
-			this.camera.setFrustumPerspective(fv, null, null, null);
+			this.targetFov = fv;
 		}
 
 		TransitMode.prototype.updateZoomLevel = function() {

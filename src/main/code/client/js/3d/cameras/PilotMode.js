@@ -31,6 +31,7 @@ define([
 			this.lastRot = new Matrix3x3();
 			this.targetOffset = new Vector3(0, 0.82, 0);
 			this.targetSpatial = null;
+
 			this.lookAtPoint = new Vector3();
 			this.camPos = new Vector3();
 			this.camDistance = 0.15;
@@ -38,14 +39,15 @@ define([
 			this.camera = null;
 			this.baseFov = 45;
 			this.fov = 45;
-			this.baseZoomIndex = 3;
+			this.targetFov = this.baseFov;
+			this.baseZoomIndex = 4;
 			this.zoomIndex = 1;
 			this.zoomStages = [
 				{fov:this.baseFov-27, distance:0.21},
 				{fov:this.baseFov-11, distance:0.22},
 				{fov:this.baseFov+3,  distance:0.24},
-				{fov:this.baseFov+16, distance:0.26},
-				{fov:this.baseFov+25, distance:0.28}
+				{fov:this.baseFov+18, distance:0.26},
+				{fov:this.baseFov+28, distance:0.28}
 			];
 		}
 
@@ -65,7 +67,8 @@ define([
 		}
 
 		PilotMode.prototype.setFov = function(fv) {
-			this.camera.setFrustumPerspective(fv, null, null, null);
+			this.targetFov = fv;
+
 		}
 
 		PilotMode.prototype.updateZoomLevel = function() {
