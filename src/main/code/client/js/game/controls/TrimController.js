@@ -3,7 +3,9 @@
 define(function() {
 
     var buildSystem = function(entity, data, state) {
-        var trim = {};
+        var trim = {
+			data:data
+		};
         return trim;
     };
 

@@ -6,6 +6,7 @@ define(["application/EventManager", "3d/GooJointAnimator"], function(event, bone
 		var state = 0;
 		if (landed) state = 1;
 		var seat = {
+			data:data,
 			targetState:state,
 			currentState:state,
 			hook:data.controls.hook,

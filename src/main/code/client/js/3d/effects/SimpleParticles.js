@@ -27,6 +27,7 @@ function(
 		this.position = new Vector3();
 		this.velocity = new Vector3();
 		this.progress = 0;
+		this.frameOffset = 0;
 		this.stretch = 1;
 		this.alpha = 1;
 		this.gravity = 0;
@@ -36,11 +37,9 @@ function(
 	};
 
 
-	var curves = {
-		alpha:[[0, 0], [0.5,1], [1, 0]],
-		size:[[0, 1], [0.5,1], [1, 1]]
+		var alphaCurve = [[0, 0], [0.5,1], [1, 0]];
+		var sizeCurve = [[0, 1], [0.5,1], [1, 1]];
 
-	};
 
 	function Simulator(path, goo, particleSettings) {
 		var texture = new TextureCreator().loadTexture2D(path+particleSettings.texture, {
@@ -53,7 +52,7 @@ function(
 		this.particleSettings = particleSettings;
 		particleSettings.poolCount = particleSettings.poolCount !== undefined ? particleSettings.poolCount : 500;
 
-		particleSettings.curves = particleSettings.curves !== undefined ? particleSettings.curves : curves;
+		particleSettings.alphaCurve = particleSettings.alphaCurve !== undefined ? particleSettings.alphaCurve : alphaCurve;
 		particleSettings.stretch = particleSettings.stretch !== undefined ? particleSettings.stretch : 0;
 
 		particleSettings.size = particleSettings.size !== undefined ? particleSettings.size : [10, 10];
@@ -140,7 +139,15 @@ function(
 		var gravity = this.particleSettings.gravity;
 		var spread = this.particleSettings.spread;
 		var lifeSpan = this.particleSettings.lifespan;
+
+		var alphaCurve = this.particleSettings.alphaCurve;
+
 		if (effectData) {
+
+			if (effectData.alphaCurve) {
+				alphaCurve = effectData.alphaCurve
+			}
+
 			if (effectData.lifespan) {
 				lifeSpan[0] = effectData.lifespan*0.8;
 				lifeSpan[1] = effectData.lifespan;
@@ -185,7 +192,7 @@ function(
 		var rotation = this.particleSettings.rotation;
 		var spin = this.particleSettings.spin;
 
-		var done = count;
+		var effectCount = count;
 		for (var i = 0, l = this.particles.length; i < l && count > 0; i++) {
 			var particle = this.particles[i];
 
@@ -196,11 +203,11 @@ function(
 				particle.position.x = position.x + normal.x*ratio;
 				particle.position.y = position.y + normal.y*ratio;
 				particle.position.z = position.z + normal.z*ratio;
-
+				particle.alphaCurve = alphaCurve;
 
 				particle.lifeSpanTotal = particle.lifeSpan = randomBetween(lifeSpan[0], lifeSpan[1]);
 
-				particle.lifeSpan -= tpf*(count/done);
+				particle.frameOffset = count/effectCount;
 
 				particle.velocity.set(
 					strength*((Math.random() -0.5) * (2*spread) + (1-spread)*normal.x),
@@ -217,6 +224,7 @@ function(
 				col[4 * i + 1] = color[1];
 				col[4 * i + 2] = color[2];
 
+				particle.alpha = color[3];
 				data[4 * i + 0] = randomBetween(size[0], size[1]); // size
 				data[4 * i + 1] = randomBetween(growth[0], growth[1]); // size change
 				data[4 * i + 2] = randomBetween(rotation[0], rotation[1]) * MathUtils.DEG_TO_RAD; // rot
@@ -244,7 +252,6 @@ function(
 		var col = this.meshData.getAttributeBuffer(MeshData.COLOR);
 		var data = this.meshData.getAttributeBuffer('DATA');
 		var lastAlive = 0;
-		var alpha = this.inheritColor ? 1.0 : this.particleSettings.color[3];
 		var gravity = this.particleSettings.gravity;
 		var acceleration = this.particleSettings.acceleration;
 		for (var i = 0, l = this.particles.length; i < l; i++) {
@@ -265,19 +272,20 @@ function(
 				continue;
 			}
 
-			particle.progress = 1-(particle.lifeSpan / particle.lifeSpanTotal);
+		//	particle.frameOffset;
+
+			particle.progress = 1-((particle.lifeSpan - particle.frameOffset*tpf)  / particle.lifeSpanTotal);
 
 			calcVec.setv(particle.velocity).muld(tpf, tpf, tpf);
 			particle.position.addv(calcVec);
 			particle.velocity.muld(acceleration, acceleration, acceleration);
 			particle.velocity.add_d(0, gravity * tpf, 0);
-			particle.alpha = alpha * this.fitValueInCurve(particle.progress, this.particleSettings.curves.alpha);
 
 			pos[3 * i + 0] = particle.position.data[0];
 			pos[3 * i + 1] = particle.position.data[1];
 			pos[3 * i + 2] = particle.position.data[2];
 
-			col[4 * i + 3] = particle.alpha;
+			col[4 * i + 3] = particle.alpha * this.fitValueInCurve(particle.progress, particle.alphaCurve);
 
 			data[4 * i + 0] += data[4 * i + 1] * particle.progress;
 			data[4 * i + 2] += data[4 * i + 3] * particle.progress;

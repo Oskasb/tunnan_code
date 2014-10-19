@@ -24,7 +24,7 @@
 		"piece_data":{
 			"$schema": "http://json-schema.org/draft-04/schema#",
 			"definitions":{
-				"control_systems":{
+				"control_settings":{
 					"type":"object",
 					"items":{
 						"title":"Control System Configuration",

@@ -10,18 +10,18 @@ define(["game/EntityController",
     var toggleGears = function(entity) {
         var targetState = !entity.systems.gears.targetState;
         console.log("Toggle Gears");
-        entity.controls.gears.value = targetState;
+        entity.pieceInput.setInputAmount("gears", targetState);
     };
 
     var toggleCanopy = function(entity) {
         var targetState = 1;
         var canopy = entity.systems.canopy;
         if (canopy.targetState == 1) targetState = 0;
-        entity.controls.canopy.value = 1;
+		entity.pieceInput.setInputAmount("canopy",1);
     };
 
     var fireEject = function(entity) {
-        entity.controls.eject.value = 1;
+		entity.pieceInput.setInputAmount("seat",1);
     };
 
 
@@ -42,7 +42,7 @@ define(["game/EntityController",
         } else {
            }
         if (sweepCtrl.currentState != state) {
-			entity.pieceInput['wing_sweep'].onChange(entity, state, 'wing_sweep');
+			entity.pieceInput.controls['wing_sweep'].onChange(entity, state, 'wing_sweep');
 
             if (sweepCtrl.lights) {
                 for (var i = 0; i < sweepCtrl.lights.length; i++) {

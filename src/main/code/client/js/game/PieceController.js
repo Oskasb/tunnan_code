@@ -101,9 +101,9 @@ define([
 
 
             entity.spatial.angularVelocity.addv(rotAcc);
-            entity.spatial.rot.rotateX(entity.spatial.angularVelocity[0]);     // 0 * entity.controls.elevator.value *  0.01 +
-            entity.spatial.rot.rotateY(entity.spatial.angularVelocity[1]);     // 0 * entity.controls.rudder.value   *  0.01 +
-            entity.spatial.rot.rotateZ(entity.spatial.angularVelocity[2]);     // 0 * entity.controls.aeilrons.value *  0.01 +
+            entity.spatial.rot.rotateX(entity.spatial.angularVelocity[0]);
+            entity.spatial.rot.rotateY(entity.spatial.angularVelocity[1]);
+            entity.spatial.rot.rotateZ(entity.spatial.angularVelocity[2]);
         //    entity.spatial.angularVelocity.mul([0.9998, 0.9997, 0.9996]);
         };
 
@@ -314,7 +314,7 @@ define([
 
 		var updateGamePieceFloatingFramerate = function(entity, time, physicsFps, partOfSecond) {
 
-			if (entity.wings) {
+			if (entity.surfaces) {
 				var groundProximity = wingedSpecialUpdate(entity, physicsFps*partOfSecond);
 				planeController.updatePlaneControlState(entity, partOfSecond, groundProximity);
 			}

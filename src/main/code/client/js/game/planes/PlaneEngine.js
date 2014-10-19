@@ -150,19 +150,38 @@ define(["application/EventManager",
                 event.fireEvent(event.list().PUFF_WHITE_SMOKE, {pos:pos.data, count:1, dir:[calcVec2.data[0]*0.5+0.3*(Math.random()-0.5), calcVec2.data[1]* 0.5+0.3*(Math.random()-0.5), calcVec2.data[2]*0.5+0.3*(Math.random()-0.5)]})
             }
 
-			calcVec2.mul(0.0001+tpf*0.008*state*state);
-			var fxGrow = 800;
+			calcVec2.mul(0.0001*state*state);
+			var fxGrow = 600;
 			if (this.engineData.nozzle) {
 
 				var nozzle = this.determineNozzleState(state)
 				this.updateNozzleState(nozzle);
-				fxGrow += nozzle*1300;
+				fxGrow += nozzle*1000;
 			}
+
+			var effectData = {
+				color: [state/0.6,state/0.5,state/0.5,0.1*state],
+				alphaCurve: [[0, 0], [0.8,0.5], [1, 0.4]],
+				size:fxGrow+500,
+				growth:-fxGrow*1.3,
+				lifespan:0.035+1/fxGrow,
+				count:45*state
+			};
+
+			SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
 
 			if (state > 0.80) {
 				this.maxThrust = this.engineData.maxThrust + this.engineData.afterBurner;
-				SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:{size:1, growth:fxGrow, lifespan:tpf*1.2+tpf*Math.random()*0.1, count:65*state}});
+				var effectData = {
+					color: [1*state, 0.6*state,0.2*state,0.5*state*state],
+					alphaCurve: [[0, 1], [0.1,0.3], [1, 0]],
+					size:400,
+					growth:fxGrow,
+					lifespan:0.03+1/fxGrow,
+					count:75*state
+				};
 
+				SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
 				//        this.flameEffect.enabled = true
 				//        for (var i = 0; i < this.flameEffect.emitters.length; i++) {
 				//            this.flameEffect.emitters[i].enabled = true; // this.flameEffect.maxReleaseRate / this.flameEffect.emitters.length;

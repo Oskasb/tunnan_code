@@ -1,21 +1,6 @@
 [{
 	"piece_data":{
-		"tomcat_data":{
-			"wing_controls":{
-				"elevator":           {"value":0, "controlState":0},
-				"aeilrons":           {"value":0, "controlState":0},
-				"rudder":             {"value":0, "controlState":0},
-				"trim_elevator":      {"value":0, "controlState":0},
-				"trim_aeilrons":      {"value":0, "controlState":0},
-				"trim_rudder":        {"value":0, "controlState":0},
-				"flaps":              {"value":0, "controlState":0},
-				"breaks":             {"value":0, "controlState":0},
-				"auto_trim":          {"value":0, "controlState":0},
-				"wing_smoke":         {"value":0, "controlState":0},
-				"wing_sweep":         {"value":0, "controlState":0},
-				"reset_trim":         {"value":0, "controlState":0},
-				"debug_mechanics":    {"value":0, "controlState":0}
-			},
+		"tomcat_wings_data":{
 			"wing_shapes":[
 				{
 					"id":"fuselageMid",

@@ -32,10 +32,7 @@
             "acceleration": 1.0016,
             "lifespan": [0.1,14.8],
             "poolCount":5500,
-            "curves":{
-                "alpha":[[0, 1], [0.1, 0.06],[0.3, 0.04], [1, 0]],
-                "size":[[0, 1], [0.5,1], [1, 1]]
-            }
+            "alphaCurve":[[0, 1], [0.1, 0.06],[0.3, 0.04], [1, 0]]
         },
         {
             "id":"hit_smoke_puff",
@@ -70,17 +67,14 @@
             "acceleration": 1,
             "lifespan": [0.01, 0.02],
             "poolCount": 5000,
-            "curves":{
-                "alpha":[[0, 1], [1, 1]],
-                "size":[[0, 1], [0.5,1], [1, 1]]
-            }
+            "alphaCurve":[[0, 1], [1, 1]]
         },
         {
             "id": "splash_water",
             "texture": "images/particles/splash.png",
-            "color": [0.8,0.8, 0.99, 1],
-            "size": [1200, 2280],
-            "growth": [ 6900,7400],
+            "color": [0.88,0.88, 0.99, 0.6],
+            "size": [20,  80],
+            "growth": [ 200 , 400],
             "rotation": [ 0, 360],
             "spin": [ 0,0],
             "gravity": -4,
@@ -89,7 +83,8 @@
             "strength": 1,
             "acceleration": 0.999,
             "lifespan": [ 1.1,1.8 ],
-            "poolCount": 500
+            "poolCount": 1500,
+            "alphaCurve":[[0, 0.2], [0,2, 1], [1, 0]]
         },
         {
             "id": "metal_sparks",
@@ -136,7 +131,7 @@
                 1,
                 0.6,
                 0.5,
-                0.9
+                0.6
             ],
             "size": [
                 240,
@@ -155,7 +150,7 @@
                 0.4,
                 0.4
             ],
-            "poolCount": 400,
+            "poolCount": 2400,
             "growth": [
                 134440,
                 134440
@@ -165,10 +160,7 @@
                 0
             ],
             "acceleration": 1,
-            "curves":{
-                "alpha":[[0, 1], [1, 0]],
-                "size":[[0, 1], [0.5,1], [1, 1]]
-            }
+            "alphaCurve":[[0, 1], [0.7,0.4], [1, 0]]
         }
     ]
 }]

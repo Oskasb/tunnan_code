@@ -2,11 +2,15 @@
 
 define([
 	'data_pipeline/PipelineAPI',
-	'gui/layout/GuiConstants'
+	'gui/layout/GuiConstants',
+	'game/ControlsController',
+	'game/controls/ControlStateCallbacks'
 ],
 	function(
 		PipelineAPI,
-		GuiConstants
+		GuiConstants,
+		ControlsController,
+		ControlStateCallbacks
 		) {
 
 		var PieceConfigurator = function() {
@@ -14,38 +18,81 @@ define([
 		};
 
 
+		var countdown = 4;
 
-		PieceConfigurator.applyConfigData = function(gamePiece, config) {
-			var systemKey = gamePiece.entity.pieceData.configs.systems;
-			var wingsKey = gamePiece.entity.pieceData.configs.wings;
-			console.log("Apply config to piece: ", config, systemKey, wingsKey, gamePiece);
 
-			if (config[systemKey]) {
-				gamePiece.entity.pieceInput.applySystemConfigs(config[systemKey]);
+
+		PieceConfigurator.applyConfigData = function(gamePiece, config, state, pieceInitiated) {
+			var controlSystemKey = gamePiece.entity.pieceData.configs.control_settings;
+			var controlSurfaceKey = gamePiece.entity.pieceData.configs.control_surfaces;
+			var wingsKey = gamePiece.entity.pieceData.configs.wing_shapes;
+			var systemsKey = gamePiece.entity.pieceData.configs.piece_systems;
+
+			console.log("Apply config to piece: ", config, gamePiece);
+
+
+			var ready = false;
+			var configsApplied = function(key) {
+				console.log("Applied ", key);
+				countdown--;
+				if (countdown == 0) {
+					gamePiece.entity.pieceInput.applySystemConfigs(gamePiece.configs[controlSystemKey]);
+					pieceInitiated();
+				}
+
+			};
+
+			if (config[controlSystemKey]) {
+				gamePiece.configs[controlSystemKey] = config[controlSystemKey];
+				configsApplied(controlSystemKey);
 			}
 
+			if (config[controlSurfaceKey]) {
+				gamePiece.configs[controlSurfaceKey] = config[controlSurfaceKey];
+				ControlsController.addSurfacesToEntity(gamePiece.entity, config[controlSurfaceKey]);
+				configsApplied(controlSurfaceKey);
+			}
+
+			if (config[systemsKey]) {
+				gamePiece.configs[systemsKey] = config[systemsKey];
+				ControlsController.addSystemsToEntity(gamePiece.entity, config[systemsKey], state);
+				configsApplied(systemsKey);
+			}
 
 			if (config[wingsKey]) {
 
+			//	gamePiece.entity.pieceInput.applySystemConfigs(config[wing_controlKey]);
+				gamePiece.configs[wingsKey] = config[wingsKey];
 				var applyAerodynamics = function(srcKey, aerodynamics) {
 					var wingData = GuiConstants.clone(config[wingsKey]);
 					var aeroData = GuiConstants.clone(aerodynamics);
 					gamePiece.addWings(wingData, aeroData);
+					configsApplied(wingsKey);
 				};
 
 				PipelineAPI.subscribeToCategoryKey('game_data', 'aerodynamic_curves', applyAerodynamics);
 			}
 
 
+
+
+
 		};
 
 
-		PieceConfigurator.configurePiece = function(gamePiece) {
+		PieceConfigurator.configurePiece = function(gamePiece, state, configReady) {
+			gamePiece.configs = {};
+			var pieceInitiated = function() {
+				configReady()
+			};
+
 			var applyConfig = function(srcKey, data) {
-				PieceConfigurator.applyConfigData(gamePiece, data);
+				console.log("Apply :: ", srcKey, data);
+				PieceConfigurator.applyConfigData(gamePiece, data, state, pieceInitiated);
 			};
 
 			for (var i = 0; i <  gamePiece.entity.pieceData.configs.dataKeys.length; i++) {
+				console.log("PieceSubscribe to: ", gamePiece.entity.pieceData.configs.dataKeys[i]);
 				PipelineAPI.subscribeToCategoryKey('piece_data', gamePiece.entity.pieceData.configs.dataKeys[i], applyConfig);
 			}
 

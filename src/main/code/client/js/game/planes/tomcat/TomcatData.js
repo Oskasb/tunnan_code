@@ -28,10 +28,16 @@ define([
         TOMCAT:{
             modelPath:gameConfig.GOO_PROJECTS.tomcat.entityIds.tomcat_skinned,
 			configs:{
-				dataKeys:['tomcat_data', 'tomcat_control_systems'],
-				systems:'control_systems',
-				wing_controls:'wing_controls',
-				wings:'wing_shapes'
+				dataKeys:[
+					'tomcat_control_surface_data',
+					'tomcat_wings_data',
+					'tomcat_control_systems_data',
+					'tomcat_systems_data'
+				],
+				control_settings:'control_settings',
+				control_surfaces:'control_surfaces',
+				piece_systems:'piece_systems',
+				wing_shapes:'wing_shapes'
 			},
             dimensions: {
                 massEmpty:14845,
@@ -86,7 +92,6 @@ define([
             },
 
             wings:TomcatWings.WINGS,
-            surfaces:TomcatSurfaces.SURFACES,
             systems:TomcatSystems.SYSTEMS
         }
     }

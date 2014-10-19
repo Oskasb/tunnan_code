@@ -12,6 +12,7 @@ define([
 
     var buildSurface = function(data) {
         var surface = {
+			data:data,
 			lastSpeed: 0,
             currentState: 0,
             targetState: 0,
@@ -68,7 +69,7 @@ define([
     var updateSurfaceState = function(entity, surfac) {
 
         var surface = entity.surfaces[surfac];
-        var surfaceData = entity.pieceData.surfaces[surfac];
+        var surfaceData = surface.data;
 
         if (surface.locked) return;
 

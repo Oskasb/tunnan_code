@@ -7,6 +7,7 @@ define(["application/EventManager", "3d/GooJointAnimator"], function(event, GooJ
 
     var buildSystem = function(entity, data, state) {
         var breakSystem = {
+			data:data,
             targetState:state,
             currentState:0,
             lights:data.lights,

@@ -4,6 +4,7 @@ define(["application/EventManager", "3d/GooJointAnimator"],function(event, GooJo
 
     var buildFlaps = function(data) {
         var flaps = {
+			data:data,
             currentState: 0,
             targetState: 0,
             speed:data.speed,

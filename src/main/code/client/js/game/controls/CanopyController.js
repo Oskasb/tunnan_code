@@ -6,6 +6,7 @@ define(["game/GameConfiguration", "application/EventManager", "3d/GooJointAnimat
         var state = 0;
         if (landed) state = 1;
         var canopy = {
+			data:data,
             targetState:state,
             currentState:state,
             doors:data.controls.doors,

@@ -39,12 +39,11 @@ define([
 
         var updateControlAnimation = function(ctr, value) {
             var playerEntity = playerController.getPlayerEntity();
-            var systems = playerEntity.pieceData.systems;
-
-            if (systems[ctr]) {
-                var system = systems[ctr]
+			if (!playerEntity.systems) return;
+            if (playerEntity.systems[ctr]) {
+                var system = playerEntity.systems[ctr].data
             } else {
-                var system = playerEntity.pieceData.surfaces[ctr]
+                var system = playerEntity.surfaces[ctr].data
             }
 
             if (!system) {

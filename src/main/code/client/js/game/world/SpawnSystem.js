@@ -66,16 +66,19 @@ define(["application/EventManager",
             return target;
         };
 
-        var spawnPlane = function(name, planeData, pos, vel, rot, state) {
+        var spawnPlane = function(name, planeData, pos, vel, rot, state, spawnedActivated) {
             planeCount += 1;
 
-            var plane = pieceBuilder.buildPlane(name+'_'+planeCount, planeData, state);
-            plane.entity.spatial.pos.set(pos);
-            plane.entity.spatial.rot.fromAngles(rot[0], rot[1], rot[2]);
-            plane.entity.spatial.velocity.set(vel);
-            activateSpawned(plane.entity);
+			var planeReady = function(plane) {
+				plane.entity.spatial.pos.set(pos);
+				plane.entity.spatial.rot.fromAngles(rot[0], rot[1], rot[2]);
+				plane.entity.spatial.velocity.set(vel);
+				activateSpawned(plane.entity);
+				spawnedActivated(plane);
+			};
 
-            return plane;
+            pieceBuilder.buildPlane(name+'_'+planeCount, planeData, state, planeReady);
+
         };
 
         var spawnHuman = function(name, humanData, pos, vel, rot, state) {

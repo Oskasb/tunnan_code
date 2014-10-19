@@ -52,10 +52,16 @@ define(["application/EventManager",
             return car.entity;
         };
 
-        var addPlane = function(name, data, pos, vel, rot, state) {
-            var plane = spawnSystem.spawnPlane(name, data, pos, vel, rot, state);
-            levelEntities.planes[plane.entity.id] = plane;
-            return plane.entity;
+        var addPlane = function(name, data, pos, vel, rot, state, planeReady) {
+
+			var planeAdded = function(plane) {
+				levelEntities.planes[plane.entity.id] = plane;
+			//	if (plane.entity.state != 1) new AiPilot(plane);
+				planeReady(plane.entity)
+			};
+			spawnSystem.spawnPlane(name, data, pos, vel, rot, state, planeAdded);
+
+
         };
 
         var addTarget = function(name, data, pos, vel, rot, state) {
@@ -106,8 +112,8 @@ define(["application/EventManager",
                 for (var i = 0; i < planes[planeType].length; i++) {
                     var piece = planes[planeType][i];
                     var pos = [piece.pos[0]+zonePos[0], piece.pos[1]+zonePos[1], piece.pos[2]+zonePos[2]];
-                    var plane = addPlane(planeType, planeData[planeType], pos, piece.vel, piece.rot, piece.state);
-                    if (piece.state != 1) new AiPilot(plane);
+                    addPlane(planeType, planeData[planeType], pos, piece.vel, piece.rot, piece.state);
+
                 }
             }
         };
@@ -130,10 +136,10 @@ define(["application/EventManager",
             return addCar(scenario.playerCar, carData[scenario.playerCar], pos, piece.vel, piece.rot, piece.state);
         };
 
-		var loadScenarioGamePiece = function(spawnFunction, pieceDefinition, pieceData, spawnPoint) {
+		var loadScenarioGamePiece = function(spawnFunction, pieceDefinition, pieceData, spawnPoint, pieceReady) {
 			var zonePos = scenario.loadPlayer.pos;
 			var pos = [spawnPoint.pos[0]+zonePos[0], spawnPoint.pos[1]+zonePos[1], spawnPoint.pos[2]+zonePos[2]];
-			return spawnFunction(pieceDefinition, pieceData, pos, spawnPoint.vel, spawnPoint.rot, spawnPoint.state);
+			return spawnFunction(pieceDefinition, pieceData, pos, spawnPoint.vel, spawnPoint.rot, spawnPoint.state, pieceReady);
 		};
 
 
@@ -152,21 +158,27 @@ define(["application/EventManager",
 
 				var planePieceType = scenario.playerVehicle;
 				var spawnPoint = scenario.loadPlayer.playerSpawn.plane;
-				var plane = loadScenarioGamePiece(addPlane, planePieceType, planeData[planePieceType], spawnPoint);
 
-				var checkCarrier = function() {
-					if (scenario.playerCarrier) {
-						var boatPieceType = scenario.playerCarrier;
-						var point = scenario.loadPlayer.playerSpawn.carrier;
-						var carrier = loadScenarioGamePiece(addBoat, boatPieceType, boatData[boatPieceType], point);
-						carrier.cables[1].boat.initPlaneReadyAtLot(plane, carrier.pieceData.parkingLots.launch);
-						carrier.cables[1].boat.catapultPlane(plane);
-						console.log("CARRIER: ", carrier);
-					}
+				var pieceReady = function(plane) {
 
-				};
+					var checkCarrier = function() {
+						if (scenario.playerCarrier) {
+							var boatPieceType = scenario.playerCarrier;
+							var point = scenario.loadPlayer.playerSpawn.carrier;
+							var carrier = loadScenarioGamePiece(addBoat, boatPieceType, boatData[boatPieceType], point);
+							carrier.cables[1].boat.initPlaneReadyAtLot(plane, carrier.pieceData.parkingLots.launch);
+							carrier.cables[1].boat.catapultPlane(plane);
+							console.log("CARRIER: ", carrier);
+						}
 
-				event.fireEvent(event.list().PILOT_VEHICLE, {pilot:pilot, vehicle:plane, callback:checkCarrier});
+					};
+
+					event.fireEvent(event.list().PILOT_VEHICLE, {pilot:pilot, vehicle:plane, callback:checkCarrier});
+				}
+
+
+				loadScenarioGamePiece(addPlane, planePieceType, planeData[planePieceType], spawnPoint, pieceReady);
+
 			}
 
 			if (scenario.playerCar) loadPlayerId = loadPlayerCar().id;

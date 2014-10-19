@@ -1,8 +1,10 @@
 "use strict";
 
 define(['game/parts/Vehicle',
-	"game/planes/PlaneWing"],
+	'game/controls/SurfaceController',
+	'game/planes/PlaneWing'],
     function(Vehicle,
+			 SurfaceController,
 			 PlaneWing
         ) {
 
@@ -41,9 +43,6 @@ define(['game/parts/Vehicle',
 				this.revisualize = false;
 				this.rebuildWings();
 			}
-
-
-
 
 			this.entity.wings = {};
 			this.entity.air = {

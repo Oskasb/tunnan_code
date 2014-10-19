@@ -12,6 +12,7 @@ define(["application/EventManager", "3d/GooJointAnimator", 'game/parts/WheelPart
 
     var buildSystem = function(entity, data, state) {
         var gears = {
+			data:data,
             doors:data.controls.doors,
             stands:data.controls.stands,
             lights:data.controls.lights,
@@ -77,7 +78,7 @@ define(["application/EventManager", "3d/GooJointAnimator", 'game/parts/WheelPart
         updateGearBones(stands, "stands", Math.max((1.6 * controlValue) - 0.6, 0));
 		entity.pieceInput.setAppliedState("gears", controlValue);
         system.currentState = controlValue;
-		surfaceController.applyControlStateToSurface(entity, controlValue, "gears");
+	//	surfaceController.applyControlStateToSurface(entity, controlValue, "gears");
     };
 
     return {

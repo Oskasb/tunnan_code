@@ -49,15 +49,11 @@ define(["application/EventManager",
 
     var addSystemsToEntity = function(gamePiece, systemData, state) {
         gamePiece.systems = {};
-        console.log("SYSTEM CONTROLLERS: ", systemControllers);
-        for (var index in systemData) {
-       //     console.log("ADD SYSTEM: ", index, systemData[index]);
-            gamePiece.systems[index] = systemControllers[index].buildSystem(gamePiece, systemData[index], state);
+		for (var i = 0; i < systemData.length; i++) {
+            gamePiece.systems[systemData[i].id] = systemControllers[systemData[i].id].buildSystem(gamePiece, systemData[i], state);
 
-			for (var key in systemData[index].pieceInput) {
-		//		console.log("Add Control; ", key)
-				gamePiece.pieceInput.addPieceControl(key, systemData[index].pieceInput[key].value, ControlStateCallbacks.getControlUpdateCallback(key))
-
+			for (var key in systemData[i].pieceInput) {
+				gamePiece.pieceInput.addPieceControl(key, systemData[i].pieceInput[key].value, ControlStateCallbacks.getControlUpdateCallback(key))
 			}
 
         }
@@ -65,9 +61,9 @@ define(["application/EventManager",
 
     var addSurfacesToEntity = function(entity, surfaceData) {
         entity.surfaces = {};
-        for (var index in surfaceData) {
-    //        console.log("ADD SURFACE: ", index, surfaceData[index]);
-            entity.surfaces[index] = surfaceController.buildSurface(surfaceData[index])
+        for (var i = 0; i < surfaceData.length; i++) {
+            console.log("ADD SURFACE: ", surfaceData[i].id, surfaceData[i]);
+            entity.surfaces[surfaceData[i].id] = surfaceController.buildSurface(surfaceData[i])
         }
     };
 
@@ -76,7 +72,7 @@ define(["application/EventManager",
         if (landed) state = 1;
         entity.pieceData = data;
 
-        addSystemsToEntity(entity, data.systems, state);
+        addSystemsToEntity(entity, data, state);
         addSurfacesToEntity(entity, data.surfaces);
 
     //    console.log("------>> Build Piece: ", entity)
@@ -151,6 +147,8 @@ define(["application/EventManager",
     return {
         buildPieceControls:buildPieceControls,
         configurePlaneBones:configurePlaneBones,
-        applyInputStateToControls:applyInputStateToControls
+        applyInputStateToControls:applyInputStateToControls,
+		addSurfacesToEntity:addSurfacesToEntity,
+		addSystemsToEntity:addSystemsToEntity
     }
 });

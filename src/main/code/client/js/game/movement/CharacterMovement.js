@@ -101,10 +101,10 @@ define([
     var updateTimeout;
 
     function updateCharacterControlState(entity) {
-        for (var each in moveControlStates) {
-            if (entity.pieceInput[each].update) {
-                triggerControlStateChange(each, entity.pieceInput[each].value);
-                entity.pieceInput[each].update = false;
+        for (var each in entity.pieceInput.controls) {
+            if (entity.pieceInput.controls[each].update) {
+                triggerControlStateChange(each, entity.pieceInput.controls[each].value);
+                entity.pieceInput.controls[each].update = false;
             }
         }
 
