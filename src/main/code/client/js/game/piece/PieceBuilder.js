@@ -61,7 +61,7 @@ define([
 		};
 
 		var buildBoatPiece = function(gamePiece, data) {
-			controlsController.buildPieceControls(gamePiece, data);
+		//	controlsController.buildPieceControls(gamePiece, data);
 			addPieceInputSystems(gamePiece);
 		};
 

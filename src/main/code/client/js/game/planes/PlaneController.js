@@ -32,13 +32,13 @@ define(["game/EntityController",
         var speed = entity.spatial.speed;
         if (speed > sweepMax) {
             state = 1;
-            if (entity.surfaces.flaps.currentState != 0) entity.pieceInput['flaps'].onChange(entity, 0, 'flaps')
+            if (entity.surfaces.flaps.currentState != 0) entity.pieceInput.controls['flaps'].onChange(entity, 0, 'flaps')
         } else if (speed > (sweepMin+sweepMax)*0.5) {
             state = 0.6;
-            if (entity.surfaces.flaps.currentState != 0) entity.pieceInput['flaps'].onChange(entity, 0, 'flaps')
+            if (entity.surfaces.flaps.currentState != 0) entity.pieceInput.controls['flaps'].onChange(entity, 0, 'flaps')
         } else if (speed > sweepMin) {
             state = 0.3;
-            if (entity.surfaces.flaps.currentState != 0) entity.pieceInput['flaps'].onChange(entity, 0, 'flaps')
+            if (entity.surfaces.flaps.currentState != 0) entity.pieceInput.controls['flaps'].onChange(entity, 0, 'flaps')
         } else {
            }
         if (sweepCtrl.currentState != state) {
