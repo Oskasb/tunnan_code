@@ -46,9 +46,9 @@ define(["application/EventManager",
 	    };
 
 		GameController.prototype.tickGame = function(time) {
-			this.sequencer.tick(time);
 			this.sceneController.viewTick(time);
 			pieceController.tickEntities(time);
+			this.sequencer.tick(time);
         };
 
 

@@ -137,6 +137,7 @@ define(function() {
 		ACTIVATE_GOO_ENTITY:{type:"ACTIVATE_GOO_ENTITY", eArgs:{gooEntity:{}, gameEntity:{}}},
 		REGISTER_ACTIVE_ENTITY:{type:"REGISTER_ACTIVE_ENTITY", eArgs:{entity:{}}},
         UPDATE_ACTIVE_ENTITIES:{type:"UPDATE_ACTIVE_ENTITIES", eArgs:{frameTime:0}},
+		UPDATE_GAMEPIECE_EFFECTS:{type:"UPDATE_GAMEPIECE_EFFECTS", eArgs:{tpf:0}},
 
         UPDATE_ENVIRONMENT:{type:"UPDATE_ENVIRONMENT", eArgs:{envVars:{}}},
 

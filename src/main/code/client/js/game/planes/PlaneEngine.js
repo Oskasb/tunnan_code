@@ -5,7 +5,8 @@ define(["application/EventManager",
     'goo/math/Vector3',
     'goo/math/Matrix3x3',
     'game/parts/Lights',
-    "3d/GooJointAnimator"
+    "3d/GooJointAnimator",
+	"goo/entities/SystemBus"
     ],
     function(
         event,
@@ -13,7 +14,8 @@ define(["application/EventManager",
         Vector3,
         Matrix3x3,
         Lights,
-        GooJointAnimator
+        GooJointAnimator,
+		SystemBus
         ) {
 
         var calcVec = new Vector3();
@@ -97,25 +99,13 @@ define(["application/EventManager",
         };
 
 
-        PlaneEngine.prototype.updateEffects = function(state, target, density) {
+        PlaneEngine.prototype.updateEffects = function(state, target, density, tpf) {
 
 			var flameAmount = 0.4 *(1 - Math.cos(0.5 * Math.PI * state));
 			var smokeAmount = 10*(target-state);
 
 
-            if (state > 0.95) {
-                this.maxThrust = this.engineData.maxThrust + this.engineData.afterBurner;
-        //        this.flameEffect.enabled = true
-        //        for (var i = 0; i < this.flameEffect.emitters.length; i++) {
-        //            this.flameEffect.emitters[i].enabled = true; // this.flameEffect.maxReleaseRate / this.flameEffect.emitters.length;
-        //        }
-            } else {
-                this.maxThrust = this.engineData.maxThrust;
-                if (this.engineData.nozzle) this.updateNozzleState(this.determineNozzleState(state));
-        //        for (var i = 0; i < this.flameEffect.emitters.length; i++) {
-        //            this.flameEffect.emitters[i].enabled = false; // releaseRatePerSecond = 0;
-        //        }
-            }
+
 
 
         /*
@@ -147,6 +137,7 @@ define(["application/EventManager",
             calcVec2.set(0, 0, -Math.random()*state*12 - 14.4*state -6);
             gameUtil.applyRotationToVelocity(this.planeEntity.geometries[0], calcVec2);
 
+
             if (Math.random() < (flameAmount-density)*0.02) {
                 event.fireEvent(event.list().ACROBATIC_SMOKE, {pos:pos.data, count:1, dir:calcVec2.data})
             }
@@ -158,6 +149,32 @@ define(["application/EventManager",
             if (Math.random() < (smokeAmount-density)*0.02) {
                 event.fireEvent(event.list().PUFF_WHITE_SMOKE, {pos:pos.data, count:1, dir:[calcVec2.data[0]*0.5+0.3*(Math.random()-0.5), calcVec2.data[1]* 0.5+0.3*(Math.random()-0.5), calcVec2.data[2]*0.5+0.3*(Math.random()-0.5)]})
             }
+
+			calcVec2.mul(0.0001+tpf*0.008*state*state);
+			var fxGrow = 800;
+			if (this.engineData.nozzle) {
+
+				var nozzle = this.determineNozzleState(state)
+				this.updateNozzleState(nozzle);
+				fxGrow += nozzle*1300;
+			}
+
+			if (state > 0.80) {
+				this.maxThrust = this.engineData.maxThrust + this.engineData.afterBurner;
+				SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:{size:1, growth:fxGrow, lifespan:tpf*1.2+tpf*Math.random()*0.1, count:65*state}});
+
+				//        this.flameEffect.enabled = true
+				//        for (var i = 0; i < this.flameEffect.emitters.length; i++) {
+				//            this.flameEffect.emitters[i].enabled = true; // this.flameEffect.maxReleaseRate / this.flameEffect.emitters.length;
+				//        }
+			} else {
+				this.maxThrust = this.engineData.maxThrust;
+
+				//        for (var i = 0; i < this.flameEffect.emitters.length; i++) {
+				//            this.flameEffect.emitters[i].enabled = false; // releaseRatePerSecond = 0;
+				//        }
+			}
+
 
             var vel = this.planeEntity.spatial.audioVel.data;
             var dir = [-vel[0], -vel[1], -vel[2]] // this.planeEntity.spatial.rot.toAngles().data;
@@ -326,6 +343,7 @@ define(["application/EventManager",
         };
 
         PlaneEngine.prototype.updateThrust = function(airDensity) {
+			this.airDensity = airDensity;
             if (this.currentState == 0 && this.targetState > 0) {
                 this.start();
             } else if (this.started && this.rpm <= 0.00001) {
@@ -334,7 +352,7 @@ define(["application/EventManager",
                 return;
             }
 
-            this.updateEffects(this.rpm, this.targetState, airDensity);
+
             var diff = this.targetState -this.currentState;
             var sign = diff > 0 ? 1 : diff == 0 ? 0 : -1;
             this.currentState += sign * 0.003;
@@ -349,6 +367,13 @@ define(["application/EventManager",
         var handleContext = function(e) {
             context = event.eventArgs(e).context;
         };
+
+		PlaneEngine.prototype.updateSystemEffects = function(tpf) {
+			if (this.started) {
+				this.updateEffects(this.rpm, this.targetState, this.airDensity, tpf);
+			}
+
+		};
 
         event.registerListener(event.list().REGISTER_AUDIO_CONTEXT, handleContext);
 

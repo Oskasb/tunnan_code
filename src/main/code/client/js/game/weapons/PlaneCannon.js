@@ -180,7 +180,7 @@ define([
         PlaneCannon.prototype.createBullet = function() {
 			var cannonSpread = 0.1;
 			var pos = new Vector3();
-			pos.setv(this.planeEntity.spatial.visualPos);
+			pos.setv(this.planeEntity.spatial.pos);
 			var posOffset = gameUtil.applyRotationToVelocity(this.planeEntity.geometries[0], new Vector3(this.posOffset));
 
 			pos.addv(posOffset);
@@ -194,7 +194,7 @@ define([
             };
         //    console.log(exitVelocity)
             this.lastBulletVelocity.set(exitVelocity);
-            new Bullet(pos, exitVelocity, this.bulletData, this.data, hitCallback, this.planeEntity.id);
+            new Bullet(pos, exitVelocity, this.bulletData, this.data, hitCallback, this.planeEntity.id, this.planeEntity.geometries[0]._world.tpf);
             this.playFireSound(pos, exitVelocity);
         };
 

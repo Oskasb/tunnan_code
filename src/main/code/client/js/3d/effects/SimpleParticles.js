@@ -26,6 +26,7 @@ function(
 		this.entity = entity;
 		this.position = new Vector3();
 		this.velocity = new Vector3();
+		this.progress = 0;
 		this.stretch = 1;
 		this.alpha = 1;
 		this.gravity = 0;
@@ -91,6 +92,7 @@ function(
 		entity.name = 'Simulator';
 		entity.meshRendererComponent.cullMode = 'Never';
 		entity.addToWorld();
+		this.entity = entity;
 
 		this.particles = [];
 		for (var i = 0; i < particleSettings.poolCount; i++) {
@@ -123,8 +125,11 @@ function(
 	var calcVec = new Vector3();
 
 	Simulator.prototype.spawn = function(position, normal, effectData) {
+		var tpf = this.entity._world.tpf;
+
 		var col = this.meshData.getAttributeBuffer(MeshData.COLOR);
 		var data = this.meshData.getAttributeBuffer('DATA');
+
 
 		var stretch = this.particleSettings.stretch;
 		var color = this.particleSettings.color;
@@ -134,9 +139,17 @@ function(
 		var strength = this.particleSettings.strength;
 		var gravity = this.particleSettings.gravity;
 		var spread = this.particleSettings.spread;
+		var lifeSpan = this.particleSettings.lifespan;
 		if (effectData) {
+			if (effectData.lifespan) {
+				lifeSpan[0] = effectData.lifespan*0.8;
+				lifeSpan[1] = effectData.lifespan;
+			}
 			if (effectData.intensity) {
 				count = Math.ceil(count*effectData.intensity);
+			}
+			if (effectData.count) {
+				count = effectData.count;
 			}
 			if (effectData.color) {
 				color = effectData.color;
@@ -148,6 +161,10 @@ function(
 			if (effectData.size) {
 				size[0] = effectData.size;
 				size[1] = effectData.size;
+			}
+			if (effectData.growth) {
+				growth[0] = effectData.growth;
+				growth[1] = effectData.growth;
 			}
 			if (effectData.gravity) {
 				gravity = effectData.gravity;
@@ -167,14 +184,14 @@ function(
 
 		var rotation = this.particleSettings.rotation;
 		var spin = this.particleSettings.spin;
-		var lifeSpan = this.particleSettings.lifespan;
 
+		var done = count;
 		for (var i = 0, l = this.particles.length; i < l && count > 0; i++) {
 			var particle = this.particles[i];
 
 			if (particle.dead) {
 
-				var ratio = particle.stretch / particle.entity._world.tpf * (this.particleSettings.count-count) /  this.particleSettings.count;
+				var ratio = -particle.stretch / particle.entity._world.tpf * (this.particleSettings.count-count) /  this.particleSettings.count;
 
 				particle.position.x = position.x + normal.x*ratio;
 				particle.position.y = position.y + normal.y*ratio;
@@ -182,6 +199,8 @@ function(
 
 
 				particle.lifeSpanTotal = particle.lifeSpan = randomBetween(lifeSpan[0], lifeSpan[1]);
+
+				particle.lifeSpan -= tpf*(count/done);
 
 				particle.velocity.set(
 					strength*((Math.random() -0.5) * (2*spread) + (1-spread)*normal.x),
@@ -246,11 +265,13 @@ function(
 				continue;
 			}
 
+			particle.progress = 1-(particle.lifeSpan / particle.lifeSpanTotal);
+
 			calcVec.setv(particle.velocity).muld(tpf, tpf, tpf);
 			particle.position.addv(calcVec);
 			particle.velocity.muld(acceleration, acceleration, acceleration);
 			particle.velocity.add_d(0, gravity * tpf, 0);
-			particle.alpha = alpha * this.fitValueInCurve(1-(particle.lifeSpan / particle.lifeSpanTotal), this.particleSettings.curves.alpha);
+			particle.alpha = alpha * this.fitValueInCurve(particle.progress, this.particleSettings.curves.alpha);
 
 			pos[3 * i + 0] = particle.position.data[0];
 			pos[3 * i + 1] = particle.position.data[1];
@@ -258,8 +279,8 @@ function(
 
 			col[4 * i + 3] = particle.alpha;
 
-			data[4 * i + 0] += data[4 * i + 1] * tpf;
-			data[4 * i + 2] += data[4 * i + 3] * tpf;
+			data[4 * i + 0] += data[4 * i + 1] * particle.progress;
+			data[4 * i + 2] += data[4 * i + 3] * particle.progress;
 			lastAlive = i;
 		}
 

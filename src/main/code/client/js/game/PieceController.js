@@ -376,19 +376,34 @@ define([
 			updateEntitySpatial(entity, physStepPartOfSecond);
 		};
 
-		var updateEntityGameState = function(time, entity) {
-			var fps = 1000 / time;
-			var partOfSecond = 1 / fps;
+		var updateGamepieceEffects = function(gamePiece, tpf) {
+
+			if (gamePiece.systems) {
+				if (gamePiece.systems.engines) {
+					for (var i = 0; i < gamePiece.systems.engines.length; i++) {
+						gamePiece.systems.engines[i].updateSystemEffects(tpf)
+					}
+				}
+			}
+
+			if (gamePiece.updatePieceEffects) {
+				gamePiece.updatePieceEffects(tpf);
+			}
+
+		};
+
+
+		var updateEntityGameState = function(time, entity, tpf) {
 			var physicsFps = gameConfig.RENDER_SETUP.physicsFPS;
 			var physStepPartOfSecond = 1/physicsFps;
-			var remainingSteps = Math.round(partOfSecond / physStepPartOfSecond);
+			var remainingSteps = Math.round(tpf / physStepPartOfSecond);
 
 			distanceFilter(entity);
 			if (entity.moveSphere) {
-				updateMoveSpherePiece(partOfSecond, entity)
+				updateMoveSpherePiece(tpf, entity)
 
 			} else {
-				updateGamePieceFloatingFramerate(entity, time, physicsFps, partOfSecond);
+				updateGamePieceFloatingFramerate(entity, time, physicsFps, tpf);
 
 
 				for (var i = 0; i < remainingSteps; i++) {
@@ -402,6 +417,7 @@ define([
 				entity.spatial.audioVel.set(calcVec);
 			}
 			updateGamepieceStats(entity, 1/physicsFps);
+			updateGamepieceEffects(entity, tpf);
 		};
 
 		var updateGamePieceGooTransform = function(entity) {
@@ -460,20 +476,27 @@ define([
 		if(entity.measurements.airflowz) event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"airflowz", amount:90*playerEntity.spatial.axisAttitudes.data[2]});
 		if(entity.measurements.gForce)   event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"gForce",   amount:1 + aggregates.g * 9.81 / (dt * 0.001) });
    */
-		var updateGamePiece = function(time, gamePiece) {
-			updateEntityGameState(time, gamePiece);
+		var updateGamePiece = function(tpf, time, gamePiece) {
+
+
+
+			updateEntityGameState(time, gamePiece, tpf);
 			if (gamePiece.pilot) {
 				updatePilotGamePiece(gamePiece)
 			}
 
 			updateGamePieceGooTransform(gamePiece);
+
 		};
 
         var tickEntities = function(time) {
+			var fps = 1000 / time;
+			var tpf = 1 / fps;
 			levelController.updateBoats();
             for (var index in gameEntities) {
-				updateGamePiece(time, gameEntities[index]);
+				updateGamePiece(tpf, time, gameEntities[index]);
             }
+			event.fireEvent(event.list().UPDATE_GAMEPIECE_EFFECTS, {tpf:tpf});
         };
 
 

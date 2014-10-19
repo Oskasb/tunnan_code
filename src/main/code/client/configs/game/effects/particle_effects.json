@@ -20,20 +20,20 @@
             "id":"white_smoke_stream",
             "texture": "images/particles/smoke.png",
             "color": [0.88, 0.9, 0.96, 0.8],
-            "size": [150,680],
-            "growth": [660,7400],
+            "size": [250,880],
+            "growth": [160,1400],
             "rotation": [0,360],
             "spin": [-30,30],
             "gravity": 0,
-            "count": 4,
+            "count": 6,
             "spread": 2,
             "stretch": 1,
             "strength": 2,
-            "acceleration": 1.0006,
+            "acceleration": 1.0016,
             "lifespan": [0.1,14.8],
             "poolCount":5500,
             "curves":{
-                "alpha":[[0, 1], [0.1, 0.04],[0.3, 0.02], [1, 0]],
+                "alpha":[[0, 1], [0.1, 0.06],[0.3, 0.04], [1, 0]],
                 "size":[[0, 1], [0.5,1], [1, 1]]
             }
         },
@@ -48,7 +48,7 @@
             "gravity": 0,
             "count": 1,
             "spread": 1,
-            "strength": 3,
+            "strength": 1,
             "acceleration": 1.0007,
             "lifespan": [2.1,15.8],
             "poolCount": 1200
@@ -58,16 +58,17 @@
             "texture": "images/particles/water_foam.png",
             "color": [ 1,1, 0.7,1],
             "blending": "additive",
-            "size": [120, 140],
-            "growth": [ 1900,3900],
+            "size": [220, 240],
+            "growth": [ 100,200],
             "rotation": [ 0,360],
             "spin": [ -150,150 ],
             "gravity": 0,
-            "count": 55,
+            "count": 40,
             "spread": 0,
             "strength": 1,
+            "stretch":1,
             "acceleration": 1,
-            "lifespan": [0.01, 0.03],
+            "lifespan": [0.01, 0.02],
             "poolCount": 5000,
             "curves":{
                 "alpha":[[0, 1], [1, 1]],
@@ -148,7 +149,8 @@
             "gravity": 0,
             "count": 2,
             "spread": 0,
-            "strength": 1410,
+            "stretch":0.2,
+            "strength": 1,
             "lifespan": [
                 0.4,
                 0.4
@@ -162,7 +164,11 @@
                 0,
                 0
             ],
-            "acceleration": 1
+            "acceleration": 1,
+            "curves":{
+                "alpha":[[0, 1], [1, 0]],
+                "size":[[0, 1], [0.5,1], [1, 1]]
+            }
         }
     ]
 }]

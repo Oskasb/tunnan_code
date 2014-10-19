@@ -70,7 +70,7 @@ define([
         activeBullets.push(bullet);
     };
 
-    var Bullet = function(pos, vel, bulletData, cannonData, callback, originatorId) {
+    var Bullet = function(pos, vel, bulletData, cannonData, callback, originatorId, tpf) {
         var rot = new Matrix3x3();
     //    this.visible = GooEffectController.getSettings()['Visible Bullets'].fx['visible'];
     //    console.log(pos.data[1])
@@ -94,6 +94,7 @@ define([
         this.lifeTime = bulletData.lifeTime;
         this.hitCallback = callback;
         registerBullet(this, this.caliber, this.visible);
+		this.updatePosition(tpf);
     };
 
         Bullet.prototype.remove = function() {
@@ -148,7 +149,7 @@ define([
         //    console.log("HIT!", hit)
             var vel = this.spatial.velocity.data;
             for (var index in this.onHitEffects) {
-				SystemBus.emit('playParticles', {effectName:this.onHitEffects[index], pos:this.spatial.pos, vel:this.hitNormal, effectData:{}});
+				SystemBus.emit('playParticles', {effectName:this.onHitEffects[index], pos:this.spatial.pos, vel:this.spatial.velocity, effectData:{}});
 			}
 
             if (hit.entity) {
@@ -185,25 +186,47 @@ define([
 			this.hitNormal.data[2] /= time;
             if (this.visible) this.entity.geometries[0].transformComponent.transform.scale.data[2] = this.spatial.speed*1.2;
 
+
 			var effectData = {
 				intensity:1 - (this.age / this.lifeTime)*(this.age / this.lifeTime)
 			};
 
 			SystemBus.emit('playParticles', {effectName:'explosion_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
 			//		SystemBus.emit('playParticles', {effectName:'shockwave_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
-            if (Math.random() < 0.15 * (1/(1+this.age/1000))) event.fireEvent(event.list().PUFF_SMALL_WHITE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
-        //    if (Math.random() < 0.07 * (1/(1+this.age/1000))) event.fireEvent(event.list().ACROBATIC_SMOKE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
+			if (Math.random() < 0.15 * (1/(1+this.age/1000))) event.fireEvent(event.list().PUFF_SMALL_WHITE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
+
+
+	        //    if (Math.random() < 0.07 * (1/(1+this.age/1000))) event.fireEvent(event.list().ACROBATIC_SMOKE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
         //    if (Math.random() < 0.01 * (1/(1+this.age/1000))) event.fireEvent(event.list().PUFF_WHITE_SMOKE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
 
 
             if (this.age > this.lifeTime) this.disappear();
+
         };
+
+		Bullet.prototype.updateBulletEffects = function(tpf) {
+ /*
+			var effectData = {
+				intensity:1 - (this.age / this.lifeTime)
+			};
+
+			SystemBus.emit('playParticles', {effectName:'explosion_fire', pos:this.spatial.pos, vel:this.spatial.velocity, effectData:effectData});
+			//		SystemBus.emit('playParticles', {effectName:'shockwave_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
+			if (Math.random() < 0.15 * (1/(1+this.age/1000))) event.fireEvent(event.list().PUFF_SMALL_WHITE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
+*/
+		};
 
     var updateActiveBullets = function(time) {
         for (var i = 0; i < activeBullets.length; i++) {
             activeBullets[i].updatePosition(time);
-        };
+        }
     };
+
+	var handleUpdateEffects = function(e) {
+		for (var i = 0; i < activeBullets.length; i++) {
+			activeBullets[i].updateBulletEffects(event.eventArgs(e).tpf);
+		}
+	};
 
     var handleTick = function(e) {
         var time = event.eventArgs(e).frameTime;
@@ -211,7 +234,7 @@ define([
     };
 
     event.registerListener(event.list().UPDATE_ACTIVE_ENTITIES, handleTick);
-
+//		event.registerListener(event.list().UPDATE_GAMEPIECE_EFFECTS, handleUpdateEffects);
     return Bullet;
 
-})
+});

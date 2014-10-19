@@ -138,9 +138,12 @@ define([
         var handlePuff = function(e) {
        //     smokeSystem.playEffect(event.eventArgs(e).pos, event.eventArgs(e).count, event.eventArgs(e).dir);
 
+			var effectData = {
+				lifespan:Math.random()*Math.random()*40*Math.random()*Math.random()
+			};
 			hitVec.set(event.eventArgs(e).pos);
 			hitNorm.set(event.eventArgs(e).dir);
-			SystemBus.emit('playEffect', {effectName:'white_smoke_stream', pos:hitVec, vel:hitNorm});
+			SystemBus.emit('playEffect', {effectName:'white_smoke_stream', pos:hitVec, vel:hitNorm, effectData:effectData});
 
         };
 
