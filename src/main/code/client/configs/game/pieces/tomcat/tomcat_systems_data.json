@@ -87,8 +87,8 @@
                         "flame_light":"engine_l",
                         "jet_flame":"",
                         "jet_smoke":"",
-                        "posOffset":[-1.47, 0.3, -8],
-                        "rot":[0, 0.08, 0]
+                        "posOffset":[-1.47, 0.3, -7.5],
+                        "rot":[0, 0.05, 0]
                     }, {
                         "maxThrust":77000,
                         "afterBurner":42000,
@@ -96,10 +96,10 @@
                         "flame_light":"engine_r",
                         "jet_flame":"",
                         "jet_smoke":"",
-                        "posOffset":[1.47, 0.3, -8],
-                        "rot":[0, -0.08, 0]
+                        "posOffset":[1.47, 0.3, -7.5],
+                        "rot":[0, -0.05, 0]
                     }],
-                    "speed":0.0008
+                    "speed":0.0012
                 },
                 {"id": "weapons",
                     "pieceInput":{

@@ -15,13 +15,13 @@ define([
         Vector3
         ) {
 
-        var PlaneCannon = function(planeEntity, cannonData) {
+        var PlaneCannon = function(planeEntity, weaponSystemData, cannonData, bulletData) {
             console.log(planeEntity, cannonData)
             this.planeEntity = planeEntity;
-            this.name = cannonData.data.name;
-            this.data = cannonData.data;
-            this.bulletData = cannonData.bulletData;
-            this.posOffset = cannonData.posOffset;
+            this.name = cannonData.name;
+            this.data = cannonData;
+            this.bulletData = bulletData;
+            this.posOffset = weaponSystemData.posOffset;
             this.elevation = 48;
             this.currentState = 0;
             this.cooldownTime = 1000 / this.data.rateOfFire;

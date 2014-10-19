@@ -1,21 +1,38 @@
 "use strict";
 
-define(["application/EventManager", "3d/GooJointAnimator", "game/weapons/PlaneCannon"], function(event, GooJointAnimator, PlaneCannon) {
+define(["application/EventManager",
+	"3d/GooJointAnimator",
+	'game/weapons/WeaponData',
+	"game/weapons/PlaneCannon"
+], function(
+	event,
+	GooJointAnimator,
+	WeaponData,
+	PlaneCannon
+	) {
 
 
-    var buildWeapon = function(entity, type, weaponData) {
-        if (type == "cannons") var weapon = new PlaneCannon(entity, weaponData);
+    var buildWeapon = function(entity, type, weaponSystem) {
+		var weapData =  WeaponData.CANNONS[weaponSystem.data]
+        if (type == "cannons") var weapon = new PlaneCannon(entity, weaponSystem, weapData, WeaponData[weaponSystem.bulletData]);
         return weapon;
     };
 
-    var buildSystem = function(entity, weaponData, bulletData) {
-        var weapons = [];
+    var buildSystem = function(entity, weaponData) {
+        var cannons = [];
         for (var index in weaponData.controls) {
             for (var i = 0; i < weaponData[index].length; i++) {
-                weapons.push(buildWeapon(entity, index, weaponData[index][i], bulletData))
+				cannons.push(buildWeapon(entity, index, weaponData[index][i]))
             }
         }
-        return weapons;
+
+		var weaponSystem = {
+			weaponData:weaponData,
+			cannons:cannons,
+			locked:false
+		};
+		return weaponSystem;
+
     };
 
     var updateTriggerBones = function(entity, bones, controlState) {
@@ -41,20 +58,15 @@ define(["application/EventManager", "3d/GooJointAnimator", "game/weapons/PlaneCa
  //            console.log("Update Weapon CTRL", value)
         if (value == undefined) value = 0;
 
-        for (var weapons in entity.pieceData.systems.weapons.controls) {
-            var weapon = entity.pieceData.systems.weapons.controls[weapons];
-            for (var triggers in weapon) {
-                if (triggers == 'bones') updateTriggerBones(entity, weapon[triggers], value);
-                if (triggers == 'lights') updateTriggerLights(entity, weapon[triggers], value);
-            }
-        }
+		var weapData = entity.systems.weapons.weaponData;
 
-        var weapons = entity.systems.weapons;
-        for (var i = 0; i < weapons.length; i++) {
+		         var cannons = entity.systems.weapons.cannons;
 
-            var weapon = weapons[i];
+        for (var i = 0; i < cannons.length; i++) {
+
+            var weapon = cannons[i];
             if (weapon.currentState == value) value = 0;
-            value = weapon.updateTriggerState(value, i, weapons.length);
+            value = weapon.updateTriggerState(value, i, cannons.length);
         }
 
         return value;
@@ -62,12 +74,9 @@ define(["application/EventManager", "3d/GooJointAnimator", "game/weapons/PlaneCa
     };
 
     var updateWeaponState = function(entity, weapon) {
-        var weapons = entity.systems.weapons;
-        for (var i = 0; i < weapons.length; i++) {
-            var current = weapons[i].currentState
-            var engine = weapons[i];
-            //    updateEngineThrust(engine, entity);
-            engine.updateThrust(entity.air.density);
+        var cannons = entity.systems.weapons.cannons;
+        for (var i = 0; i < cannons.length; i++) {
+            var current = cannons[i].currentState
         }
         if (current == engine.currentState) return;
         if (entity.isPlayer) {

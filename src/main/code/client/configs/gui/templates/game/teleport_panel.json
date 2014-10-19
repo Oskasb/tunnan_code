@@ -1,7 +1,7 @@
 [{
     "template":{
         "teleport_panel":{
-            "hidden":false,
+            "hidden":true,
             "layers": [{
                 "shape":"anchor_mid_right",
                 "layers": [{

@@ -42,13 +42,12 @@ define([
 			if (!playerEntity.systems) return;
             if (playerEntity.systems[ctr]) {
                 var system = playerEntity.systems[ctr].data
-            } else {
+            } else if (playerEntity.surfaces[ctr]) {
                 var system = playerEntity.surfaces[ctr].data
-            }
-
-            if (!system) {
+            } else {
                 return;
             }
+
             if (system.inputBehavior.inputAnim) {
                 var inputAnim = system.inputBehavior.inputAnim;
                 var boneName = inputAnim.bone;
