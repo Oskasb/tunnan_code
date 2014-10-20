@@ -24,9 +24,7 @@ define(["game/ModelDefinitions"], function(modelDefinitions) {
 			lifeTime: 8000,
             onHitEffects: [
 				"hit_smoke_puff",
-				"shockwave_fire",
-				"metal_sparks",
-				"explosion_fire"
+				"metal_sparks"
             ]
         },
         BULLET_AAA:{

@@ -149,7 +149,7 @@ define([
         //    console.log("HIT!", hit)
             var vel = this.spatial.velocity.data;
             for (var index in this.onHitEffects) {
-				SystemBus.emit('playParticles', {effectName:this.onHitEffects[index], pos:this.spatial.pos, vel:this.spatial.velocity, effectData:{}});
+				SystemBus.emit('playParticles', {effectName:this.onHitEffects[index], pos:pos, vel:Vector3.UNIT_Y, effectData:{}});
 			}
 
             if (hit.entity) {
@@ -191,7 +191,7 @@ define([
 				intensity:1 - (this.age / this.lifeTime)*(this.age / this.lifeTime)
 			};
 
-			SystemBus.emit('playParticles', {effectName:'explosion_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
+			SystemBus.emit('playParticles', {effectName:'explosion_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:{lifespan:0.03}});
 			//		SystemBus.emit('playParticles', {effectName:'shockwave_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
 			if (Math.random() < 0.15 * (1/(1+this.age/1000))) event.fireEvent(event.list().PUFF_SMALL_WHITE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
 

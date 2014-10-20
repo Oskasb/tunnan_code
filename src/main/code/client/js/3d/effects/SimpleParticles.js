@@ -379,7 +379,7 @@ function(
 
 			'void main(void) {',
 			'gl_Position = viewProjectionMatrix * worldMatrix * vec4(vertexPosition.xyz, 1.0);',
-			'gl_PointSize = vertexData.x * resolution.x / 1000.0 / gl_Position.w;',
+			'gl_PointSize = vertexData.x * resolution.y / 1000.0 / gl_Position.w;',
 			'color = vertexColor;',
 			'float c = cos(vertexData.z); float s = sin(vertexData.z);',
 			'spinMatrix = mat3(c, s, 0.0, -s, c, 0.0, (s-c+1.0)*0.5, (-s-c+1.0)*0.5, 1.0);',
