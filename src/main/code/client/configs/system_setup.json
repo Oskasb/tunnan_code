@@ -5,19 +5,19 @@
 			"jsonPipe":{
 				"polling":{
 					"enabled":true,
-					"frequency":15
+					"frequency":5
 				}
 			},
 			"svgPipe":{
 				"polling":{
-					"enabled":false,
-					"frequency":0.2
+					"enabled":true,
+					"frequency":2
 				}
 			},
 			"gooPipe":{
 				"polling":{
-					"enabled":false,
-					"frequency":0.3
+					"enabled":true,
+					"frequency":2
 				}
 			}
 		},

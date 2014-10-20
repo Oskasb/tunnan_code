@@ -10,7 +10,7 @@ define([
 
 
 	'application/EventManager',
-	'3d/GooEntityDataLoader',
+
 	'goo/renderer/Material',
 	'goo/entities/components/MeshDataComponent',
 	'goo/entities/components/MeshRendererComponent',
@@ -20,7 +20,6 @@ define([
 		Sphere,
 		Box,
     event,
-	GooEntityDataLoader,
 	Material,
 	MeshDataComponent,
 	MeshRendererComponent,
@@ -59,7 +58,6 @@ define([
             world: world,
     //       loader: loader
         };
-        GooEntityDataLoader.setGoo(goo);
         MobileUnits.setWorld(goo.world);
  //       meshLoader = new MeshLoader(loaderSettings);
  //       materialLoader = new MaterialLoader(loaderSettings);

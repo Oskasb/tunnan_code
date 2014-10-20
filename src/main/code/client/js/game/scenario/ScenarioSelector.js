@@ -43,6 +43,7 @@ define(["load/ClientLoader",
 				goo.renderer.preloadBuffers(goo.renderSystem._activeEntities);
 				goo.renderer.preloadMaterials(goo.renderSystem._activeEntities);
 				goo.renderer.precompileShaders(goo.renderSystem._activeEntities, goo.renderSystem.lights);
+
 				levelController.addPlayerToLevel(resetCallback);
 
 
