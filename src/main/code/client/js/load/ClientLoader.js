@@ -41,30 +41,28 @@ define(["application/EventManager",
 				callback(entityClone);
 			}.bind(this);
 
-
-
 			event.registerListener(event.list().BUILD_GOO_GAMEPIECE, handleBuildPiece);
 			this.preloadClientData();
 		};
 
-		ClientLoader.prototype.handleBundleUpdated = function(srcKey) {
+		ClientLoader.prototype.handleBundleUpdated = function(entityName) {
 
-			if (!this.callbackIndex[srcKey]) {
-				this.callbackIndex[srcKey] = [];
+			if (!this.callbackIndex[entityName]) {
+				this.callbackIndex[entityName] = [];
 			}
-			for (var i = 0; i < this.callbackIndex[srcKey].length; i++) {
-				console.log("BundleData updated", srcKey);
-				this.callbackIndex[srcKey][i](this.loadedEntities[srcKey].build())
+			for (var i = 0; i < this.callbackIndex[entityName].length; i++) {
+				console.log("BundleData updated", entityName);
+				this.callbackIndex[entityName][i](this.loadedEntities[entityName].build())
 			}
 
 		};
 
 		ClientLoader.prototype.initBundleData = function(path, goo, srcUrl, downloadOk, fail) {
 
-			var assetUpdated = function(srcKey, data) {
-				this.loadedEntities[srcKey] = data;
-				this.handleBundleUpdated(srcKey);
-				downloadOk(srcKey, data);
+			var assetUpdated = function(entityName, data) {
+				this.loadedEntities[entityName] = data;
+				this.handleBundleUpdated(entityName);
+				downloadOk(entityName, data);
 			}.bind(this);
 			PipelineAPI.initBundleDownload(path, goo, srcUrl, assetUpdated, fail);
 		};
