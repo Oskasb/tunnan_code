@@ -59,12 +59,16 @@ define(["application/EventManager",
 
 		ClientLoader.prototype.initBundleData = function(path, goo, srcUrl, downloadOk, fail) {
 
+			var notifyLoaderProgress = function(handled, started) {
+				console.log("DL Progress update: ", handled, started)
+			};
+
 			var assetUpdated = function(entityName, data) {
 				this.loadedEntities[entityName] = data;
 				this.handleBundleUpdated(entityName);
 				downloadOk(entityName, data);
 			}.bind(this);
-			PipelineAPI.initBundleDownload(path, goo, srcUrl, assetUpdated, fail);
+			PipelineAPI.initBundleDownload(path, goo, srcUrl, assetUpdated, fail, notifyLoaderProgress);
 		};
 
 

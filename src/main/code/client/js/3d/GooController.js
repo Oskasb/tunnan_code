@@ -2,7 +2,6 @@
 
 require.config({
     paths: {
-    //    goo: "../../../../../../goojs/src/goo",
         goo: "../../../../../../goojs/src/goo",
         'goo/lib': '../lib',
 	    data_pipeline:'submodules/data_pipeline/src',
