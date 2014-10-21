@@ -51,10 +51,10 @@ define([
 		//	controlsController.buildPieceControls(gamePiece, data, landedState);
 
 				if (data.lights) {
-					lights.registerEntityLights(gamePiece, data.lights);
+				//	lights.registerEntityLights(gamePiece, data.lights);
 				}
 				if (data.screens) {
-					screens.registerEntityScreens(gamePiece, data.screens, ControlStateCallbacks);
+				//	screens.registerEntityScreens(gamePiece, data.screens, ControlStateCallbacks);
 				}
 
 			gamePiece.forces.weight.setd(0, data.dimensions.massEmpty, 0);
@@ -81,6 +81,10 @@ define([
 					}
 					planeReady(plane);
 				};
+
+				if (data.lights) {
+					lights.registerEntityLights(plane.entity, data.lights);
+				}
 
 				PieceConfigurator.configurePiece(plane, state, configReady);
 			};

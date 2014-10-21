@@ -4,13 +4,15 @@ define([
 	'data_pipeline/PipelineAPI',
 	'gui/layout/GuiConstants',
 	'game/ControlsController',
-	'game/controls/ControlStateCallbacks'
+	'game/controls/ControlStateCallbacks',
+	'game/parts/Screens'
 ],
 	function(
 		PipelineAPI,
 		GuiConstants,
 		ControlsController,
-		ControlStateCallbacks
+		ControlStateCallbacks,
+		Screens
 		) {
 
 		var PieceConfigurator = function() {
@@ -18,7 +20,15 @@ define([
 		};
 
 
-		var countdown = 4;
+		var countdown = 5;
+
+
+		PieceConfigurator.applyModelRelatedConfigs = function(gamePiece, config) {
+			var display_settings = gamePiece.entity.pieceData.configs.display_settings;
+
+
+
+		};
 
 
 
@@ -27,6 +37,7 @@ define([
 			var controlSurfaceKey = gamePiece.entity.pieceData.configs.control_surfaces;
 			var wingsKey = gamePiece.entity.pieceData.configs.wing_shapes;
 			var systemsKey = gamePiece.entity.pieceData.configs.piece_systems;
+			var display_settings = gamePiece.entity.pieceData.configs.display_settings;
 
 			console.log("Apply config to piece: ", config, gamePiece);
 
@@ -41,6 +52,14 @@ define([
 				}
 
 			};
+
+			if (config[display_settings]) {
+				gamePiece.configs[display_settings] = config[display_settings];
+			//	setTimeout(function(){
+					Screens.registerEntityScreens(gamePiece.entity, config[display_settings], config['meshData'], ControlStateCallbacks);
+			//	}, 5000);
+				configsApplied(controlSystemKey);
+			}
 
 			if (config[controlSystemKey]) {
 				gamePiece.configs[controlSystemKey] = config[controlSystemKey];

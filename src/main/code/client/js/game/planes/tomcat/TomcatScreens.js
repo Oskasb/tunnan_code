@@ -5,11 +5,6 @@ define(["game/GameConfiguration"], function(gameConfig) {
     return {
         SCREENS:{
             meshData:[{meshEntityName:'lights'}],
-			controls:{
-				screen_intensity:   {value:0.9, controlState:0},
-				hud_intensity:      {value:0.6, controlState:0},
-				hdd_intensity:      {value:0.7, controlState:0}
-			},
             displays:{
                 vdi:{
                     mapcoords:[414, 418, 230, 226],

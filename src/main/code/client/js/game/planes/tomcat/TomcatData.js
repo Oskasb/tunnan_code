@@ -32,8 +32,10 @@ define([
 					'tomcat_control_surface_data',
 					'tomcat_wings_data',
 					'tomcat_control_systems_data',
+					'tomcat_screen_systems_data',
 					'tomcat_systems_data'
 				],
+				display_settings:'display_settings',
 				control_settings:'control_settings',
 				control_surfaces:'control_surfaces',
 				piece_systems:'piece_systems',

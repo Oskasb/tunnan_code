@@ -23,47 +23,47 @@ define([
         return builtDisplays[id];
     };
 
-    function registerEntityScreens(entity, screenData, ControlStateCallbacks) {
+
+
+	var addDisplayScreen = function(entity, screenId, dispData) {
+		var display = new Display(screenId, dispData.mapcoords, entity.screenMaterialMap)
+		builtDisplays[dispData] = display;
+		for (var i = 0; i < dispData.instruments.length; i++) {
+			var instrument = dispData.instruments[i];
+			if (instrument.script) display.registerInstrument(instrument.id, InstrumentScripts[instrument.script](entity, display, instrument));
+		}
+		entity.screenSystem.addDisplay(display);
+	};
+
+
+    function registerEntityScreens(entity, screenData, meshData, ControlStateCallbacks) {
         var screens = {};
         entity.screens = screens;
-    /*
-        var materialMap = printScreenMaterialMap(entity, screenData);
-        if (!materialMaps[materialMap.material.name]) {
-            materialMaps[materialMap.material.name] = materialMap;
-        }
-        entity.screenMaterialMap = materialMaps[materialMap.material.name];
-    */
-        entity.screenMaterialMap = printScreenMaterialMap(entity, screenData);
 
-            entity.screenSystem = new ScreenSystem(entity);
+        entity.screenMaterialMap = printScreenMaterialMap(entity, meshData);
 
-    //    entity.screenSystem = screenMaterialSystems[entity.screenMaterialMap.material.name];
+        entity.screenSystem = new ScreenSystem(entity);
 
         console.log("Register entity screens: ", entity, screenData);
 
-        for (var keys in screenData.displays) {
+        for (var i = 0; i < screenData.length; i++) {
             screenCount += 1;
-            if (!entity.screenSystem.displays[keys]) {
-                var display = new Display(keys, screenData.displays[keys].mapcoords, entity.screenMaterialMap)
-                builtDisplays[keys] = display;
-                for (var each in screenData.displays[keys].instruments) {
-                    var instrument = screenData.displays[keys].instruments[each];
-                    if (instrument.script) display.registerInstrument(each, InstrumentScripts[instrument.script](entity, display, instrument));
-                }
-                entity.screenSystem.addDisplay(display);
+			var dispData = screenData[i];
+			var screenId = dispData.id;
+            if (!entity.screenSystem.displays[screenId]) {
+				addDisplayScreen(entity, screenId, dispData);
             }
         }
-    //    entity.screenSystem.setMasterIntensity(0.6);
     }
 
 
-    function printScreenMaterialMap(entity, screenData) {
+    function printScreenMaterialMap(entity, meshData) {
         var childTransforms = entity.geometries[0].transformComponent.children;
 
         for (var i = 0; i < childTransforms.length; i++) {
             var meshEntity = childTransforms[i].entity;
-            for (var j = 0; j < screenData.meshData.length; j++) {
-                if (meshEntity.name == screenData.meshData[j].meshEntityName) {
+            for (var j = 0; j < meshData.length; j++) {
+                if (meshEntity.name == meshData[j].meshEntityName) {
                     var materials = meshEntity.meshRendererComponent.materials;
 					meshEntity.meshRendererComponent.isReflectable = false;
                     for (var k = 0; k < materials.length; k++) {
