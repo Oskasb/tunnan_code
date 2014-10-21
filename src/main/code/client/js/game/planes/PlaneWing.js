@@ -311,7 +311,7 @@ define([
 			if (Math.random() < 0.3 && this.entity.spatial.speed > 0.1 + 5.5*Math.random()) {
 				if (Math.random() < 0.2) event.fireEvent(event.list().SPLASH_RINGLET, {pos:[this.worldPos.data[0], 0.5, this.worldPos.data[2]], count:1, dir:[0, 0, 0]});
 				if (Math.random() < 0.15) event.fireEvent(event.list().SPLASH_FOAM, {pos:[this.worldPos.data[0], 0.5, this.worldPos.data[2]], count:1, dir:[0, 0, 0]});
-				if (Math.random() < 0.5) event.fireEvent(event.list().SPLASH_WATER, {pos:[this.worldPos.data[0], 0, this.worldPos.data[2]], count:1, dir:[0, 2, 0]})
+				if (Math.random() < 0.5) event.fireEvent(event.list().SPLASH_WATER, {pos:[this.worldPos.data[0], 1, this.worldPos.data[2]], count:1, dir:[0, 2, 0]})
 
 			}
 			//    this.entity.forces.buoyancy.add_d(0, displacement *density, 0);

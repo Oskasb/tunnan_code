@@ -153,7 +153,7 @@ define(["application/EventManager",
 			calcVec2.set(0,0,state*10);
 
 			this.engineGeometry.transformComponent.worldTransform.rotation.applyPost(calcVec2);
-			calcVec2.mul(0.025*state*state/this.airDensity);
+			calcVec2.mul(0.025*state*state);
 
 			var fxGrow = 600;
 			if (this.engineData.nozzle) {
