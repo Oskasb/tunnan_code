@@ -14,33 +14,42 @@ define([
 
 	var canvasCache = {};
 
-    function registerEntityLights(gamePiece, lightData) {
+
+
+	var addSystemLights = function(gamePiece, systemId, lightSystemData) {
+		for (var i = 0; i < lightSystemData.lights.length; i++) {
+			var light = lightSystemData.lights[i];
+			gamePiece.lights[light.id] = new CanvasLight(light.meshData, light.txcoords, gamePiece.lightsMaterialMap, gamePiece.lightSystems[systemId])
+			gamePiece.lightSystems[systemId].addLight(light.id, gamePiece.lights[light.id]);
+		}
+
+	};
+
+    function registerEntityLights(gamePiece, lightData, meshData, patterns) {
         var lights = {};
         gamePiece.lights = lights;
         gamePiece.lightSystems = {};
-        gamePiece.lightsMaterialMap = printLightMaterialMap(gamePiece, lightData);
+        gamePiece.lightsMaterialMap = printLightMaterialMap(gamePiece, meshData);
 //        console.log("Register gamePiece lights: ", gamePiece, lightData);
 
-        for (var keys in lightData.systems) {
-            gamePiece.lightSystems[keys] = new LightSystem(gamePiece, keys, lightData.patterns, gamePiece.lightsMaterialMap);
-            for (var index in lightData.systems[keys]) {
- //               console.log("Create light; ", keys, index)
-                gamePiece.lights[index] = new CanvasLight(lightData.systems[keys][index].meshData, lightData.systems[keys][index].txcoords, gamePiece.lightsMaterialMap, gamePiece.lightSystems[keys])
-                gamePiece.lightSystems[keys].addLight(index, gamePiece.lights[index]);
-            }
+        for (var i = 0; i < lightData.length; i++) {
+
+            gamePiece.lightSystems[lightData[i].id] = new LightSystem(gamePiece, lightData[i].id, patterns, gamePiece.lightsMaterialMap);
+			addSystemLights(gamePiece, lightData[i].id, lightData[i]);
+
         }
     }
 
 
 
-    function printLightMaterialMap(gamePiece, lightData) {
+    function printLightMaterialMap(gamePiece, meshData) {
         var childTransforms = gamePiece.geometries[0].transformComponent.children;
         var lightsMaterialMap = {};
 
         for (var i = 0; i < childTransforms.length; i++) {
             var meshEntity = childTransforms[i].entity;
-            for (var j = 0; j < lightData.meshData.length; j++) {
-                if (meshEntity.name == lightData.meshData[j].meshEntityName) {
+            for (var j = 0; j < meshData.length; j++) {
+                if (meshEntity.name == meshData[j].meshEntityName) {
                     console.log("Emissive material: ", meshEntity.name)
                     var materials = meshEntity.meshRendererComponent.materials;
 					meshEntity.meshRendererComponent.isReflectable = false;
@@ -55,16 +64,27 @@ define([
 									return canvasCache[id];
 								}
 
-								var canvas = document.createElement("canvas");
-								canvas.id = id;
-								canvas.width = originalImage.naturalWidth;
-								canvas.height = originalImage.naturalHeight;
-								canvas.dataReady = true;
-								canvasCache[id] = canvas;
 
+								if (gamePiece.screenMaterialMap) {
+									if (gamePiece.screenMaterialMap.meshEntity.name == meshEntity.name) {
+										canvas = gamePiece.screenMaterialMap.canvas;
+										originalImage = gamePiece.screenMaterialMap.emitImg;
+										t = gamePiece.screenMaterialMap.emissiveMap;
+									}
+								}
 
-                                var t = new Texture(canvas, null, canvas.width, canvas.height);
-                                materials[k].setTexture('EMISSIVE_MAP', t);
+								if (!canvas) {
+
+									canvas = document.createElement("canvas");
+									canvas.id = id;
+									canvas.width = originalImage.naturalWidth;
+									canvas.height = originalImage.naturalHeight;
+									canvas.dataReady = true;
+									canvasCache[id] = canvas;
+
+									var t = new Texture(canvas, null, canvas.width, canvas.height);
+									materials[k].setTexture('EMISSIVE_MAP', t);
+								}
 
                                 lightsMaterialMap = {
                                     meshRendComp:meshEntity.meshRendererComponent,

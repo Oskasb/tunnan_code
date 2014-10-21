@@ -9,7 +9,7 @@ define([
     'game/planes/tomcat/TomcatLights',
     'game/planes/tomcat/TomcatScreens',
     "game/GameConfiguration",
-    "game/ModelDefinitions",
+    "game/ModelDefinitions"
 
 ], function(
     TomcatInstruments,
@@ -33,9 +33,11 @@ define([
 					'tomcat_wings_data',
 					'tomcat_control_systems_data',
 					'tomcat_screen_systems_data',
+					'tomcat_light_mapping_data',
 					'tomcat_systems_data'
 				],
 				display_settings:'display_settings',
+				light_systems:'light_systems',
 				control_settings:'control_settings',
 				control_surfaces:'control_surfaces',
 				piece_systems:'piece_systems',

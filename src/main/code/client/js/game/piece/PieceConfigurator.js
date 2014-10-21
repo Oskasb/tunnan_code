@@ -5,14 +5,16 @@ define([
 	'gui/layout/GuiConstants',
 	'game/ControlsController',
 	'game/controls/ControlStateCallbacks',
-	'game/parts/Screens'
+	'game/parts/Screens',
+	'game/parts/Lights'
 ],
 	function(
 		PipelineAPI,
 		GuiConstants,
 		ControlsController,
 		ControlStateCallbacks,
-		Screens
+		Screens,
+		Lights
 		) {
 
 		var PieceConfigurator = function() {
@@ -20,7 +22,7 @@ define([
 		};
 
 
-		var countdown = 5;
+		var countdown = 6;
 
 
 		PieceConfigurator.applyModelRelatedConfigs = function(gamePiece, config) {
@@ -38,6 +40,7 @@ define([
 			var wingsKey = gamePiece.entity.pieceData.configs.wing_shapes;
 			var systemsKey = gamePiece.entity.pieceData.configs.piece_systems;
 			var display_settings = gamePiece.entity.pieceData.configs.display_settings;
+			var light_systems = gamePiece.entity.pieceData.configs.light_systems;
 
 			console.log("Apply config to piece: ", config, gamePiece);
 
@@ -53,11 +56,15 @@ define([
 
 			};
 
+			if (config[light_systems]) {
+				gamePiece.configs[light_systems] = config[light_systems];
+				Lights.registerEntityLights(gamePiece.entity, config[light_systems], config['meshData'], config['patterns']);
+				configsApplied(light_systems);
+			}
+
 			if (config[display_settings]) {
 				gamePiece.configs[display_settings] = config[display_settings];
-			//	setTimeout(function(){
-					Screens.registerEntityScreens(gamePiece.entity, config[display_settings], config['meshData'], ControlStateCallbacks);
-			//	}, 5000);
+				Screens.registerEntityScreens(gamePiece.entity, config[display_settings], config['meshData']);
 				configsApplied(controlSystemKey);
 			}
 

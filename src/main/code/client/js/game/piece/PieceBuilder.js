@@ -83,7 +83,7 @@ define([
 				};
 
 				if (data.lights) {
-					lights.registerEntityLights(plane.entity, data.lights);
+			//		lights.registerEntityLights(plane.entity, data.lights);
 				}
 
 				PieceConfigurator.configurePiece(plane, state, configReady);
