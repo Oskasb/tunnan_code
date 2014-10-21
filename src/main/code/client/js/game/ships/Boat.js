@@ -82,24 +82,46 @@ define(['game/world/PhysicalWorld',
             var speed = this.entity.spatial.speed;
             var shipPos = this.entity.spatial.pos;
             for (var index in this.wakes) {
-                if (Math.random()+0.03 < speed*0.5) {
+				calcVec.set(this.wakes[index].posOffset);
+				var random = Math.random()*this.wakes[index].spread;
+				calcVec.data[2] += calcVec.data[2]*random;
+				calcVec.data[0] += calcVec.data[0]*-random;
+				var pos = gameUtil.applyRotationToVelocity(this.entity.geometries[0], calcVec);
+				pos.addv(shipPos);
 
-                    calcVec.set(this.wakes[index].posOffset);
-                    var random = Math.random()*this.wakes[index].spread;
-                    calcVec.data[2] += calcVec.data[2]*random;
-                    calcVec.data[0] += calcVec.data[0]*-random;
-                    var pos = gameUtil.applyRotationToVelocity(this.entity.geometries[0], calcVec);
-                    pos.addv(shipPos);
+				if (index == 0) {
 
-                    if (index == 0 || index == 1){
-                        event.fireEvent(event.list().SPLASH_RINGLET, {pos:[pos.data[0], pos.data[1]+1.4, pos.data[2]], count:1, dir:[0, 0, 0]})
-                        event.fireEvent(event.list().SPLASH_FOAM, {pos:[pos.data[0]+(Math.random()-0.5)*15, pos.data[1]+1.4, pos.data[2]+(Math.random()-0.5)*15], count:1, dir:[(Math.random()-0.5)*0.6, 0, (Math.random()-0.5)*0.6]})
+					var effectData = {
+						growth:300,
+						strength:12+Math.random()*4,
+						count: 6,
+						spread:1,
+						lifespan: 1+Math.random()*2
+					};
+					SystemBus.emit('playWaterEffect', {effectName:"splash_water", pos:pos, vel:Vector3.UNIT_Y, effectData:effectData});
+
+				}
 
 
-                    } else {
-                        event.fireEvent(event.list().SPLASH_WATER, {pos:[pos.data[0], pos.data[1], pos.data[2]], count:1, dir:[Math.random()-0.5, -1.2+Math.random(), Math.random()-0.5]})
-                    }
-                }
+				if (Math.random()+0.01 < speed*0.3) {
+
+					if (index == 0 || index == 1){
+						event.fireEvent(event.list().SPLASH_RINGLET, {pos:[pos.data[0], pos.data[1]+1.4, pos.data[2]], count:1, dir:[0, 0, 0]})
+						event.fireEvent(event.list().SPLASH_FOAM, {pos:[pos.data[0]+(Math.random()-0.5)*15, pos.data[1]+1.4, pos.data[2]+(Math.random()-0.5)*15], count:1, dir:[(Math.random()-0.5)*0.6, 0, (Math.random()-0.5)*0.6]})
+
+
+					} else {
+						var effectData = {
+							growth:600,
+							strength:3+Math.random()*4,
+							count: 8,
+							spread:0.5,
+							lifespan: 1+Math.random()*1
+						};
+						SystemBus.emit('playWaterEffect', {effectName:"splash_water", pos:pos, vel:Vector3.UNIT_Y, effectData:effectData});
+						//    event.fireEvent(event.list().SPLASH_WATER, {pos:[pos.data[0], pos.data[1], pos.data[2]], count:1, dir:[Math.random()-0.5, -1.2+Math.random(), Math.random()-0.5]})
+					}
+				}
             }
         };
 

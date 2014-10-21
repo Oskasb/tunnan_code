@@ -4,6 +4,7 @@ define([
 	'goo/renderer/Material',
 	'goo/geometrypack/Surface',
 	'goo/entities/EntityUtils',
+
 	'goo/renderer/shaders/ShaderLib',
 	'goo/renderer/TextureCreator',
 	'goo/addons/waterpack/FlatWaterRenderer'
@@ -12,6 +13,7 @@ define([
 		Material,
 		Surface,
 		EntityUtils,
+
 		ShaderLib,
 		TextureCreator,
 		FlatWaterRenderer
@@ -40,7 +42,12 @@ define([
             this.waterRenderer.waterMaterial.shader.uniforms.doFog = true;
 			this.baseFogNear = 50;
 			this.baseFogFar = 20000;
+
+
+
 		};
+
+
 
 		Water.prototype.setBaseFogNearFat = function(near, far) {
 			this.baseFogNear = near;

@@ -263,7 +263,16 @@ define([
             playWaterSound(event.eventArgs(e).pos);
 			hitVec.set(event.eventArgs(e).pos);
 			hitNorm.set(0, 3, 0);
-			SystemBus.emit('playEffect', {effectName:'splash_water', pos:hitVec, vel:hitNorm});
+		//	SystemBus.emit('playEffect', {effectName:'splash_water', pos:hitVec, vel:hitNorm});
+
+			var effectData = {
+				growth:300,
+				strength:8+Math.random()*4,
+				count: 6,
+				spread:0.8,
+				lifespan: 0.6+Math.random()*0.9
+			};
+			SystemBus.emit('playWaterEffect', {effectName:"splash_water", pos:hitVec, vel:Vector3.UNIT_Y, effectData:effectData});
 
 	        //    waterSystem.playEffect(event.eventArgs(e).pos, event.eventArgs(e).count, event.eventArgs(e).dir);
         };

@@ -92,6 +92,13 @@ function(
 		var entity = goo.world.createEntity(meshData, material);
 		entity.name = 'Simulator';
 		entity.meshRendererComponent.cullMode = 'Never';
+
+		if (particleSettings.reflectable == true) {
+
+		} else {
+			entity.meshRendererComponent.isReflectable = false;
+		}
+
 		entity.addToWorld();
 		this.entity = entity;
 
@@ -200,7 +207,7 @@ function(
 
 			if (particle.dead) {
 				particle.frameCount = 0;
-				var ratio = -particle.stretch / particle.entity._world.tpf * (this.particleSettings.count-count) /  this.particleSettings.count;
+				var ratio = particle.stretch * (this.particleSettings.count-count) /  this.particleSettings.count;
 
 				particle.position.x = position.x + normal.x*ratio;
 				particle.position.y = position.y + normal.y*ratio;
@@ -265,11 +272,16 @@ function(
 				continue;
 			}
 
-			particle.lifeSpan -= tpf;
+			var deduct = tpf;
+			if (!particle.frameCount) {
+				deduct = 0.016;
+			}
+
+			particle.lifeSpan -= deduct;
 
 
 
-			if (particle.lifeSpan <= 0 && particle.frameCount) {
+			if (particle.lifeSpan <= 0) {
 				particle.dead = true;
 				particle.position.setd(0, 0, 0);
 				pos[3 * i + 0] = 0;
@@ -279,14 +291,14 @@ function(
 				continue;
 			}
 			particle.progress = 1-((particle.lifeSpan - particle.frameOffset*0.016)  / particle.lifeSpanTotal);
-		//	particle.frameOffset;
+			//	particle.frameOffset;
 
 
 
-			calcVec.setv(particle.velocity).muld(tpf, tpf, tpf);
+			calcVec.setv(particle.velocity).muld(deduct, deduct, deduct);
 			particle.position.addv(calcVec);
 			particle.velocity.muld(acceleration, acceleration, acceleration);
-			particle.velocity.add_d(0, gravity * tpf, 0);
+			particle.velocity.add_d(0, gravity * deduct, 0);
 
 			pos[3 * i + 0] = particle.position.data[0];
 			pos[3 * i + 1] = particle.position.data[1];

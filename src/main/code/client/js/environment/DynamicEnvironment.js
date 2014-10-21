@@ -2,12 +2,14 @@
 
 define([
 	'environment/editor/EnvEditorAPI',
+	'goo/entities/SystemBus',
     'goo/math/Vector3',
 	'environment/Lighting',
 	'environment/Water',
 	'environment/EnvironmentData'
 ], function(
 	EnvEditorAPI,
+	SystemBus,
     Vector3,
     Lighting,
     Water,
@@ -69,7 +71,49 @@ define([
 	    };
 
 	//    includeEnvEditor(this);
+
+
+		this.addEnvEffects();
     };
+
+
+
+	DynamicEnvironment.prototype.playWaterEffect = function(effectName, pos, vel, effectData) {
+		var brt = Math.random()*0.16;
+		effectData.color = [
+			envState.skyColor.data[0]*0.5+envState.sunLight.data[0]*0.5 + Math.random()*0.04+brt,
+			envState.skyColor.data[1]*0.5+envState.sunLight.data[1]*0.5 + Math.random()*0.04+brt,
+			envState.skyColor.data[2]*0.5+envState.sunLight.data[2]*0.5 + Math.random()*0.04+brt,
+			Math.random()];
+
+		SystemBus.emit('playParticles', {effectName:effectName, pos:pos, vel:vel, effectData:effectData});
+	};
+
+	DynamicEnvironment.prototype.playCloudEffect = function(effectName, pos, vel, effectData) {
+
+		effectData.color = [
+			envState.skyColor.data[0]*0.5+envState.sunLight.data[0]*0.4 + Math.random()*0.1,
+			envState.skyColor.data[1]*0.5+envState.sunLight.data[1]*0.4 + Math.random()*0.1,
+			envState.skyColor.data[2]*0.5+envState.sunLight.data[2]*0.4 + Math.random()*0.1,
+			0.04 + Math.random()*0.1];
+
+		SystemBus.emit('playParticles', {effectName:effectName, pos:pos, vel:vel, effectData:effectData});
+	};
+
+	DynamicEnvironment.prototype.addEnvEffects = function() {
+
+		var updateWaterFx = function(args) {
+			this.playWaterEffect(args.effectName, args.pos, args.vel, args.effectData);
+		}.bind(this);
+
+		var updateCloudFx = function(args) {
+			this.playCloudEffect(args.effectName, args.pos, args.vel, args.effectData);
+		}.bind(this);
+
+		SystemBus.addListener('playWaterEffect', updateWaterFx);
+		SystemBus.addListener('playCloudEffect', updateCloudFx);
+	};
+
 
 	DynamicEnvironment.prototype.addWater = function(goo, skySphere, resourcePath) {
 		this.water = new Water(goo, skySphere, resourcePath);

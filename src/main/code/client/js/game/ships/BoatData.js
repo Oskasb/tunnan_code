@@ -35,7 +35,16 @@ define(["game/GameConfiguration", "game/ModelDefinitions", "game/weapons/WeaponD
             ],
             physicalRadius:220,
             chimneys:[],
-            wakes:[{posOffset:[0, 0, -155], spread:0.001}, {posOffset:[-0, 0, 170], spread:0.5}, {posOffset:[-21, 0, 150], spread:0.2}, {posOffset:[3, -1, -145.7], spread:0.07}, {posOffset:[-3, -1, -145.7], spread:0.07},{posOffset:[-7, 0, -135.7], spread:0.18}, {posOffset:[7, 0, -135.7], spread:0.18}, {posOffset:[21, 0, 150], spread:0.2}],
+            wakes:[
+				{posOffset:[0, 0, -160], 		spread:0.001},
+				{posOffset:[-0, 0, 170], 		spread:0.5},
+				{posOffset:[-11, 0, 155], 		spread:0.2},
+				{posOffset:[3, -0, -145.7], 	spread:0.07},
+				{posOffset:[-3, -0, -145.7], 	spread:0.07},
+				{posOffset:[-7, 0, -135.7], 	spread:0.18},
+				{posOffset:[7, 0, -135.7], 		spread:0.18},
+				{posOffset:[11, 0, 155], 		spread:0.2}
+			],
             radars:[],
             flags:[],
             turrets:[],

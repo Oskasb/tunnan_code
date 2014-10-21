@@ -150,10 +150,10 @@ define(["application/EventManager",
                 event.fireEvent(event.list().PUFF_WHITE_SMOKE, {pos:pos.data, count:1, dir:[calcVec2.data[0]*0.5+0.3*(Math.random()-0.5), calcVec2.data[1]* 0.5+0.3*(Math.random()-0.5), calcVec2.data[2]*0.5+0.3*(Math.random()-0.5)]})
             }
 
-			calcVec2.set(this.thrustVector);
+			calcVec2.set(0,0,state*10);
 
 			this.engineGeometry.transformComponent.worldTransform.rotation.applyPost(calcVec2);
-			calcVec2.mul(-0.00025*state*state/this.airDensity);
+			calcVec2.mul(0.025*state*state/this.airDensity);
 
 			var fxGrow = 600;
 			if (this.engineData.nozzle) {
@@ -165,25 +165,27 @@ define(["application/EventManager",
 
 			var effectData = {
 				color: [state/0.6,state/0.5,state/0.5,0.1*state],
-				alphaCurve: [[0, 0], [0.8,0.5], [1, 0.4]],
-				size:fxGrow+800,
+				alphaCurve: [[0, 0], [0.5,0.7], [1, 0.4]],
+				size:fxGrow+300,
 				growth:-fxGrow*1.3,
-				lifespan:0.035+1/fxGrow,
+				spread:5,
+				lifespan:0.055,
 				count:45*state
 			};
 
 			SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
 
-			if (state > 0.80) {
+			if (state > 0.90) {
 				this.maxThrust = this.engineData.maxThrust + this.engineData.afterBurner;
 				var effectData = {
 					color: [1*state, 0.6*state,0.2*state,0.5*state*state],
-					alphaCurve: [[0, 1], [0.1,0.3], [1, 0]],
-					size:1100,
-					growth:fxGrow*0.5,
-					lifespan:0.03+1/fxGrow,
+					alphaCurve: [[0, 1], [0.1,0.5], [1, 0]],
+					size:600,
+					growth:fxGrow*0.8,
+					lifespan:0.03,
 					count:75*state
 				};
+
 
 				SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
 				//        this.flameEffect.enabled = true
