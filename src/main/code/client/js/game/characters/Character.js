@@ -11,7 +11,7 @@ define(['game/world/PhysicalWorld',
         ) {
 
 
-        var Character = function(id, data, pos) {
+        var Character = function(id, data, pos, readyCallback) {
             var instance = this;
 
             var entityAddedCallback = function(entity) {
@@ -32,12 +32,13 @@ define(['game/world/PhysicalWorld',
                     entity.spatial.velocity.data[2] = 0.3*(Math.random()-0.5);
                     entity.spatial.velocity.data[0] = 0.3*(Math.random()-0.5);
                     MobileUnits.attachEntityToMobileSphere(entity, MobileUnits.sphericalMobile(data.dimensions.mobRadius, pos, false));
-                };
+                	readyCallback(instance);
+				};
 
                 event.fireEvent(event.list().BUILD_GOO_GAMEPIECE, {projPath:entity.pieceData.gooProject.projectPath, modelPath:entity.pieceData.modelPath, callback:visualEntityReady});
             };
             event.fireEvent(event.list().ADD_GAME_ENTITY, {entityId:id, callback:entityAddedCallback});
         };
 
-        return Character;
+		return Character;
     });

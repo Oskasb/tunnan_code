@@ -31,14 +31,26 @@ define(["application/EventManager",
 			this.callbackIndex = {};
 
 
+
+
 			var handleBuildPiece = function(e) {
 				var callback = event.eventArgs(e).callback;
 				var pieceName = event.eventArgs(e).modelPath;
-				var entityClone = this.loadedEntities[pieceName].build();
 
-				this.callbackIndex[pieceName].push(callback);
 
-				callback(entityClone);
+				var doBuild = function(entityName)  {
+					var fromLoader = function(ent) {
+						callback(ent);
+					};
+					this.loadedEntities[entityName].build(entityName, fromLoader);
+				}.bind(this);
+
+				if (!this.callbackIndex[pieceName]) {
+					this.callbackIndex[pieceName] = [];
+				}
+
+				this.callbackIndex[pieceName].push(doBuild);
+				doBuild(pieceName);
 			}.bind(this);
 
 			event.registerListener(event.list().BUILD_GOO_GAMEPIECE, handleBuildPiece);
@@ -52,7 +64,7 @@ define(["application/EventManager",
 			}
 			for (var i = 0; i < this.callbackIndex[entityName].length; i++) {
 				console.log("BundleData updated", entityName);
-				this.callbackIndex[entityName][i](this.loadedEntities[entityName].build())
+				this.callbackIndex[entityName][i](entityName)
 			}
 
 		};

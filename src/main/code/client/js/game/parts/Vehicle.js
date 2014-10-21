@@ -9,7 +9,7 @@ define(['game/world/PhysicalWorld',
              GooJointAnimator
         ) {
 
-        var Vehicle = function(id, data) {
+        var Vehicle = function(id, data, vehicleReady) {
             var instance = this;
 
             var entityAddedCallback = function(entity) {
@@ -30,7 +30,7 @@ define(['game/world/PhysicalWorld',
 
                     entity.spatial.velocity.data[2] = 0.3*(Math.random()-0.5);
                     entity.spatial.velocity.data[0] = 0.3*(Math.random()-0.5);
-
+					vehicleReady(entity);
                 };
 
 				console.log("Build Piece: ", entity.pieceData)

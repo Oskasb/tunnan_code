@@ -14,6 +14,12 @@
 					"frequency":2
 				}
 			},
+            "imagePipe":{
+                "polling":{
+                    "enabled":true,
+                    "frequency":2
+                }
+            },
 			"gooPipe":{
 				"polling":{
 					"enabled":true,

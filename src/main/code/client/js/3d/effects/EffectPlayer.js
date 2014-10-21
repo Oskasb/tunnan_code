@@ -6,7 +6,8 @@ define(
 		'3d/effects/MusicPlayer',
 		'3d/effects/SoundHandler',
 		'3d/effects/SimpleParticles',
-		'data_pipeline/PipelineAPI'
+		'data_pipeline/PipelineAPI',
+		'goo/renderer/TextureCreator'
 	],
 	function(
 		Vector3,
@@ -15,7 +16,8 @@ define(
 		MusicPlayer,
 		SoundHandler,
 		SimpleParticles,
-		PipelineAPI
+		PipelineAPI,
+		TextureCreator
 		) {
 
 		var goo;
@@ -24,6 +26,7 @@ define(
 		var updateCallbacks = [];
 		var musicPlayer;
 		var terrain;
+		var particleTextures = {};
 
 		var path = "../../../../../tunnan_resources/";
 
@@ -42,46 +45,49 @@ define(
 			initEffectPlayer();
 		};
 
-
-		function testDriveFx()  {
-			setInterval(function() {
-
-				var direction = new Vector3(Math.random(), 1, Math.random());
-				var position = new Vector3(10+Math.random()*24, 30 +Math.random()*3, 10+ Math.random()*24);
-
-				SystemBus.emit('playEffect', {effectName:'explosion', pos:position, vel:direction, effectData:null} )
-
-
-				var direction = new Vector3(Math.random(), 1, Math.random());
-				var position = new Vector3(15+Math.random()*24, 35 +Math.random()*3, 15+ Math.random()*24);
-
-				SystemBus.emit('playEffect', {effectName:'ground_stone_hit', pos:position, vel:direction, effectData:null} )
-
-				var direction = new Vector3(Math.random(), 1, Math.random());
-				var position = new Vector3(20+Math.random()*24, 40 +Math.random()*3, 20+ Math.random()*24);
-
-				SystemBus.emit('playEffect', {effectName:'cascade_stars', pos:position, vel:direction, effectData:null} )
-
-			},200)
-		}
-
 		function processEffectData(systemsData, particlesConfig, audioConfig) {
 
-			function particleDataUpdated(srcKey, config) {
-				for (var index in config) {
-					var name = config[index].id;
-					var particle = config[index];
-					simpleParticles.addGroup(name, [name]);
-					simpleParticles.createSystem(path, name, particle);
+
+
+
+			var textureReady = function(tx, conf) {
+				var name = conf.id;
+				simpleParticles.addGroup(name, [name]);
+				simpleParticles.createSystem(name, conf, tx);
+
+			};
+
+			var loadTexture = function(txurl, config) {
+				var txloaded = function(texture) {
+					particleTextures[txurl] = texture;
+					textureReady(texture, config);
+				};
+
+					new TextureCreator().loadTexture2D(path+config.texture, {
+					wrapS: 'EdgeClamp',
+					wrapT: 'EdgeClamp'
+				}, txloaded);
+			};
+
+			function particleDataUpdated(srcKey, configs) {
+				for (var index in configs) {
+
+					var conf = configs[index];
+
+					if (!particleTextures[path+conf.texture]) {
+						particleTextures[path+conf.texture] = 'loading';
+						loadTexture(path+conf.texture, conf)
+					} else if (particleTextures[path+conf.texture] != 'loading') {
+						textureReady(particleTextures[path+conf.texture], conf)
+					} else {
+						setTimeout(function() {
+							console.log("Waiting for texture load...", conf.texture);
+							particleDataUpdated(srcKey, configs);
+						}, 200)
+					}
 				}
 			}
-		/*
-			for (var index in particlesConfig) {
-				var name = particlesConfig[index].id;
-				var particle = particlesConfig[index];
-				simpleParticles.createSystem(path, name, particle);
-			}
-        */
+
 			PipelineAPI.subscribeToCategoryUpdate("particle_effects", particleDataUpdated);
 
 			for (var index in systemsData) {

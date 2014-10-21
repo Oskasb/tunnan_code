@@ -8,8 +8,15 @@ define(['game/parts/Vehicle',
 			 PlaneWing
         ) {
 
-        var Plane = function(id, pieceData) {
-            this.entity = new Vehicle(id, pieceData).entity;
+        var Plane = function(id, pieceData, vehicleReady) {
+
+
+			var buildVehicle = function(entity) {
+				this.entity = entity;
+				vehicleReady(this);
+			}.bind(this);
+
+            new Vehicle(id, pieceData, buildVehicle);
         };
 
 		Plane.prototype.parseWingData = function(wingData, aerodynamics) {

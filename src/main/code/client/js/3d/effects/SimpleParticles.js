@@ -3,16 +3,14 @@ define([
 	'goo/math/MathUtils',
 	'goo/renderer/MeshData',
 	'goo/renderer/Shader',
-	'goo/renderer/Material',
-	'goo/renderer/TextureCreator'
+	'goo/renderer/Material'
 ],
 function(
 	Vector3,
 	MathUtils,
 	MeshData,
 	Shader,
-	Material,
-	TextureCreator
+	Material
 ) {
 
 
@@ -42,13 +40,7 @@ function(
 		var sizeCurve = [[0, 1], [0.5,1], [1, 1]];
 
 
-	function Simulator(path, goo, particleSettings) {
-		var texture = new TextureCreator().loadTexture2D(path+particleSettings.texture, {
-			wrapS: 'EdgeClamp',
-			wrapT: 'EdgeClamp'
-		});
-		// texture.wrapS = 'EdgeClamp';
-		// texture.wrapT = 'EdgeClamp';
+	function Simulator(goo, particleSettings, texture) {
 
 		this.particleSettings = particleSettings;
 		particleSettings.poolCount = particleSettings.poolCount !== undefined ? particleSettings.poolCount : 500;
@@ -338,7 +330,7 @@ function(
 		}
 	};
 
-	SimpleParticles.prototype.createSystem = function(path, id, particleSettings) {
+	SimpleParticles.prototype.createSystem = function(id, particleSettings, texture) {
 		if (this.simulators[id]) {
 			for (var i = 0; i < this.simulators[id].particles.length; i++) {
 				this.simulators[id].particles[i].dead = true;
@@ -347,7 +339,7 @@ function(
 			this.simulators[id].update();
 			delete this.simulators[id];
 		}
-		this.simulators[id] = new Simulator(path, this.goo, particleSettings);
+		this.simulators[id] = new Simulator(this.goo, particleSettings, texture);
 	};
 
 	SimpleParticles.prototype.spawn = function(id, position, normal, overrideColor, count) {

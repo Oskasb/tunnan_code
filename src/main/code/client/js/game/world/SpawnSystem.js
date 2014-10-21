@@ -81,15 +81,21 @@ define(["application/EventManager",
 
         };
 
-        var spawnHuman = function(name, humanData, pos, vel, rot, state) {
+        var spawnHuman = function(name, humanData, pos, vel, rot, state, humanReady) {
             humanCount += 1;
-            var human = characterFactory.buildCharacter(name+'_'+humanCount, humanData, pos);
-        //    human.entity.spatial.pos.set(pos);
-            human.entity.spatial.rot.fromAngles(rot[0], rot[1], rot[2]);
-            human.entity.spatial.velocity.set(vel);
-            pieceBuilder.buildHuman(human.entity, human.entity.pieceData, 0);
-            activateSpawned(human.entity);
-            return human;
+
+			var charReady= function(char) {
+				//    human.entity.spatial.pos.set(pos);
+				char.entity.spatial.rot.fromAngles(rot[0], rot[1], rot[2]);
+				char.entity.spatial.velocity.set(vel);
+				pieceBuilder.buildHuman(char.entity, char.entity.pieceData, 0);
+				activateSpawned(char.entity);
+				humanReady(char);
+			};
+
+
+            characterFactory.buildCharacter(name+'_'+humanCount, humanData, pos, charReady);
+
         };
 
         return {

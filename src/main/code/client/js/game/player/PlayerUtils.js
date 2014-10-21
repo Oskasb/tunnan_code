@@ -76,7 +76,7 @@ define([
 
 
         var unloadControledEntityUi = function(entity, unloadCallback) {
-			PlayerPieceHandler.unloadControledEntityUi(entity, unloadCallback);
+		//	PlayerPieceHandler.unloadControledEntityUi(entity, unloadCallback);
         };
 
         var pilotVehicle = function(pilot, vehicle, vehicleReadyCB) {

@@ -67,24 +67,26 @@ define([
 
 
 		var buildPlane = function(id, data, state, planeReady) {
-			var plane = new Plane(id, data);
 
-		//	addSystemControls(plane.entity, data.wings, ControlStateCallbacks);
-
-			addPieceInputSystems(plane.entity);
+			var planeLoaded = function(plane) {
+				addPieceInputSystems(plane.entity);
 
 
-			var configReady = function() {
-				buildPiece(plane.entity, data, state);
-				console.log("BUILD PLANE:", plane);
-				if (state == 1) {
-					if (plane.entity.pieceInput.controls['flaps']) plane.entity.pieceInput.setInputState('flaps', 0.6);
-					if (plane.entity.pieceInput.controls['breaks']) plane.entity.pieceInput.setInputState('breaks', 0.5);
-				}
-				planeReady(plane);
+				var configReady = function() {
+					buildPiece(plane.entity, data, state);
+					console.log("BUILD PLANE:", plane);
+					if (state == 1) {
+						if (plane.entity.pieceInput.controls['flaps']) plane.entity.pieceInput.setInputState('flaps', 0.6);
+						if (plane.entity.pieceInput.controls['breaks']) plane.entity.pieceInput.setInputState('breaks', 0.5);
+					}
+					planeReady(plane);
+				};
+
+				PieceConfigurator.configurePiece(plane, state, configReady);
 			};
 
-			PieceConfigurator.configurePiece(plane, state, configReady);
+			new Plane(id, data, planeLoaded);
+
 		};
 
 		return {
