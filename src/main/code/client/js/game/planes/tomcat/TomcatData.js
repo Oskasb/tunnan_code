@@ -30,6 +30,7 @@ define([
 			configs:{
 				dataKeys:[
 					'tomcat_control_surface_data',
+					'tomcat_instruments_data',
 					'tomcat_wings_data',
 					'tomcat_control_systems_data',
 					'tomcat_screen_systems_data',
@@ -37,6 +38,7 @@ define([
 					'tomcat_systems_data'
 				],
 				display_settings:'display_settings',
+				instruments:'instruments',
 				light_systems:'light_systems',
 				control_settings:'control_settings',
 				control_surfaces:'control_surfaces',

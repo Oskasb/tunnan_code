@@ -1,0 +1,28 @@
+[{
+    "piece_data":{
+        "tomcat_instruments_data":{
+            "instrument_curves":{
+                "climb":[[-1000, -10], [-18, -9],[-5, -5],[5, 5], [18, 9], [1000, 10]],
+                "speed":[[-1000, 0], [0, 0],[500, 2], [1000, 2]],
+                "acc":[[-4, -1], [0, 0],[9, 2]],
+                "alt":[[-1000, 0], [0, 0], [12000, 3], [50000, 4]],
+                "ground":[[-1000, 0], [0, 0], [100, 0.6], [250, 0.9],[400, 1.2],[1000, 1.5],[2000, 1.8], [5000, 2.1],[50000, 2.5]]
+            },
+            "instruments":[
+                {"id":"horizon",          "sample":     "rotVec",         "axisAmp":[[2, 0.0025], [1, 0], [2,-0.021]]},
+                {"id":"roll_indicator",   "sample":     "rollAng",        "axisAmp":-1},
+                {"id":"gyro_compass",     "boneName":   "compass_2",      "sample":"xyHeading", "axisAmp":1},
+                {"id":"turn_quality",     "boneName":   "turn_quality",   "sample":"acc",       "axisAmp":[[0, 30], [0, 0], [0, 0]]},
+                {"id":"accelerometer",    "boneName":   "acceleration",   "sample":"g",         "axisAmp":-1},
+                {"id":"climb_indicator",  "boneName":   "climb",          "sample":"climbRate", "curve":"climb", "axisAmp":-0.315},
+                {"id":"aoa_indicator",    "axisAmp":1,                    "sample":"aoa"},
+                {"id":"ground_alt",       "boneName":	"ground_alt",     "sample":"altitude",  "curve":"ground", "axisAmp":-1},
+                {"id":"altimeter",        "boneName":	"altimeter",      "sample":"altitude",  "curve":"alt", "axisAmp":-1},
+                {"id":"ground_speed",     "sample":	    "speed",     	  "axisAmp":-3.14},
+                {"id":"speed_indicator",  "boneName":	"airspeed",       "sample":"speed",     "curve":"speed", "axisAmp":-3.14},
+                {"id":"gyro_roll",        "boneName":	"gyro_roll",      "sample":"rollAng",   "axisAmp":-1},
+                {"id":"gyro_pitch",       "boneName":	"gyro_pitch",     "sample":"pitch",     "axisAmp":1}
+            ]
+        }
+    }
+}]

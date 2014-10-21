@@ -79,7 +79,7 @@ define([
 				playerInputSystem.ready();
 			}
 
-            playerInstruments.initInstruments(entity);
+         //   playerInstruments.initInstruments(entity);
 
             console.log("--------->>>>> playerEntity: ", entity);
             return entity;

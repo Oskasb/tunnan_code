@@ -6,7 +6,8 @@ define([
     "3d/GooJointAnimator",
     "game/GameConfiguration",
     "game/GameUtil",
-    'game/instruments/Instrument'
+    'game/instruments/Instrument',
+	'data_pipeline/PipelineAPI'
 ],
     function(
         event,
@@ -14,7 +15,8 @@ define([
         GooJointAnimator,
         gameConfig,
         GameUtil,
-        Instrument
+        Instrument,
+		PipelineAPI
         ) {
 
         var playerController;
@@ -155,25 +157,29 @@ define([
         };
 
 
-        var registerInstrument = function(entity, instrumentId, instrument) {
-            entity.instruments[instrumentId] = new Instrument(instrumentId, instrument.axisAmp, instrument.sample, instrument.curve, instrument.boneName)
+        var registerInstrument = function(entity, instrumentId, instrument, curve) {
+            entity.instruments[instrumentId] = new Instrument(instrumentId, instrument.axisAmp, instrument.sample, curve, instrument.boneName)
         };
 
 
 
-        var registerEntityInstruments = function(entity) {
+        var registerEntityInstruments = function(entity, instrumentData, instrumentCurves) {
             entity.instruments = {};
-            for (var index in entity.pieceData.instruments) {
-                registerInstrument(entity, index, entity.pieceData.instruments[index]);
-            }
+
+			for (var i = 0; i < instrumentData.length; i++) {
+				registerInstrument(entity, instrumentData[i].id, instrumentData[i], instrumentCurves[instrumentData[i].curve]);
+			}
 
             entity.measurements = entity.pieceData.measurements
 
         };
 
 
-        var initInstruments = function(entity) {
-            registerEntityInstruments(entity);
+        var initInstruments = function(entity, instrumentData, instrumentCurves) {
+
+
+
+            registerEntityInstruments(entity, instrumentData, instrumentCurves);
             event.registerListener(event.list().UPDATE_ACTIVE_ENTITIES, updatePlayerSpecifics);
         };
 

@@ -6,7 +6,8 @@ define([
 	'game/ControlsController',
 	'game/controls/ControlStateCallbacks',
 	'game/parts/Screens',
-	'game/parts/Lights'
+	'game/parts/Lights',
+	'game/player/PlayerInstruments'
 ],
 	function(
 		PipelineAPI,
@@ -14,7 +15,8 @@ define([
 		ControlsController,
 		ControlStateCallbacks,
 		Screens,
-		Lights
+		Lights,
+		PlayerInstruments
 		) {
 
 		var PieceConfigurator = function() {
@@ -22,7 +24,7 @@ define([
 		};
 
 
-		var countdown = 6;
+		var countdown = 7;
 
 
 		PieceConfigurator.applyModelRelatedConfigs = function(gamePiece, config) {
@@ -41,6 +43,7 @@ define([
 			var systemsKey = gamePiece.entity.pieceData.configs.piece_systems;
 			var display_settings = gamePiece.entity.pieceData.configs.display_settings;
 			var light_systems = gamePiece.entity.pieceData.configs.light_systems;
+			var instruments = gamePiece.entity.pieceData.configs.instruments;
 
 			console.log("Apply config to piece: ", config, gamePiece);
 
@@ -56,6 +59,13 @@ define([
 
 			};
 
+			if (config[instruments]) {
+				gamePiece.configs[instruments] = config[instruments];
+				PlayerInstruments.initInstruments(gamePiece.entity, config[instruments], config['instrument_curves']);
+				configsApplied(instruments);
+			}
+
+
 			if (config[light_systems]) {
 				gamePiece.configs[light_systems] = config[light_systems];
 				Lights.registerEntityLights(gamePiece.entity, config[light_systems], config['meshData'], config['patterns']);
@@ -64,7 +74,9 @@ define([
 
 			if (config[display_settings]) {
 				gamePiece.configs[display_settings] = config[display_settings];
+
 				Screens.registerEntityScreens(gamePiece.entity, config[display_settings], config['meshData']);
+
 				configsApplied(controlSystemKey);
 			}
 
