@@ -30,27 +30,24 @@ define(["application/EventManager",
 			this.loadedEntities = {};
 			this.callbackIndex = {};
 
-
-
-
 			var handleBuildPiece = function(e) {
 				var callback = event.eventArgs(e).callback;
 				var pieceName = event.eventArgs(e).modelPath;
 
 
-				var doBuild = function(entityName)  {
-					var fromLoader = function(ent) {
-						callback(ent);
-					};
-					this.loadedEntities[entityName].build(entityName, fromLoader);
+				var buildEntity = function(eName) {
+					var buildFunc = this.loadedEntities[eName].build;
+					return function() {
+						buildFunc(eName, callback);
+					}
 				}.bind(this);
 
 				if (!this.callbackIndex[pieceName]) {
 					this.callbackIndex[pieceName] = [];
 				}
 
-				this.callbackIndex[pieceName].push(doBuild);
-				doBuild(pieceName);
+				this.callbackIndex[pieceName].push(buildEntity(pieceName));
+				buildEntity(pieceName)();
 			}.bind(this);
 
 			event.registerListener(event.list().BUILD_GOO_GAMEPIECE, handleBuildPiece);

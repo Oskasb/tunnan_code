@@ -36,7 +36,7 @@ define(["load/ClientLoader",
 		ScenarioSelector.prototype.resetScenario = function(resetCallback) {
 			var goo = this.goo;
 
-			goo.world.processEntityChanges();
+		//	goo.world.processEntityChanges();
 			var initLevelCallback = function() {
 
 

@@ -24,7 +24,7 @@ define(['game/world/PhysicalWorld',
 
         var calcVec = new Vector3();
 
-        var Boat = function(shipId, boatData) {
+        var Boat = function(shipId, boatData, boatReady) {
             this.wakes = boatData.wakes;
             var instance = this;
             this.passengers = {};
@@ -45,6 +45,7 @@ define(['game/world/PhysicalWorld',
                     if (gooEntity.animationComponent) GooJointAnimator.printClipInitialTransform(entity);
                     entity.spatial.velocity.data[2] = 0.3*(Math.random()-0.5);
                     entity.spatial.velocity.data[0] = 0.3*(Math.random()-0.5);
+					boatReady(instance);
                 };
 
                 event.fireEvent(event.list().BUILD_GOO_GAMEPIECE, {projPath:"bundles", modelPath:boatData.piecePath, callback:visualEntityReady});

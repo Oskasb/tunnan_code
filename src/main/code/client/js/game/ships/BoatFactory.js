@@ -62,16 +62,22 @@ define(["application/EventManager",
         };
 
 
-        var buildShip = function(shipId, boatData) {
-            var boat = new Boat(shipId, boatData);
-            addTurretsToBoat(boat.entity, boatData);
-            addChimneysToBoat(boat.entity, boatData);
-            addRadarsToBoat(boat.entity, boatData);
-            addFlagsToBoat(boat.entity, boatData);
-            addHelmsmanToBoat(boat, boatData);
-            buildCables(boat, boatData);
-            new ShipsCaptain(boat);
-            return boat;
+        var buildShip = function(shipId, boatData, boatReady) {
+
+
+			var boatBuilt = function(boat) {
+				addTurretsToBoat(boat.entity, boatData);
+				addChimneysToBoat(boat.entity, boatData);
+				addRadarsToBoat(boat.entity, boatData);
+				addFlagsToBoat(boat.entity, boatData);
+				addHelmsmanToBoat(boat, boatData);
+				buildCables(boat, boatData);
+				new ShipsCaptain(boat);
+				boatReady(boat)
+
+			}
+
+			new Boat(shipId, boatData, boatBuilt);
         };
 
         return {

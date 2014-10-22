@@ -86,6 +86,7 @@ define([
 			//		lights.registerEntityLights(plane.entity, data.lights);
 				}
 
+				console.log("request config piece: ", plane.entity.id);
 				PieceConfigurator.configurePiece(plane, state, configReady);
 			};
 

@@ -77,6 +77,7 @@ define([
 
         var unloadControledEntityUi = function(entity, unloadCallback) {
 		//	PlayerPieceHandler.unloadControledEntityUi(entity, unloadCallback);
+			unloadCallback()
         };
 
         var pilotVehicle = function(pilot, vehicle, vehicleReadyCB) {
@@ -87,13 +88,13 @@ define([
 
 			var unloadCallback = function() {
 				attachPilotToVehicle(pilot, vehicle)
-				var attach = function() {
+			//	var attach = function() {
 
 					event.fireEvent(event.list().SET_PLAYER_CONTROLLED_ENTITY, {entity:vehicle, callback:vehicleReadyCB});
 
-				}
+			//	}
 
-				event.fireEvent(event.list().SEQUENCE_CALLBACK, {callback:attach, wait:300});
+			//	event.fireEvent(event.list().SEQUENCE_CALLBACK, {callback:attach, wait:300});
 
 			};
 

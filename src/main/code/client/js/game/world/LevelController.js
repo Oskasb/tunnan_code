@@ -40,13 +40,19 @@ define(["application/EventManager",
 		};
 		resetLevel();
 
-        var addBoat = function(name, data, pos, rot, vel) {
-            var boat = spawnSystem.spawnBoat(name, data, pos, rot, vel);
-            levelEntities.boats[boat.entity.id] = boat;
-            return boat.entity;
+
+        var addBoat = function(name, data, pos, vel, rot, state, boatReady) {
+
+			var levelBoat = function(boat) {
+
+				levelEntities.boats[boat.entity.id] = boat;
+				boatReady(boat.entity);
+			};
+
+            spawnSystem.spawnBoat(name, data, pos, rot, vel, levelBoat);
         };
 
-        var addCar = function(name, data, pos, rot, vel) {
+        var addCar = function(name, data, pos, vel, rot) {
             var car = spawnSystem.spawnCar(name, data, pos, rot, vel);
             levelEntities.cars[car.entity.id] = car;
             return car.entity;
@@ -88,7 +94,7 @@ define(["application/EventManager",
                 for (var i = 0; i < boats[boatType].length; i++) {
                     var piece = boats[boatType][i];
                     var pos = [piece.pos[0]+zonePos[0], 0, piece.pos[2]+zonePos[2]];
-                    addBoat(boatType, boatData[boatType], pos, piece.rot, piece.vel);
+                    addBoat(boatType, boatData[boatType], pos, piece.rot, piece.vel, null, null);
                 }
             }
         };
@@ -145,7 +151,7 @@ define(["application/EventManager",
 		var loadScenarioGamePiece = function(spawnFunction, pieceDefinition, pieceData, spawnPoint, pieceReady) {
 			var zonePos = scenario.loadPlayer.pos;
 			var pos = [spawnPoint.pos[0]+zonePos[0], spawnPoint.pos[1]+zonePos[1], spawnPoint.pos[2]+zonePos[2]];
-			return spawnFunction(pieceDefinition, pieceData, pos, spawnPoint.vel, spawnPoint.rot, spawnPoint.state, pieceReady);
+			return spawnFunction(pieceDefinition, pieceData, pos, spawnPoint.vel, spawnPoint.rot,  spawnPoint.state, pieceReady);
 		};
 
 
@@ -172,10 +178,16 @@ define(["application/EventManager",
 							if (scenario.playerCarrier) {
 								var boatPieceType = scenario.playerCarrier;
 								var point = scenario.loadPlayer.playerSpawn.carrier;
-								var carrier = loadScenarioGamePiece(addBoat, boatPieceType, boatData[boatPieceType], point);
-								carrier.cables[1].boat.initPlaneReadyAtLot(plane, carrier.pieceData.parkingLots.launch);
-								carrier.cables[1].boat.catapultPlane(plane);
-								console.log("CARRIER: ", carrier);
+
+
+								var carrierAdded = function(carrier) {
+									carrier.cables[1].boat.initPlaneReadyAtLot(plane, carrier.pieceData.parkingLots.launch);
+									carrier.cables[1].boat.catapultPlane(plane);
+									console.log("CARRIER: ", carrier);
+								}
+
+								loadScenarioGamePiece(addBoat, boatPieceType, boatData[boatPieceType], point, carrierAdded);
+
 							}
 
 						};
