@@ -312,14 +312,25 @@ define([
 			}
 		};
 
+		var odd = true;
 		var updateGamePieceFloatingFramerate = function(entity, time, physicsFps, partOfSecond) {
+
+			odd = !odd;
+
+
 
 			if (entity.surfaces) {
 				var groundProximity = wingedSpecialUpdate(entity, physicsFps*partOfSecond);
 				planeController.updatePlaneControlState(entity, partOfSecond, groundProximity);
 			}
 
-			if (entity.lights) {
+
+			entity.spatial.frameSpeed = 0;
+			entity.spatial.frameTime = time;
+
+			if (odd) return
+
+				if (entity.lights) {
 				lights.updateEntityLightState(entity, time);
 			}
 
@@ -334,8 +345,6 @@ define([
 				lights.attenuateWithDarkRects(entity);
 			}
 
-			entity.spatial.frameSpeed = 0;
-			entity.spatial.frameTime = time;
 		};
 
 		var upadateGamePieceFixedFramerate = function(entity, physStepPartOfSecond) {

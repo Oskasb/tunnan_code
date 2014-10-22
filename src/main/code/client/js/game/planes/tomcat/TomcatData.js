@@ -71,6 +71,7 @@ define([
             gooProject:gameConfig.GOO_PROJECTS.tomcat,
             piecePath:gameConfig.GOO_PROJECTS.tomcat.tomcat,
             contrail_effect:modelDefinitions.GOO_PARTICLES.wing_smoke,
+			onScreenInput:{guiMainStateId:"tomcat_controls"},
 
             wing_smoke:[
                 [-5.8, 0, -2],
