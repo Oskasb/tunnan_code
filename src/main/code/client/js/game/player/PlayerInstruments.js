@@ -38,7 +38,7 @@ define([
 
         var updatePlayerValues = function(entity, partOfsecond, dt) {
 
-            if(entity.measurements.throttle) event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"throttle", amount:playerEntity.systems.engines[0].thrust * 0.001});
+            if(entity.measurements.throttle) event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"throttle", amount:playerEntity.systems.engine.engines[0].thrust * 0.001});
             if(entity.measurements.speed)    event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"speed",    amount:3.6 * aggregates.speed * partOfsecond});
             if(entity.measurements.altitude) event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"altitude", amount:playerEntity.spatial.pos[1]});
             if(entity.measurements.airflowx) event.fireEvent(event.list().PLAYER_VALUE_UPDATE, {value:"airflowx", amount:90*playerEntity.spatial.axisAttitudes.data[0]});
@@ -98,8 +98,8 @@ define([
 			    acc:entity.forces.g,
 			    aoa:entity.spatial.axisAttitudes.data[1],
 			    climbRate:entity.spatial.velocity.data[1] * physTime,
-			    rpm:entity.systems.engines[0].rpm,
-			    temp:entity.systems.engines[0].temp
+			    rpm:entity.systems.engine.engines[0].rpm,
+			    temp:entity.systems.engine.engines[0].temp
 		    };
 	    };
 

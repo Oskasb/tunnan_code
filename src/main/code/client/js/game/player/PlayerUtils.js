@@ -44,7 +44,7 @@ define([
 			}
 			    */
 			for (var index in vehicle.systems) {
-				if (index != 'engines')	vehicle.systems[index].locked = false;
+				if (index != 'engine')	vehicle.systems[index].locked = false;
 			}
 		};
 

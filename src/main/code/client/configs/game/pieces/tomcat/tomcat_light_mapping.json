@@ -135,7 +135,7 @@
                         {  "id":   "yx_99",         "meshData":0, "txcoords":  [353,   36,    45, 12]}
 
                     ]},{
-                    "id":"engines",
+                    "id":"engine",
                     "lights": [
                         { "id":"engine_l",          "meshData":0, "txcoords":   [6,     319,    19, 15]},
                         { "id":"engine_r",          "meshData":0, "txcoords":   [16,    319,    19, 15]}

@@ -34,7 +34,7 @@ define([
 
         var triggerUiReset = function(entity) {
             if (!entity.systems) return;
-            event.fireEvent(event.list().INIT_PLAYER_CONTROL_STATE, {control:"engines", controlState:entity.systems.engines[0].currentState});
+            event.fireEvent(event.list().INIT_PLAYER_CONTROL_STATE, {control:"engine", controlState:entity.systems.engine.currentState});
         //    event.fireEvent(event.list().INIT_PLAYER_CONTROL_STATE, {control:"breaks", controlState:entity.systems.breaks.currentState});
         //    event.fireEvent(event.list().INIT_PLAYER_CONTROL_STATE, {control:"flaps", controlState:entity.surfaces.flaps.controlState});
         //    event.fireEvent(event.list().INIT_PLAYER_CONTROL_STATE, {control:"canopy", controlState:entity.systems.canopy.currentState});

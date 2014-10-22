@@ -21,7 +21,14 @@ define(["application/EventManager",
                 engines.push(buildEngine(entity, index, engineData.mounts[i]))
             }
         }
-        return engines;
+		var engine = {
+			data:engineData,
+			currentState:0,
+			targetState:0,
+
+			engines:engines
+		};
+        return engine;
     };
 
 
@@ -32,14 +39,8 @@ define(["application/EventManager",
     };
 
     var applyControlStateToEngines = function(entity, value) {
-
-        for (var i = 0; i < entity.systems.engines.length; i++) {
-
-            var engine = entity.systems.engines[i];
-            if (value == undefined) value = engine.currentState;
-            updateEngineThrottle(engine, value);
-
-        }
+        if (value == undefined) value = engine.currentState;
+        updateEngineThrottle(entity.systems.engine, value);
         return value;
     };
 
@@ -47,17 +48,19 @@ define(["application/EventManager",
 
 
     var processControlState = function(entity) {
-          var engines = entity.systems.engines;
+          var engines = entity.systems.engine.engines;
         for (var i = 0; i < engines.length; i++) {
             var engine = engines[i];
-            var current = engine.currentState
+			engine.targetState = entity.systems.engine.targetState;
+            var current = engine.currentState;
             engine.updateThrust(entity.air.density);
         }
         if (current == engine.currentState) return;
+		entity.systems.engine.currentState = current;
         if (entity.isPlayer) {
-            event.fireEvent(event.list().PLAYER_CONTROL_STATE_UPDATE, {control:"engines", currentState:current})
+            event.fireEvent(event.list().PLAYER_CONTROL_STATE_UPDATE, {control:"engine", currentState:current})
         }
-		entity.pieceInput.setAppliedState('throttle', current);
+		entity.pieceInput.setAppliedState('throttle', entity.systems.engine.currentState);
     };
 
     return {

@@ -36,7 +36,7 @@ define(["application/EventManager",
 
         var systemControllers = {
             auto_trim:trimController,
-            engines  :engineController,
+            engine   :engineController,
             drive    :driveController,
             gears    :gearController,
             canopy   :canopyController,

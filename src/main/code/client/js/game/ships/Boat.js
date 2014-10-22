@@ -134,14 +134,14 @@ define(['game/world/PhysicalWorld',
         };
 
         Boat.prototype.removeCatapultThrustFromPlane = function(plane) {
-            for (var i = 0; i < plane.systems.engines.length; i++) {
-                plane.systems.engines[i].maxThrust *= 0.5;
+            for (var i = 0; i < plane.systems.engine.engines.length; i++) {
+                plane.systems.engine.engines[i].maxThrust *= 0.5;
             }
         };
 
         Boat.prototype.applyCatapultThrustToPlane = function(plane) {
-            for (var i = 0; i < plane.systems.engines.length; i++) {
-                plane.systems.engines[i].maxThrust *= 2;
+            for (var i = 0; i < plane.systems.engine.engines.length; i++) {
+                plane.systems.engine.engines[i].maxThrust *= 2;
             };
             plane.spatial.velocity.normalize();
             plane.spatial.velocity.mul(0.4);
@@ -203,7 +203,7 @@ define(['game/world/PhysicalWorld',
 
 		Boat.prototype.checkCatapultForLaunch = function(plane) {
 			plane.spatial.velocity.mul(0.9);
-			if (!plane.systems.engines[0].started){
+			if (!plane.systems.engine.engines[0].started){
 				SystemBus.emit("message_to_gui", {channel:'hint_channel', message:"Start Engines"});
 				return false;
 			}
@@ -214,7 +214,7 @@ define(['game/world/PhysicalWorld',
 				return false
 			}
 
-			if (plane.systems.engines[0].thrust < plane.systems.engines[0].maxThrust*0.92) {
+			if (plane.systems.engine.engines[0].thrust < plane.systems.engine.engines[0].maxThrust*0.92) {
 				SystemBus.emit("message_to_gui", {channel:'hint_channel', message:"Increase Engine Power"});
 				SystemBus.emit("message_to_gui", {channel:'system_channel', message:"[THR] "+Math.round((plane.systems.engines[0].thrust/plane.systems.engines[0].maxThrust)*100)});
 				return false;

@@ -188,8 +188,8 @@ define([
 
         var combineEngineForces = function(entity, physStepPartOfSecond) {
 			calcVec.set(0, 0, 0);
-            for (var engines in entity.systems.engines) {
-                var engine = entity.systems.engines[engines];
+            for (var engines in entity.systems.engine.engines) {
+                var engine = entity.systems.engine.engines[engines];
                 forceProcessor.addForceToAcc(engine.thrustVector.mul(physStepPartOfSecond), entity.spatial.acc);
                 forceProcessor.addForceToTorque(engine.thrustVector, engine.pos, calcVec);
             }
@@ -345,7 +345,7 @@ define([
 				resetEntityForces(entity);
 				var systems = entity.systems;
 
-				if (systems.engines) {
+				if (systems.engine) {
 					combineEngineForces(entity, physStepPartOfSecond);
 				}
 
@@ -379,9 +379,9 @@ define([
 		var updateGamepieceEffects = function(gamePiece, tpf) {
 
 			if (gamePiece.systems) {
-				if (gamePiece.systems.engines) {
-					for (var i = 0; i < gamePiece.systems.engines.length; i++) {
-						gamePiece.systems.engines[i].updateSystemEffects(tpf)
+				if (gamePiece.systems.engine) {
+					for (var i = 0; i < gamePiece.systems.engine.engines.length; i++) {
+						gamePiece.systems.engine.engines[i].updateSystemEffects(tpf)
 					}
 				}
 			}
@@ -460,9 +460,9 @@ define([
 			};
 
 			if (gamePiece.systems) {
-				if (gamePiece.systems.engines) {
-					for (var i = 0; i < gamePiece.systems.engines.length; i++) {
-						gamePiece.stats.thrust += Math.round((gamePiece.systems.engines[i].thrust *0.00001 / partOfsecond))
+				if (gamePiece.systems.engine.engines) {
+					for (var i = 0; i < gamePiece.systems.engine.engines.length; i++) {
+						gamePiece.stats.thrust += Math.round((gamePiece.systems.engine.engines[i].thrust *0.00001 / partOfsecond))
 					}
 				}
 			}
