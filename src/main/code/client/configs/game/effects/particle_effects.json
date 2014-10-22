@@ -87,7 +87,7 @@
             "acceleration": 0.97,
             "lifespan": [ 1.1,1.8 ],
             "poolCount": 3500,
-            "reflectable":true,
+            "reflectable":false,
             "alphaCurve":[[0, 1], [0,4, 1], [1, 0]]
         },
         {
