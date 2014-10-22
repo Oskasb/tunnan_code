@@ -45,7 +45,7 @@ define(["game/GameConfiguration", "application/EventManager", "3d/GooJointAnimat
     var processControlState = function(entity) {
         var canopy = entity.systems.canopy
         if (canopy.locked) return;
-        var controls = entity.pieceData.systems.canopy.controls
+        var controls = entity.systems.canopy.data.controls
 
         var speed = canopy.speed;
 

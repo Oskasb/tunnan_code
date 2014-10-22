@@ -70,14 +70,9 @@ define([
 				}
 			};
 
-            for (var i = 0; i < entity.pieceData.uiPages.length; i++) {
-				console.log("add page: ", i, entity.pieceData.uiPages[i])
-                playerUiHandler.loadPlayerUi(entity.pieceData.uiPages[i], uiCallback);
-            }
-			if (i==0) {
+
 				callback(entity);
 				playerInputSystem.ready();
-			}
 
          //   playerInstruments.initInstruments(entity);
 

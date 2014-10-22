@@ -157,9 +157,12 @@ define([
 
 	};
 
+	var lastUpdate = 0;
     DynamicEnvironment.prototype.advanceTime = function(time) {
 	    if (this.paused) return;
+		lastUpdate -= time;
         stepProgress += time;
+
 	//    document.getElementById("time_hint").innerHTML = "Cycle: "+this.environments[cycleIndex].name+" ("+cycleIndex+"/"+(this.environments.length-1)+") Progress:"+Math.round(stepProgress);
         var stepFraction = time / stepDuration;
         if (stepProgress >= stepDuration) this.stepCycle();
@@ -172,6 +175,8 @@ define([
              envState[index].lerp(tempVec, stepFraction);
         }
 
+		if (lastUpdate > 0) return;
+		lastUpdate = 0.4;
 	    this.applyEnvStateToColors();
     };
 

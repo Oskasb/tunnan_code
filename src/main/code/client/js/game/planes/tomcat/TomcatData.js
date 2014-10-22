@@ -71,21 +71,11 @@ define([
             gooProject:gameConfig.GOO_PROJECTS.tomcat,
             piecePath:gameConfig.GOO_PROJECTS.tomcat.tomcat,
             contrail_effect:modelDefinitions.GOO_PARTICLES.wing_smoke,
-            uiPages:[],
 
             wing_smoke:[
                 [-5.8, 0, -2],
                 [5.8, 0, -2]
             ],
-
-            onScreenInput:new TomcatOnScreenInput(),
-
-            instruments: TomcatInstruments.INSTRUMENTS,
-
-
-
-            lights:TomcatLights.LIGHTS,
-            screens:TomcatScreens.SCREENS,
 
             measurements: {
                 throttle:1,
@@ -95,10 +85,7 @@ define([
                 airflowy:1,
                 airflowz:1,
                 gForce:1
-            },
-
-            wings:TomcatWings.WINGS,
-            systems:TomcatSystems.SYSTEMS
+            }
         }
     }
 });

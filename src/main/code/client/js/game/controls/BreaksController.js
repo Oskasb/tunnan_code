@@ -45,7 +45,7 @@ define(["application/EventManager", "3d/GooJointAnimator"], function(event, GooJ
     var processControlState = function(entity) {
         breaks = entity.systems.breaks;
         if (breaks.locked) return;
-        controls = entity.pieceData.systems.breaks.controls
+        controls = entity.systems.breaks.data.controls
 
         diff = breaks.targetState - breaks.currentState;
         if (diff == 0) return;

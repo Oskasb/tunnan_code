@@ -39,7 +39,7 @@ define(["application/EventManager", "3d/GooJointAnimator", 'game/parts/WheelPart
     //    console.log("Update Gear state:", entity)
         if (system.currentState == 1) // checkGroundContact(entity, groundProximity);
         if (system.locked) return;
-        var controls = entity.pieceData.systems.gears.controls
+        var controls = entity.systems.gears.data.controls
 
         var speed = system.speed;
         if (system.targetState < system.currentState) speed = -speed;
