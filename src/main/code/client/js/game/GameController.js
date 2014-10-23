@@ -39,7 +39,7 @@ define(["application/EventManager",
 		};
 
 	    GameController.prototype.tickGui = function(time) {
-		    PipelineAPI.updateDataPipeline(time);
+	//	    PipelineAPI.updateDataPipeline(time);
 		    if (!ready) return;
 		//    this.pointerInputHandler.tickInput(time);
 			this.canvasGuiAPI.updateCanvasGui(time);
