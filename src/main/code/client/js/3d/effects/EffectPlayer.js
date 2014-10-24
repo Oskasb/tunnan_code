@@ -113,6 +113,7 @@ define(
 			 console.log("init effects: ", goo, effectsConfig, particlesConfig, audioConfig);
 			simpleParticles = new SimpleParticles(goo);
 
+			registerUpdateHandlers();
 
 			var particlesReady = function() {
 				SystemBus.addListener('playParticles', handlePlayParticles);
@@ -125,7 +126,7 @@ define(
 				SystemBus.addListener('groundEffect',  handleGroundEffect);
 				SystemBus.addListener('terrainEffect',  handleTerrainEffect);
 
-				registerUpdateHandlers();
+
 
 				var updateParticles = function(tpf) {
 					simpleParticles.update(tpf);
