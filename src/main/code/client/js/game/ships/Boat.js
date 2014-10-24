@@ -216,7 +216,7 @@ define(['game/world/PhysicalWorld',
 
 			if (plane.systems.engine.engines[0].thrust < plane.systems.engine.engines[0].maxThrust*0.92) {
 				SystemBus.emit("message_to_gui", {channel:'hint_channel', message:"Increase Engine Power"});
-				SystemBus.emit("message_to_gui", {channel:'system_channel', message:"[THR] "+Math.round((plane.systems.engines[0].thrust/plane.systems.engines[0].maxThrust)*100)});
+				SystemBus.emit("message_to_gui", {channel:'system_channel', message:"[THR] "+Math.round((plane.systems.engine.engines[0].thrust/plane.systems.engine.engines[0].maxThrust)*100)});
 				return false;
 			}
 
