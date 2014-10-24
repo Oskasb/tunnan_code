@@ -74,10 +74,13 @@ define(["application/EventManager",
 
 
     var setCameraEntity = function(camEnt) {
-		GooEffectController.initFxPlayer();
         cameraEntity = camEnt;
         camPos = cameraEntity.transformComponent.worldTransform.translation;
     };
+
+	var dataLoadCompleted = function() {
+
+	};
 
     function makeWaterMaterial(texturePath) {
 		var material = new Material('water_material', ShaderLib.simple);
@@ -223,6 +226,7 @@ define(["application/EventManager",
   //  event.registerListener(event.list().SET_ENVIRONMENT, handleSetEnvironment);
 
     return {
+		dataLoadCompleted:dataLoadCompleted,
         setCameraEntity:setCameraEntity,
         loadScenarioEnvironment:loadScenarioEnvironment,
         loadEnvironment:loadEnvironment

@@ -30,7 +30,8 @@
                 "id":"environment",
                 "folder":"tunnan_resources/bundles/environment/",
                 "file":"root.bundle",
-                "entities":["Default Environment", "Post effects"]
+                "entities":[],
+                "environment":["SkySphere Colored", "Post effects"]
             }
 
 		]

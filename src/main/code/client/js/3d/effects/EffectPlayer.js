@@ -38,7 +38,9 @@ define(
 			SoundHandler.init(goo);
 
 
+			simpleParticles = new SimpleParticles(goo);
 
+			registerUpdateHandlers();
 		};
 
 		EffectPlayer.prototype.initEffectPlayer = function() {
@@ -73,6 +75,7 @@ define(
 			};
 
 			function particleDataUpdated(srcKey, configs) {
+
 				for (var index in configs) {
 
 					var conf = configs[index];
@@ -81,13 +84,10 @@ define(
 						particleTextures[path+conf.texture] = 'loading';
 						loadTexture(path+conf.texture, conf)
 					} else if (particleTextures[path+conf.texture] != 'loading') {
+						console.log("Particle ready::", conf.id, conf);
 						textureReady(particleTextures[path+conf.texture], conf)
-					} else {
-						setTimeout(function() {
-							console.log("Waiting for texture load...", conf.texture);
-							particleDataUpdated(srcKey, configs);
-						}, 200)
 					}
+
 				}
 			}
 
@@ -106,14 +106,15 @@ define(
 
 		function initEffectPlayer() {
 
+
+
+
+			 console.log("init effects: ", goo, effectsConfig, particlesConfig, audioConfig);
+
+
 			var effectsConfig = EffectConfigs.effects;
 			var particlesConfig = EffectConfigs.particles;
 			var audioConfig = EffectConfigs.audio;
-
-			 console.log("init effects: ", goo, effectsConfig, particlesConfig, audioConfig);
-			simpleParticles = new SimpleParticles(goo);
-
-			registerUpdateHandlers();
 
 			var particlesReady = function() {
 				SystemBus.addListener('playParticles', handlePlayParticles);

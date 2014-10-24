@@ -10,6 +10,7 @@ define(["application/EventManager",
 	"game/GameUiCallbacks",
 	'io/PointerInputHandler',
 	'gui/GuiWidgetComposer',
+	'3d/GooEffectController',
 	'data_pipeline/PipelineAPI'
 ],
     function(event,
@@ -22,6 +23,7 @@ define(["application/EventManager",
 			 GameUiCallbacks,
 			 PointerInputHandler,
 			 GuiWidgetComposer,
+			 GooEffectController,
 			 PipelineAPI
 		) {
 
@@ -56,7 +58,7 @@ define(["application/EventManager",
 			var flushSequencer = function() {
 				this.sequencer.flushQueue();
 			}.bind(this);
-
+			GooEffectController.initFxPlayer();
 			event.registerListener(event.list().UN_LOAD_3D, flushSequencer);
         };
 
@@ -81,9 +83,10 @@ define(["application/EventManager",
 				console.log("Gui init ok!")
 				setTimeout(function() {
 					ready = true;
+
 				}, 200)
 
-				this.setGuiState('init_app_state');
+				this.setGuiState('load_page');
 				event.registerListener(event.list().SET_PLAYER_CONTROLLED_ENTITY, handleSetControlledEntity);
 			}.bind(this);
 
@@ -110,6 +113,11 @@ define(["application/EventManager",
 			}
 		    };
 
+
+		GameController.prototype.gameLoadingCompleted = function() {
+
+			this.setGuiState('main_menu');
+		};
 
         return GameController
 

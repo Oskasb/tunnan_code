@@ -74,29 +74,28 @@ define([
 		Client.prototype.preloadCompleted = function() {
 			event.removeListener(event.list().LOADING_COMPLETED);
 
-			var completed = function() {
-
-
-				this.loadingCompleted();
-
-			}.bind(this);
-
 			this.initiateView();
-			completed();
-
-		//	event.registerListener(event.list().LOADING_COMPLETED, completed);
 		};
 
 
 
 		Client.prototype.initiateView = function() {
 		//	var viewReady = function() {
+
+			var loadingProgressDone = function() {
+				console.log("loading ok")
+				this.loadingCompleted();
+			}.bind(this);
+
 			this.scenarioSelector.openScenarioScreen();
 			event.fireEvent(event.list().LOAD_3D, {});
-				//	this.loadingCompleted();
 				var handleGooTick = function(tpf) {
 					this.tickClient(tpf)
 				}.bind(this);
+
+
+
+
 
 			this.gooController.goo.startGameLoop();
 
@@ -107,7 +106,7 @@ define([
 						this.gameController.setupGame();
 						this.gooController.registerGooUpdateCallback(handleGooTick);
 						this.gameController.addCanvasGui(this.gooController.gooCameraController.getCamera(), guiRegUrl);
-						this.clientLoader.runGooPipeline(resourcePath, this.gooController.goo, bundleMasterUrl);
+						this.clientLoader.runGooPipeline(resourcePath, this.gooController.goo, bundleMasterUrl, loadingProgressDone);
 					} else {
 						lookForReady();
 					}
@@ -132,7 +131,7 @@ define([
 		};
 
 		Client.prototype.loadingCompleted = function() {
-
+			 this.gameController.gameLoadingCompleted()
 
 
 			event.removeListener(event.list().LOADING_COMPLETED);

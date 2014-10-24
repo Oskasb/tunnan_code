@@ -2,13 +2,23 @@
 	"main_gui_states":{
         "init_app_state":{
             "templates": [
+                "messages"
+            ]
+        },
+        "load_page":{
+            "templates": [
+                "messages"
+            ]
+        },
+        "main_menu":{
+            "templates": [
                 "menu_option_container",
                 "init_menu",
                 "messages"
             ]
         },
 
-		"messages_only":{
+        "messages_only":{
 			"templates": [
                 "messages"
 			]
