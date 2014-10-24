@@ -45,19 +45,22 @@ define(
 			initEffectPlayer();
 		};
 
-		function processEffectData(systemsData, particlesConfig, audioConfig) {
+		function processEffectData(systemsData, particlesConfig, audioConfig, particlesReady) {
 
-
+			var makeCount = 0;
 
 
 			var textureReady = function(tx, conf) {
 				var name = conf.id;
-				simpleParticles.addGroup(name, [name]);
 				simpleParticles.createSystem(name, conf, tx);
-
+				makeCount--
+				if (makeCount == 0) {
+					particlesReady();
+				}
 			};
 
 			var loadTexture = function(txurl, config) {
+				makeCount++;
 				var txloaded = function(texture) {
 					particleTextures[txurl] = texture;
 					textureReady(texture, config);
@@ -93,7 +96,6 @@ define(
 			for (var index in systemsData) {
 				var name = systemsData[index].id;
 				var group = systemsData[index].particles;
-				simpleParticles.addGroup(name, group);
 				effectSounds[name] = systemsData[index].sounds
 			}
 
@@ -110,28 +112,34 @@ define(
 
 			 console.log("init effects: ", goo, effectsConfig, particlesConfig, audioConfig);
 			simpleParticles = new SimpleParticles(goo);
-			processEffectData(effectsConfig, particlesConfig, audioConfig);
 
-			SystemBus.addListener('playParticles', handlePlayParticles);
-			SystemBus.addListener('playEffect', handlePlayEffect);
-		//	SystemBus.addListener('updateEffect', handleUpdateEffect);
-			SystemBus.addListener('stopEffect', handleStopEffect);
-			SystemBus.addListener('stopAllSounds', handleStopAllSounds);
-			SystemBus.addListener('playMusic',  handlePlayMusic);
-			SystemBus.addListener('stopMusic',  handleStopMusic);
-			SystemBus.addListener('groundEffect',  handleGroundEffect);
-			SystemBus.addListener('terrainEffect',  handleTerrainEffect);
 
-			registerUpdateHandlers();
+			var particlesReady = function() {
+				SystemBus.addListener('playParticles', handlePlayParticles);
+				SystemBus.addListener('playEffect', handlePlayEffect);
+				//	SystemBus.addListener('updateEffect', handleUpdateEffect);
+				SystemBus.addListener('stopEffect', handleStopEffect);
+				SystemBus.addListener('stopAllSounds', handleStopAllSounds);
+				SystemBus.addListener('playMusic',  handlePlayMusic);
+				SystemBus.addListener('stopMusic',  handleStopMusic);
+				SystemBus.addListener('groundEffect',  handleGroundEffect);
+				SystemBus.addListener('terrainEffect',  handleTerrainEffect);
 
-			var updateParticles = function(tpf) {
-				simpleParticles.update(tpf);
+				registerUpdateHandlers();
+
+				var updateParticles = function(tpf) {
+					simpleParticles.update(tpf);
+				};
+				updateCallbacks.push(updateParticles);
+				var updateSoundPlayer = function(tpf, camera) {
+					SoundHandler.update(tpf, camera)
+				};
+				updateCallbacks.push(updateSoundPlayer);
 			};
-			updateCallbacks.push(updateParticles);
-			var updateSoundPlayer = function(tpf, camera) {
-				SoundHandler.update(tpf, camera)
-			};
-			updateCallbacks.push(updateSoundPlayer);
+
+			processEffectData(effectsConfig, particlesConfig, audioConfig, particlesReady);
+
+
 		}
 
 
@@ -204,7 +212,7 @@ define(
 		}
 
 		function playEffectParticles(effectName, pos, vel, data) {
-			simpleParticles.spawnGroup(effectName, pos, vel, data);
+			simpleParticles.spawn(effectName, pos, vel, data);
 		}
 
 		function getGroundEffectType(pos) {
