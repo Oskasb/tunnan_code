@@ -9,7 +9,8 @@ define([
 	'game/parts/Screens',
     "game/ControlsController",
 	'game/controls/ControlStateCallbacks',
-    '3d/GooLayerAnimator'
+    '3d/GooLayerAnimator',
+	'data_pipeline/PipelineAPI'
 ],
     function(
         event,
@@ -20,8 +21,26 @@ define([
 		screens,
         controlsController,
 		ControlStateCallbacks,
-        GooLayerAnimator
+        GooLayerAnimator,
+		PipelineAPI
         ) {
+
+		var pieceData = {
+			vehicles:{},
+			characters:{}
+		};
+
+		var vehicleDataUpdated = function(srcKey, data) {
+			if (!pieceData[srcKey]) {
+				pieceData[srcKey] = {};
+			}
+			for (var i = 0; i < data.length; i++) {
+				pieceData[srcKey][data[i].id] = data[i];
+			}
+		};
+
+		PipelineAPI.subscribeToCategoryKey('game_pieces', 'vehicles', vehicleDataUpdated)
+
 
 		var addPieceInputSystems = function(gamePiece) {
 			gamePiece.pieceInput = new PieceInput(gamePiece);
@@ -66,14 +85,14 @@ define([
 		};
 
 
-		var buildPlane = function(id, data, state, planeReady) {
+		var buildPlane = function(id, planeId, state, planeReady) {
 
 			var planeLoaded = function(plane) {
 				addPieceInputSystems(plane.entity);
 
 
 				var configReady = function() {
-					buildPiece(plane.entity, data, state);
+					buildPiece(plane.entity, plane.entity.pieceData, state);
 					console.log("BUILD PLANE:", plane);
 					if (state == 1) {
 						if (plane.entity.pieceInput.controls['flaps']) plane.entity.pieceInput.setInputState('flaps', 0.6);
@@ -82,16 +101,17 @@ define([
 					planeReady(plane);
 				};
 
-				if (data.lights) {
-			//		lights.registerEntityLights(plane.entity, data.lights);
-				}
-
 				console.log("request config piece: ", plane.entity.id);
 				PieceConfigurator.configurePiece(plane, state, configReady);
 			};
 
-			new Plane(id, data, planeLoaded);
 
+			var pieceDataUpdated = function(srcKey, data) {
+				new Plane(id, data, planeLoaded);
+			};
+
+			var baseDataKey = pieceData.vehicles[planeId].base_data_key;
+			PipelineAPI.subscribeToCategoryKey('piece_data', baseDataKey, pieceDataUpdated)
 		};
 
 		return {

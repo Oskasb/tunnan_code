@@ -58,14 +58,14 @@ define(["application/EventManager",
             return car.entity;
         };
 
-        var addPlane = function(name, data, pos, vel, rot, state, planeReady) {
+        var addPlane = function(name, planeId, pos, vel, rot, state, planeReady) {
 
 			var planeAdded = function(plane) {
 				levelEntities.planes[plane.entity.id] = plane;
 			//	if (plane.entity.state != 1) new AiPilot(plane);
 				planeReady(plane.entity)
 			};
-			spawnSystem.spawnPlane(name, data, pos, vel, rot, state, planeAdded);
+			spawnSystem.spawnPlane(name, planeId, pos, vel, rot, state, planeAdded);
 
 
         };
@@ -124,7 +124,7 @@ define(["application/EventManager",
                 for (var i = 0; i < planes[planeType].length; i++) {
                     var piece = planes[planeType][i];
                     var pos = [piece.pos[0]+zonePos[0], piece.pos[1]+zonePos[1], piece.pos[2]+zonePos[2]];
-                    addPlane(planeType, planeData[planeType], pos, piece.vel, piece.rot, piece.state);
+                    addPlane(planeType, planeType, pos, piece.vel, piece.rot, piece.state);
 
                 }
             }
@@ -196,7 +196,7 @@ define(["application/EventManager",
 					};
 
 
-					loadScenarioGamePiece(addPlane, planePieceType, planeData[planePieceType], spawnPoint, pieceReady);
+					loadScenarioGamePiece(addPlane, planePieceType, planePieceType, spawnPoint, pieceReady);
 
 				}
 

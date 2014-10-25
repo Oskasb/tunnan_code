@@ -40,7 +40,7 @@ define(["game/GameConfiguration", "game/ModelDefinitions", "game/weapons/WeaponD
             ],
             physicalRadius:5,
 
-            keyBindings:gameConfig.KEY_BINDINGS.move,
+            keyBindings:"move",
             uiPages:[],
 
             wings:{

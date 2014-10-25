@@ -45,7 +45,7 @@ define([
         var setPlayerControlledEntity = function(entity, callback) {
             entity.isPlayer = true;
             console.log("SET PLAYER ENTITY: ", entity);
-            event.fireEvent(event.list().ADD_KEYBINDINGS, {bindings:entity.pieceData.keyBindings});
+            event.fireEvent(event.list().ADD_KEYBINDINGS, {bindings:gameConfig.KEY_BINDINGS[entity.pieceData.keyBindings]});
 
             if (entity.moveSphere) {
                 //     entity.moveSphere.ammoComponent = PhysicalWorld.createAmmoJSSphere(entity.pieceData.dimensions.mobRadius, entity.spatial.pos.data)

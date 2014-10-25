@@ -71,7 +71,7 @@ define(["application/EventManager",
             return target;
         };
 
-        var spawnPlane = function(name, planeData, pos, vel, rot, state, spawnedActivated) {
+        var spawnPlane = function(name, planeId, pos, vel, rot, state, spawnedActivated) {
             planeCount += 1;
 
 			var planeReady = function(plane) {
@@ -82,7 +82,7 @@ define(["application/EventManager",
 				spawnedActivated(plane);
 			};
 
-            pieceBuilder.buildPlane(name+'_'+planeCount, planeData, state, planeReady);
+            pieceBuilder.buildPlane(name+'_'+planeCount, planeId, state, planeReady);
 
         };
 
