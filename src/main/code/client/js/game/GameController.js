@@ -58,7 +58,7 @@ define(["application/EventManager",
 			var flushSequencer = function() {
 				this.sequencer.flushQueue();
 			}.bind(this);
-			GooEffectController.initFxPlayer();
+
 			event.registerListener(event.list().UN_LOAD_3D, flushSequencer);
         };
 
@@ -115,7 +115,7 @@ define(["application/EventManager",
 
 
 		GameController.prototype.gameLoadingCompleted = function() {
-
+			GooEffectController.initFxPlayer();
 			this.setGuiState('main_menu');
 		};
 

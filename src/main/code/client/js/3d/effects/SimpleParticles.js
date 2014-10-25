@@ -9,7 +9,7 @@ function(
 	function SimpleParticles(goo) {
 		this.goo = goo;
 		this.renderers = {};
-		this.particlesAPI = new ParticlesAPI();
+		this.particlesAPI = new ParticlesAPI(false);
 	}
 
 

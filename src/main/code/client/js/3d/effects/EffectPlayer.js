@@ -47,14 +47,14 @@ define(
 
 
 			var init = function() {
-				if (simpleParticles.particlesAPI.enabled) {
+				if (simpleParticles.particlesAPI.enabled || !simpleParticles.particlesAPI.useWorker) {
 					initEffectPlayer();
 				} else {
 					setTimeout(function() {
 						init();
 					}, 100)
 				}
-			}
+			};
 
 			init();
 
@@ -94,9 +94,12 @@ define(
 						console.log("Particle ready::", conf.id, conf);
 						textureReady(particleTextures[conf.texture], conf)
 					}
-					console.log("MakeCount: ", makeCount);
-					particlesReady();
+					console.log("MakeCount: ", makeCount, conf.id);
+
+
 				}
+				simpleParticles.particlesAPI.setEnabled(true);
+				particlesReady();
 			}
 
 			var data = PipelineAPI.subscribeToCategoryUpdate("particle_effects", particleDataUpdated);
