@@ -126,12 +126,12 @@ define([
         };
 
         Bullet.prototype.waterSplash = function(pos) {
-			var count = Math.round(Math.random()*this.caliber*0.15);
-			var fxPos = [pos[0], 0.6, pos[2]]
+			var count = Math.ceil(Math.random()*this.caliber*0.25);
+			var fxPos = [pos[0], 0, pos[2]]
 			this.hitVec.set(pos);
-			this.hitNormal.set(0, 25, 0);
+			this.hitNormal.set(0, count, 0);
 
-            event.fireEvent(event.list().SPLASH_WATER, {pos:fxPos, count:1+count, dir:[0, 2+count, 0]});
+            event.fireEvent(event.list().SPLASH_WATER, {pos:fxPos, count:4+count, dir:[0, count, 0]});
 			if (Math.random() < 0.2*count) event.fireEvent(event.list().SPLASH_RINGLET, {pos:fxPos, count:1, dir:[0, 0, 0]});
 			if (Math.random() < 0.05*count) event.fireEvent(event.list().SPLASH_FOAM, {pos:fxPos, count:1, dir:[0, 0, 0]});
 

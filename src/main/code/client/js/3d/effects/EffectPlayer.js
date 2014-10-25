@@ -27,6 +27,7 @@ define(
 		var musicPlayer;
 		var terrain;
 		var particleTextures = {};
+		var subscribed = false;
 
 		var path = "../../../../../tunnan_resources/";
 
@@ -63,7 +64,7 @@ define(
 		function processEffectData(systemsData, particlesConfig, audioConfig, particlesReady) {
 
 			var makeCount = 0;
-
+			var txSettings = {wrapS: 'EdgeClamp',	wrapT: 'EdgeClamp'};
 
 			var textureReady = function(tx, conf) {
 				var name = conf.id;
@@ -74,7 +75,9 @@ define(
 				makeCount++;
 
 				var imageUpdated = function(srcKey, img) {
-					particleTextures[srcKey] = new Texture(img.image, img.image.naturalWidth, img.image.naturalHeight);
+
+
+					particleTextures[srcKey] = new Texture(img.image, txSettings, img.image.naturalWidth, img.image.naturalHeight);
 					textureReady(particleTextures[srcKey], config);
 				};
 
@@ -131,6 +134,9 @@ define(
 			var audioConfig = EffectConfigs.audio;
 
 			var particlesReady = function() {
+				if (subscribed) return;
+				subscribed = true;
+
 				SystemBus.addListener('playParticles', handlePlayParticles);
 				SystemBus.addListener('playEffect', handlePlayEffect);
 				//	SystemBus.addListener('updateEffect', handleUpdateEffect);

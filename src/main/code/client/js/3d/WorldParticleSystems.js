@@ -266,11 +266,11 @@ define([
 		//	SystemBus.emit('playEffect', {effectName:'splash_water', pos:hitVec, vel:hitNorm});
 
 			var effectData = {
-				growth:300,
+				growth:400,
 				strength:8+Math.random()*4,
-				count: 6,
+				count: event.eventArgs(e).count,
 				spread:0.8,
-				lifespan: 0.6+Math.random()*0.9
+				lifespan: 0.6+Math.random()*1.9
 			};
 			SystemBus.emit('playWaterEffect', {effectName:"splash_water", pos:hitVec, vel:Vector3.UNIT_Y, effectData:effectData});
 
