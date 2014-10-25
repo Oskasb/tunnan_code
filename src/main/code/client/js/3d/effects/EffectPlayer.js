@@ -7,7 +7,7 @@ define(
 		'3d/effects/SoundHandler',
 		'3d/effects/SimpleParticles',
 		'data_pipeline/PipelineAPI',
-		'goo/renderer/TextureCreator'
+		'goo/renderer/Texture'
 	],
 	function(
 		Vector3,
@@ -17,7 +17,7 @@ define(
 		SoundHandler,
 		SimpleParticles,
 		PipelineAPI,
-		TextureCreator
+		Texture
 		) {
 
 		var goo;
@@ -44,7 +44,20 @@ define(
 		};
 
 		EffectPlayer.prototype.initEffectPlayer = function() {
-			initEffectPlayer();
+
+
+			var init = function() {
+				if (simpleParticles.particlesAPI.enabled) {
+					initEffectPlayer();
+				} else {
+					setTimeout(function() {
+						init();
+					}, 100)
+				}
+			}
+
+			init();
+
 		};
 
 		function processEffectData(systemsData, particlesConfig, audioConfig, particlesReady) {
@@ -55,23 +68,18 @@ define(
 			var textureReady = function(tx, conf) {
 				var name = conf.id;
 				simpleParticles.createSystem(name, conf, tx);
-				makeCount--
-				if (makeCount == 0) {
-					particlesReady();
-				}
 			};
 
-			var loadTexture = function(txurl, config) {
+			var loadTexture = function(txRef, config) {
 				makeCount++;
-				var txloaded = function(texture) {
-					particleTextures[txurl] = texture;
-					textureReady(texture, config);
+
+				var imageUpdated = function(srcKey, img) {
+					particleTextures[srcKey] = new Texture(img.image, img.image.naturalWidth, img.image.naturalHeight);
+					textureReady(particleTextures[srcKey], config);
 				};
 
-					new TextureCreator().loadTexture2D(path+config.texture, {
-					wrapS: 'EdgeClamp',
-					wrapT: 'EdgeClamp'
-				}, txloaded);
+				PipelineAPI.subscribeToImage(txRef, txRef, imageUpdated);
+
 			};
 
 			function particleDataUpdated(srcKey, configs) {
@@ -80,18 +88,21 @@ define(
 
 					var conf = configs[index];
 
-					if (!particleTextures[path+conf.texture]) {
-						particleTextures[path+conf.texture] = 'loading';
-						loadTexture(path+conf.texture, conf)
-					} else if (particleTextures[path+conf.texture] != 'loading') {
+					if (!particleTextures[conf.texture]) {
+						loadTexture(conf.texture, conf)
+					} else if (particleTextures[conf.texture]) {
 						console.log("Particle ready::", conf.id, conf);
-						textureReady(particleTextures[path+conf.texture], conf)
+						textureReady(particleTextures[conf.texture], conf)
 					}
-
+					console.log("MakeCount: ", makeCount);
+					particlesReady();
 				}
 			}
 
-			PipelineAPI.subscribeToCategoryUpdate("particle_effects", particleDataUpdated);
+			var data = PipelineAPI.subscribeToCategoryUpdate("particle_effects", particleDataUpdated);
+			if (data) {
+				particleDataUpdated('loadedconf', data);
+			}
 
 			for (var index in systemsData) {
 				var name = systemsData[index].id;

@@ -5,6 +5,12 @@
             "control_button_hover":"./configs/gui/images/svg/button/button_ctrl_hover.svg",
             "control_button_active":"./configs/gui/images/svg/button/button_ctrl_active.svg",
             "test_button":"./configs/gui/images/svg/button/testbutton.svg"
+        },
+        "bin":{
+            "smoke_particle":			"../../../../../tunnan_resources/images/particles/smoke.png",
+            "splash_particle":			"../../../../../tunnan_resources/images/particles/splash.png",
+            "spark_particle":		"../../../../../tunnan_resources/images/particles/spark.png",
+            "shockwave_particle":			"../../../../../tunnan_resources/images/particles/shockwave.png"
         }
     }
 ]
