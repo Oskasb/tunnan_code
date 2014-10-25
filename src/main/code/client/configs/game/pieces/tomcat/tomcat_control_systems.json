@@ -80,7 +80,7 @@
                         "min":0,
                         "max":1
                     },
-                    "default":0.7
+                    "default":0.95
 
                 },
                 {
@@ -109,7 +109,7 @@
                         "min":0,
                         "max":1
                     },
-                    "default":0.9
+                    "default":0.6
 
                 },
 
