@@ -33,7 +33,7 @@
             "strength": 15,
             "acceleration": 0.98,
             "lifespan": [4.1,17.8],
-            "poolCount":3500,
+            "poolCount":2500,
             "alphaCurve":[[0, 1], [0.1, 0.06],[0.3, 0.04], [1, 0]],
             "growthCurve":[[0, 1], [0.05, 0.8],[0.3, 0.3], [1, 1]]
         },
@@ -70,7 +70,7 @@
             "stretch":1,
             "acceleration": 1,
             "lifespan": [0.4, 0.4],
-            "poolCount": 5000,
+            "poolCount": 2000,
             "alphaCurve":[[0, 1], [1, 1]]
         },
         {
@@ -87,7 +87,7 @@
             "strength": 1,
             "acceleration": 0.97,
             "lifespan": [ 1.1,2.8 ],
-            "poolCount": 4500,
+            "poolCount": 2500,
             "reflectable":false,
             "alphaCurve":[[0, 1], [0.3, 1], [0.6, 0.7],[1, 0]],
             "growthCurve":[[0, 1], [0.2, 1],[0.6, 0.3], [1, -1]]
@@ -123,7 +123,7 @@
             "stretch":1 ,
             "strength": 1,
             "lifespan": [0.7,0.8],
-            "poolCount": 4400,
+            "poolCount": 2400,
             "growth": [2440,2440],
             "spin": [0,0],
             "acceleration": 1,

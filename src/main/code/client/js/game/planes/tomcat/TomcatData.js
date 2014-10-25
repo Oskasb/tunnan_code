@@ -27,6 +27,7 @@ define([
 
         TOMCAT:{
             modelPath:gameConfig.GOO_PROJECTS.tomcat.entityIds.tomcat_skinned,
+			gooProjectUrl:gameConfig.GOO_PROJECTS.tomcat.projectPath,
 			configs:{
 				dataKeys:[
 					'tomcat_control_surface_data',
@@ -67,26 +68,13 @@ define([
             physicalRadius:30,
 
             keyBindings:gameConfig.KEY_BINDINGS.plane,
-            gooProjectUrl:gameConfig.GOO_PROJECTS.tomcat.projectPath,
-            gooProject:gameConfig.GOO_PROJECTS.tomcat,
-            piecePath:gameConfig.GOO_PROJECTS.tomcat.tomcat,
-            contrail_effect:modelDefinitions.GOO_PARTICLES.wing_smoke,
+
 			onScreenInput:{guiMainStateId:"tomcat_controls"},
 
             wing_smoke:[
                 [-5.8, 0, -2],
                 [5.8, 0, -2]
-            ],
-
-            measurements: {
-                throttle:1,
-                speed:1,
-                altitude:1,
-                airflowx:1,
-                airflowy:1,
-                airflowz:1,
-                gForce:1
-            }
+            ]
         }
     }
 });

@@ -1,0 +1,10 @@
+[{
+    "game_pieces":{
+        "vehicles":[
+            {
+                "id":"TOMCAT",
+                "base_data_key":"tomcat_base_data"
+            }
+        ]
+    }
+}]
