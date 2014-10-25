@@ -95,10 +95,10 @@ define([
 				}
 
 			};
-
-            for (var i = 0; i < entity.pieceData.uiPages.length; i++) {
-                playerUiHandler.unloadPlayerUi(entity.pieceData.uiPages[i], pagesGoneCB);
-            }
+			unloadCallback();
+        //    for (var i = 0; i < entity.pieceData.uiPages.length; i++) {
+        //    //    playerUiHandler.unloadPlayerUi(entity.pieceData.uiPages[i], pagesGoneCB);
+        //    }
         };
 
         var removePlayerControlFrom = function(entity, unloadedOk) {

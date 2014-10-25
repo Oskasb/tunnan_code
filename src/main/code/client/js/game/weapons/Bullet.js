@@ -72,10 +72,7 @@ define([
 
     var Bullet = function(pos, vel, bulletData, cannonData, callback, originatorId, tpf) {
         var rot = new Matrix3x3();
-    //    this.visible = GooEffectController.getSettings()['Visible Bullets'].fx['visible'];
-    //    console.log(pos.data[1])
-    //    rot.lookAt(vel);
-        pos.add(vel);
+
 		this.hitVec = new Vector3();
 		this.hitNormal = new Vector3();
         this.originatorId = originatorId;
@@ -148,8 +145,10 @@ define([
 
         //    console.log("HIT!", hit)
             var vel = this.spatial.velocity.data;
-            for (var index in this.onHitEffects) {
-				SystemBus.emit('playParticles', {effectName:this.onHitEffects[index], pos:pos, vel:Vector3.UNIT_Y, effectData:{}});
+            for (var i = 0; i < this.onHitEffects.length; i++) {
+
+
+				SystemBus.emit('playParticles', {effectName:this.onHitEffects[i].id, pos:new Vector3(pos), vel:Vector3.UNIT_Y, effectData:this.onHitEffects[i].effectData});
 			}
 
             if (hit.entity) {
@@ -180,18 +179,20 @@ define([
                 this.remove();
                 return;
             }
-			this.hitNormal.set(this.spatial.velocity);
-			this.hitNormal.data[0] /= time;
-			this.hitNormal.data[1] /= time;
-			this.hitNormal.data[2] /= time;
-            if (this.visible) this.entity.geometries[0].transformComponent.transform.scale.data[2] = this.spatial.speed*1.2;
-
+			this.hitNormal.set(this.spatial.velocity)
+			this.hitNormal.mul(2)
 
 			var effectData = {
-				intensity:1 - (this.age / this.lifeTime)*(this.age / this.lifeTime)
+				lifespan:0.035,
+				intensity:1 - (this.age / this.lifeTime)*(this.age / this.lifeTime),
+				count:120*(1-(this.age*(this.age*0.002+0.998) / (this.lifeTime))),
+				size:500,
+				alphacurve:[[0, 1], [1,1]],
+				color:[0.4, 0.3, 0.2, 0.1]
 			};
 
-			SystemBus.emit('playParticles', {effectName:'explosion_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:{lifespan:0.03}});
+			SystemBus.emit('playParticles', {effectName:'explosion_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
+
 			//		SystemBus.emit('playParticles', {effectName:'shockwave_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
 			if (Math.random() < 0.15 * (1/(1+this.age/1000))) event.fireEvent(event.list().PUFF_SMALL_WHITE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
 

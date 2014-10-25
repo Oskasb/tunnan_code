@@ -21,10 +21,15 @@ define(["game/ModelDefinitions"], function(modelDefinitions) {
             modelPath:modelDefinitions.GOO_PROJECTS.bullet_20.piecePath,
             damageEffects:[{kinetic:{points:5}}, {fire:{intensity:0.2, size:9}}],
             onHitSounds:["BULLET_HIT_0", "BULLET_HIT_1", "BULLET_HIT_2", "BULLET_HIT_3"],
-			lifeTime: 8000,
-            onHitEffects: [
-				"hit_smoke_puff",
-				"metal_sparks"
+			lifeTime: 5000,
+            onHitEffects: [{
+				"id":"metal_sparks",
+				effectData : {
+					alphaCurve:[[0, 1],[0.7, 0.9], [1,0]],
+					growthCurve:[[0, 1.2],[0.3, 1], [1,1.6]]
+				}
+			}
+
             ]
         },
         BULLET_AAA:{
