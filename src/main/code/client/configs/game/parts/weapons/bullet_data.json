@@ -12,6 +12,13 @@
                 "damageEffects":[{"kinetic":{"points":5}}, {"fire":{"intensity":0.2, "size":9}}],
                 "onHitSounds":["BULLET_HIT_0", "BULLET_HIT_1", "BULLET_HIT_2", "BULLET_HIT_3"],
                 "lifeTime": 5000,
+                "trailEffects":[{
+                    "id":"explosion_fire",
+                    "effectData":{
+                        "count":40,
+                        "lifespan":0.035
+                    }
+                }],
                 "onHitEffects": [{
                     "id":"shockwave_fire",
                     "effectData" : {

@@ -79,10 +79,10 @@ define(['game/world/PhysicalWorld',
 
         };
 
-        Boat.prototype.pushWakes = function() {
-            var speed = this.entity.spatial.speed;
-            var shipPos = this.entity.spatial.pos;
-            for (var index in this.wakes) {
+		Boat.prototype.pushWakes = function() {
+			var speed = this.entity.spatial.speed;
+			var shipPos = this.entity.spatial.pos;
+			for (var index in this.wakes) {
 				calcVec.set(this.wakes[index].posOffset);
 				var random = Math.random()*this.wakes[index].spread;
 				calcVec.data[2] += calcVec.data[2]*random;
@@ -91,16 +91,16 @@ define(['game/world/PhysicalWorld',
 				pos.addv(shipPos);
 
 				if (index == 0) {
-
-					var effectData = {
-						growth:300,
-						strength:12+Math.random()*4,
-						count: 6,
-						spread:1,
-						lifespan: 1+Math.random()*2
-					};
-					SystemBus.emit('playWaterEffect', {effectName:"splash_water", pos:pos, vel:Vector3.UNIT_Y, effectData:effectData});
-
+					if (Math.random() < speed*0.25) {
+						var effectData = {
+							growth:300,
+							strength:12+Math.random()*4,
+							count: 5,
+							spread:1,
+							lifespan: 1.5+Math.random()*2
+						};
+						SystemBus.emit('playWaterEffect', {effectName:"splash_water", pos:pos, vel:Vector3.UNIT_Y, effectData:effectData});
+					}
 				}
 
 
@@ -113,9 +113,9 @@ define(['game/world/PhysicalWorld',
 
 					} else {
 						var effectData = {
-							growth:600,
+							growth:400,
 							strength:3+Math.random()*4,
-							count: 8,
+							count: 4,
 							spread:0.5,
 							lifespan: 1+Math.random()*1
 						};
@@ -123,8 +123,8 @@ define(['game/world/PhysicalWorld',
 						//    event.fireEvent(event.list().SPLASH_WATER, {pos:[pos.data[0], pos.data[1], pos.data[2]], count:1, dir:[Math.random()-0.5, -1.2+Math.random(), Math.random()-0.5]})
 					}
 				}
-            }
-        };
+			}
+		};
 
         Boat.prototype.setPassengerParkingLot = function(passenger, parkingLot) {
             var posOffset = new Vector3(parkingLot.posOffset);

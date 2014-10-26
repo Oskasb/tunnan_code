@@ -182,20 +182,27 @@ define([
 			this.hitNormal.set(this.spatial.velocity)
 			this.hitNormal.mul(2)
 
-			var effectData = {
-				lifespan:0.035,
-				intensity:1 - (this.age / this.lifeTime)*(this.age / this.lifeTime),
-				count:120*(1-(this.age*(this.age*0.002+0.998) / (this.lifeTime))),
-				size:30*this.caliber,
-				alphacurve:[[0, 1], [1,1]],
-				color:[0.4, 0.3, 0.2, 0.1]
-			};
+			if (this.bulletData.trailEffects) {
+				for (var i = 0; i < this.bulletData.trailEffects.length; i++){
 
-			SystemBus.emit('playParticles', {effectName:'explosion_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
+					var effectData = {
+						lifespan:0.035,
+						intensity:1 - (this.age / this.lifeTime)*(this.age / this.lifeTime),
+						size:30*this.caliber,
+						alphacurve:[[0, 1], [1,1]],
+						color:[0.4, 0.3, 0.2, 0.1]
+					};
 
-			//		SystemBus.emit('playParticles', {effectName:'shockwave_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
-			if (Math.random() < 0.15 * (1/(1+this.age/1000))) event.fireEvent(event.list().PUFF_SMALL_WHITE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
+					for (var index in this.bulletData.trailEffects[i].effectData) {
+						effectData[index] = this.bulletData.trailEffects[i].effectData[index];
+					}
+					if (effectData.count) {
+						effectData.count *= (1-(this.age*(this.age*0.002+0.998) / (this.lifeTime)))
+					}
 
+					SystemBus.emit('playParticles', {effectName:this.bulletData.trailEffects[i].id, pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
+				}
+			}
 
 	        //    if (Math.random() < 0.07 * (1/(1+this.age/1000))) event.fireEvent(event.list().ACROBATIC_SMOKE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
         //    if (Math.random() < 0.01 * (1/(1+this.age/1000))) event.fireEvent(event.list().PUFF_WHITE_SMOKE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
