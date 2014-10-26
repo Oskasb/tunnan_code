@@ -8,6 +8,15 @@
             {
                 "id":"CARRIER",
                 "base_data_key":"carrier_base_data"
+            },
+            {
+                "id":"BATTLESHIP_NEVADA",
+                "base_data_key":"nevada_base_data"
+            },
+
+            {
+                "id":"TRE_KRONOR",
+                "base_data_key":"tre_ktonor_base_data"
             }
         ]
     }

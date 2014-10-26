@@ -70,7 +70,9 @@
             "configs/game/pieces/tomcat/tomcat_screen_systems.json",
 			"configs/game/pieces/tomcat/tomcat_wing_data.json",
 
-            "configs/game/pieces/carrier/carrier_base_data.json"
+            "configs/game/pieces/carrier/carrier_base_data.json",
+            "configs/game/pieces/battleship/battleship_base_data.json",
+            "configs/game/pieces/tre_kronor/tre_kronor_base_data.json"
         ]
     }
 }]
