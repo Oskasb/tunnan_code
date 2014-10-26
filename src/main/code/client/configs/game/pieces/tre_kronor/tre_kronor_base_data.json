@@ -40,17 +40,17 @@
                 {"baseBone":"flag_base", "flapBone":"flag_flap", "flapFreq":1.3}
             ],
             "turrets":[
-                {"targets":["boat"], "bonePivot":"main_gun_fore", "boneElevate":"main_fore_elev",  "bulletData":"BULLET_MAIN", "cannonId":"main_gun_16", "baseRot":3.147  ,"speed":0.2 ,"swivel":2.4,   "posOffset":[0,   8.3,   -46.74   ]},
-                {"targets":["boat"], "bonePivot":"main_gun_aft_1","boneElevate":"main_aft_elev_1", "bulletData":"BULLET_MAIN", "cannonId":"main_gun_16", "baseRot":0      ,"speed":0.2 ,"swivel":2.4,   "posOffset":[0,   9.1 ,  45.54   ]},
-                {"targets":["boat"], "bonePivot":"main_gun_aft_2","boneElevate":"main_aft_elev_2", "bulletData":"BULLET_MAIN", "cannonId":"main_gun_16", "baseRot":0      ,"speed":0.2 ,"swivel":2.4,   "posOffset":[0,   12.0  ,  22.1  ]},
-                {"targets":["plane"],"bonePivot":"port_gun_1",    "boneElevate":"port_elev_1",     "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":-1.67  ,"speed":0.6 ,"swivel":1.6,   "posOffset":[-5.5 , 7.2 ,   -26.6  ]},
-                {"targets":["plane"],"bonePivot":"port_gun_2",    "boneElevate":"port_elev_2",     "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":-1.67  ,"speed":0.6 ,"swivel":1.6,   "posOffset":[-5.5 , 7.2,    -8.4   ]},
-                {"targets":["plane"],"bonePivot":"port_gun_3",    "boneElevate":"port_elev_3",     "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":-1.67  ,"speed":0.6 ,"swivel":1.6,   "posOffset":[-5.5 , 17.3  ,  10.14   ]},
-                {"targets":["plane"],"bonePivot":"sb_gun_1",      "boneElevate":"sb_elev_1",       "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":1.67   ,"speed":0.6 ,"swivel":1.6,   "posOffset":[5.5, 7.2 ,   -26.6  ]},
-                {"targets":["plane"],"bonePivot":"sb_gun_2",      "boneElevate":"sb_elev_2",       "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":1.67   ,"speed":0.6 ,"swivel":1.6,   "posOffset":[5.5, 7.2,    -8.4   ]},
-                {"targets":["plane"],"bonePivot":"sb_gun_3",      "boneElevate":"sb_elev_3",       "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":1.67   ,"speed":0.6 ,"swivel":1.6,   "posOffset":[5.5, 17.3  ,  10.14   ]},
-                {"targets":["plane"],"bonePivot":"fore_gun_mid",  "boneElevate":"gun_fore_mid",    "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":3.147  ,"speed":0.6 ,"swivel":2.7,   "posOffset":[0,  6.2   ,  71.5   ]},
-                {"targets":["plane"],"bonePivot":"aft_gun_mid",   "boneElevate":"aft_mid_elev",    "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":0      ,"speed":0.6 ,"swivel":2.7,   "posOffset":[0 , 9.02  ,  -70.4   ]}
+                {"targets":["boat"], "bonePivot":"main_gun_fore", "boneElevate":"main_fore_elev",  "bulletData":"BULLET_MAIN", "cannonId":"main_gun_16", "baseRot":3.14159265359  ,"speed":0.4 ,"swivel":2.4,   "posOffset":[0,   8.3,   -46.74   ]},
+                {"targets":["boat"], "bonePivot":"main_gun_aft_1","boneElevate":"main_aft_elev_1", "bulletData":"BULLET_MAIN", "cannonId":"main_gun_16", "baseRot":0              ,"speed":0.4 ,"swivel":2.4,   "posOffset":[0,   9.1 ,  45.54   ]},
+                {"targets":["boat"], "bonePivot":"main_gun_aft_2","boneElevate":"main_aft_elev_2", "bulletData":"BULLET_MAIN", "cannonId":"main_gun_16", "baseRot":0              ,"speed":0.4 ,"swivel":2.4,   "posOffset":[0,   12.0  ,  22.1  ]},
+                {"targets":["plane"],"bonePivot":"port_gun_1",    "boneElevate":"port_elev_1",     "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":-1.57079632679 ,"speed":0.6 ,"swivel":1.6,   "posOffset":[-5.5 , 7.2 ,   -26.6  ]},
+                {"targets":["plane"],"bonePivot":"port_gun_2",    "boneElevate":"port_elev_2",     "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":-1.57079632679 ,"speed":0.6 ,"swivel":1.6,   "posOffset":[-5.5 , 7.2,    -8.4   ]},
+                {"targets":["plane"],"bonePivot":"port_gun_3",    "boneElevate":"port_elev_3",     "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":-1.57079632679 ,"speed":0.6 ,"swivel":1.6,   "posOffset":[-5.5 , 17.3  ,  10.14   ]},
+                {"targets":["plane"],"bonePivot":"sb_gun_1",      "boneElevate":"sb_elev_1",       "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot": 1.57079632679 ,"speed":0.6 ,"swivel":1.6,   "posOffset":[5.5, 7.2 ,   -26.6  ]},
+                {"targets":["plane"],"bonePivot":"sb_gun_2",      "boneElevate":"sb_elev_2",       "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot": 1.57079632679 ,"speed":0.6 ,"swivel":1.6,   "posOffset":[5.5, 7.2,    -8.4   ]},
+                {"targets":["plane"],"bonePivot":"sb_gun_3",      "boneElevate":"sb_elev_3",       "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot": 1.57079632679 ,"speed":0.6 ,"swivel":1.6,   "posOffset":[5.5, 17.3  ,  10.14   ]},
+                {"targets":["plane"],"bonePivot":"fore_gun_mid",  "boneElevate":"gun_fore_mid",    "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":3.14159265359  ,"speed":0.6 ,"swivel":2.7,   "posOffset":[0,  6.2   ,  71.5   ]},
+                {"targets":["plane"],"bonePivot":"aft_gun_mid",   "boneElevate":"aft_mid_elev",    "bulletData":"BULLET_AAA",  "cannonId":"midship_80",  "baseRot":0              ,"speed":0.6 ,"swivel":2.7,   "posOffset":[0 , 9.02  ,  -70.4   ]}
 
             ]
         }

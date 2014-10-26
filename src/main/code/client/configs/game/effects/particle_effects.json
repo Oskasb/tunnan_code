@@ -100,35 +100,35 @@
             "size": [40,120],
             "rotation": [ 0,360],
             "gravity": 0,
-            "count": 5,
+            "count": 3,
             "spread": 0,
             "strength": 1,
-            "lifespan": [0.4,0.8],
+            "lifespan": [0.3,0.5],
             "poolCount": 1000,
-            "growth": [350,650],
+            "growth": [350,750],
             "spin": [ 0,0 ],
             "acceleration": 0.999,
-            "alphaCurve":[[0, 0], [0.3,0.9], [1, 0]]
+            "alphaCurve":[[0, 1], [0.3,0.9], [1, 0]]
         },
         {
             "id": "shockwave_fire",
             "texture": "shockwave_particle",
             "blending": "additive",
-            "color": [1,0.6,0.5,0.6],
-            "size": [340,430],
+            "color": [1,0.9,0.7,1],
+            "size": [1,1],
             "rotation": [0,360],
             "gravity": 0,
-            "count": 4,
+            "count": 1,
             "spread": 0,
             "stretch":1 ,
             "strength": 1,
-            "lifespan": [0.7,0.8],
+            "lifespan": [0.3,0.5],
             "poolCount": 2400,
             "growth": [2440,2440],
             "spin": [0,0],
             "acceleration": 1,
             "alphaCurve":[[0, 1], [0.7,0.4], [1, 0]],
-            "growthCurve":[[0, 0], [0.2, 0.4],[0.6, 0.6], [1, 1]]
+            "growthCurve":[[0, 1], [0.2, 0.6],[0.6, 0.3], [1, 1]]
         }
     ]
 }]

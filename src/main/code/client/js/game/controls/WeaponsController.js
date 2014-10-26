@@ -2,35 +2,33 @@
 
 define(["application/EventManager",
 	"3d/GooJointAnimator",
+	'data_pipeline/PipelineAPI',
 	'game/weapons/WeaponData',
 	"game/weapons/PlaneCannon"
 ], function(
 	event,
 	GooJointAnimator,
+	PipelineAPI,
 	WeaponData,
 	PlaneCannon
 	) {
 
 
-    var buildWeapon = function(entity, type, weaponSystem) {
-		var weapData =  WeaponData.CANNONS[weaponSystem.data]
-        if (type == "cannons") var weapon = new PlaneCannon(entity, weaponSystem, weapData, WeaponData[weaponSystem.bulletData]);
-        return weapon;
-    };
-
     var buildSystem = function(entity, weaponData) {
-        var cannons = [];
-        for (var index in weaponData.controls) {
-            for (var i = 0; i < weaponData[index].length; i++) {
-				cannons.push(buildWeapon(entity, index, weaponData[index][i]))
-            }
-        }
-
 		var weaponSystem = {
 			weaponData:weaponData,
-			cannons:cannons,
+			cannons:[],
 			locked:false
 		};
+		var cannons = [];
+
+		for (var index in weaponData.controls) {
+			for (var i = 0; i < weaponData[index].length; i++) {
+				cannons.push(new PlaneCannon(entity, weaponData[index][i].data, weaponData[index][i], weaponData[index][i].bulletData))
+			}
+		}
+
+		weaponSystem.cannons = cannons;
 		return weaponSystem;
 
     };

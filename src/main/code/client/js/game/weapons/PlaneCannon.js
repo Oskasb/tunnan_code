@@ -2,6 +2,7 @@
 
 define([
     "game/GameConfiguration",
+	"data_pipeline/PipelineAPI",
     "game/weapons/Bullet",
     "application/EventManager",
     'game/GameUtil',
@@ -9,22 +10,24 @@ define([
 ],
     function(
         gameConfig,
+		PipelineAPI,
         Bullet,
         event,
         gameUtil,
         Vector3
         ) {
 
-        var PlaneCannon = function(planeEntity, weaponSystemData, cannonData, bulletData) {
-            console.log(planeEntity, cannonData)
+        var PlaneCannon = function(planeEntity, cannonDataId, weaponSystemData, bulletId) {
             this.planeEntity = planeEntity;
-            this.name = cannonData.name;
-            this.data = cannonData;
-            this.bulletData = bulletData;
-            this.posOffset = weaponSystemData.posOffset;
+			this.posOffset = weaponSystemData.posOffset;
+
+
+			this.attachCannonData(cannonDataId);
+			this.attachBulletData(bulletId);
+
             this.elevation = 48;
             this.currentState = 0;
-            this.cooldownTime = 1000 / this.data.rateOfFire;
+
             this.targetState = 0;
             this.firing = false;
             this.flameEffect = null;
@@ -32,6 +35,39 @@ define([
             this.fireSounds = {};
             this.lastBulletVelocity = new Vector3();
         };
+
+		PlaneCannon.prototype.attachCannonData = function(cannonId) {
+
+			var cannonDataUpdate = function(srcKey, data) {
+				for (var i = 0; i < data.length; i++) {
+					if (data[i].id == cannonId) {
+						this.name = data[i].name;
+						this.data = data[i];
+
+						this.cooldownTime = 1000 / this.data.rateOfFire;
+						return;
+					}
+				}
+				console.error("no cannon data for cannonId on turret", cannonId, data, this);
+			}.bind(this);
+			PipelineAPI.subscribeToCategoryKey('game_parts_data', 'cannons', cannonDataUpdate)
+
+		};
+
+		PlaneCannon.prototype.attachBulletData = function(bulletId) {
+
+			var bulletDataUpdate = function(srcKey, data) {
+				for (var i = 0; i < data.length; i++) {
+					if (data[i].id == bulletId) {
+						this.bulletData = data[i];
+						return;
+					}
+				}
+				console.error("no bullet data for bulletId", bulletId, data);
+			}.bind(this);
+			PipelineAPI.subscribeToCategoryKey('game_parts_data', 'bullets', bulletDataUpdate)
+
+		};
 
 
         PlaneCannon.prototype.playFireParticles = function() {

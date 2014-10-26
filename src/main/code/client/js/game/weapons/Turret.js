@@ -225,7 +225,10 @@ define([
             var aimRange = Math.sqrt(distance.lengthSquared());
 
             var targElev = trajectoryPhysics.calcElevationForTrajectory(instance.cannon.data.exitVelocity, aimRange, tPos.data[1] - sPos.data[1])+spread*(Math.random()-0.5);
-            if (isNaN(targElev)) return;
+            if (isNaN(targElev)) {
+				this.currentState = this.states.idle;
+				return;
+			}
             instance.aimParams.newSwivel = GameUtil.determineYAngleFromPosAndRotToPos(sPos.data,[sRot.data[0]+spread*(Math.random()-0.5), sRot.data[1]+instance.baseRot+spread*(Math.random()-0.5), sRot.data[2]+spread*(Math.random()-0.5)], tPos.data);
             instance.aimParams.newElevation = targElev
 

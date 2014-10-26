@@ -7,10 +7,6 @@
                 "layers": [{
                     "shape":"radar_overview_panel_open",
                     "id":"radar_overview_page"
-                },{
-                    "id":"radar_overview_label",
-                    "text":{"key":"radar_overview_page_label"},
-                    "shape":"container_menu_label"
                 }]
             }]
         }
@@ -20,13 +16,13 @@
             "passive":{
                 "pos":{
                     "unit":"%",
-                    "top":10,
-                    "left":10
+                    "top":8,
+                    "left":4
                 },
                 "shape":{
-                    "unit":"%",
-                    "width":80,
-                    "height":80
+                    "unit":"px",
+                    "width":280,
+                    "height":280
                 },
                 "border": {
                     "unit":"px",
