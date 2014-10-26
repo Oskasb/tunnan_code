@@ -1,6 +1,7 @@
 "use strict";
 
 define(["application/EventManager",
+
     "game/ships/Boat",
     "game/ships/Helmsman",
     "game/ships/ShipsCaptain",
@@ -10,6 +11,7 @@ define(["application/EventManager",
     'game/ships/CarrierCable',
     "game/ships/Flag"],
     function(event,
+
              Boat,
              Helmsman,
              ShipsCaptain,

@@ -1,0 +1,68 @@
+[{
+    "game_parts_data":{
+        "bullets":[
+            {
+                "id":"BOMB_200",
+                "damageEffects":[{"kinetic":{"points":5}}, {"fire":{"intensity":0.2, "size":9}}],
+                "onHitSounds":["BULLET_HIT_0", "BULLET_HIT_1", "BULLET_HIT_2", "BULLET_HIT_3"],
+                "lifeTime": 60000,
+                "onHitEffects": []
+            },{
+                "id":"BULLET_20",
+                "damageEffects":[{"kinetic":{"points":5}}, {"fire":{"intensity":0.2, "size":9}}],
+                "onHitSounds":["BULLET_HIT_0", "BULLET_HIT_1", "BULLET_HIT_2", "BULLET_HIT_3"],
+                "lifeTime": 5000,
+                "onHitEffects": [
+                    {
+                        "id":"metal_sparks",
+                        "effectData" : {
+                            "alphaCurve":[[0, 1],[0.7, 0.9], [1,0]],
+                            "growthCurve":[[0, 1.2],[0.3, 1], [1,1.6]]
+                        }
+                    }
+                ]
+            },{
+                "id":"BULLET_AAA",
+                "damageEffects":[{"kinetic":{"points":20}}, {"fire":{"intensity":0.5, "size":16}}],
+                "onHitSounds":["AAA_HIT_0", "AAA_HIT_1", "AAA_HIT_2"],
+                "lifeTime": 14000,
+                "onHitEffects": [
+                    {
+                        "id":"metal_sparks",
+                        "effectData" : {
+                            "alphaCurve":[[0, 1],[0.7, 0.9], [1,0]],
+                            "growthCurve":[[0, 1.2],[0.3, 1], [1,1.6]]
+                        }
+                    },{
+                        "id":"explosion_fire",
+                        "effectData" : {
+                            "alphaCurve":[[0, 1],[0.7, 0.9], [1,0]],
+                            "growthCurve":[[0, 1.2],[0.3, 1], [1,1.6]]
+                        }
+                    }
+
+                ]
+            },{
+                "id":"BULLET_MAIN",
+                "damageEffects":[{"kinetic":{"points":100}}, {"fire":{"intensity":0.7, "size":20}}],
+                "onHitSounds":["MAIN_HIT_0", "MAIN_HIT_1", "MAIN_HIT_2"],
+                "lifeTime": 38000,
+                "onHitEffects": [
+                    {
+                        "id":"metal_sparks",
+                        "effectData" : {
+                            "alphaCurve":[[0, 1],[0.7, 0.9], [1,0]],
+                            "growthCurve":[[0, 1.2],[0.3, 1], [1,1.6]]
+                        }
+                    },{
+                        "id":"explosion_fire",
+                        "effectData" : {
+                            "alphaCurve":[[0, 1],[0.7, 0.9], [1,0]],
+                            "growthCurve":[[0, 1.2],[0.3, 1], [1,1.6]]
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}]

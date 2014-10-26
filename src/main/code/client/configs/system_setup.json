@@ -5,7 +5,7 @@
 			"jsonPipe":{
 				"polling":{
 					"enabled":true,
-					"frequency":5
+					"frequency":15
 				}
 			},
 			"svgPipe":{

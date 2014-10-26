@@ -186,7 +186,7 @@ define([
 				lifespan:0.035,
 				intensity:1 - (this.age / this.lifeTime)*(this.age / this.lifeTime),
 				count:120*(1-(this.age*(this.age*0.002+0.998) / (this.lifeTime))),
-				size:500,
+				size:30*this.caliber,
 				alphacurve:[[0, 1], [1,1]],
 				color:[0.4, 0.3, 0.2, 0.1]
 			};

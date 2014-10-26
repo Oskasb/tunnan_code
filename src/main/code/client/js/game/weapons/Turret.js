@@ -3,17 +3,13 @@
 define([
     "application/EventManager",
     "goo/math/Vector3",
-    "game/GameConfiguration",
     "game/weapons/ShipCannon",
-    "game/weapons/WeaponData",
     "physics/TrajectoryPhysics",
     "game/GameUtil"
 ],
     function(event,
              Vector3,
-             gameConfig,
              ShipCannon,
-             weaponData,
              trajectoryPhysics,
              GameUtil) {
 
@@ -28,10 +24,10 @@ define([
             this.elevateJointId = turretData.boneElevate;
             this.swivel = turretData.swivel;
             this.speed = turretData.speed;
-            this.direction = 0 // baseRot;
+            this.direction = 0;
             this.elevation = 0;
             this.ready = true;
-            this.cannon = new ShipCannon(this.shipEntity, turretData.cannonData, turretData.posOffset, turretData.bulletData);
+
             this.targetEntity = null;
             this.lastDiff = [0, 0, 0];
             this.lastAimDelta = [0, 0, 0];
@@ -58,7 +54,16 @@ define([
 
             this.currentState = this.states.idle;
 
+			this.attachCannon(turretData.cannonId, turretData.posOffset, turretData.bulletData);
+
         };
+
+		Turret.prototype.attachCannon = function(cannonId, posOffset, bulletId) {
+
+			this.cannon = new ShipCannon(this.shipEntity, cannonId, posOffset, bulletId);
+
+
+		};
 
 
         Turret.prototype.loadTurret = function() {

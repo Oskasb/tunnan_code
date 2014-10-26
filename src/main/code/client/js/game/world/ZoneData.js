@@ -59,7 +59,7 @@ define(function() {
 						state:1
 					},
 					carrier:{
-						pos:[-200, 0, 500],
+						pos:[-100, 0, 300],
 						vel:[0, 0, 0.08],
 						rot:[0, 0, 0]
 					}
@@ -258,8 +258,20 @@ define(function() {
 			carrier_takeoff:{
 				boats:{
 
-					CARRIER:[{
-						pos:[2300, 0, -500],
+					TRE_KRONOR:[{
+						pos:[-400, 0, -90],
+						vel:[0, 0, 0.08],
+						rot:[0, 0, 0]
+					},{
+						pos:[60, 0, -190],
+						vel:[0, 0, 0.08],
+						rot:[0, 0, 0]
+					},{
+						pos:[-4400, 0, 11190],
+						vel:[0, 0, 0.08],
+						rot:[0, 0, 0]
+					},{
+						pos:[9400, 0, -4490],
 						vel:[0, 0, 0.08],
 						rot:[0, 0, 0]
 					}
