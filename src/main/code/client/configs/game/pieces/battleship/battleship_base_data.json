@@ -1,8 +1,8 @@
 [{
     "piece_data":{
         "nevada_base_data":{
-            "gooProject":"battleship_nevada",
-            "piecePath":"battleship_skinned",
+            "gooProject":"battleship",
+            "piecePath":"battleship",
             "hitPoints":225000,
             "physicalShapes":[
                 {"partId":"hull", "posOffset":[0, 0, 0], "radius":30},

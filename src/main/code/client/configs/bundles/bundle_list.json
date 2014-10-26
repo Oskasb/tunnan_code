@@ -24,7 +24,7 @@
                 "id":"carrier",
                 "folder":"tunnan_resources/bundles/carrier/",
                 "file":"root.bundle",
-                "entities":["carrier", "tre_kronor"]
+                "entities":["carrier", "tre_kronor", "battleship"]
             },
             {
                 "id":"environment",

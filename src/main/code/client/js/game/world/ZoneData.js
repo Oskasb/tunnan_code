@@ -257,21 +257,19 @@ define(function() {
             },
 			carrier_takeoff:{
 				boats:{
+					CARRIER:[{
+						pos:[-6300, 0, 8900],
+						vel:[0, 0, 0.08],
+						rot:[0, 0, 0]
+					}],
 
-					TRE_KRONOR:[{
+					BATTLESHIP_NEVADA:[{
 						pos:[-400, 0, -90],
 						vel:[0, 0, 0.08],
 						rot:[0, 0, 0]
-					},{
+					}],
+					TRE_KRONOR:[{
 						pos:[60, 0, -190],
-						vel:[0, 0, 0.08],
-						rot:[0, 0, 0]
-					},{
-						pos:[-4400, 0, 11190],
-						vel:[0, 0, 0.08],
-						rot:[0, 0, 0]
-					},{
-						pos:[9400, 0, -4490],
 						vel:[0, 0, 0.08],
 						rot:[0, 0, 0]
 					}
