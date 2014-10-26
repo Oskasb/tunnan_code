@@ -1,7 +1,6 @@
 "use strict";
 
 define(["application/EventManager",
-    "game/ships/BoatFactory",
     'game/piece/PieceBuilder',
     "game/characters/CharacterFactory",
     "game/cars/CarFactory",
@@ -10,7 +9,6 @@ define(["application/EventManager",
     'game/movement/MobileUnits'
 ],
     function(event,
-             boatFactory,
              pieceBuilder,
              characterFactory,
              carFactory,
@@ -29,23 +27,19 @@ define(["application/EventManager",
             event.fireEvent(event.list().ACTIVATE_GOO_ENTITY, {gooEntity:entity.geometries[0], gameEntity:entity});
         };
 
-        var spawnBoat = function(name, boatData, pos, rot, vel, boatReady) {
+        var spawnBoat = function(name, dataKey, pos, rot, vel, boatReady) {
             boatCount += 1;
 
 			var boatSpawned = function(boat) {
 				boat.entity.spatial.pos.set(pos);
 				boat.entity.spatial.rot.fromAngles(rot[0], rot[1], rot[2]);
 				boat.entity.spatial.velocity.set(vel);
-				pieceBuilder.buildBoatPiece(boat.entity, boatData);
 				activateSpawned(boat.entity);
-				//   console.log(gooEntity.transformComponent.children[0].entity.meshDataComponent)
 				AmmoPhysicalWorld.createAmmoShapeComponent(boat.entity, boat.entity.geometries[0]);
-
 				boatReady(boat);
 			};
 
-            boatFactory.buildShip(name+'_'+boatCount, boatData, boatSpawned);
-
+			pieceBuilder.buildBoatPiece(name+'_'+boatCount, dataKey, boatSpawned);
         };
 
 

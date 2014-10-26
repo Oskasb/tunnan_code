@@ -4,6 +4,10 @@
             {
                 "id":"TOMCAT",
                 "base_data_key":"tomcat_base_data"
+            },
+            {
+                "id":"CARRIER",
+                "base_data_key":"carrier_base_data"
             }
         ]
     }

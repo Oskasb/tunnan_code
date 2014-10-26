@@ -75,7 +75,7 @@ define(["application/EventManager",
 				new ShipsCaptain(boat);
 				boatReady(boat)
 
-			}
+			};
 
 			new Boat(shipId, boatData, boatBuilt);
         };

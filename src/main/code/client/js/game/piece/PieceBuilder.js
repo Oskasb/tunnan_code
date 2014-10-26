@@ -2,6 +2,7 @@
 
 define([
     'application/EventManager',
+	"game/ships/BoatFactory",
 	"game/piece/PieceConfigurator",
     "game/piece/PieceInput",
 	"game/planes/Plane",
@@ -14,6 +15,7 @@ define([
 ],
     function(
         event,
+		BoatFactory,
 		PieceConfigurator,
         PieceInput,
 		Plane,
@@ -44,11 +46,6 @@ define([
 
 		var addPieceInputSystems = function(gamePiece) {
 			gamePiece.pieceInput = new PieceInput(gamePiece);
-
-		//	for (var index in gamePiece.controls) {
-		//		gamePiece.pieceInput.addPieceControl(index);
-		//		gamePiece.pieceInput.registerOnChangeCallback(index, ControlStateCallbacks.getControlUpdateCallback(index));
-		//	}
 		};
 
 		var buildHuman = function(gamePiece) {
@@ -79,15 +76,26 @@ define([
 			gamePiece.forces.weight.setd(0, data.dimensions.massEmpty, 0);
 		};
 
-		var buildBoatPiece = function(gamePiece, data) {
-		//	controlsController.buildPieceControls(gamePiece, data);
-			addPieceInputSystems(gamePiece);
+		var buildBoatPiece = function(name, dataKey, boatSpawned) {
+
+			var boatBuilt = function(boat) {
+				addPieceInputSystems(boat.entity);
+				boatSpawned(boat);
+			};
+
+			var pieceDataUpdated = function(srcKey, data) {
+				BoatFactory.buildShip(name, data, boatBuilt);
+			};
+
+			var baseDataKey = pieceData.vehicles[dataKey].base_data_key;
+			PipelineAPI.subscribeToCategoryKey('piece_data', baseDataKey, pieceDataUpdated)
 		};
 
 
 		var buildPlane = function(id, planeId, state, planeReady) {
 
-			var planeLoaded = function(plane) {
+			var planeLoaded = function(entity) {
+				plane.entity = entity;
 				addPieceInputSystems(plane.entity);
 
 
@@ -105,9 +113,9 @@ define([
 				PieceConfigurator.configurePiece(plane, state, configReady);
 			};
 
-
+			var plane = new Plane(id);
 			var pieceDataUpdated = function(srcKey, data) {
-				new Plane(id, data, planeLoaded);
+				plane.vehicle.applyPieceData(data, planeLoaded);
 			};
 
 			var baseDataKey = pieceData.vehicles[planeId].base_data_key;

@@ -27,7 +27,7 @@
             "rotation": [0,360],
             "spin": [-2,2],
             "gravity": 0,
-            "count": 4,
+            "count": 8,
             "spread": 1,
             "stretch": 2,
             "strength": 15,

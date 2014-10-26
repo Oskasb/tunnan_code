@@ -41,7 +41,7 @@ define(["application/EventManager",
 		resetLevel();
 
 
-        var addBoat = function(name, data, pos, vel, rot, state, boatReady) {
+        var addBoat = function(name, dataKey, pos, vel, rot, state, boatReady) {
 
 			var levelBoat = function(boat) {
 
@@ -49,7 +49,7 @@ define(["application/EventManager",
 				boatReady(boat.entity);
 			};
 
-            spawnSystem.spawnBoat(name, data, pos, rot, vel, levelBoat);
+            spawnSystem.spawnBoat(name, dataKey, pos, rot, vel, levelBoat);
         };
 
         var addCar = function(name, data, pos, vel, rot) {
@@ -94,7 +94,7 @@ define(["application/EventManager",
                 for (var i = 0; i < boats[boatType].length; i++) {
                     var piece = boats[boatType][i];
                     var pos = [piece.pos[0]+zonePos[0], 0, piece.pos[2]+zonePos[2]];
-                    addBoat(boatType, boatData[boatType], pos, piece.rot, piece.vel, null, null);
+                    addBoat(boatType, boatType, pos, piece.rot, piece.vel, null, null);
                 }
             }
         };
@@ -186,7 +186,7 @@ define(["application/EventManager",
 									console.log("CARRIER: ", carrier);
 								}
 
-								loadScenarioGamePiece(addBoat, boatPieceType, boatData[boatPieceType], point, carrierAdded);
+								loadScenarioGamePiece(addBoat, boatPieceType, boatPieceType, point, carrierAdded);
 
 							}
 

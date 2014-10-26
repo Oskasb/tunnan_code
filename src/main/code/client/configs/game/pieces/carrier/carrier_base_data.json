@@ -1,0 +1,53 @@
+[{
+    "piece_data":{
+        "carrier_base_data":{
+            "gooProject":"carrier",
+            "piecePath":"carrier",
+            "hitPoints":235000,
+            "dimensions": {
+                "pilotSeatPos":[23, 41.5, 44],
+                "length":310,
+                "wingspan":280
+            },
+            "parkingLots":{
+                "launch":{"posOffset":[18.2, 20.5, -48], "rot":[0, -3.07, 0]},
+                "service":{"posOffset":[31, 19, 90], "rot":[0, -2, 0]}
+            },
+            "keyBindings":"plane",
+            "physicalShapes":[
+                {"partId":"cable",    "posOffset":[4,  13, 125],    "radius":14, "cableNr":1},
+                {"partId":"cable",    "posOffset":[0,  13, 100 ],   "radius":14, "cableNr":2},
+                {"partId":"cable",    "posOffset":[-2, 13, 75],     "radius":14, "cableNr":3},
+                {"partId":"cable",    "posOffset":[-6, 13, 50],     "radius":14, "cableNr":4},
+                {"partId":"hull",     "posOffset":[0, 2, 0],        "radius":14},
+                {"partId":"hull",     "posOffset":[0, 2, -62 ],     "radius":14},
+                {"partId":"hull",     "posOffset":[0, 2, -125],     "radius":14},
+                {"partId":"hull",     "posOffset":[0, 2, -158],     "radius":14},
+                {"partId":"hull",     "posOffset":[0, 2, 51],       "radius":14},
+                {"partId":"hull",     "posOffset":[0, 2, 118],      "radius":14},
+                {"partId":"hull",     "posOffset":[0, 2, 172],      "radius":14},
+                {"partId":"bridge",     "posOffset":[0, 45, -14],     "radius":14},
+                {"partId":"bridge",    "posOffset":[0, 45, 29],      "radius":14}
+            ],
+            "physicalRadius":220,
+            "chimneys":[],
+            "wakes":[
+                {"posOffset":[0, 0, -160], 		"spread":0.001},
+                {"posOffset":[-0, 0, 170], 		"spread":0.5},
+                {"posOffset":[-11, 0, 155], 	"spread":0.2},
+                {"posOffset":[3, -0, -145.7], 	"spread":0.07},
+                {"posOffset":[-3, -0, -145.7], 	"spread":0.07},
+                {"posOffset":[-7, 0, -135.7], 	"spread":0.18},
+                {"posOffset":[7, 0, -135.7], 	"spread":0.18},
+                {"posOffset":[11, 0, 155], 		"spread":0.2}
+            ],
+            "radars":[],
+            "flags":[],
+            "turrets":[],
+            "instruments": {},
+            "measurements": {},
+            "systems":{}
+
+        }
+    }
+}]
