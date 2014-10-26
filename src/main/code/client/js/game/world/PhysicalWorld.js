@@ -67,8 +67,9 @@ define([
             if (meshHit) {
                 var pos = calcVec2.set(entity.spatial.pos[0]+entity.spatial.velocity[0]*meshHit.fraction*timeFactor, entity.spatial.pos[1]+entity.spatial.velocity[1]*meshHit.fraction*timeFactor,entity.spatial.pos[2]+entity.spatial.velocity[2]*meshHit.fraction*timeFactor);
                 hit = checkEntityPosAgainstShapes(entity, pos);
-                console.log("hit: ", hit)
+
                 if (hit) return hit;
+			//	console.log("hit: ", hit)
                 return {part:"mesh", entity:null, pos:pos};
             }
 

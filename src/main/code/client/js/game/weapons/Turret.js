@@ -115,7 +115,7 @@ define([
                 case this.states.aiming:
 
                     if (Math.abs(this.aimParams.newSwivel) > Math.abs(this.swivel) && Math.abs(this.aimParams.newSwivel - 2*Math.PI) > Math.abs(this.swivel)) {
-                        console.log("Out of angle")
+          //              console.log("Out of angle")
                         var instance = this;
                         var checkAgain = function() {
                             instance.currentState = instance.states.aiming;

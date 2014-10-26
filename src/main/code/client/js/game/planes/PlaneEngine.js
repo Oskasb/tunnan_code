@@ -153,7 +153,7 @@ define(["application/EventManager",
 			calcVec2.set(0,0,state*10);
 
 			this.engineGeometry.transformComponent.worldTransform.rotation.applyPost(calcVec2);
-			calcVec2.mul(-0.4*state*state);
+			calcVec2.mul(-0.6*state*state);
 
 			var fxGrow = 600;
 			if (this.engineData.nozzle) {
@@ -163,28 +163,30 @@ define(["application/EventManager",
 				fxGrow += nozzle*4000;
 			}
 
-	        var effectData = {
-		        color: [state/0.6,state/0.5,state/0.5,0.1*state],
-		        alphaCurve: [[0, 0], [0.5,0.7], [1, 0.4]],
-		        size:fxGrow+1100,
-		        growth:-fxGrow-500,
-		        spread:5,
-		        lifespan:0.055,
-		        count:45*state
-	        };
+			var effectData = {
+				color: [state/0.6,state/0.5,state/0.5,0.1*state],
+				alphaCurve: [[0, 0], [0.5,0.7], [1, 0]],
+				growthCurve: [[0, 0.5], [0.4,1], [1, 2]],
+				size:fxGrow+1100,
+				growth:-fxGrow,
+				spread:5,
+				lifespan:0.045,
+				count:45*state
+			};
 
-	        SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
+			SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
 
-	        if (state > 0.90) {
-		        this.maxThrust = this.engineData.maxThrust + this.engineData.afterBurner;
-		        var effectData = {
-			        color: [1*state, 0.6*state,0.2*state,0.5*state*state],
-			        alphaCurve: [[0, 1], [0.1,0.5], [1, 0]],
-			        size:600,
-			        growth:fxGrow*0.8,
-			        lifespan:0.03,
-			        count:55*state
-		        };
+			if (state > 0.90) {
+				this.maxThrust = this.engineData.maxThrust + this.engineData.afterBurner;
+				var effectData = {
+					color: [1*state, 0.6*state,0.2*state,0.5*state*state],
+					alphaCurve: [[0, 1], [0.1,0.8], [1, 0]],
+					size:600,
+					strength:2,
+					growth:fxGrow*0.8,
+					lifespan:0.033,
+					count:45*state
+				};
 
 
 				SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
