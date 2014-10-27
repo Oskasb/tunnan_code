@@ -90,11 +90,14 @@ define(["application/EventManager",
         };
 
         var loadZoneBoats = function(zonePos, boats) {
+			var boatReady = function(boat) {
+				console.log("Boat ready: ", boat)
+			}
             for (var boatType in boats) {
                 for (var i = 0; i < boats[boatType].length; i++) {
                     var piece = boats[boatType][i];
                     var pos = [piece.pos[0]+zonePos[0], 0, piece.pos[2]+zonePos[2]];
-                    addBoat(boatType, boatType, pos, piece.rot, piece.vel, null, null);
+                    addBoat(boatType, boatType, pos, piece.vel, piece.rot, 0, boatReady);
                 }
             }
         };
