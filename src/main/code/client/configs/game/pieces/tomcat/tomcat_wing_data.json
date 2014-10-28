@@ -225,10 +225,10 @@
 				{
 					"id":"rudder_r",
 					"controls":{
-						"rudder":[0.8, 0, 0]
+						"rudder":[0.5, 0, 0]
 					},
 					"pos":[1.8, 2.2, -7.9],
-					"size":[2.5, 0.14, 0.6],
+					"size":[2.1, 0.14, 0.4],
 					"rot":[0, 0, 1.57079632679],
 					"liftCurve":"rudder",
 					"stallLiftCoeff":[0, "flapStallCoeff",  0],
@@ -237,10 +237,10 @@
 				{
 					"id":"rudder_l",
 					"controls":{
-						"rudder":[0.8, 0, 0]
+						"rudder":[0.5, 0, 0]
 					},
 					"pos":[-1.8, 2.2, -7.9],
-					"size":[2.5, 0.14, 0.6],
+					"size":[2.1, 0.14, 0.4],
 					"rot":[0, 0, 1.57079632679],
 					"liftCurve":"rudder",
 					"stallLiftCoeff":[0,"flapStallCoeff",  0],

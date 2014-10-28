@@ -106,6 +106,9 @@ define(["application/EventManager",
 
 					if (typeof(this.onLoadCompleted) == 'function') {
 						this.onLoadCompleted();
+						var cb = function() {};
+						PipelineAPI.applyEnvironmentGooEntity("SkySphere Colored", cb);
+						PipelineAPI.applyEnvironmentGooEntity("Post effects", cb);
 						this.onLoadCompleted = null;
 					}
 				}
@@ -126,8 +129,18 @@ define(["application/EventManager",
 			var handleBuildPiece = function(e) {
 				var callback = event.eventArgs(e).callback;
 				var pieceName = event.eventArgs(e).modelPath;
-				PipelineAPI.cloneLoadedGooEntity(pieceName, callback);
-			};
+		//		PipelineAPI.cloneLoadedGooEntity(pieceName, callback);
+		//	};
+
+				var buildEntity = function(eName) {
+					var buildFunc = this.loadedEntities[eName].build;
+					return function() {
+						buildFunc(eName, callback);
+					}
+				}.bind(this);
+
+				buildEntity(pieceName)();
+			}.bind(this);
 
 			event.registerListener(event.list().BUILD_GOO_GAMEPIECE, handleBuildPiece);
 
@@ -213,6 +226,7 @@ define(["application/EventManager",
 		};
 
 		ClientLoader.prototype.clientLoaded			= function() {
+
 			soundManager.initFx();
 		};
 

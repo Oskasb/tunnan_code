@@ -3,12 +3,14 @@
 define([
 	'environment/Lighting',
 	'environment/DynamicEnvironment',
-	'environment/DynamicSkysphere'
+	'environment/DynamicSkysphere',
+	'environment/Clouds'
 ],
 	function(
 		Lighting,
 		DynamicEnvironment,
-		DynamicSkysphere
+		DynamicSkysphere,
+		Clouds
 		) {
 
 		var Sky = function(goo) {
@@ -17,6 +19,7 @@ define([
 			this.environment = new DynamicEnvironment();
 			this.skySphere = new DynamicSkysphere(goo);
 			this.skySphere.makeSun();
+			Clouds.createClouds([0, 1000, 0],[10000, 3000, 10000], 8);
 		};
 
 		Sky.prototype.attachWaterSystem = function(goo, resourcePath) {
@@ -51,7 +54,7 @@ define([
 		Sky.prototype.updateCameraFrame = function(tpf, camEntity) {
 			this.updateEnvironmentTime(tpf, camEntity);
 			this.repositionSkySphere(camEntity);
-
+			Clouds.tickClouds();
 		};
 
 		return Sky;

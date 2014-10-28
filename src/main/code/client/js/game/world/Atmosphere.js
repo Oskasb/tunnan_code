@@ -1,13 +1,11 @@
 "use strict";
 
 define(["game/GameConfiguration",
-    'game/world/WorldEffects',
-    'game/world/Clouds',
+    'game/world/WorldEffects'
 ],
     function(
         gameConfig,
-        worldEffects,
-        Clouds
+        worldEffects
         ) {
 
         var getAirDensity = function(altitude) {

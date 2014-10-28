@@ -40,13 +40,13 @@ define([
 			this.baseFov = 45;
 			this.fov = 45;
 			this.targetFov = this.baseFov;
-			this.baseZoomIndex = 4;
+			this.baseZoomIndex = 2;
 			this.zoomIndex = 1;
 			this.zoomStages = [
 				{fov:this.baseFov-27, distance:0.21},
-				{fov:this.baseFov-11, distance:0.22},
+			//	{fov:this.baseFov-11, distance:0.22},
 				{fov:this.baseFov+3,  distance:0.24},
-				{fov:this.baseFov+18, distance:0.26},
+			//	{fov:this.baseFov+18, distance:0.26},
 				{fov:this.baseFov+28, distance:0.28}
 			];
 		}

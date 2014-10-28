@@ -28,7 +28,7 @@
 			}
 		},
 		"page":{
-			"resolution":512,
+			"resolution":1024,
 			"blending":{
 				"default":"color_add",
 				"modes":{
