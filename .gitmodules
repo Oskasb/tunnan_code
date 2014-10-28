@@ -10,3 +10,6 @@
 [submodule "src/main/code/client/js/submodules/environment"]
 	path = src/main/code/client/js/submodules/environment
 	url = https://github.com/Oskasb/environment.git
+[submodule "src/main/code/client/js/submodules/terrain"]
+	path = src/main/code/client/js/submodules/terrain
+	url = https://github.com/Oskasb/terrain.git
