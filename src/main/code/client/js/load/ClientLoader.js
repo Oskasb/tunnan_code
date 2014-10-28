@@ -126,16 +126,8 @@ define(["application/EventManager",
 			var handleBuildPiece = function(e) {
 				var callback = event.eventArgs(e).callback;
 				var pieceName = event.eventArgs(e).modelPath;
-
-				var buildEntity = function(eName) {
-					var buildFunc = this.loadedEntities[eName].build;
-					return function() {
-						buildFunc(eName, callback);
-					}
-				}.bind(this);
-
-				buildEntity(pieceName)();
-			}.bind(this);
+				PipelineAPI.cloneLoadedGooEntity(pieceName, callback);
+			};
 
 			event.registerListener(event.list().BUILD_GOO_GAMEPIECE, handleBuildPiece);
 
@@ -144,7 +136,8 @@ define(["application/EventManager",
 		ClientLoader.prototype.handleBundleUpdated = function(entityName) {
 
 			this.notifyUpdate();
-
+			// apply this check for level loading instead
+			return;
 			if (!this.callbackIndex[entityName]) {
 				this.callbackIndex[entityName] = [];
 			}
