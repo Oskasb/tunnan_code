@@ -1,0 +1,209 @@
+[{
+    "piece_data":{
+        "tunnan_wings_data":{
+            "wing_shapes":[
+
+                {"id":"fuselageFore",
+                    "pos":[0, -0.2, 1],
+                    "size":[1.3, 1.3, 2.6],
+                    "rot":[0.02, 0, 0],
+                    "liftCurve":"cone",
+                    "stallLiftCoeff":[4.5, 0, 0],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+
+                {"id":"fuselageSkid",
+                    "pos":[0, -1.2, 0],
+                    "size":[0.2, 0.1, 3],
+                    "rot":[0, 0, 0],
+                    "liftCurve":"stab",
+                    "stallLiftCoeff":[0, "wingStallCoeff", 0],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+
+                {"id":"vert_lift",
+                    "pos":[0, 0, -0.4],
+                    "size":[2.0, 0.2, 4],
+                    "rot":[0, 0, 1.57079632679],
+                    "liftCurve":"stab",
+                    "stallLiftCoeff":["wingStallCoeff", "wingStallCoeff", "wingStallCoeff"],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+                {"id":"fuselageCore",
+                    "pos":[0, -0.3, 0],
+                    "size":[1.5, 1.5, 1.9],
+                    "rot":[0.0, 0, 0],
+                    "liftCurve":"cone",
+                    "stallLiftCoeff":[3.5, 0, 0],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+                {"id":"fuselageAft",
+                    "pos":[0, -0.1, -2.3],
+                    "size":[1.5, 1.5, 1.9],
+                    "rot":[0.03, 0, 0],
+                    "liftCurve":"cone",
+                    "stallLiftCoeff":[2.5, 0, 0],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+                {"id":"mainInnerRight",
+                    "pos":[1.6, 0.24, 0.4],
+                    "size":[3.8, 0.2, 3.2],
+                    "rot":[0.004, 0.55, 0],
+                    "liftCurve":"wing",
+                    "stallLiftCoeff":["wingStallCoeff", 0, 0],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+                {"id":"mainInnerLeft",
+                    "pos":[-1.6, 0.24, 0.4],
+                    "size":[3.8, 0.2, 3.2],
+                    "rot":[0.004, -0.55, 0],
+                    "liftCurve":"wing",
+                    "stallLiftCoeff":["wingStallCoeff", 0, 0],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+                {"id":"mainOuterRight",
+                    "pos":[5, 0.20, -0.3],
+                    "size":[4.5, 0.15, 1.7],
+                    "rot":[0.002, 0.49, 0],
+                    "liftCurve":"wing",
+                    "stallLiftCoeff":["wingStallCoeff", 0, 0],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+                {"id":"mainOuterLeft",
+                    "pos":[-5, 0.20, -0.3],
+                    "size":[4.5, 0.15, 1.7],
+                    "rot":[0.002, -0.49, 0],
+                    "liftCurve":"wing",
+                    "stallLiftCoeff":["wingStallCoeff", 0, 0],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+
+
+                {"id":"flapRight",
+                    "controls":{
+                        "flaps":[-1.1, 0, 0]
+                    },
+
+                    "pos":[1.6, 0.265, -0.05],
+                    "size":[1.8, 0.2, 1.2],
+                    "rot":[0.0, 0.2, 0],
+                    "liftCurve":"rudder",
+                    "stallLiftCoeff":["flapStallCoeff", 0, 0],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+
+                {"id":"flapLeft",
+                    "controls":{
+                        "flaps":[-1.1, 0, 0]
+                    },
+
+                    "pos":[-1.6, 0.265, -0.05],
+                    "size":[1.8, 0.2, 1.2],
+                    "rot":[0.0, -0.2, 0],
+                    "liftCurve":"rudder",
+                    "stallLiftCoeff":["flapStallCoeff", 0, 0],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+
+                {"id":"aeilronRight",
+                    "controls":{
+                        "aeilrons":[0.7, 0, 0]
+                    },
+
+                    "pos":[4, 0.15, -1.8],
+                    "size":[3, 0.2, 0.5],
+                    "rot":[0.0, 0.2, 0],
+                    "liftCurve":"rudder",
+                    "stallLiftCoeff":["wingStallCoeff", "wingStallCoeff", "wingStallCoeff"],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+
+                {"id":"aeilronLeft",
+                    "controls":{
+                        "aeilrons":[-0.7, 0, 0]
+                    },
+
+                    "pos":[-4, 0.15, -1.8],
+                    "size":[3, 0.2, 0.5],
+                    "rot":[-0.0, -0.2, 0],
+                    "liftCurve":"rudder",
+                    "stallLiftCoeff":["wingStallCoeff", "wingStallCoeff", "wingStallCoeff"],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+
+                {"id":"tailplaneR",
+                    "pos":[0.9, 1.1, -5.5],
+                    "size":[3, 0.2, 1.7],
+                    "rot":[-0.1, 0.35, 0],
+                    "liftCurve":"stab",
+                    "stallLiftCoeff":["wingStallCoeff", "wingStallCoeff", "wingStallCoeff"],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+
+                {"id":"tailplaneL",
+                    "pos":[-0.9, 1.1, -5.5],
+                    "size":[3, 0.2, 1.7],
+                    "rot":[-0.1, -0.35, 0],
+                    "liftCurve":"stab",
+                    "stallLiftCoeff":["wingStallCoeff", "wingStallCoeff", "wingStallCoeff"],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+                {"id":"elevator",
+                    "controls":{
+                        "elevator":[0.7,0,  0]
+                    },
+                    "pos":[0, 1.1, -6.3],
+                    "size":[4.0, 0.2, 1.2],
+                    "rot":[0.0, 0, 0],
+                    "liftCurve":"rudder",
+                    "stallLiftCoeff":["wingStallCoeff", "wingStallCoeff", "wingStallCoeff"],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+
+                {"id":"rudder",
+                    "controls":{
+                        "rudder":[-0.6, 0, 0]
+                    },
+                    "pos":[0, 1.2, -6],
+                    "size":[2.4, 0.2, 0.8],
+                    "rot":[0, 0, 1.57079632679],
+                    "liftCurve":"rudder",
+                    "stallLiftCoeff":[0, "wingStallCoeff", 0],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+
+                {"id":"stabiliser",
+                    "pos":[0, 1, -5],
+                    "size":[2.5, 0.2, 1.3],
+                    "rot":[0, 0, 1.57079632679],
+                    "liftCurve":"stab",
+                    "stallLiftCoeff":["wingStallCoeff", "wingStallCoeff", "wingStallCoeff"],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+                {"id":"break_up",
+                    "controls":{
+                        "breaks":[1.5, 0, 0]
+                    },
+                    "pos":[0, -0.5, -1.1],
+                    "size":[2, 0.2, 1],
+                    "rot":[0.0, 0, 0],
+                    "liftCurve":"rudder",
+                    "stallLiftCoeff":["wingStallCoeff","wingStallCoeff", "wingStallCoeff"],
+                    "formDragCoeff":"baseDragCoeff"
+                },
+                {"id":"break_down",
+                    "controls":{
+                        "breaks":[-1.5, 0, 0]
+                    },
+                    "pos":[0, -0.5, -1.1],
+                    "size":[2, 0.2, 1],
+                    "rot":[0.0, 0, 0],
+                    "liftCurve":"rudder",
+                    "stallLiftCoeff":["wingStallCoeff", "wingStallCoeff","wingStallCoeff"],
+                    "formDragCoeff":"baseDragCoeff"
+                }
+            ]
+        }
+    }
+}]
+

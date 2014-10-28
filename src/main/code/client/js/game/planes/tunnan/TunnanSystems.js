@@ -22,10 +22,10 @@ define(["game/ModelDefinitions", "game/weapons/WeaponData"],function(modelDefini
                     stands:{nose_gear:[-1.5, 0, 0], gear_right:[1.8, 0, 0], gear_left:[-1.8, 0, 0], right_suspend:[-0.6, 0, 0], left_suspend:[0.6, 0, 0]}
                 },
                 wheels:{
-                    wheel_nose: {control:'rudder', radius:0.3, pos:[0, -1.5, 3.4], axis:[1, 0, 0], breakMax:155.02, drag:5, suspension:{boneId:'nose_suspend', range:0.31, axis:[0, 0, -1], stiffness:22550}}, // stiffness approx n/m
-                    wheel_right:{control:null, radius:-0.5,    pos:[-0.9, -1.43, -0.17],  breakMax:2225, drag:5, suspension:{boneId:'right_suspend', range:0.31, axis:[0, 1,  0], stiffness:75000}},
-                    wheel_left: {control:null, radius:0.5,   pos:[0.9, -1.43, -0.17], breakMax:2225, drag:5, suspension:{boneId:'left_suspend',  range:0.31, axis:[0, -1, 0], stiffness:75000}},
-                    wheel_rear: {control:null, radius:0.3, pos:[0, -1.1, -4.4],      breakMax:1555.02, drag:5, suspension:{boneId:null, range:0.31, axis:[0, 0, -1], stiffness:14550}}
+                    wheel_nose: {control:'rudder', radius:0.3, 	pos:[0, -1.5, 3.4], axis:[1, 0, 0], breakMax:155.02, drag:5, suspension:{boneId:'nose_suspend', range:0.31, axis:[0, 0, -1], stiffness:22550}}, // stiffness approx n/m
+                    wheel_right:{control:null, radius:-0.5,    	pos:[-0.9, -1.43, -0.17],  breakMax:2225, drag:5, suspension:{boneId:'right_suspend', range:0.31, axis:[0, 1,  0], stiffness:75000}},
+                    wheel_left: {control:null, radius:0.5,   	pos:[0.9, -1.43, -0.17], breakMax:2225, drag:5, suspension:{boneId:'left_suspend',  range:0.31, axis:[0, -1, 0], stiffness:75000}},
+                    wheel_rear: {control:null, radius:0.3, 		pos:[0, -1.1, -4.4],      breakMax:1555.02, drag:5, suspension:{boneId:null, range:0.31, axis:[0, 0, -1], stiffness:14550}}
 
                 },
                 speed:0.01

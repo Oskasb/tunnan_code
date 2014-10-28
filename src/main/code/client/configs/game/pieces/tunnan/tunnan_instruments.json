@@ -1,0 +1,26 @@
+[{
+    "piece_data":{
+        "tunnan_instruments_data":{
+            "instrument_curves":{
+                "climb":[[-1000, -10], [-18, -9],[-5, -5],[5, 5], [18, 9], [1000, 10]]
+            },
+            "instruments":[
+                {"id":"horizon"        ,"boneName":"horizon",        "sample":"rotVec",    "axisAmp":[[2, 0.0025], [1, 0], [2,-0.021]]},
+                {"id":"gyro_roll"      ,"boneName":"gyro_horizon",   "sample":"rollAng",   "axisAmp":1},
+                {"id":"gyro_horizon"   ,"boneName":"gyro_roll",      "sample":"rotVec",    "axisAmp":[[2, 0.0], [1, 0], [2,-0.032]]},
+                {"id":"engine_rpm"     ,"boneName":"engine_rpm",     "sample":"rpm",       "axisAmp":-5.65},
+                {"id":"exhaust_temp"   ,"boneName":"exhaust_temp",   "sample":"temp",      "axisAmp":-284.157},
+                {"id":"accelerometer"  ,"boneName":"accelerometer",  "sample":"g",         "axisAmp":-5},
+                {"id":"turn_quality"   ,"boneName":"turn_quality",   "sample":"acc",       "axisAmp":[[0, 0], [0, 7.25], [0, 0]]},
+                {"id":"roll_indicator" ,"boneName":"roll_indicator", "sample":"rollAng",   "axisAmp":-1},
+                {"id":"gyro_compass"   ,"boneName":"gyro_compass",   "sample":"xyHeading", "axisAmp":1},
+                {"id":"mag_compass"    ,"boneName":"mag_compass",    "sample":"xyHeading", "axisAmp":-1},
+                {"id":"gyro_steer"     ,"boneName":"gyro_steer",     "sample":"xyHeading", "axisAmp":1.4},
+                {"id":"climb_indicator","boneName":"climb_indicator","sample":"climbRate", "curve":"climb", "axisAmp":-0.315},
+                {"id":"speed_indicator","boneName":"speed_indicator","sample":"speed",     "axisAmp":-0.01884},
+                {"id":"alt_outer"      ,"boneName":"alt_outer",      "sample":"altitude",  "axisAmp":-0.003141},
+                {"id":"alt_inner"      ,"boneName":"alt_inner",      "sample":"altitude",  "axisAmp":-0.0003141}
+            ]
+        }
+    }
+}]

@@ -26,6 +26,7 @@ define([
 	};
 
     function registerEntityLights(gamePiece, lightData, meshData, patterns) {
+		if (!lightData.length) return;
         var lights = {};
         gamePiece.lights = lights;
         gamePiece.lightSystems = {};

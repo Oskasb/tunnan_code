@@ -1,0 +1,52 @@
+[{
+	"piece_data":{
+        "tunnan_control_systems_data":{
+            "control_settings":[
+                {
+                    "control":"elevator",
+                    "range":{
+                        "min":-1,
+                        "max":1
+                    }
+
+                },
+                {
+                    "control":"throttle",
+                    "range":{
+                        "min":0,
+                        "max":1
+                    }
+
+                },
+                {
+                    "control":"flaps",
+                    "range":{
+                        "min":0,
+                        "max":1
+                    }
+
+                },
+                {
+                    "control":"breaks",
+                    "range":{ "min":0,"max":1 }
+
+                },
+
+                {"control":"doors",           "range":{ "min":  0,"max":1 }},
+                {"control":"gears",           "range":{ "min":  0,"max":1 }},
+                {"control":"aeilrons",        "range":{ "min": -1,"max":1 }},
+                {"control":"rudder",          "range":{ "min": -1,"max":1 }},
+                {"control":"trim_elevator",   "range":{ "min": -1,"max":1 }},
+                {"control":"trim_aeilrons",   "range":{ "min": -1,"max":1 }},
+                {"control":"trim_rudder",     "range":{ "min": -1,"max":1 }},
+                {"control":"auto_trim",       "range":{ "min":  0,"max":1 }},
+                {"control":"wing_smoke",      "range":{ "min":  0,"max":1 }},
+                {"control":"reset_trim",      "range":{ "min":  0,"max":1 }},
+                {"control":"debug_mechanics", "range":{ "min":  0,"max":1 }}
+
+
+
+            ]
+		}
+	}
+}]

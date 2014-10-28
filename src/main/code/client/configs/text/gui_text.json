@@ -2,9 +2,11 @@
     {
         "text_keys":{
             "menu_init_header":"Time To Fly",
-            "menu_init_fly_tomcat":"Fly",
+            "menu_init_fly_tomcat":"Fly F-14",
+            "menu_init_flight_tunnan":"Fly J-29",
 
             "menu_init_takeoff_tomcat":"Takeoff",
+
 
             "aerodynamic_curves":"Curves",
             "aerodynamic_graph":"Aerodynamics, Lift by AoA and some",

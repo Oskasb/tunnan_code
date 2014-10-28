@@ -21,6 +21,12 @@
 				"entities":["TomcatSkinned"]
 			},
             {
+                "id":"tunnan",
+                "folder":"tunnan_resources/bundles/tunnan_f/",
+                "file":"root.bundle",
+                "entities":["tunnan_f"]
+            },
+            {
                 "id":"carrier",
                 "folder":"tunnan_resources/bundles/carrier/",
                 "file":"root.bundle",

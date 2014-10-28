@@ -1,0 +1,16 @@
+[{
+    "piece_data":{
+        "tunnan_light_mapping_data":{
+
+            "meshData":[{"meshEntityName":"lights"}],
+            "feedback":{"off":[0, 301, 4, 4]},
+            "patterns":[
+                [1],
+                [0, 0, 0, 0, 0, 0.5, 1, 1, 1, 0.5, 0, 0, 0, 0, 0, 0.5, 1, 1, 1, 0.5, 0],
+                [0, 0, 0, 0, 0.1, 1, 0.3, 0.1, 0, 0, 0.1, 1, 0.3, 0.1, 0, 0, 0, 0]
+            ],
+            "light_systems":[
+            ]
+        }
+    }
+}]

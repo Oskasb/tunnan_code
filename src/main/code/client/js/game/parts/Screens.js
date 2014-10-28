@@ -36,7 +36,8 @@ define([
 	};
 
 
-    function registerEntityScreens(entity, screenData, meshData, ControlStateCallbacks) {
+    function registerEntityScreens(entity, screenData, meshData) {
+		if (!screenData.length) return;
         var screens = {};
         entity.screens = screens;
 

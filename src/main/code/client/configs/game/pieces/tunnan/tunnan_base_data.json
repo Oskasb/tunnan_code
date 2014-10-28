@@ -1,0 +1,54 @@
+[{
+    "piece_data":{
+        "tunnan_base_data":{
+            "modelPath":"tunnan_f",
+            "gooProjectUrl":"bundles",
+            "configs":{
+                "dataKeys":[
+                    "tunnan_control_surface_data",
+                    "tunnan_instruments_data",
+                    "tunnan_wings_data",
+                    "tunnan_control_systems_data",
+                    "tunnan_screen_systems_data",
+                    "tunnan_light_mapping_data",
+                    "tunnan_systems_data"
+                ],
+                "display_settings":"display_settings",
+                "instruments":"instruments",
+                "light_systems":"light_systems",
+                "control_settings":"control_settings",
+                "control_surfaces":"control_surfaces",
+                "piece_systems":"piece_systems",
+                "wing_shapes":"wing_shapes"
+            },
+            "dimensions": {
+                "massEmpty":4845,
+                "massMax":8375,
+                "weightDistribution":[5, 5, 5],
+                "length":11,
+                "wingspan":10.23,
+                "pilotSeatPos":[0, 0.14, 1.82],
+                "wingAngle":0.2,
+                "height":3.75
+            },
+
+            "hitPoints":300,
+            "physicalShapes":[
+                {"partId":"fuselage","posOffset":[0, 0, 0], 	"radius":5},
+                {"partId":"fuselage","posOffset":[0, 0, 4], 	"radius":5},
+                {"partId":"fuselage","posOffset":[0, 0, -4], 	"radius":5},
+                {"partId":"wing",    "posOffset":[4,  0, -4], 	"radius":5},
+                {"partId":"wing",    "posOffset":[-4, 0, -4], 	"radius":5}
+            ],
+            "physicalRadius":30,
+
+            "keyBindings":"plane",
+            "onScreenInput":{"guiMainStateId":"tomcat_controls"},
+
+            "wing_smoke":[
+                [-5.8, 0, -2],
+                [5.8, 0, -2]
+            ]
+        }
+    }
+}]

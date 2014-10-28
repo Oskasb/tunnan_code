@@ -180,8 +180,9 @@ define(["application/EventManager",
 				this.maxThrust = this.engineData.maxThrust + this.engineData.afterBurner;
 				var effectData = {
 					color: [1*state, 0.6*state,0.2*state,0.5*state*state],
-					alphaCurve: [[0, 1], [0.1,0.8], [1, 0]],
-					size:600,
+					alphaCurve: [[0, 1], [0.4,0.8], [1, 0]],
+					growthCurve: [[0.3, 0.3], [0.65,1.2], [1, -0.2]],
+					size:200,
 					strength:2,
 					growth:fxGrow*0.8,
 					lifespan:0.033,
