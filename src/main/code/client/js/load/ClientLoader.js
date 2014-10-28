@@ -143,7 +143,7 @@ define(["application/EventManager",
 			}
 
 			var readyForWorld = function(entity) {
-				console.log("Count ready: ", entity.name)
+				console.log("Count ready: ", entity.name);
 				this.completedLoadCount++;
 				this.notifyUpdate();
 			}.bind(this);
@@ -162,7 +162,7 @@ define(["application/EventManager",
 			this.callbackIndex[entityName].push(buildEntity(entityName));
 
 			for (var i = 0; i < this.callbackIndex[entityName].length; i++) {
-				console.log("Count started: ", entityName)
+				console.log("Count started: ", entityName);
 				this.startedLoadCount++;
 				this.notifyUpdate();
 				this.callbackIndex[entityName][i]();
