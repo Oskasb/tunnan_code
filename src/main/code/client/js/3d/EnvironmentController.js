@@ -24,8 +24,7 @@ define(["application/EventManager",
     'goo/util/Skybox',
     'goo/renderer/shaders/ShaderBuilder',
     'goo/renderer/Texture',
-	'environment/Water',
-	'environment/Sky'
+	'environment/EnvironmentAPI'
 
     //   '3d/TxInjectedFlatWaterRenderer'
     //    'goo/addons/water/ProjectedGridWaterRenderer'
@@ -55,8 +54,8 @@ define(["application/EventManager",
     Skybox,
     ShaderBuilder,
     Texture,
-	Water,
-	Sky
+	EnvironmentAPI
+
     ) {
 
 
@@ -69,9 +68,9 @@ define(["application/EventManager",
     var dynamicEnv;
     var worldRootEntity;
     var scenario;
-    var waterColorTexturePath = '../../../../../tunnan_resources/water';
-    var waterRenderer;
 
+    var waterRenderer;
+	var environmentAPI = new EnvironmentAPI();
 
     var setCameraEntity = function(camEnt) {
         cameraEntity = camEnt;
@@ -89,12 +88,7 @@ define(["application/EventManager",
 
 	var sky
     function addSpaceBox() {
-
-		sky = new Sky(goo);
-
-		sky.attachWaterSystem(goo, waterColorTexturePath);
-
-        return sky;
+		environmentAPI.setupEnvironment(goo);
     }
 
     function addWorldRoot(callback) {
@@ -161,8 +155,7 @@ define(["application/EventManager",
     };
 
     var updateEnvironment = function(e) {
-    //    repositionWater();
-        sky.updateCameraFrame(event.eventArgs(e).lastFrameDuration, cameraEntity);
+		environmentAPI.updateCameraFrame(event.eventArgs(e).lastFrameDuration, cameraEntity);
     };
 
     var createEnv = function(rootEntity) {
