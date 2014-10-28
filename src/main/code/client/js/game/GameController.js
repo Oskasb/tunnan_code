@@ -35,7 +35,7 @@ define(["application/EventManager",
 
 			this.sequencer = new Sequencer();
 			this.sceneController = new SceneController();
-			this.canvasGuiAPI = new CanvasGuiAPI(1024, true);
+			this.canvasGuiAPI = new CanvasGuiAPI(1024);
 		//	this.pointerInputHandler = new PointerInputHandler(this.canvasGuiAPI.getPointerCursor());
 			this.guiWidgetComposer = new GuiWidgetComposer();
 		};
@@ -94,7 +94,18 @@ define(["application/EventManager",
 				console.log("Gui failed to init: ", err)
 			};
 
-			this.canvasGuiAPI.initCanvasGui(guiRegUrl, camera, GameUiCallbacks.getCallbackMap(), ok, fail);
+			var initGui = function() {
+				this.canvasGuiAPI.initCanvasGui(guiRegUrl, camera, GameUiCallbacks.getCallbackMap(), ok, fail);
+			}.bind(this);
+
+			if(PipelineAPI.checkReadyState()) {
+				initGui()
+			} else {
+				PipelineAPI.addReadyCallback(initGui);
+			}
+
+
+
 		};
 
 	    GameController.prototype.applyPlayerPiece = function(playerPiece) {

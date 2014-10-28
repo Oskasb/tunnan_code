@@ -115,7 +115,7 @@ define(["application/EventManager",
 				clearTimeout(this.completeCheckTimeout);
 				this.completeCheckTimeout = setTimeout(function() {
 					delayedProgressCheck();
-				}, 1750);
+				}, 150);
 			}
 
 
@@ -137,7 +137,7 @@ define(["application/EventManager",
 
 			this.notifyUpdate();
 			// apply this check for level loading instead
-			return;
+		//	return;
 			if (!this.callbackIndex[entityName]) {
 				this.callbackIndex[entityName] = [];
 			}
