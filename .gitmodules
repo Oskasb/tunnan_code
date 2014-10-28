@@ -7,3 +7,6 @@
 [submodule "src/main/code/client/js/submodules/particle_simulator"]
 	path = src/main/code/client/js/submodules/particle_simulator
 	url = https://github.com/Oskasb/WorkerParticleSimulator.git
+[submodule "src/main/code/client/js/submodules/environment"]
+	path = src/main/code/client/js/submodules/environment
+	url = https://github.com/Oskasb/environment.git
