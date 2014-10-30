@@ -5,15 +5,17 @@ define(['game/GameConfiguration', 'game/world/ZoneData'],function(gameConfig, Zo
         start:{
             zoneId:ZoneData.ZONE_ID_LIST.start,
             gooProjects:[
+		/*
                 gameConfig.GOO_PROJECTS.harbor,
                 gameConfig.GOO_PROJECTS.top_base,
                 gameConfig.GOO_PROJECTS.elevator,
                 gameConfig.GOO_PROJECTS.hilltop_base,
                 gameConfig.GOO_PROJECTS.air_base,
                 gameConfig.GOO_PROJECTS.houses
+		*/
             ],
             buildings:[
-
+			/*
                 {
                     model:gameConfig.GOO_PROJECTS.harbor.base,
                     entries:[
@@ -126,6 +128,8 @@ define(['game/GameConfiguration', 'game/world/ZoneData'],function(gameConfig, Zo
                     ]
                 },
                  */
+
+			/*
                 {
                     model:gameConfig.GOO_PROJECTS.houses.hangar_building,
                     entries:[
@@ -134,6 +138,8 @@ define(['game/GameConfiguration', 'game/world/ZoneData'],function(gameConfig, Zo
                         {pos:[3100, 218.2, 2515], rot:[0, 0, 0]}
                     ]
                 }
+
+			*/
 
             ]
         },

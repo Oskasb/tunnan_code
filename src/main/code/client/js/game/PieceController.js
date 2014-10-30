@@ -315,7 +315,7 @@ define([
 		var odd = true;
 		var updateGamePieceFloatingFramerate = function(entity, time, physicsFps, partOfSecond) {
 
-			odd = !odd;
+
 
 
 
@@ -499,6 +499,7 @@ define([
 		};
 
         var tickEntities = function(time) {
+			odd = !odd;
 			var fps = 1000 / time;
 			var tpf = 1 / fps;
 			levelController.updateBoats();

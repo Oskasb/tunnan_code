@@ -41,6 +41,23 @@ define(["game/world/ZoneData", 'game/world/levels/ZoneLevels', "game/GameConfigu
                 loadVehicles:[[]],
                 loadLevels:[]
             },
+			island_carrier: {
+				IDENTITY:{
+					title:"Mysterious Island",
+					tagLine:"An island with things to land on and shoot at"
+				},
+
+				playerVehicle:"TOMCAT",
+				playerCharacter:"PILOT",
+				playerCarrier:"CARRIER",
+				loadZones:[zoneData.TERRAIN_ZONES.start/*, zoneData.TERRAIN_ZONES.cove, zoneData.TERRAIN_ZONES.big_2_1 , zoneData.TERRAIN_ZONES.big_2_1 */],
+				loadLevels:[zoneLevels.ZONES.start],
+				loadPlayer:zoneData.FREEFLIGHT_ZONES.carrier_takeoff,
+				loadVehicles:[[zoneData.SPAWN_POINTS.carrier_takeoff], [], []]
+
+			//	loadVehicles:[[zoneData.SPAWN_POINTS.air_base, zoneData.SPAWN_POINTS.tomcat, zoneData.SPAWN_POINTS.tunnan ,zoneData.SPAWN_POINTS.practice_range, zoneData.SPAWN_POINTS.carrier], [], []],
+
+			},
             draken_freeflight: {
                 IDENTITY:{
                     title:"J-35 Draken",

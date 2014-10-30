@@ -143,24 +143,23 @@ define(function() {
                 tree_spread:600,
                 clouds:{intensity:0},
                 playerSpawn:{
-                    plane:{
-                        pos:[2885, 218.2, 2652],
-                        vel:[0.0, 0.0, 0.001],
-                        rot:[0, Math.PI*0.5, 0],
-                        state:1
-                    },
-                    human:{
-                        pos:[2840, 214.5, 2528],
-                        vel:[0.0, 0.0, 0.001],
-                        rot:[0, Math.PI*0.5, 0],
-                        state:1
-                    },
-                    car:{
-                        pos:[2868, 218.2, 2372],
-                        vel:[0.0, 0.0, 0.001],
-                        rot:[0, Math.PI*0.5, 0],
-                        state:1
-                    }
+					plane:{
+						pos:[-3200, 29, 3500],
+						vel:[0.0, 0.0001, 0.08],
+						rot:[0, 0, 0],
+						state:1
+					},
+					human:{
+						pos:[-3200, 31, 3500],
+						vel:[0.0, 0.0, 0.001],
+						rot:[0, 0, 0],
+						state:1
+					},
+					carrier:{
+						pos:[-3100, 0, 3300],
+						vel:[0, 0, 0.08],
+						rot:[0, 0, 0]
+					}
                 }
             },
             cove:{

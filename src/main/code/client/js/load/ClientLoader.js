@@ -118,7 +118,7 @@ define(["application/EventManager",
 				clearTimeout(this.completeCheckTimeout);
 				this.completeCheckTimeout = setTimeout(function() {
 					delayedProgressCheck();
-				}, 150);
+				}, 2150);
 			}
 
 
