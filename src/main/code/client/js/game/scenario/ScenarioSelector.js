@@ -67,7 +67,7 @@ define(["load/ClientLoader",
 
 			event.fireEvent(event.list().LOAD_PROGRESS, {started:1, completed:0, errors:0, id:'data_loaded'});
 			event.fireEvent(event.list().LOAD_PROGRESS, {started:1, completed:0, errors:0, id:'load_env'});
-			event.fireEvent(event.list().LOAD_PROGRESS, {started:1, completed:0, errors:0, id:'terrain_loaded'});
+		//	event.fireEvent(event.list().LOAD_PROGRESS, {started:1, completed:0, errors:0, id:'terrain_loaded'});
 			var goo = this.goo;
 			var _this = this;
 			function dataLoaded() {

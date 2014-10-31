@@ -24,7 +24,7 @@ define([
     '3d/Colorer'
 
 ],
-    /** @lends */
+
         function(
         Material,
         Camera,
@@ -58,17 +58,17 @@ define([
             this.colorTx = null;
         }
 
-        var resourcePath = 'resources/images/terrain';
-        var rockTile = 'resources/images/tiles/striperock.png';
-        var grassTile = 'resources/images/tiles/grass.png';
-        var slabsTile = 'resources/images/tiles/darkrock.png';
-        var mudTile = 'resources/images/tiles/mud.png';
-        var detailTile = 'resources/images/tiles/detail.png';
-        var cracksTile = 'resources/images/tiles/crackstile.png';
-        var rockTileN = 'resources/images/tiles/striperock.png';
-        var grassTileN = 'resources/images/tiles/grass.png';
-        var slabsTileN = 'resources/images/tiles/slabs.png';
-        var mudTileN = 'resources/images/tiles/mud.png';
+        var resourcePath = 	'../tunnan_resources/images/terrain';
+        var rockTile = 		'../tunnan_resources/images/tiles/striperock.png';
+        var grassTile = 	'../tunnan_resources/images/tiles/grass.png';
+        var slabsTile = 	'../tunnan_resources/images/tiles/darkrock.png';
+        var mudTile = 		'../tunnan_resources/images/tiles/mud.png';
+        var detailTile = 	'../tunnan_resources/images/tiles/detail.png';
+        var cracksTile = 	'../tunnan_resources/images/tiles/crackstile.png';
+        var rockTileN = 	'../tunnan_resources/images/tiles/striperock.png';
+        var grassTileN = 	'../tunnan_resources/images/tiles/grass.png';
+        var slabsTileN = 	'../tunnan_resources/images/tiles/slabs.png';
+        var mudTileN = 		'../tunnan_resources/images/tiles/mud.png';
 
         Terrain.prototype.buildCanvasTexture = function(texturePath, callback) {
 
@@ -98,28 +98,29 @@ define([
         Terrain.prototype.init = function(goo, heightDataUrl, dims, ws, colorTxUrl, terrainReadyCB) {
             var promise = new RSVP.Promise();
 
-            var canvasUtils = new CanvasUtils();
+        //    var canvasUtils = new CanvasUtils();
 
 
         //    this.buildCanvasTexture(colorTxUrl);
+			var getMatrix = function(canvas) {
 
-            canvasUtils.loadCanvasFromPath(heightDataUrl, function(canvas) {
+				var matrix = CanvasUtils.getMatrixFromCanvas(canvas);
+				this._buildMesh(goo, resourcePath, matrix, dims, 128, 128, colorTxUrl, terrainReadyCB);
 
-                var matrix = canvasUtils.getMatrixFromCanvas(canvas);
-                this._buildMesh(goo, resourcePath, matrix, dims, 128, 128, colorTxUrl, terrainReadyCB);
+				// promise.resolve();
 
-                // promise.resolve();
+				//    var ws = new WorldFittedTerrainScript();
+				var terrainData1 = ws.addHeightData(matrix, dims);
 
-            //    var ws = new WorldFittedTerrainScript();
-                var terrainData1 = ws.addHeightData(matrix, dims);
+				//     var vegetationPromise = new Vegetation().init(goo, ws, dims, resourcePath);
+				//     var forrestPromise = new Forrest().init(goo, ws, resourcePath);
+				//    , forrestPromise
+				//  RSVP.all().then(function() {
+				promise.resolve();
+				//   });
+			}.bind(this);
 
-           //     var vegetationPromise = new Vegetation().init(goo, ws, dims, resourcePath);
-           //     var forrestPromise = new Forrest().init(goo, ws, resourcePath);
-            //    , forrestPromise
-            //  RSVP.all().then(function() {
-                    promise.resolve();
-           //   });
-            }.bind(this));
+			CanvasUtils.loadCanvasFromPath(heightDataUrl, getMatrix);
 
             return promise;
         };
@@ -148,7 +149,6 @@ define([
         //    material.uniforms.materialSpecularPower = 0.01;
         //    material.uniforms.materialSpecular = [12.4, 12.4, 12.4, 1];
 
-			                                                            LOAD
             var texturenorm = new TextureCreator().loadTexture2D(resourcePath + '/start_norm.png');
             material.setTexture('NORMAL_MAP2', texturenorm);
 

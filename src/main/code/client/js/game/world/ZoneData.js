@@ -138,8 +138,8 @@ define(function() {
                 depth: 5000,
                 height: 890,
                 pos:[0, -200, 0],
-                heightData:'resources/heightmap/128_hf.png',
-                texture1:'resources/heightmap/tx_start.png',
+                heightData:'../tunnan_resources/heightmap/128_hf.png',
+                texture1:'../tunnan_resources/heightmap/tx_start.png',
                 tree_spread:600,
                 clouds:{intensity:0},
                 playerSpawn:{
@@ -169,8 +169,8 @@ define(function() {
                 height: 650,
                 pos:[-7500, -137, 500],
 
-                heightData:'resources/heightmap/hf_cove.png',
-                texture1:'resources/heightmap/tx_cove.png',
+                heightData:'tunnan_resources/heightmap/hf_cove.png',
+                texture1:'tunnan_resources/heightmap/tx_cove.png',
 
                 tree_spread:750,
                 clouds:{intensity:0},
@@ -262,25 +262,12 @@ define(function() {
 						pos:[500, 0, 390],
 						vel:[0, 0, 0.08],
 						rot:[0, 0, 0]
-					},{
-						pos:[-0, 0, 500],
-						vel:[0, 0, 0.08],
-						rot:[0, 0, 0]
-					},{
-						pos:[-500, 0, -490],
-						vel:[0, 0, 0.08],
-						rot:[0, 0, 0]
 					}],
 					TRE_KRONOR:[{
 						pos:[60, 0, -110],
 						vel:[0, 0, 0.08],
 						rot:[0, 0, 0]
-					}],
-					CARRIER:[{
-						pos:[-300, 0, 500],
-						vel:[0, 0, 0.08],
-						rot:[0, 0, 0]
-					}
+					}]
 						/*
 					,{
 						pos:[4300, 0, -2900],
@@ -308,7 +295,7 @@ define(function() {
 						rot:[0, 0, 0]
 					}
 						*/
-					]
+
 				}
 			},
             carrier:{
