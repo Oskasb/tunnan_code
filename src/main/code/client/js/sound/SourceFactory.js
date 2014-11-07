@@ -1,7 +1,7 @@
 define(["io/Requests", "io/Send","application/EventManager"], function(requests, send, event) {
     "use strict";
 
-    var path = "../../../../../tunnan_resources/sounds/";
+    var path = window.resourcePath+"sounds/";
     var codec;
     var audioModel;
     var context;

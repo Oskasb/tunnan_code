@@ -4,37 +4,37 @@
 		"bundles":[
 			{
 				"id":"nature",
-				"folder":"tunnan_resources/bundles/nature/",
+				"folder":"bundles/nature/",
 				"file":"root.bundle",
 				"entities":["tree_leafy_40m"]
 			},
             {
                 "id":"pilot",
-                "folder":"tunnan_resources/bundles/pilot_animated/",
+                "folder":"bundles/pilot_animated/",
                 "file":"root.bundle",
                 "entities":["pilot_bind_AO"]
             },
 			{
 				"id":"tomcat",
-				"folder":"tunnan_resources/bundles/tomcat/",
+				"folder":"bundles/tomcat/",
 				"file":"root.bundle",
 				"entities":["TomcatSkinned"]
 			},
             {
                 "id":"tunnan",
-                "folder":"tunnan_resources/bundles/tunnan_f/",
+                "folder":"bundles/tunnan_f/",
                 "file":"root.bundle",
                 "entities":["tunnan_f"]
             },
             {
                 "id":"carrier",
-                "folder":"tunnan_resources/bundles/carrier/",
+                "folder":"bundles/carrier/",
                 "file":"root.bundle",
                 "entities":["carrier", "tre_kronor", "battleship"]
             },
             {
                 "id":"environment",
-                "folder":"tunnan_resources/bundles/environment/",
+                "folder":"bundles/environment/",
                 "file":"root.bundle",
                 "entities":[],
                 "environment":["SkySphere Colored", "Post effects"]

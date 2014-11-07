@@ -1,16 +1,5 @@
 "use strict"
 
-require.config({
-    paths: {
-        goo: "../../../../../../goojs/src/goo",
-        'goo/lib': '../lib',
-	    data_pipeline:'submodules/data_pipeline/src',
-		particle_simulator:'submodules/particle_simulator/src',
-		environment:'submodules/environment/src',
-		terrain:'submodules/terrain/src',
-	    gui:'submodules/canvas_gui_3d/src'
-    }
-});
 
 define(['application/EventManager',
 	'goo/animationpack/systems/AnimationSystem',

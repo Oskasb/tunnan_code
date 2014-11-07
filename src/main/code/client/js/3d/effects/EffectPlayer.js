@@ -29,7 +29,7 @@ define(
 		var particleTextures = {};
 		var subscribed = false;
 
-		var path = "../../../../../tunnan_resources/";
+		var path = window.resourcePath;
 
 		var EffectPlayer = function(g00, gooTerrain) {
 			goo = g00;
@@ -73,12 +73,12 @@ define(
 
 			var loadTexture = function(txRef, config) {
 				makeCount++;
-
+                console.log("load particle tx url: ", txRef)
 				var imageUpdated = function(srcKey, img) {
+                     console.log("img updated: ", srcKey, txRef, img)
 
-
-					particleTextures[srcKey] = new Texture(img.image, txSettings, img.image.naturalWidth, img.image.naturalHeight);
-					textureReady(particleTextures[srcKey], config);
+					particleTextures[txRef] = new Texture(img.image, txSettings, img.image.naturalWidth, img.image.naturalHeight);
+					textureReady(particleTextures[txRef], config);
 				};
 
 				PipelineAPI.subscribeToImage(txRef, txRef, imageUpdated);
@@ -90,19 +90,24 @@ define(
 				for (var index in configs) {
 
 					var conf = configs[index];
-
-					if (!particleTextures[conf.texture]) {
-						loadTexture(conf.texture, conf)
-					} else if (particleTextures[conf.texture]) {
+                    var url = conf.texture;
+                    console.log("url: ", url)
+					if (!particleTextures[url]) {
+						loadTexture(url, conf)
+					} else if (particleTextures[url]) {
 						console.log("Particle ready::", conf.id, conf);
-						textureReady(particleTextures[conf.texture], conf)
+						textureReady(particleTextures[url], conf)
 					}
 					console.log("MakeCount: ", makeCount, conf.id);
 
 
 				}
-				simpleParticles.particlesAPI.setEnabled(true);
-				particlesReady();
+
+            //    setTimeout(function() {
+                    simpleParticles.particlesAPI.setEnabled(true);
+                    particlesReady();
+            //    }, 5000)
+
 			}
 
 			var data = PipelineAPI.subscribeToCategoryUpdate("particle_effects", particleDataUpdated);

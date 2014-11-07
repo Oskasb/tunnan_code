@@ -42,7 +42,7 @@ define([
         "use strict";
 
 
-        var resourcePath = "../../../../../tunnan_resources/";
+        var resourcePath = window.resourcePath;
         var goo;
 
         function Vegetation(g00, hmm, terrainData) {
