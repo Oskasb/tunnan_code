@@ -13,3 +13,6 @@
 [submodule "src/main/code/client/js/submodules/terrain"]
 	path = src/main/code/client/js/submodules/terrain
 	url = https://github.com/Oskasb/terrain.git
+[submodule "src/main/code/client/js/submodules/particle_system"]
+	path = src/main/code/client/js/submodules/particle_system
+	url = https://github.com/Oskasb/particle_system.git
