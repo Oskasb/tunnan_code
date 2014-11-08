@@ -6,11 +6,6 @@
             "control_button_active":"./configs/gui/images/svg/button/button_ctrl_active.svg",
             "test_button":"./configs/gui/images/svg/button/testbutton.svg"
         },
-        "bin":{
-            "smoke_particle":			"./images/particles/smoke.png",
-            "splash_particle":			"./images/particles/splash.png",
-            "spark_particle":		    "./images/particles/spark.png",
-            "shockwave_particle":		"./images/particles/shockwave.png"
-        }
+        "bin":{}
 }
 ]
