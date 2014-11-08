@@ -99,7 +99,7 @@ define([
 
 
 
-					SystemBus.emit('playParticles', {effectName:this.data.onFireEffects[i].id, pos:pos, vel:exitVelocity, effectData:this.data.onFireEffects[i].effectData});
+			//		SystemBus.emit('playParticles', {effectName:this.data.onFireEffects[i].id, pos:pos, vel:exitVelocity, effectData:this.data.onFireEffects[i].effectData});
 
 
 				//    event.fireEvent(event.list()[index], {pos:[pos.data[0], pos.data[1], pos.data[2]], count:this.data.onFireEffects[index].count, dir:[exitVelocity.data[0],exitVelocity.data[1], exitVelocity.data[2]]})

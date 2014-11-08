@@ -46,7 +46,7 @@ define([
 				gameUtil.applyRotationToVelocity(this.boat.geometries[0], calcVec);
 				calcVec2.addv(calcVec);
 				calcVec.set(0, 4, 0);
-				SystemBus.emit("playParticles", {effectName:'white_smoke_stream' ,pos:calcVec2, vel:calcVec, effectData:this.effectData});
+		//		SystemBus.emit("playParticles", {effectName:'white_smoke_stream' ,pos:calcVec2, vel:calcVec, effectData:this.effectData});
 			}
         };
 

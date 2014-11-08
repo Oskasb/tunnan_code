@@ -218,7 +218,7 @@ define([
 
 
         var handleShockwave = function(e) {
-			SystemBus.emit('playParticles', {effectName:'shockwave_fire', pos:event.eventArgs(e).pos, vel:event.eventArgs(e).dir, effectData:{}});
+		//	SystemBus.emit('playParticles', {effectName:'shockwave_fire', pos:event.eventArgs(e).pos, vel:event.eventArgs(e).dir, effectData:{}});
 
 		//	system.playEffect(event.eventArgs(e).pos, event.eventArgs(e).count, event.eventArgs(e).dir);
         };

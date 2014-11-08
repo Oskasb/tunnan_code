@@ -148,7 +148,7 @@ define([
             for (var i = 0; i < this.onHitEffects.length; i++) {
 
 
-				SystemBus.emit('playParticles', {effectName:this.onHitEffects[i].id, pos:new Vector3(pos), vel:Vector3.UNIT_Y, effectData:this.onHitEffects[i].effectData});
+		//		SystemBus.emit('playParticles', {effectName:this.onHitEffects[i].id, pos:new Vector3(pos), vel:Vector3.UNIT_Y, effectData:this.onHitEffects[i].effectData});
 			}
 
             if (hit.entity) {
@@ -200,7 +200,7 @@ define([
 						effectData.count *= (1-(this.age*(this.age*0.002+0.998) / (this.lifeTime)))
 					}
 
-					SystemBus.emit('playParticles', {effectName:this.bulletData.trailEffects[i].id, pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
+			//		SystemBus.emit('playParticles', {effectName:this.bulletData.trailEffects[i].id, pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
 				}
 			}
 

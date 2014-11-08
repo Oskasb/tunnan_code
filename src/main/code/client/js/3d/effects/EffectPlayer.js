@@ -63,6 +63,8 @@ define(
 
 		function processEffectData(systemsData, particlesConfig, audioConfig, particlesReady) {
 
+			simpleParticles.createSystems();
+		/*
 			var makeCount = 0;
 			var txSettings = {wrapS: 'EdgeClamp',	wrapT: 'EdgeClamp'};
 
@@ -114,6 +116,8 @@ define(
 			if (data) {
 				particleDataUpdated('loadedconf', data);
 			}
+
+		*/
 
 			for (var index in systemsData) {
 				var name = systemsData[index].id;
@@ -238,8 +242,8 @@ define(
 			}
 		}
 
-		function playEffectParticles(effectName, pos, vel, data) {
-			simpleParticles.spawn(effectName, pos, vel, data);
+		function playEffectParticles(effectName, pos, vel, data, callbacks) {
+			simpleParticles.spawn(effectName, pos, vel, data, callbacks);
 		}
 
 		function getGroundEffectType(pos) {
@@ -273,11 +277,11 @@ define(
 		}
 
 		function handlePlayParticles(args) {
-			playEffectParticles(args.effectName, args.pos, args.vel, args.effectData);
+			playEffectParticles(args.effectName, args.pos, args.vel, args.effectData, args.callbacks);
 		}
 
 		function handlePlayEffect(args) {
-			playEffectParticles(args.effectName, args.pos, args.vel, args.effectData);
+			playEffectParticles(args.effectName, args.pos, args.vel, args.effectData, args.callbacks);
 			playEffectSounds(args.effectName, args.pos, args.vel);
 		}
 

@@ -1,8 +1,20 @@
 define([
-	'particle_simulator/ParticlesAPI'
+	'particle_system/ParticlesAPI',
+	'particle_system/defaults/ExampleEffects',
+	'particle_system/defaults/DefaultRendererConfigs',
+	'particle_system/defaults/DefaultSpriteAtlas',
+	'particle_system/defaults/DefaultSimulators',
+	'goo/math/Vector3'
+
 ],
 function(
-	ParticlesAPI
+	ParticlesAPI,
+	ExampleEffects,
+	DefaultRendererConfigs,
+	DefaultSpriteAtlas,
+	DefaultSimulators,
+	Vector3
+
 ) {
 
 
@@ -11,15 +23,23 @@ function(
 		this.particlesAPI = new ParticlesAPI(false);
 	}
 
-
-	SimpleParticles.prototype.createSystem = function(id, particleSettings, texture) {
-		this.particlesAPI.createParticleSystem(this.goo, id, particleSettings, texture);
+	SimpleParticles.prototype.createSystems = function() {
+		this.particlesAPI.createParticleSystems(DefaultSimulators, DefaultRendererConfigs, DefaultSpriteAtlas);
 	};
 
-	SimpleParticles.prototype.spawn = function(id, position, normal, effectData) {
-		this.particlesAPI.spawnParticles(id, position, normal, effectData)
-
+	SimpleParticles.prototype.createSystem = function() {
+	//	this.particlesAPI.createParticleSystem(this.goo, id, particleSettings, texture);
 	};
+
+	SimpleParticles.prototype.spawn = function(id, position, normal, effectData, callbacks) {
+
+
+
+	//	this.particlesAPI.spawnParticles(id, position, normal, effectData)
+	};
+
+
+
 
 	SimpleParticles.prototype.update = function(tpf) {
 		this.particlesAPI.requestFrameUpdate(tpf);

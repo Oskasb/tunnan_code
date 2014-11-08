@@ -9,7 +9,7 @@ require.config({
         goo: "../../../../../../../projects/goojs/src/goo",
         'goo/lib': '../lib',
         data_pipeline:'submodules/data_pipeline/src',
-        particle_simulator:'submodules/particle_simulator/src',
+        particle_system:'submodules/particle_system/src',
         environment:'submodules/environment/src',
         terrain:'submodules/terrain/src',
         gui:'submodules/canvas_gui_3d/src'
