@@ -58,7 +58,7 @@ define([
 
 			var stats = {
 				tpf: tpfStack[tpfStack.length-1],
-				cachedShaders: goo.renderer._shaderKeys.length,
+				cachedShaders: 'NYI', // goo.renderer._shaderKeys.length,
 				drawCalls: goo.renderer.info.calls,
 				verts: goo.renderer.info.vertices,
 				indices: goo.renderer.info.indices,

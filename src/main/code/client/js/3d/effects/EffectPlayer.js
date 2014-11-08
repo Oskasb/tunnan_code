@@ -126,6 +126,7 @@ define(
 			}
 
 			SoundHandler.registerAudioConfigs(audioConfig);
+			particlesReady();
 		}
 
 
@@ -242,8 +243,8 @@ define(
 			}
 		}
 
-		function playEffectParticles(effectName, pos, vel, data, callbacks) {
-			simpleParticles.spawn(effectName, pos, vel, data, callbacks);
+		function playEffectParticles(rendererId, pos, vel, data, callbacks) {
+			simpleParticles.spawn(rendererId, pos, vel, data, callbacks);
 		}
 
 		function getGroundEffectType(pos) {
@@ -277,12 +278,12 @@ define(
 		}
 
 		function handlePlayParticles(args) {
-			playEffectParticles(args.effectName, args.pos, args.vel, args.effectData, args.callbacks);
+			playEffectParticles(args.rendererId, args.pos, args.vel, args.effectData, args.callbacks);
 		}
 
 		function handlePlayEffect(args) {
-			playEffectParticles(args.effectName, args.pos, args.vel, args.effectData, args.callbacks);
-			playEffectSounds(args.effectName, args.pos, args.vel);
+			playEffectParticles(args.rendererId, args.pos, args.vel, args.effectData, args.callbacks);
+		//	playEffectSounds(args.effectName, args.pos, args.vel);
 		}
 
 		function handleUpdateEffect(args) {

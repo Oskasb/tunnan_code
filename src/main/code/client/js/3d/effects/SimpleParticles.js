@@ -20,7 +20,7 @@ function(
 
 	function SimpleParticles(goo) {
 		this.goo = goo;
-		this.particlesAPI = new ParticlesAPI(false);
+		this.particlesAPI = new ParticlesAPI(goo);
 	}
 
 	SimpleParticles.prototype.createSystems = function() {
@@ -31,9 +31,9 @@ function(
 	//	this.particlesAPI.createParticleSystem(this.goo, id, particleSettings, texture);
 	};
 
-	SimpleParticles.prototype.spawn = function(id, position, normal, effectData, callbacks) {
+	SimpleParticles.prototype.spawn = function(rendererId, position, normal, effectData, callbacks) {
 
-
+		this.particlesAPI.spawnParticles(rendererId, position, normal, effectData, callbacks);
 
 	//	this.particlesAPI.spawnParticles(id, position, normal, effectData)
 	};

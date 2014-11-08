@@ -4,10 +4,10 @@
             {
                 "id":"main_gun_16",
                 "name":"Main Gun 16",
-                "caliber":250,
+                "caliber":350,
                 "barrelLength":25,
-                "exitVelocity":430,
-                "rateOfFire":0.04,
+                "exitVelocity":330,
+                "rateOfFire":4.15,
                 "onFireSounds":["MAIN_GUN_0", "MAIN_GUN_1", "MAIN_GUN_2"],
                 "onFireEffects": [
                     {
@@ -47,7 +47,7 @@
                 "caliber":80,
                 "barrelLength":10,
                 "exitVelocity":380,
-                "rateOfFire":0.4,
+                "rateOfFire":2.4,
                 "onFireSounds":["AAA_0", "AAA_1", "AAA_2"],
                 "onFireEffects": [
                     {

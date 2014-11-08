@@ -31,30 +31,6 @@ define([
     var registerBullet = function(bullet, caliber, visible) {
         bulletCount += 1;
 
-        if (visible) {
-            var visibleCallback = function(gooEntity) {
-                //        console.log(bullet.entity)
-                gooEntity.transformComponent.transform.scale.data[0] = caliber*0.1;
-                gooEntity.transformComponent.transform.scale.data[1] = caliber*0.1;
-                bullet.entity.geometries[0] = gooEntity;
-                event.fireEvent(event.list().REGISTER_ACTIVE_ENTITY, {entity:bullet.entity});
-                event.fireEvent(event.list().ACTIVATE_GOO_ENTITY, {gooEntity:gooEntity, gameEntity:bullet});
-
-            };
-
-            var callback = function(entity) {
-                bullet.id = entity.id;
-                bullet.entity = entity;
-                entity.spatial = bullet.spatial;
-                entity.pieceData = bullet.bulletData;
-                //    visibleCallback(entity)
-                event.fireEvent(event.list().BUILD_GOO_GAMEPIECE, {projPath:gameConfig.GOO_PROJECTS.bullet_20.projectPath, modelPath:entity.pieceData.modelPath, callback:visibleCallback});
-            };
-
-            event.fireEvent(event.list().ADD_GAME_ENTITY, {entityId:"bullet_"+bulletCount, callback:callback});
-
-        } else {
-
 
 
             var callback = function(entity) {
@@ -65,10 +41,12 @@ define([
                 event.fireEvent(event.list().REGISTER_ACTIVE_ENTITY, {entity:bullet.entity});            };
 
             event.fireEvent(event.list().ADD_GAME_ENTITY, {entityId:"bullet_"+bulletCount, callback:callback});
-        }
 
         activeBullets.push(bullet);
     };
+
+
+
 
     var Bullet = function(pos, vel, bulletData, cannonData, callback, originatorId, tpf) {
         var rot = new Matrix3x3();
@@ -92,7 +70,61 @@ define([
         this.hitCallback = callback;
         registerBullet(this, this.caliber, this.visible);
 		this.updatePosition(tpf);
-    };
+
+		this.attachTrailEffect(this.spatial);
+		this.removed = false;
+	};
+
+		Bullet.prototype.attachTrailEffect = function(spatial) {
+
+			this.particles = [];
+
+			var onParticleDead = function(particle) {
+				this.particles.splice(this.particles.indexOf(particle), 1);
+			}.bind(this);
+
+			var onParticleAdded = function(particle) {
+				this.particles.push(particle);
+			}.bind(this);
+
+			var particleUpdate = function(particle) {
+				particle.lifeSpan = this.lifeTime - this.age*3;
+				particle.position.setv(spatial.pos);
+			}.bind(this);
+
+			var callbacks = {
+				particleUpdate:particleUpdate,
+				onParticleAdded:onParticleAdded,
+				onParticleDead:onParticleDead
+			};
+
+			var effect_data = {
+				"color":[1,0.95, 0.7, 1],
+				"count":1,
+				"opacity":[1, 1],
+				"alpha":"oneToZero",
+				"size":[this.caliber*0.003, this.caliber*0.007],
+				"growthFactor":[1.01, 0.7],
+				"growth":"posToNeg",
+				"stretch":0.0001,
+				"strength":0,
+				"spread":0.7,
+				"acceleration":0.997,
+				"gravity":0,
+				"rotation":[0,7],
+				"spin":"posToNeg",
+				"spinspeed":[-0.05, 0.07],
+				"lifespan":[this.age, this.age],
+				"sprite":"flaredot",
+				"loopcount":1,
+				"trailsprite":"projectile_1",
+				"trailwidth":1
+			};
+
+			SystemBus.emit('playParticles', {rendererId:'FastAdditiveTrail', pos:this.spatial.pos, vel:this.hitNormal, effectData:effect_data, callbacks:callbacks});
+
+		};
+
 
         Bullet.prototype.remove = function() {
         //    console.log("Remove Bullet")
@@ -100,9 +132,20 @@ define([
             var bulletIndex = activeBullets.indexOf(this);
             activeBullets.splice(bulletIndex, 1);
         //    console.log("active bullets: ", activeBullets);
-            event.fireEvent(event.list().REMOVE_GAME_ENTITY, {entityId:this.id});
-            delete this;
+
+			this.lifeTime = 0;
+			this.removed = true;
+			this.delete();
         };
+
+		Bullet.prototype.delete = function() {
+			for (var i = 0; i < this.particles.length; i++) {
+				this.particles[i].killParticle();
+			}
+			event.fireEvent(event.list().REMOVE_GAME_ENTITY, {entityId:this.id});
+			delete this;
+		};
+
 
         Bullet.prototype.disappear = function() {
             this.hitCallback(this.spatial, "nothing");
@@ -208,8 +251,9 @@ define([
         //    if (Math.random() < 0.01 * (1/(1+this.age/1000))) event.fireEvent(event.list().PUFF_WHITE_SMOKE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
 
 
-            if (this.age > this.lifeTime) this.disappear();
-
+            if (this.age > this.lifeTime) {
+				this.disappear();
+			}
         };
 
 		Bullet.prototype.updateBulletEffects = function(tpf) {
@@ -229,12 +273,6 @@ define([
             activeBullets[i].updatePosition(time);
         }
     };
-
-	var handleUpdateEffects = function(e) {
-		for (var i = 0; i < activeBullets.length; i++) {
-			activeBullets[i].updateBulletEffects(event.eventArgs(e).tpf);
-		}
-	};
 
     var handleTick = function(e) {
         var time = event.eventArgs(e).frameTime;

@@ -174,7 +174,7 @@ define(["application/EventManager",
 				count:45*state
 			};
 
-			SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
+	//		SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
 
 			if (state > 0.90) {
 				this.maxThrust = this.engineData.maxThrust + this.engineData.afterBurner;
@@ -190,7 +190,7 @@ define(["application/EventManager",
 				};
 
 
-				SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
+	//			SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
 				//        this.flameEffect.enabled = true
 				//        for (var i = 0; i < this.flameEffect.emitters.length; i++) {
 				//            this.flameEffect.emitters[i].enabled = true; // this.flameEffect.maxReleaseRate / this.flameEffect.emitters.length;
