@@ -177,7 +177,7 @@ define([
             for (var i = 0; i < this.onHitEffects.length; i++) {
 
 
-		//		SystemBus.emit('playParticles', {effectName:this.onHitEffects[i].id, pos:new Vector3(pos), vel:Vector3.UNIT_Y, effectData:this.onHitEffects[i].effectData});
+				SystemBus.emit('playParticles', {simulatorId:this.onHitEffects[i].simulatorId, pos:new Vector3(pos), vel:Vector3.UNIT_Y, effectData:this.onHitEffects[i].effectData});
 			}
 
             if (hit.entity) {

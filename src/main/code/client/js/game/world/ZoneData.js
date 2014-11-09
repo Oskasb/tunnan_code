@@ -138,8 +138,8 @@ define(function() {
                 depth: 5000,
                 height: 890,
                 pos:[0, -200, 0],
-                heightData:'../tunnan_resources/heightmap/128_hf.png',
-                texture1:'../tunnan_resources/heightmap/tx_start.png',
+                heightData:window.resourcePath+'/heightmap/128_hf.png',
+                texture1:window.resourcePath+'/heightmap/tx_start.png',
                 tree_spread:600,
                 clouds:{intensity:0},
                 playerSpawn:{

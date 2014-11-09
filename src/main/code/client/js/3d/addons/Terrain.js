@@ -58,17 +58,17 @@ define([
             this.colorTx = null;
         }
 
-        var resourcePath = 	'../tunnan_resources/images/terrain';
-        var rockTile = 		'../tunnan_resources/images/tiles/striperock.png';
-        var grassTile = 	'../tunnan_resources/images/tiles/grass.png';
-        var slabsTile = 	'../tunnan_resources/images/tiles/darkrock.png';
-        var mudTile = 		'../tunnan_resources/images/tiles/mud.png';
-        var detailTile = 	'../tunnan_resources/images/tiles/detail.png';
-        var cracksTile = 	'../tunnan_resources/images/tiles/crackstile.png';
-        var rockTileN = 	'../tunnan_resources/images/tiles/striperock.png';
-        var grassTileN = 	'../tunnan_resources/images/tiles/grass.png';
-        var slabsTileN = 	'../tunnan_resources/images/tiles/slabs.png';
-        var mudTileN = 		'../tunnan_resources/images/tiles/mud.png';
+        var resourcePath = 	window.resourcePath+'/images/terrain';
+        var rockTile = 		window.resourcePath+'/images/tiles/striperock.png';
+        var grassTile = 	window.resourcePath+'/images/tiles/grass.png';
+        var slabsTile = 	window.resourcePath+'/images/tiles/darkrock.png';
+        var mudTile = 		window.resourcePath+'/images/tiles/mud.png';
+        var detailTile = 	window.resourcePath+'/images/tiles/detail.png';
+        var cracksTile = 	window.resourcePath+'/images/tiles/crackstile.png';
+        var rockTileN = 	window.resourcePath+'/images/tiles/striperock.png';
+        var grassTileN = 	window.resourcePath+'/images/tiles/grass.png';
+        var slabsTileN = 	window.resourcePath+'/images/tiles/slabs.png';
+        var mudTileN = 		window.resourcePath+'/images/tiles/mud.png';
 
         Terrain.prototype.buildCanvasTexture = function(texturePath, callback) {
 

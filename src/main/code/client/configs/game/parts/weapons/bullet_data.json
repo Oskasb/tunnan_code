@@ -36,17 +36,52 @@
                     }
                 }],
                 "onHitEffects": [{
-                    "id":"shockwave_fire",
+                    "simulatorId":"AdditiveParticle",
                     "effectData" : {
-                        "alphaCurve":[[0, 1],[0.3, 0.6], [1,0]],
-                        "growthCurve":[[0, 0.8],[0.3, 0.9], [1,1.2]],
-                        "lifespan":0.3
+                        "color":[1,0.9, 0.6, 1],
+                        "count":1,
+                        "opacity":[1, 1],
+                        "alpha":"oneToZero",
+                        "growthFactor":[33, 35],
+                        "growth":[[0, 0.6], [1, 1]],
+                        "stretch":1,
+                        "strength":2,
+                        "spread":0.02,
+                        "acceleration":0.9997,
+                        "gravity":0,
+                        "rotation":[0,7],
+                        "spin":"posToNeg",
+                        "size":[0.02,0.04],
+                        "lifespan":[0.3, 0.32],
+                        "spinspeed":[-0.05, 0.07],
+                        "sprite":"shockwave",
+                        "loopcount":1,
+                        "trailsprite":"projectile_1",
+                        "trailwidth":1
                     }
                 },{
-                    "id":"metal_sparks",
+                    "simulatorId":"AdditiveParticle",
                     "effectData" : {
-                        "alphaCurve":[[0, 1],[0.3, 0.6], [1,0]],
-                        "growthCurve":[[0, 1.3],[0.3, 1.7], [1,1.8]]
+                        "color":[1,0.98, 0.65, 1],
+                        "count":3,
+                        "opacity":[1, 1],
+                        "alpha":"oneToZero",
+                        "growthFactor":[43, 85],
+                        "growth":[[0, 0.6], [1, 1]],
+                        "stretch":1,
+                        "strength":2,
+                        "spread":0.02,
+                        "acceleration":0.9997,
+                        "gravity":0,
+                        "rotation":[0,7],
+                        "spin":"posToNeg",
+                        "size":[2.1,3.1],
+                        "lifespan":[0.12, 0.21],
+                        "spinspeed":[-0.05, 0.07],
+                        "sprite":"spark_seq",
+                        "loopcount":6,
+                        "trailsprite":"projectile_1",
+                        "trailwidth":1
                     }
                 }]
             },{
@@ -80,26 +115,55 @@
                     }
                 }],
 
-                "onHitEffects": [
-                    {
-                        "id":"metal_sparks",
-                        "effectData" : {
-                            "alphaCurve":[[0, 1],[0.8, 0.8], [1,0]],
-                            "growthCurve":[[0, 0.8],[0.3, 1], [1,1.3]],
-                            "lifespan":0.6,
-                            "growth":1600,
-                            "count":13
-                        }
-                    },{
-                        "id":"shockwave_fire",
-                        "effectData" : {
-                            "alphaCurve":[[0, 1],[0.7, 0.9], [1,0]],
-                            "growthCurve":[[0, 1.6],[0.3, 1.4], [1,1.6]],
-                            "lifespan":0.25
-                        }
+                "onHitEffects": [{
+                    "simulatorId":"AdditiveParticle",
+                    "effectData" : {
+                        "color":[1,0.9, 0.6, 1],
+                        "count":1,
+                        "opacity":[1, 1],
+                        "alpha":"oneToZero",
+                        "growthFactor":[83, 85],
+                        "growth":[[0, 0.8], [1, 1]],
+                        "stretch":1,
+                        "strength":2,
+                        "spread":0.02,
+                        "acceleration":0.9997,
+                        "gravity":0,
+                        "rotation":[0,7],
+                        "spin":"posToNeg",
+                        "size":[0.2,0.4],
+                        "lifespan":[0.3, 0.3],
+                        "spinspeed":[-0.05, 0.07],
+                        "sprite":"shockwave",
+                        "loopcount":1,
+                        "trailsprite":"projectile_1",
+                        "trailwidth":1
                     }
-
-                ]
+                },{
+                    "simulatorId":"AdditiveParticle",
+                    "effectData" : {
+                        "color":[1,0.98, 0.65, 1],
+                        "count":5,
+                        "opacity":[1, 1],
+                        "alpha":"oneToZero",
+                        "growthFactor":[93, 135],
+                        "growth":[[0, 0.6], [1, 1]],
+                        "stretch":1,
+                        "strength":2,
+                        "spread":0.02,
+                        "acceleration":0.9997,
+                        "gravity":0,
+                        "rotation":[0,7],
+                        "spin":"posToNeg",
+                        "size":[4.1,5.1],
+                        "lifespan":[0.2, 0.35],
+                        "spinspeed":[-0.05, 0.07],
+                        "sprite":"spark_seq",
+                        "loopcount":6,
+                        "trailsprite":"projectile_1",
+                        "trailwidth":1
+                    }
+                }]
             },{
                 "id":"BULLET_MAIN",
                 "damageEffects":[{"kinetic":{"points":100}}, {"fire":{"intensity":0.7, "size":20}}],
@@ -130,31 +194,55 @@
                     }
                 }],
 
-                "onHitEffects": [
-                    {
-                        "id":"metal_sparks",
-                        "effectData" : {
-                            "alphaCurve":[[0, 1],[0.7, 0.9], [1,0]],
-                            "growthCurve":[[0, 1.2],[0.3, 1], [1,1.6]],
-                            "lifespan":0.8,
-                            "size":600,
-                            "growth":800,
-                            "count":13
-                        }
-                    },{
-                        "id":"explosion_fire",
-                        "effectData" : {
-                            "alphaCurve":[[0, 1],[0.9, 0.9], [1,0]],
-                            "growthCurve":[[0, 1.2],[0.3, 1.5], [1,1.8]]
-                        }
-                    },{
-                        "id":"shockwave_fire",
-                        "effectData" : {
-                            "alphaCurve":[[0, 1],[0.7, 0.9], [1,0]],
-                            "growthCurve":[[0, 1.8],[0.3, 1], [1,1.6]]
-                        }
+                "onHitEffects": [{
+                    "simulatorId":"AdditiveParticle",
+                    "effectData" : {
+                        "color":[1,0.98, 0.65, 1],
+                        "count":1,
+                        "opacity":[1, 1],
+                        "alpha":"oneToZero",
+                        "growthFactor":[73, 95],
+                        "growth":[[0, 0.8], [1, 1]],
+                        "stretch":1,
+                        "strength":2,
+                        "spread":0.02,
+                        "acceleration":0.9997,
+                        "gravity":0,
+                        "rotation":[0,7],
+                        "spin":"posToNeg",
+                        "size":[0.1,0.1],
+                        "lifespan":[0.5, 0.55],
+                        "spinspeed":[-0.05, 0.07],
+                        "sprite":"shockwave",
+                        "loopcount":1,
+                        "trailsprite":"projectile_1",
+                        "trailwidth":1
                     }
-                ]
+                },{
+                    "simulatorId":"AdditiveParticle",
+                    "effectData" : {
+                        "color":[1,0.98, 0.65, 1],
+                        "count":7,
+                        "opacity":[1, 1],
+                        "alpha":"oneToZero",
+                        "growthFactor":[63, 125],
+                        "growth":[[0, 0.6], [1, 1]],
+                        "stretch":1,
+                        "strength":2,
+                        "spread":0.02,
+                        "acceleration":0.9997,
+                        "gravity":0,
+                        "rotation":[0,7],
+                        "spin":"posToNeg",
+                        "size":[5.1,6.1],
+                        "lifespan":[0.22, 0.45],
+                        "spinspeed":[-0.05, 0.07],
+                        "sprite":"spark_seq",
+                        "loopcount":2,
+                        "trailsprite":"projectile_1",
+                        "trailwidth":1
+                    }
+                }]
             }
         ]
     }
