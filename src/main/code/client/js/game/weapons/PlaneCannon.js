@@ -97,32 +97,10 @@ define([
             new Bullet(pos, exitVelocity, this.bulletData, this.data, hitCallback, this.planeEntity.id, this.planeEntity.geometries[0]._world.tpf);
             this.playFireSound(pos, exitVelocity);
 
-			var effectData = {
-				"color":[0.3,0.3, 0.3, 1],
-				"count":8,
-				"size":[0.1,0.2],
-				"lifespan":[0.1, 0.6],
-				"opacity":[1, 1],
-				"alpha":"zeroOneZero",
-				"growthFactor":[1, 6],
-				"growth":"oneToZero",
-				"stretch":0.1,
-				"strength":15,
-				"spread":0.2,
-				"acceleration":0.97,
-				"gravity":1,
-				"rotation":[0,7],
-				"spin":"oneToZero",
-				"spinspeed":[-1,1],
-				"sprite":"smokey",
-				"loopcount":1,
-				"trailsprite":"projectile_1",
-				"trailwidth":1
-			};
 
 			for (var i = 0; i < this.data.onFireEffects.length; i++) {
-				SystemBus.emit('playParticles', {simulatorId:"StandardParticle", pos:pos, vel:exitVelocity, effectData:effectData});
-				//		SystemBus.emit('playParticles', {simulatorId:this.data.onFireEffects[i].simulatorId, pos:pos, vel:exitVelocity, effectData:this.data.onFireEffects[i].effectData});
+				//			SystemBus.emit('playParticles', {simulatorId:"StandardParticle", pos:pos, vel:exitVelocity, effectData:effectData});
+				SystemBus.emit('playParticles', {simulatorId:this.data.onFireEffects[i].simulatorId, pos:pos, vel:exitVelocity, effectData:this.data.onFireEffects[i].effectData});
 			}
 		};
 
