@@ -72,14 +72,14 @@ define([
 
 		this.particles = [];
 
-		this.updatePosition(tpf);
-
 		if (bulletData.trailEffects) {
 			for (var i = 0; i < bulletData.trailEffects.length; i++) {
 				this.attachTrailEffect(this.spatial, bulletData.trailEffects[i]);
 			}
 		}
+
 		this.removed = false;
+		this.updatePosition(tpf);
 	};
 
 		Bullet.prototype.attachTrailEffect = function(spatial, bulletEffect) {

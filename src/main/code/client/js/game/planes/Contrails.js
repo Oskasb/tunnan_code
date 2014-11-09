@@ -24,10 +24,25 @@ define([
 			calcVec2.set(entity.spatial.velocity);
 			calcVec2.mul(2);
 			var effectData = {
-				lifespan:Math.random()*Math.random()*40*Math.random()*Math.random()
+				"lifespan":[0,40*Math.random()*Math.random()*Math.random()],
+				"size": [0.1,0.5],
+				"rotation": [0,6],
+				"spinspeed":[-0.1,0.1],
+				"spin":"oneToZero",
+				"gravity": 0,
+				"count": 4,
+				"spread": 0.1,
+				"stretch": 1,
+				"strength":16,
+				"acceleration": 0.98,
+				"alpha":[[0, 1], [0.1, 0.06],[0.3, 0.04], [1, 0]],
+				"growth":[[0, 1], [0.05, 0.8],[0.3, 0.3], [1, 1]],
+				"growthFactor":[2, 5],
+				"sprite":"smokey"
 			};
 
-			SystemBus.emit('playVaporEffect', {effectName:'white_smoke_stream', pos:calcVec, vel:calcVec2, effectData:effectData});
+
+			SystemBus.emit('playVaporEffect', {pos:calcVec, vel:calcVec2, effectData:effectData});
 
 
        //     event.fireEvent(event.list().ACROBATIC_SMOKE, {pos:[calcVec.data[0], calcVec.data[1], calcVec.data[2]], count:1, dir:entity.spatial.velocity.data});
