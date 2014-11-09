@@ -69,9 +69,10 @@ define([
         this.lifeTime = bulletData.lifeTime;
         this.hitCallback = callback;
         registerBullet(this, this.caliber, this.visible);
-		this.updatePosition(tpf);
 
 		this.particles = [];
+
+		this.updatePosition(tpf);
 
 		if (cannonData.bulletEffect) {
 			this.attachTrailEffect(this.spatial, cannonData.bulletEffect);
@@ -104,7 +105,7 @@ define([
 			};
 
 			var effect_data = bulletEffect.effectData;
-			effect_data.size = [this.caliber*0.01, this.caliber*0.02];
+			effect_data.size = [0.1 + this.caliber*0.003, 0.1+this.caliber*0.005];
 			effect_data.lifespan = [this.age, this.age];
 
 			SystemBus.emit('playParticles', {simulatorId:bulletEffect.simulatorId, pos:this.spatial.pos, vel:this.hitNormal, effectData:effect_data, callbacks:callbacks});
