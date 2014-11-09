@@ -9,29 +9,7 @@
                 "exitVelocity":630,
                 "rateOfFire":0.15,
                 "onFireSounds":["MAIN_GUN_0", "MAIN_GUN_1", "MAIN_GUN_2"],
-                "bulletEffect":{
-                    "simulatorId":"FastAdditiveTrail",
-                    "effectData":{
-                        "color":[1,0.95, 0.7, 1],
-                        "count":1,
-                        "opacity":[1, 1],
-                        "alpha":"oneToZero",
-                        "growthFactor":[1.01, 0.7],
-                        "growth":"oneToZero",
-                        "stretch":0.0001,
-                        "strength":0,
-                        "spread":0.7,
-                        "acceleration":0.997,
-                        "gravity":0,
-                        "rotation":[0,7],
-                        "spin":"posToNeg",
-                        "spinspeed":[-0.05, 0.07],
-                        "sprite":"flaredot",
-                        "loopcount":1,
-                        "trailsprite":"projectile_1",
-                        "trailwidth":1
-                    }
-                },
+
                 "onFireEffects": [
                     {
                         "simulatorId":"AdditiveParticle",
@@ -93,32 +71,6 @@
                 "exitVelocity":980,
                 "rateOfFire":1.4,
                 "onFireSounds":["AAA_0", "AAA_1", "AAA_2"],
-
-                "bulletEffect":{
-                    "simulatorId":"FastAdditiveTrail",
-                    "effectData":{
-                        "color":[1,0.6, 0.3, 1],
-                        "count":1,
-                        "opacity":[1, 1],
-                        "alpha":"oneToZero",
-                        "growthFactor":[6, 11],
-                        "growth":"posToNeg",
-                        "stretch":1.5,
-                        "strength":50,
-                        "spread":0.2,
-                        "gravity":7,
-                        "rotation":[0,7],
-                        "spin":"oneToZero",
-                        "size":[0.1,0.3],
-                        "lifespan":[0.2, 1.2],
-                        "spinspeed":[-2, 2],
-                        "sprite":"smokey",
-                        "loopcount":1,
-                        "trailsprite":"projectile_1",
-                        "trailwidth":1
-                    }
-                },
-
                 "onFireEffects": [
                     {
                         "simulatorId":"AdditiveParticle",
@@ -182,29 +134,59 @@
                 "flameEffect":"muzzle_flame",
                 "smokeEffect":"muzzle_smoke",
                 "lifetime":7000,
-                "bulletEffect":{
-                    "simulatorId":"FastAdditiveTrail",
-                    "effectData":{
-                        "color":[1,0.95, 0.7, 1],
-                        "count":1,
-                        "opacity":[1, 1],
-                        "alpha":"oneToZero",
-                        "growthFactor":[1.01, 0.7],
-                        "growth":"posToNeg",
-                        "stretch":0.0001,
-                        "strength":0,
-                        "spread":0.7,
-                        "acceleration":0.997,
-                        "gravity":0,
-                        "rotation":[0,7],
-                        "spin":"posToNeg",
-                        "spinspeed":[-0.05, 0.07],
-                        "sprite":"flaredot",
-                        "loopcount":1,
-                        "trailsprite":"projectile_1",
-                        "trailwidth":0.5
+
+                "onFireEffects": [
+                    {
+                        "simulatorId":"AdditiveParticle",
+                        "effectData" : {
+                            "color":[1,0.6, 0.3, 1],
+                            "count":14,
+                            "opacity":[1, 1],
+                            "alpha":"oneToZero",
+                            "growthFactor":[-12, -23],
+                            "growth":"oneToZero",
+                            "stretch":1,
+                            "strength":2,
+                            "spread":0.02,
+                            "acceleration":0.9997,
+                            "gravity":0,
+                            "rotation":[0,7],
+                            "spin":"posToNeg",
+                            "size":[0.2,0.4],
+                            "lifespan":[0.03, 0.07],
+                            "spinspeed":[-0.05, 0.07],
+                            "sprite":"smokey",
+                            "loopcount":1,
+                            "trailsprite":"projectile_1",
+                            "trailwidth":1
+                        }
+                    },
+                    {
+                        "simulatorId":"StandardParticle",
+                        "effectData" : {
+                            "color":[0.3,0.3, 0.3, 1],
+                            "count":8,
+                            "size":[0.1,0.3],
+                            "lifespan":[0.01, 0.4],
+                            "opacity":[0.2, 1],
+                            "alpha":"zeroOneZero",
+                            "growthFactor":[0, 5],
+                            "growth":"oneToZero",
+                            "stretch":0.05,
+                            "strength":35,
+                            "spread":0.4,
+                            "acceleration":0.95,
+                            "gravity":1,
+                            "rotation":[0,7],
+                            "spin":"oneToZero",
+                            "spinspeed":[-1,1],
+                            "sprite":"smokey",
+                            "loopcount":1,
+                            "trailsprite":"projectile_1",
+                            "trailwidth":1
+                        }
                     }
-                }
+                ]
             },{
                 "id":"vulcan_20",
                 "name":"Vulcan 20",
@@ -216,29 +198,6 @@
                 "smokeEffect":"muzzle_smoke",
                 "lifetime":7000,
 
-                "bulletEffect":{
-                    "simulatorId":"FastAdditiveTrail",
-                    "effectData":{
-                        "color":[1,0.95, 0.7, 1],
-                        "count":1,
-                        "opacity":[1, 1],
-                        "alpha":"oneToZero",
-                        "growthFactor":[1.01, 0.7],
-                        "growth":"posToNeg",
-                        "stretch":0.0001,
-                        "strength":0,
-                        "spread":0.7,
-                        "acceleration":0.997,
-                        "gravity":0,
-                        "rotation":[0,7],
-                        "spin":"posToNeg",
-                        "spinspeed":[-0.05, 0.07],
-                        "sprite":"flaredot",
-                        "loopcount":1,
-                        "trailsprite":"projectile_1",
-                        "trailwidth":0.5
-                    }
-                },
                 "onFireEffects": [
                     {
                         "simulatorId":"AdditiveParticle",

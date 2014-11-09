@@ -13,10 +13,26 @@
                 "onHitSounds":["BULLET_HIT_0", "BULLET_HIT_1", "BULLET_HIT_2", "BULLET_HIT_3"],
                 "lifeTime": 5000,
                 "trailEffects":[{
-                    "id":"explosion_fire",
+                    "simulatorId":"FastAdditiveTrail",
                     "effectData":{
-                        "count":40,
-                        "lifespan":0.035
+                        "color":[1,0.95, 0.7, 1],
+                        "count":1,
+                        "opacity":[1, 1],
+                        "alpha":"oneToZero",
+                        "growthFactor":[1.01, 0.7],
+                        "growth":"posToNeg",
+                        "stretch":0.0001,
+                        "strength":0,
+                        "spread":0.7,
+                        "acceleration":0.997,
+                        "gravity":0,
+                        "rotation":[0,7],
+                        "spin":"posToNeg",
+                        "spinspeed":[-0.05, 0.07],
+                        "sprite":"flaredot",
+                        "loopcount":1,
+                        "trailsprite":"projectile_1",
+                        "trailwidth":0.5
                     }
                 }],
                 "onHitEffects": [{
@@ -38,6 +54,32 @@
                 "damageEffects":[{"kinetic":{"points":20}}, {"fire":{"intensity":0.5, "size":16}}],
                 "onHitSounds":["AAA_HIT_0", "AAA_HIT_1", "AAA_HIT_2"],
                 "lifeTime": 14000,
+
+                "trailEffects":[{
+                    "simulatorId":"FastAdditiveTrail",
+                    "effectData":{
+                        "color":[1,0.6, 0.3, 1],
+                        "count":1,
+                        "opacity":[1, 1],
+                        "alpha":"oneToZero",
+                        "growthFactor":[6, 11],
+                        "growth":"posToNeg",
+                        "stretch":1.5,
+                        "strength":50,
+                        "spread":0.2,
+                        "gravity":7,
+                        "rotation":[0,7],
+                        "spin":"oneToZero",
+                        "size":[0.1,0.3],
+                        "lifespan":[0.2, 1.2],
+                        "spinspeed":[-2, 2],
+                        "sprite":"smokey",
+                        "loopcount":1,
+                        "trailsprite":"projectile_1",
+                        "trailwidth":1
+                    }
+                }],
+
                 "onHitEffects": [
                     {
                         "id":"metal_sparks",
@@ -63,6 +105,31 @@
                 "damageEffects":[{"kinetic":{"points":100}}, {"fire":{"intensity":0.7, "size":20}}],
                 "onHitSounds":["MAIN_HIT_0", "MAIN_HIT_1", "MAIN_HIT_2"],
                 "lifeTime": 38000,
+
+                "trailEffects":[{
+                    "simulatorId":"FastAdditiveTrail",
+                    "effectData":{
+                        "color":[1,0.95, 0.7, 1],
+                        "count":1,
+                        "opacity":[1, 1],
+                        "alpha":"oneToZero",
+                        "growthFactor":[1.01, 0.7],
+                        "growth":"oneToZero",
+                        "stretch":0.0001,
+                        "strength":0,
+                        "spread":0.7,
+                        "acceleration":0.997,
+                        "gravity":0,
+                        "rotation":[0,7],
+                        "spin":"posToNeg",
+                        "spinspeed":[-0.05, 0.07],
+                        "sprite":"flaredot",
+                        "loopcount":1,
+                        "trailsprite":"projectile_1",
+                        "trailwidth":1
+                    }
+                }],
+
                 "onHitEffects": [
                     {
                         "id":"metal_sparks",

@@ -74,16 +74,15 @@ define([
 
 		this.updatePosition(tpf);
 
-		if (cannonData.bulletEffect) {
-			this.attachTrailEffect(this.spatial, cannonData.bulletEffect);
+		if (bulletData.trailEffects) {
+			for (var i = 0; i < bulletData.trailEffects.length; i++) {
+				this.attachTrailEffect(this.spatial, bulletData.trailEffects[i]);
+			}
 		}
-
 		this.removed = false;
 	};
 
 		Bullet.prototype.attachTrailEffect = function(spatial, bulletEffect) {
-
-
 
 			var onParticleDead = function(particle) {
 				this.particles.splice(this.particles.indexOf(particle), 1);
