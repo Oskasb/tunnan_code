@@ -155,27 +155,27 @@ define(["application/EventManager",
 			this.engineGeometry.transformComponent.worldTransform.rotation.applyPost(calcVec2);
 			calcVec2.mul(-0.6*state*state);
 
-			var fxGrow = 0.1;
+			var fxGrow = 0.4;
 			if (this.engineData.nozzle) {
 
 				var nozzle = this.determineNozzleState(state);
 				this.updateNozzleState(nozzle);
-				fxGrow += nozzle*0.6;
+				fxGrow += nozzle*0.4;
 			}
 
 			var effectData = {
 				color: [0.8,0.6,0.7,1],
-				opacity:[0.5*state, 0.7*state],
-				count:35*state,
-				alpha: [[0.1, 1], [0.3,0.2], [1, 0]],
-				growth: [[0, 1], [0.1,3], [0.6, -11]],
-				size:[fxGrow, fxGrow*1.2],
+				opacity:[0.7*state, 0.9*state],
+				count:30*state,
+				alpha: [[0.1, 1], [0.6,0.5], [1, 0]],
+				growth: [[0, -1], [0.1,-3], [0.6, -2]],
+				size:[fxGrow, fxGrow*1.1],
 				"growthFactor":[1, 1.2],
 				"stretch":1,
 				"strength":11*state,
 				"spread":0.03,
 				"acceleration":1.01,
-				lifespan:[0.02,0.05],
+				lifespan:[0.03,0.03],
 				"rotation":[0,7],
 				"spin":"posToNeg",
 				"spinspeed":[-0.05, 0.07],
@@ -196,8 +196,8 @@ define(["application/EventManager",
 					opacity:[0.3, 0.8],
 					alpha: [[0, 1], [0.3,0.4], [1, 0]],
 					growth: [[0.3, 0.5], [0.65,1.2], [1, -0.2]],
-					size:[fxGrow, fxGrow+0.2],
-					count:45*state,
+					size:[fxGrow, fxGrow+0.1],
+					count:40*state,
 					"growthFactor":[1, 1.2],
 					"stretch":1,
 					"strength":12,
@@ -211,6 +211,7 @@ define(["application/EventManager",
 					"trailsprite":"projectile_1",
 					"trailwidth":1
 				};
+
 
 
 				SystemBus.emit('playParticles', {simulatorId:"AdditiveParticle", pos:pos, vel:calcVec2, effectData:effectData});
