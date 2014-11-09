@@ -155,42 +155,65 @@ define(["application/EventManager",
 			this.engineGeometry.transformComponent.worldTransform.rotation.applyPost(calcVec2);
 			calcVec2.mul(-0.6*state*state);
 
-			var fxGrow = 600;
+			var fxGrow = 0.1;
 			if (this.engineData.nozzle) {
 
 				var nozzle = this.determineNozzleState(state);
 				this.updateNozzleState(nozzle);
-				fxGrow += nozzle*4000;
+				fxGrow += nozzle*0.6;
 			}
 
 			var effectData = {
-				color: [state/0.6,state/0.5,state/0.5,0.1*state],
-				alphaCurve: [[0, 0], [0.5,0.7], [1, 0]],
-				growthCurve: [[0, 0.5], [0.4,1], [1, 2]],
-				size:fxGrow+1100,
-				growth:-fxGrow,
-				spread:5,
-				lifespan:0.045,
-				count:45*state
+				color: [0.8,0.6,0.7,1],
+				opacity:[0.5*state, 0.7*state],
+				count:35*state,
+				alpha: [[0.1, 1], [0.3,0.2], [1, 0]],
+				growth: [[0, 1], [0.1,3], [0.6, -11]],
+				size:[fxGrow, fxGrow*1.2],
+				"growthFactor":[1, 1.2],
+				"stretch":1,
+				"strength":11*state,
+				"spread":0.03,
+				"acceleration":1.01,
+				lifespan:[0.02,0.05],
+				"rotation":[0,7],
+				"spin":"posToNeg",
+				"spinspeed":[-0.05, 0.07],
+				"sprite":"shockwave",
+				"loopcount":1,
+				"trailsprite":"projectile_1",
+				"trailwidth":1
 			};
 
-	//		SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
+			//		SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
+
+			SystemBus.emit('playParticles', {simulatorId:"AdditiveParticle", pos:pos, vel:calcVec2, effectData:effectData});
 
 			if (state > 0.90) {
 				this.maxThrust = this.engineData.maxThrust + this.engineData.afterBurner;
 				var effectData = {
 					color: [1*state, 0.6*state,0.2*state,0.5*state*state],
-					alphaCurve: [[0, 1], [0.4,0.8], [1, 0]],
-					growthCurve: [[0.3, 0.3], [0.65,1.2], [1, -0.2]],
-					size:200,
-					strength:2,
-					growth:fxGrow*0.8,
-					lifespan:0.033,
-					count:45*state
+					opacity:[0.3, 0.8],
+					alpha: [[0, 1], [0.3,0.4], [1, 0]],
+					growth: [[0.3, 0.5], [0.65,1.2], [1, -0.2]],
+					size:[fxGrow, fxGrow+0.2],
+					count:45*state,
+					"growthFactor":[1, 1.2],
+					"stretch":1,
+					"strength":12,
+					"spread":0.03,
+					lifespan:[0.03,0.035],
+					"rotation":[0,7],
+					"spin":"posToNeg",
+					"spinspeed":[-0.05, 0.07],
+					"sprite":"shockwave",
+					"loopcount":1,
+					"trailsprite":"projectile_1",
+					"trailwidth":1
 				};
 
 
-	//			SystemBus.emit('playEffect', {effectName:'shockwave_fire', pos:pos, vel:calcVec2, effectData:effectData});
+				SystemBus.emit('playParticles', {simulatorId:"AdditiveParticle", pos:pos, vel:calcVec2, effectData:effectData});
 				//        this.flameEffect.enabled = true
 				//        for (var i = 0; i < this.flameEffect.emitters.length; i++) {
 				//            this.flameEffect.emitters[i].enabled = true; // this.flameEffect.maxReleaseRate / this.flameEffect.emitters.length;
