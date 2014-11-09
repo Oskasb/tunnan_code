@@ -266,13 +266,27 @@ define([
 		//	SystemBus.emit('playEffect', {effectName:'splash_water', pos:hitVec, vel:hitNorm});
 
 			var effectData = {
-				growth:400,
-				strength:8+Math.random()*4,
-				count: event.eventArgs(e).count,
-				spread:0.8,
-				lifespan: 0.6+Math.random()*1.9
+				"count":2,
+				"opacity":[1, 1],
+				"alpha":"oneToZero",
+				"growthFactor":[3, 12],
+				"growth":"oneToZero",
+				"stretch":0,
+				"strength":6,
+				"spread":0.5,
+				"acceleration":0.985,
+				"gravity":-9,
+				"rotation":[0,7],
+				"spin":"oneToZero",
+				"size":[0.1,1.3],
+				"lifespan":[0.1, 2.4],
+				"spinspeed":[-0.02, 0.02],
+				"sprite":"splash_thick",
+				"loopcount":1,
+				"trailsprite":"projectile_1",
+				"trailwidth":1
 			};
-			SystemBus.emit('playWaterEffect', {effectName:"splash_water", pos:hitVec, vel:Vector3.UNIT_Y, effectData:effectData});
+			SystemBus.emit('playWaterEffect', {pos:hitVec, vel:Vector3.UNIT_Y, effectData:effectData});
 
 	        //    waterSystem.playEffect(event.eventArgs(e).pos, event.eventArgs(e).count, event.eventArgs(e).dir);
         };

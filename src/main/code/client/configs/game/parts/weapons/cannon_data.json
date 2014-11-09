@@ -37,7 +37,7 @@
                         "simulatorId":"AdditiveParticle",
                         "effectData" : {
                             "color":[1,0.6, 0.3, 1],
-                            "count":34,
+                            "count":16,
                             "opacity":[1, 1],
                             "alpha":"oneToZero",
                             "growthFactor":[4, 12],
@@ -62,7 +62,7 @@
                         "simulatorId":"StandardParticle",
                         "effectData" : {
                             "color":[0.1,0.1, 0.1, 1],
-                            "count":5,
+                            "count":3,
                             "opacity":[1, 1],
                             "alpha":"zeroOneZero",
                             "growthFactor":[1, 4],
@@ -124,7 +124,7 @@
                         "simulatorId":"AdditiveParticle",
                         "effectData" : {
                             "color":[1,0.6, 0.3, 1],
-                            "count":12,
+                            "count":8,
                             "size":[0.4,1],
                             "lifespan":[0.2, 0.7],
                             "opacity":[1, 1],
@@ -149,12 +149,12 @@
                         "simulatorId":"StandardParticle",
                         "effectData" : {
                             "color":[0.1,0.1, 0.1, 1],
-                            "count":4,
+                            "count":2,
                             "size":[0.4,2],
-                            "lifespan":[1.2, 3.2],
+                            "lifespan":[1.2, 2.2],
                             "opacity":[1, 1],
                             "alpha":"zeroOneZero",
-                            "growthFactor":[6, 9],
+                            "growthFactor":[2, 9],
                             "growth":"posToNeg",
                             "stretch":1,
                             "strength":35,

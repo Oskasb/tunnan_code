@@ -91,20 +91,34 @@ define(['game/world/PhysicalWorld',
 				pos.addv(shipPos);
 
 				if (index == 0) {
-					if (Math.random() < speed*0.25) {
+					if (Math.random() < speed*0.6) {
 						var effectData = {
-							growth:300,
-							strength:12+Math.random()*4,
-							count: 5,
-							spread:1,
-							lifespan: 1.5+Math.random()*2
+							"count":2,
+							"opacity":[1, 1],
+							"alpha":"oneToZero",
+							"growthFactor":[3, 6],
+							"growth":"oneToZero",
+							"stretch":0,
+							"strength":5,
+							"spread":0.5,
+							"acceleration":0.98,
+							"gravity":-9,
+							"rotation":[0,7],
+							"spin":"oneToZero",
+							"size":[1.1,3.3],
+							"lifespan":[1.1, 1.4],
+							"spinspeed":[-0.2, 0.2],
+							"sprite":"splash_thick",
+							"loopcount":1,
+							"trailsprite":"projectile_1",
+							"trailwidth":1
 						};
-						SystemBus.emit('playWaterEffect', {effectName:"splash_water", pos:pos, vel:Vector3.UNIT_Y, effectData:effectData});
+						SystemBus.emit('playWaterEffect', {pos:pos, vel:Vector3.UNIT_Y, effectData:effectData});
 					}
 				}
 
 
-				if (Math.random()+0.01 < speed*0.3) {
+				if (Math.random()+0.01 < speed*0.5) {
 
 					if (index == 0 || index == 1){
 						event.fireEvent(event.list().SPLASH_RINGLET, {pos:[pos.data[0], pos.data[1]+1.4, pos.data[2]], count:1, dir:[0, 0, 0]})
@@ -113,13 +127,27 @@ define(['game/world/PhysicalWorld',
 
 					} else {
 						var effectData = {
-							growth:400,
-							strength:3+Math.random()*4,
-							count: 4,
-							spread:0.5,
-							lifespan: 1+Math.random()*1
+							"count":1,
+							"opacity":[1, 1],
+							"alpha":"oneToZero",
+							"growthFactor":[4, 6],
+							"growth":"oneToZero",
+							"stretch":2,
+							"strength":1,
+							"spread":0.2,
+							"acceleration":0.98,
+							"gravity":1,
+							"rotation":[0,7],
+							"spin":"oneToZero",
+							"size":[0.1,1.3],
+							"lifespan":[0.1, 4.4],
+							"spinspeed":[-0.2, 0.2],
+							"sprite":"splash_thin",
+							"loopcount":1,
+							"trailsprite":"projectile_1",
+							"trailwidth":1
 						};
-						SystemBus.emit('playWaterEffect', {effectName:"splash_water", pos:pos, vel:Vector3.UNIT_Y, effectData:effectData});
+						SystemBus.emit('playWaterEffect', {pos:pos, vel:Vector3.UNIT_Y, effectData:effectData});
 						//    event.fireEvent(event.list().SPLASH_WATER, {pos:[pos.data[0], pos.data[1], pos.data[2]], count:1, dir:[Math.random()-0.5, -1.2+Math.random(), Math.random()-0.5]})
 					}
 				}
