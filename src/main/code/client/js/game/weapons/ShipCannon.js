@@ -96,13 +96,7 @@ define([
             new Bullet(pos, exitVelocity, this.bulletData, this.data, hitCallback, this.boatEntity.id);
             this.playFireSound(pos.data, exitVelocity);
             for (var i = 0; i < this.data.onFireEffects.length; i++) {
-
-
-
-			//		SystemBus.emit('playParticles', {effectName:this.data.onFireEffects[i].id, pos:pos, vel:exitVelocity, effectData:this.data.onFireEffects[i].effectData});
-
-
-				//    event.fireEvent(event.list()[index], {pos:[pos.data[0], pos.data[1], pos.data[2]], count:this.data.onFireEffects[index].count, dir:[exitVelocity.data[0],exitVelocity.data[1], exitVelocity.data[2]]})
+					SystemBus.emit('playParticles', {simulatorId:this.data.onFireEffects[i].simulatorId, pos:pos, vel:exitVelocity, effectData:this.data.onFireEffects[i].effectData});
                 }
             };
 

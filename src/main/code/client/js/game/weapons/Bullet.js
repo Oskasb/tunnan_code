@@ -71,13 +71,18 @@ define([
         registerBullet(this, this.caliber, this.visible);
 		this.updatePosition(tpf);
 
-		this.attachTrailEffect(this.spatial);
+		this.particles = [];
+
+		if (cannonData.bulletEffect) {
+			this.attachTrailEffect(this.spatial, cannonData.bulletEffect);
+		}
+
 		this.removed = false;
 	};
 
-		Bullet.prototype.attachTrailEffect = function(spatial) {
+		Bullet.prototype.attachTrailEffect = function(spatial, bulletEffect) {
 
-			this.particles = [];
+
 
 			var onParticleDead = function(particle) {
 				this.particles.splice(this.particles.indexOf(particle), 1);
@@ -98,30 +103,11 @@ define([
 				onParticleDead:onParticleDead
 			};
 
-			var effect_data = {
-				"color":[1,0.95, 0.7, 1],
-				"count":1,
-				"opacity":[1, 1],
-				"alpha":"oneToZero",
-				"size":[this.caliber*0.003, this.caliber*0.007],
-				"growthFactor":[1.01, 0.7],
-				"growth":"posToNeg",
-				"stretch":0.0001,
-				"strength":0,
-				"spread":0.7,
-				"acceleration":0.997,
-				"gravity":0,
-				"rotation":[0,7],
-				"spin":"posToNeg",
-				"spinspeed":[-0.05, 0.07],
-				"lifespan":[this.age, this.age],
-				"sprite":"flaredot",
-				"loopcount":1,
-				"trailsprite":"projectile_1",
-				"trailwidth":1
-			};
+			var effect_data = bulletEffect.effectData;
+			effect_data.size = [this.caliber*0.01, this.caliber*0.02];
+			effect_data.lifespan = [this.age, this.age];
 
-			SystemBus.emit('playParticles', {rendererId:'FastAdditiveTrail', pos:this.spatial.pos, vel:this.hitNormal, effectData:effect_data, callbacks:callbacks});
+			SystemBus.emit('playParticles', {simulatorId:bulletEffect.simulatorId, pos:this.spatial.pos, vel:this.hitNormal, effectData:effect_data, callbacks:callbacks});
 
 		};
 
@@ -256,17 +242,6 @@ define([
 			}
         };
 
-		Bullet.prototype.updateBulletEffects = function(tpf) {
- /*
-			var effectData = {
-				intensity:1 - (this.age / this.lifeTime)
-			};
-
-			SystemBus.emit('playParticles', {effectName:'explosion_fire', pos:this.spatial.pos, vel:this.spatial.velocity, effectData:effectData});
-			//		SystemBus.emit('playParticles', {effectName:'shockwave_fire', pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
-			if (Math.random() < 0.15 * (1/(1+this.age/1000))) event.fireEvent(event.list().PUFF_SMALL_WHITE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
-*/
-		};
 
     var updateActiveBullets = function(time) {
         for (var i = 0; i < activeBullets.length; i++) {

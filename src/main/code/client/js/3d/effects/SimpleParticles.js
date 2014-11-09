@@ -31,9 +31,9 @@ function(
 	//	this.particlesAPI.createParticleSystem(this.goo, id, particleSettings, texture);
 	};
 
-	SimpleParticles.prototype.spawn = function(rendererId, position, normal, effectData, callbacks) {
+	SimpleParticles.prototype.spawn = function(simulatorId, position, normal, effectData, callbacks) {
 
-		this.particlesAPI.spawnParticles(rendererId, position, normal, effectData, callbacks);
+		this.particlesAPI.spawnParticles(simulatorId, position, normal, effectData, callbacks);
 
 	//	this.particlesAPI.spawnParticles(id, position, normal, effectData)
 	};

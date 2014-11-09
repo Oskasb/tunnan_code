@@ -243,8 +243,8 @@ define(
 			}
 		}
 
-		function playEffectParticles(rendererId, pos, vel, data, callbacks) {
-			simpleParticles.spawn(rendererId, pos, vel, data, callbacks);
+		function playEffectParticles(simulatorId, pos, vel, data, callbacks) {
+			simpleParticles.spawn(simulatorId, pos, vel, data, callbacks);
 		}
 
 		function getGroundEffectType(pos) {
@@ -278,11 +278,11 @@ define(
 		}
 
 		function handlePlayParticles(args) {
-			playEffectParticles(args.rendererId, args.pos, args.vel, args.effectData, args.callbacks);
+			playEffectParticles(args.simulatorId, args.pos, args.vel, args.effectData, args.callbacks);
 		}
 
 		function handlePlayEffect(args) {
-			playEffectParticles(args.rendererId, args.pos, args.vel, args.effectData, args.callbacks);
+			playEffectParticles(args.simulatorId, args.pos, args.vel, args.effectData, args.callbacks);
 		//	playEffectSounds(args.effectName, args.pos, args.vel);
 		}
 
