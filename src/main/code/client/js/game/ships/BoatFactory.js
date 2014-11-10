@@ -9,6 +9,8 @@ define(["application/EventManager",
     "game/ships/Chimney",
     "game/ships/Radar",
     'game/ships/CarrierCable',
+	'game/ships/Catapult',
+
     "game/ships/Flag"],
     function(event,
 
@@ -19,6 +21,7 @@ define(["application/EventManager",
              Chimney,
              Radar,
              CarrierCable,
+			 Catapult,
              Flag) {
 
         var addTurretsToBoat = function(boat, boatData) {
@@ -49,6 +52,15 @@ define(["application/EventManager",
             }
         };
 
+		var buildCatapults = function(boat, boatData) {
+			boat.catapults = [];
+			if (boatData.catapults) {
+				for (var i = 0; i < boatData.catapults.length; i++) {
+					boat.catapults.push(new Catapult(boat, boatData.catapults[i]))
+				}
+			}
+		};
+
         var addHelmsmanToBoat = function(boat, boatData) {
             boat.helmsman = new Helmsman(boat);
         };
@@ -74,6 +86,7 @@ define(["application/EventManager",
 				addFlagsToBoat(boat.entity, boatData);
 				addHelmsmanToBoat(boat, boatData);
 				buildCables(boat, boatData);
+				buildCatapults(boat, boatData);
 				new ShipsCaptain(boat);
 				boatReady(boat)
 

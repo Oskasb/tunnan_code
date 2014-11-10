@@ -10,9 +10,23 @@
                 "wingspan":280
             },
             "parkingLots":{
-                "launch":{"posOffset":[18.2, 20.5, -48], "rot":[0, -3.07, 0]},
+                "launch":{"posOffset":[18.2, 19.5, -48], "rot":[0, -3.08, 0], "catapult":"ready_1"},
                 "service":{"posOffset":[31, 19, 90], "rot":[0, -2, 0]}
             },
+            "catapults":[
+                {
+                    "id":"ready_1",
+                    "posOffset":[18.2, 17.5, -48],
+                    "rot":[0, -3.08, 0],
+                    "length":130
+                },
+                {
+                    "id":"ready_2",
+                    "posOffset":[-1.8, 17.5, -48],
+                    "rot":[0, -3.10, 0],
+                    "length":130
+                }
+            ],
             "keyBindings":"plane",
             "physicalShapes":[
                 {"partId":"cable",    "posOffset":[4,  13, 125],    "radius":14, "cableNr":1},

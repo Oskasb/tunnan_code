@@ -24,7 +24,7 @@ define([
 			calcVec2.set(entity.spatial.velocity);
 			calcVec2.mul(2);
 			var effectData = {
-				"lifespan":[0,40*Math.random()*Math.random()*Math.random()],
+				"lifespan":[0,25*Math.random()*Math.random()*Math.random()],
 				"size": [0.1,0.5],
 				"rotation": [0,6],
 				"spinspeed":[-0.1,0.1],

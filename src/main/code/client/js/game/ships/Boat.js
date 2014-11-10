@@ -154,12 +154,27 @@ define(['game/world/PhysicalWorld',
 			}
 		};
 
+		Boat.prototype.getCatapultById = function(id) {
+		    for (var i = 0; i < this.catapults.length; i++) {
+				if (this.catapults[i].id == id) {
+					return this.catapults[i];
+				}
+			}
+
+		};
+
+		Boat.prototype.addPassenger = function(passenger, parkingLot) {
+
+			this.passengers[passenger.id] = {entity:passenger, posOffset:parkingLot.posOffset, rot:new Vector3(parkingLot.rot), catapult:this.getCatapultById(parkingLot.catapult)};
+
+		};
+
         Boat.prototype.setPassengerParkingLot = function(passenger, parkingLot) {
             var posOffset = new Vector3(parkingLot.posOffset);
             passenger.spatial.pos.data[1] = parkingLot.posOffset[1];
             passenger.spatial.rot.fromAngles(parkingLot.rot[0], parkingLot.rot[1], parkingLot.rot[2]);
-            this.passengers[passenger.id] = {entity:passenger, posOffset:posOffset, rot:new Vector3(parkingLot.rot)};
-        };
+			this.addPassenger(passenger, parkingLot);
+		};
 
         Boat.prototype.removeCatapultThrustFromPlane = function(plane) {
             for (var i = 0; i < plane.systems.engine.engines.length; i++) {
@@ -187,27 +202,34 @@ define(['game/world/PhysicalWorld',
 
         Boat.prototype.catapultPlane = function(plane) {
             var launch = this.checkCatapultForLaunch(plane);
+			console.log(this.passengers)
+			var catapult = this.passengers[plane.id].catapult;
+			catapult.catapultCharged();
             var instance = this;
             if (launch) {
+
+
 
 				var engage = function() {
 					delete this.passengers[plane.id];
 					SystemBus.emit("message_to_gui", {channel:'alert_channel', message:"-  -"});
 					SystemBus.emit("message_to_gui", {channel:'system_channel', message:"Engaged"});
 					this.applyCatapultThrustToPlane(plane);
-				}.bind(this)
+				}.bind(this);
 
 				setTimeout(function() {
 					SystemBus.emit("message_to_gui", {channel:'alert_channel', message:" "});
-				}, 4500)
+					catapult.catapultPassive();
+				}, 4500);
 
 				setTimeout(function() {
 					engage();
-				}, 4000)
+				}, 4000);
 
 				setTimeout(function() {
 					plane.spatial.velocity.mul(0.4);
 					SystemBus.emit("message_to_gui", {channel:'alert_channel', message:"- 1 -"});
+					catapult.catapultTrigger();
 				}, 3000)
 
 				setTimeout(function() {
@@ -355,6 +377,10 @@ define(['game/world/PhysicalWorld',
             for (index in this.passengers) {
                 this.updatePassenger(this.passengers[index]);
             }
+
+				for (var i = 0; i < this.catapults.length; i++) {
+					this.catapults[i].updateCatapult();
+				}
 
             this.helmsman.updateHelmsman();
 
