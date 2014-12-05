@@ -64,60 +64,6 @@ define(
 		function processEffectData(systemsData, particlesConfig, audioConfig, particlesReady) {
 
 			simpleParticles.createSystems();
-		/*
-			var makeCount = 0;
-			var txSettings = {wrapS: 'EdgeClamp',	wrapT: 'EdgeClamp'};
-
-			var textureReady = function(tx, conf) {
-				var name = conf.id;
-				simpleParticles.createSystem(name, conf, tx);
-			};
-
-			var loadTexture = function(txRef, config) {
-				makeCount++;
-                console.log("load particle tx url: ", txRef)
-				var imageUpdated = function(srcKey, img) {
-                     console.log("img updated: ", srcKey, txRef, img)
-
-					particleTextures[txRef] = new Texture(img.image, txSettings, img.image.naturalWidth, img.image.naturalHeight);
-					textureReady(particleTextures[txRef], config);
-				};
-
-				PipelineAPI.subscribeToImage(txRef, txRef, imageUpdated);
-
-			};
-
-			function particleDataUpdated(srcKey, configs) {
-
-				for (var index in configs) {
-
-					var conf = configs[index];
-                    var url = conf.texture;
-                    console.log("url: ", url)
-					if (!particleTextures[url]) {
-						loadTexture(url, conf)
-					} else if (particleTextures[url]) {
-						console.log("Particle ready::", conf.id, conf);
-						textureReady(particleTextures[url], conf)
-					}
-					console.log("MakeCount: ", makeCount, conf.id);
-
-
-				}
-
-            //    setTimeout(function() {
-                    simpleParticles.particlesAPI.setEnabled(true);
-                    particlesReady();
-            //    }, 5000)
-
-			}
-
-			var data = PipelineAPI.subscribeToCategoryUpdate("particle_effects", particleDataUpdated);
-			if (data) {
-				particleDataUpdated('loadedconf', data);
-			}
-
-		*/
 
 			for (var index in systemsData) {
 				var name = systemsData[index].id;

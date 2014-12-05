@@ -219,7 +219,9 @@ define([
 						intensity:1 - (this.age / this.lifeTime)*(this.age / this.lifeTime),
 						size:30*this.caliber,
 						alphacurve:[[0, 1], [1,1]],
-						color:[0.4, 0.3, 0.2, 0.1]
+						color0:[0.8, 0.7, 0.6],
+						color1:[0.8, 0.3, 0.2],
+						colorRandom:0.2
 					};
 
 					for (var index in this.bulletData.trailEffects[i].effectData) {

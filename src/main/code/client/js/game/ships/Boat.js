@@ -142,7 +142,7 @@ define(['game/world/PhysicalWorld',
 							"size":[0.1,1.3],
 							"lifespan":[0.1, 4.4],
 							"spinspeed":[-0.2, 0.2],
-							"sprite":"splash_thin",
+							"sprite":"splash_thick",
 							"loopcount":1,
 							"trailsprite":"projectile_1",
 							"trailwidth":1

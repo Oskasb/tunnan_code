@@ -107,8 +107,8 @@ define(["application/EventManager",
 					if (typeof(this.onLoadCompleted) == 'function') {
 						this.onLoadCompleted();
 						var cb = function() {};
-						PipelineAPI.applyEnvironmentGooEntity("SkySphere Colored", cb);
-						PipelineAPI.applyEnvironmentGooEntity("Post effects", cb);
+					//	PipelineAPI.applyEnvironmentGooEntity("SkySphere Colored", cb);
+					//	PipelineAPI.applyEnvironmentGooEntity("Post effects", cb);
 						this.onLoadCompleted = null;
 					}
 				}

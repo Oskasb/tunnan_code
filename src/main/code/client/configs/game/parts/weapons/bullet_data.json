@@ -15,7 +15,9 @@
                 "trailEffects":[{
                     "simulatorId":"FastAdditiveTrail",
                     "effectData":{
-                        "color":[1,0.95, 0.7, 1],
+                        "color0":[1,0.95, 0.7],
+						"color1":[1,0.3, 0.1],
+						"colorRandom":0.1,
                         "count":1,
                         "opacity":[1, 1],
                         "alpha":"oneToZero",
@@ -38,7 +40,9 @@
                 "onHitEffects": [{
                     "simulatorId":"AdditiveParticle",
                     "effectData" : {
-                        "color":[1,0.9, 0.6, 1],
+						"color0":[1,0.95, 0.7],
+						"color1":[1,0.3, 0.1],
+						"colorRandom":0.1,
                         "count":1,
                         "opacity":[1, 1],
                         "alpha":"oneToZero",
@@ -62,7 +66,9 @@
                 },{
                     "simulatorId":"AdditiveParticle",
                     "effectData" : {
-                        "color":[1,0.98, 0.65, 1],
+						"color0":[1,0.95, 0.7],
+						"color1":[1,0.3, 0.1],
+						"colorRandom":0.1,
                         "count":3,
                         "opacity":[1, 1],
                         "alpha":"oneToZero",
@@ -93,7 +99,9 @@
                 "trailEffects":[{
                     "simulatorId":"FastAdditiveTrail",
                     "effectData":{
-                        "color":[1,0.6, 0.3, 1],
+						"color0":[1,0.95, 0.7],
+						"color1":[1,0.3, 0.1],
+						"colorRandom":0.1,
                         "count":1,
                         "opacity":[1, 1],
                         "alpha":"oneToZero",
@@ -118,7 +126,9 @@
                 "onHitEffects": [{
                     "simulatorId":"AdditiveParticle",
                     "effectData" : {
-                        "color":[1,0.9, 0.6, 1],
+						"color0":[1,0.95, 0.7],
+						"color1":[1,0.3, 0.1],
+						"colorRandom":0.1,
                         "count":1,
                         "opacity":[1, 1],
                         "alpha":"oneToZero",
@@ -142,7 +152,9 @@
                 },{
                     "simulatorId":"AdditiveParticle",
                     "effectData" : {
-                        "color":[1,0.98, 0.65, 1],
+						"color0":[1,0.95, 0.7],
+						"color1":[1,0.3, 0.1],
+						"colorRandom":0.1,
                         "count":5,
                         "opacity":[1, 1],
                         "alpha":"oneToZero",
@@ -173,7 +185,9 @@
                 "trailEffects":[{
                     "simulatorId":"FastAdditiveTrail",
                     "effectData":{
-                        "color":[1,0.95, 0.7, 1],
+						"color0":[1,0.95, 0.7],
+						"color1":[1,0.3, 0.1],
+						"colorRandom":0.1,
                         "count":1,
                         "opacity":[1, 1],
                         "alpha":"oneToZero",
@@ -197,7 +211,9 @@
                 "onHitEffects": [{
                     "simulatorId":"AdditiveParticle",
                     "effectData" : {
-                        "color":[1,0.98, 0.65, 1],
+						"color0":[1,0.95, 0.7],
+						"color1":[1,0.3, 0.1],
+						"colorRandom":0.1,
                         "count":1,
                         "opacity":[1, 1],
                         "alpha":"oneToZero",
@@ -221,7 +237,9 @@
                 },{
                     "simulatorId":"AdditiveParticle",
                     "effectData" : {
-                        "color":[1,0.98, 0.65, 1],
+						"color0":[1,0.95, 0.7],
+						"color1":[1,0.3, 0.1],
+						"colorRandom":0.1,
                         "count":7,
                         "opacity":[1, 1],
                         "alpha":"oneToZero",

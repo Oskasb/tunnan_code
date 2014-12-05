@@ -42,7 +42,6 @@ function(
 		var textureCreator = new TextureCreator();
 
 		var texture = textureCreator.loadTexture2D(atlases[DefaultSpriteAtlas.atlases[0].id].textureUrl.value, {
-			magFilter:"NearestNeighbor",
 			minFilter:"NearestNeighborNoMipMaps",
 			wrapS: 'EdgeClamp',
 			wrapT: 'EdgeClamp'

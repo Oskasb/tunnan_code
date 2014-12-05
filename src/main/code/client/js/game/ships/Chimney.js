@@ -26,7 +26,8 @@ define([
 			this.longest = 35;
 
 			this.effectData = {
-				"color":[0.01,0.01, 0.01, 1],
+				"color0":[0.01,0.01, 0.01],
+				"color1":[0.3,0.3, 0.3],
 				"count":1,
 				"opacity":[0.3, 0.9],
 				"alpha":"oneToZero",
