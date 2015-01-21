@@ -76,7 +76,7 @@ define(['application/EventManager',
     function setSunlightDirection(dir) {
         tempVec.set(-dir[2], -dir[1], -dir[0]);
     //    lightEntity.transformComponent.transform.translation.set(dir);
-        lightEntity.transformComponent.transform.rotation.lookAt(tempVec, Vector3.UNIT_Y);
+        lightEntity.transformComponent.transform.lookAt(tempVec, Vector3.UNIT_Y);
         lightEntity.transformComponent.setUpdated();
     }
 

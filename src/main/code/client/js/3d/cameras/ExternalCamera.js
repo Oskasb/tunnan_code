@@ -181,7 +181,7 @@ define([
 			this.calcVec3.sub(this.targetSpatial.pos);
 			this.calcVec2.set(0, 0, this.camDistance*0.002);
 			this.lastZoom.lerp(this.calcVec2, 0.15);
-
+			this.calcVec3.mul(-1);
 			transform.rotation.lookAt(this.calcVec3, this.calcVec);
 
 			transform.rotation.rotateX(-this.vehicle.spatial.angularVelocity.data[0]*3+this.lastZoom.data[2]);

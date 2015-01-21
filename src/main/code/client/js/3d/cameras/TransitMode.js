@@ -156,6 +156,7 @@ define([
 
 			//    lastZoom.lerp(calcVec2, 0.15);
 
+			this.calcVec3.mul(-1);
 			transform.rotation.lookAt(this.calcVec3, this.calcVec);
 
 			return transform;

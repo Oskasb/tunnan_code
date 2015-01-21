@@ -84,6 +84,7 @@ define(["application/EventManager",
         AiPilot.prototype.determineSteering = function() {
             calcVec.set(this.navpoint);
             calcVec.sub(this.plane.spatial.pos);
+            calcVec.mul(-1)
             this.targetOrientation.lookAt(calcVec, Vector3.UNIT_Y);
 
             calcVec.set(this.targetOrientation.toAngles());

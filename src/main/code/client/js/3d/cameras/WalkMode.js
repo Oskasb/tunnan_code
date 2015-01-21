@@ -85,6 +85,8 @@ define([
 			transform.translation.set(this.camPos);
 			this.calcVec.set(this.camPos)
 			this.calcVec.sub(this.lookAtPoint);
+			this.calcVec.mul(-1);
+			transform.rotation.lookAt(this.calcVec3, this.calcVec);
 			transform.rotation.lookAt(this.calcVec, this.worldUpVector);
 			targetSpherical.y = MathUtils.lerp(0.1, targetSpherical.y, Math.PI * 1.5)
 		}

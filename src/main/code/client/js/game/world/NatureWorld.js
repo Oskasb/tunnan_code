@@ -204,7 +204,7 @@ define([
                 transform.translation.z = pos[2];
 
                 normal.muld(1,1.5,1);
-                transform.rotation.lookAt(normal, Vector3.UNIT_Y);
+                transform.lookAt(normal, Vector3.UNIT_Y);
                 transform.rotation.rotateY(0.1*Math.random()*0.2);
                 transform.rotation.rotateZ(0.1-Math.random()*10.2);
                 transform.rotation.rotateX(0.1*Math.random()*0.2);

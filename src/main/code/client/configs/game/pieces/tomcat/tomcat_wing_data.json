@@ -4,8 +4,8 @@
 			"wing_shapes":[
 				{
 					"id":"fuselageMid",
-					"pos":[0, 0.5, 0],
-					"size":[4.8, 1.14, 6.1],
+					"pos":[0, 1.5, 0],
+					"size":[14.8, 3.14, 16.1],
 					"rot":[-0.013, 0, 0],
 					"liftCurve":"wing",
 					"stallLiftCoeff":["wingStallCoeff", 0, 0],

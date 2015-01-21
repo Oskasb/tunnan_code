@@ -44,8 +44,10 @@ define([
 
         Helmsman.prototype.updateHelmsman = function() {
             this.checkNavPointSwitch();
-            calcVec.set(this.entity.spatial.pos);
-            calcVec.sub(this.navPoint);
+            calcVec.setVector(this.navPoint);
+            calcVec.subVector(this.entity.spatial.pos);
+
+
             this.steerMat.lookAt(calcVec, Vector3.UNIT_Y);
 
             calcVec2.set(this.targetSpeed);

@@ -117,7 +117,7 @@ define([
                 transform.translation.y = pos[1];
                 transform.translation.z = pos[2];
 
-                transform.rotation.lookAt(normal, Vector3.UNIT_Y);
+                transform.lookAt(normal, Vector3.UNIT_Y);
                 //    transform.setRotationXYZ(0.1*Math.random(), Math.random()*7, 0.1*Math.random());
             //    transform.rotation.rotateY(0.1*Math.random()*0.2);
                 transform.rotation.rotateZ(rot[1]);

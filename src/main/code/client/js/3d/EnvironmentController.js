@@ -24,6 +24,7 @@ define(["application/EventManager",
     'goo/util/Skybox',
     'goo/renderer/shaders/ShaderBuilder',
     'goo/renderer/Texture',
+	'data_pipeline/PipelineAPI',
 	'environment/EnvironmentAPI'
 
     //   '3d/TxInjectedFlatWaterRenderer'
@@ -54,6 +55,7 @@ define(["application/EventManager",
     Skybox,
     ShaderBuilder,
     Texture,
+    PipelineAPI,
 	EnvironmentAPI
 
     ) {
@@ -88,7 +90,17 @@ define(["application/EventManager",
 
 	var sky
     function addSpaceBox() {
+	    console.log("Setup Space Box")
 		environmentAPI.setupEnvironment(goo);
+
+
+
+	    var applyEnv = function(srcKey, data) {
+		    environmentAPI.applyEnvironmentData(data)
+	    };
+
+	    PipelineAPI.subscribeToCategoryKey('environments', 'ocean_env', applyEnv);
+
     }
 
     function addWorldRoot(callback) {

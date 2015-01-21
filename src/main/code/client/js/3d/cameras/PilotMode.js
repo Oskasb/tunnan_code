@@ -174,6 +174,7 @@ define([
 			this.calcVec3.set(this.camPos)
 			this.calcVec3.sub(this.lookAtPoint);
 
+			this.calcVec3.mul(-1);
 			transform.rotation.lookAt(this.calcVec3, this.calcVec);
 			var vel = Math.sqrt(this.vehicle.spatial.velocity.lengthSquared());
 			transform.rotation.rotateX(-this.vehicle.spatial.angularVelocity.data[0]*5*vel);
