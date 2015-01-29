@@ -105,7 +105,7 @@ define([
 					if (this.gooController.gooCameraController.getCamera()) {
 						this.gameController.setupGame();
 						this.gooController.registerGooUpdateCallback(handleGooTick);
-						this.gameController.addCanvasGui(this.gooController.gooCameraController.getCamera(), guiRegUrl);
+						this.gameController.addCanvasGui(this.gooController.gooCameraController.getCameraEntity(), guiRegUrl);
 						this.clientLoader.runGooPipeline(resourcePath, this.gooController.goo, bundleMasterUrl, loadingProgressDone);
 					} else {
 						lookForReady();

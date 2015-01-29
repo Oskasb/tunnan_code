@@ -42,6 +42,10 @@ define(['application/EventManager',
 		return camera;
 	};
 
+    GooCameraController.prototype.getCameraEntity = function() {
+        return cameraEntity;
+    };
+
     var cameraOffset = new Vector3(0, 0.82, 0);
 
     var cameras = {
@@ -63,7 +67,6 @@ define(['application/EventManager',
         // The parameters here are fetched from the Tool. Feel free to play around.
         camera = new Camera(45, 1, 0.25, 45000);
         cameraEntity = goo.world.createEntity('ViewCameraEntity');
-		camera.entity = cameraEntity;
         var cameraComponent = new CameraComponent(camera);
         cameraEntity.setComponent(cameraComponent);
         camScript = new FlightCameraScript({
