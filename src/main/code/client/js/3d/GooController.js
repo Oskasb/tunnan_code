@@ -14,7 +14,9 @@ define(['application/EventManager',
 	'goo/animationpack/handlers/AnimationStateHandler',
 	'goo/animationpack/handlers/AnimationLayersHandler',
 	'goo/animationpack/handlers/AnimationClipHandler',
-	'goo/passpack/PosteffectsHandler'
+	'goo/passpack/PosteffectsHandler',
+	'goo/renderer/Texture',
+	'goo/math/Vector'
 
 ], function(
     event,
@@ -24,7 +26,9 @@ define(['application/EventManager',
     GooEffectController,
     ScriptComponent,
     GooRunner,
-    Vector3
+    Vector3,
+	Texture,
+	Vector
     ) {
 
 	var GooController = function() {
@@ -33,6 +37,8 @@ define(['application/EventManager',
 	};
 
 	GooController.prototype.setupGooRunner = function() {
+
+
 		var goo = new GooRunner({
 			showStats:false,
 			debug:false,
@@ -81,6 +87,19 @@ define(['application/EventManager',
 		GooEntityFactory.setGoo(this.goo);
 		GooEffectController.setGoo(this.goo);
 	};
+
+	var monkeypatchCustomEngine = function() {
+
+		var prot = Vector.prototype;
+
+		Vector = function(size) {
+			this.data = new Float64Array(size);
+		};
+
+
+	};
+
+	monkeypatchCustomEngine();
 
 	return GooController;
 

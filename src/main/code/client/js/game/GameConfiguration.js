@@ -64,10 +64,10 @@ define(function() {
         },
 
         MIX_TRACKS: {
-            game:{id:"Game", gain:0.5, spatial:true, fxSend:0.9},
-            ambient:{id:"Ambient", gain:0.5, spatial:false, fxSend:1},
-            ui:{id:"UI", gain:0.5, spatial:false, fxSend:0.8},
-            music:{id:"Music", gain:0.5, spatial:false}
+            game:{id:"Game", gain:0.5, spatial:true, fxSend:0, settingGain:"sound_game"},
+            ambient:{id:"Ambient", gain:0.5, spatial:false, fxSend:0, settingGain:"sound_ambient"},
+            ui:{id:"UI", gain:0.5, spatial:false, fxSend:0, settingGain:"sound_ui"},
+            music:{id:"Music", gain:0.5, spatial:false, settingGain:"sound_music"}
         },
 
         PRELOAD_IMAGES:[

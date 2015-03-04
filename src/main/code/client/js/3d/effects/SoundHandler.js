@@ -45,12 +45,9 @@ define([
 	    };
 
 	    SoundHandler.init = function(gooRunner) {
+			return
 		    SoundHandler.useSounds = true;
 
-		    if(window.webkitAudioContext && window.AudioContext == null){
-			    console.log('Audio Context Set To webkit.')
-			    window.AudioContext = window.webkitAudioContext;
-		    }
 
 		    if(window.AudioContext == null){
 			    alert('WebAudio not supported.');

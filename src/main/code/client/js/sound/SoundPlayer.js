@@ -187,7 +187,7 @@ define(["application/EventManager",
         var playId = event.eventArgs(e).playId;
         var callback = event.eventArgs(e).callback;
 
-        var panner = createPannerNode(soundData.options.refDist, soundData.options.rolloff);
+        var panner = getAvailablePannerNode(soundData.options.refDist, soundData.options.rolloff);
         var gainNode = context.createGain();
 
         var soundCB = function(sound) {

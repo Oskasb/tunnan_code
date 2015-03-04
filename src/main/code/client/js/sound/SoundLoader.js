@@ -20,13 +20,15 @@ define(["sound/SoundList",
         var loadSoundList = function() {
             console.log("Load Sound List: ", soundList)
             for (var keys in soundList) {
-                var callback = function(started, fniished, error) {
+                var callback = function(started, finished, error) {
                     if (error) console.log("Sound Loading Error");
                 };
                 if (soundList[keys].options.preload) {
                     trackProgress.loadingProgress(1, 0, 0, soundList[keys].file);
                     callback = completionCallback;
-                }
+                } else {
+					console.log("Not preloading: ", soundList[keys].file)
+				}
                 sourceFactory.addSourceToSound(soundList[keys], callback, soundList[keys].file);
 
             }

@@ -174,6 +174,12 @@ define(["application/EventManager",
 					};
 
 					break;
+				case 'sound_channel':
+					return function(entity, value, control) {
+						console.log("Sound Channel Level: ", entity, value, control)
+					};
+
+					break;
 				case 'position_mode':
 					return function(entity, value, control) {
 						entity.lightSystems.position.setMode(value);

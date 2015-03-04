@@ -23,7 +23,7 @@ define([],
 
         for (var index in this.displays) {
 			if (!setDarker) {
-				this.displays[index].materialMap.ctx.globalCompositeOperation = 'darker';
+				this.displays[index].materialMap.ctx.globalCompositeOperation = 'source-over';
 				setDarker = true;
 			}
             this.displays[index].attenuate(this.masterIntensity);

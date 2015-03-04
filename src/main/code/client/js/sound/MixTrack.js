@@ -1,7 +1,15 @@
-define(["application/EventManager", "sound/MasterTrack", "sound/EffectTrack"] ,function(event, MasterTrack, EffectTrack) {
+define([
+	"application/EventManager",
+	"sound/MasterTrack",
+	"sound/EffectTrack"
+] ,function(
+	event,
+	MasterTrack,
+	EffectTrack
+	) {
     "use strict";
 
-    var MixTrack = function(id, is3dSource, fxSend, context) {
+    var MixTrack = function(id, is3dSource, fxSend, settingGain, context) {
         this.channelId = id;
         this.is3dSource = is3dSource;
         this.context = context;
@@ -10,6 +18,17 @@ define(["application/EventManager", "sound/MasterTrack", "sound/EffectTrack"] ,f
         this.tuneLevel = 1;
         this.wireTrack();
         this.defaultMix();
+		this.settingGain = settingGain;
+
+		var tuneGain = function(value) {
+			this.tuneGain(value)
+		}.bind(this);
+
+		var tuneFreq = function(value) {
+			this.tuneFilterFreq(value)
+		}.bind(this);
+
+		this.settingGain.addOnChangeCallback(tuneGain);
     };
 
     MixTrack.prototype.wireTrack = function() {
@@ -29,9 +48,9 @@ define(["application/EventManager", "sound/MasterTrack", "sound/EffectTrack"] ,f
     };
 
     MixTrack.prototype.defaultMix = function() {
-        this.setTrackGain(1, 0);
-        this.setFilterQValue(0.00000001, 0);
-        this.setFilterFreqValue(20000, 0);
+        this.setTrackGain(1, 0.1);
+        this.setFilterQValue(0.00001, 0.1);
+        this.setFilterFreqValue(20000, 0.1);
     };
 
     MixTrack.prototype.addSourceNode = function(node) {
@@ -71,6 +90,7 @@ define(["application/EventManager", "sound/MasterTrack", "sound/EffectTrack"] ,f
     };
 
     MixTrack.prototype.tuneGain = function(amount) {
+		console.log("Tune Gain: ", this.channelId, amount)
         this.tuneLevel = amount;
         this.setTrackGain(this.channelGain * this.tuneLevel, 0.01);
     };

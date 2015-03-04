@@ -77,7 +77,7 @@ define(function() {
         PLAYER_MOVE_TO_POINT:{type:"PLAYER_MOVE_TO_POINT", eArgs:{pos:[]}},
         PLAYER_MOVEMENT_INPUT:{type:"PLAYER_MOVEMENT_INPUT", eArgs:{movestate:"", turnSpeed:0}},
         PLAYER_CONTROL_EVENT:{type:"PLAYER_CONTROL_EVENT", eArgs:{control:"", value:0}},
-
+		SETTING_CONTROL_EVENT:{type:"SETTING_CONTROL_EVENT", eArgs:{setting:"", value:0}},
 
 
         INIT_PLAYER_CONTROL_STATE:{type:"INIT_PLAYER_CONTROL_STATE", eArgs:{control:"", controlState:0}},

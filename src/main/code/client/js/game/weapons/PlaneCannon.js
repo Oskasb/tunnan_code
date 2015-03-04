@@ -73,7 +73,9 @@ define([
 
         PlaneCannon.prototype.playFireSound = function(pos, dir) {
             var selection =  Math.floor(Math.random()*this.data.onFireSounds.length);
-            event.fireEvent(event.list().ONESHOT_AMBIENT_SOUND, {soundData:event.sound()[this.data.onFireSounds[selection]], pos:pos, vel:this.planeEntity.spatial.velocity.data, dir:dir.data});
+			event.fireEvent(event.list().ONESHOT_SOUND, {soundData:event.sound()[this.data.onFireSounds[selection]]});
+
+	//		event.fireEvent(event.list().ONESHOT_AMBIENT_SOUND, {soundData:event.sound()[this.data.onFireSounds[selection]], pos:pos, vel:this.planeEntity.spatial.velocity.data, dir:dir.data});
         };
 
 

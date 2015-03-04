@@ -14,6 +14,7 @@
             "templates": [
                 "menu_option_container",
                 "init_menu",
+                "sound_channel_controls",
                 "messages"
             ]
         },
@@ -31,6 +32,7 @@
 		"tomcat_controls":{
 			"templates": [
                 "messages",
+                "sound_channel_controls",
                 "tomcat_controls",
                 "tomcat_hud_buttons",
                 "tomcat_lights_controls",

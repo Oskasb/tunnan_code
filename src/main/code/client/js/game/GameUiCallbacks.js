@@ -1,6 +1,7 @@
 "use strict";
 
 define([
+	'application/Settings',
 	'application/PerfMon',
 	'application/EventManager',
 	'goo/entities/SystemBus',
@@ -8,6 +9,7 @@ define([
 	'game/PieceController'
 ],
 	function(
+		Settings,
 		PerfMon,
 		event,
 		SystemBus,
@@ -59,6 +61,10 @@ define([
 
 			fetchControlState : function(control) {
 				return playerPiece.pieceInput.getInputState(control);
+			},
+
+			fetchSettingState : function(setting) {
+				return Settings.getAllSettings()[setting].getValue();
 			},
 
 			fetchPlayerPiece : function() {
@@ -120,6 +126,14 @@ define([
 					SystemBus.emit("guiToggleEnabler", {value:params.value, enabler:params.enabler})
 				}
 			},
+
+			setting_control_event:function(params) {
+				event.fireEvent(event.list().SETTING_CONTROL_EVENT, {setting:params.setting, value:params.value});
+				if (params.enabler) {
+					SystemBus.emit("guiToggleEnabler", {value:params.value, enabler:params.enabler})
+				}
+			},
+
 			gui_toggle_template: function(params) {
 				SystemBus.emit("guiToggleTemplate", {template:params.template, enabler:params.enabler})
 			},

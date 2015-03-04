@@ -1,12 +1,14 @@
 define([
     "game/GameConfiguration",
     "application/EventManager",
+	"application/Settings",
     "sound/MasterTrack",
     "sound/EffectTrack",
     "sound/MixTrack"
 ], function(
     gameConfig,
     event,
+	Settings,
     masterTrack,
     effectTrack,
     MixTrack) {
@@ -27,14 +29,17 @@ define([
         return channels;
     };
 
-    var addChannel = function(id, spatial, fxSend, context) {
-        var mixTrack = new MixTrack(id, spatial, fxSend, context);
+    var addChannel = function(id, spatial, fxSend, settingId, context) {
+
+		var setting = Settings.getSetting(settingId)
+
+        var mixTrack = new MixTrack(id, spatial, fxSend, setting, context);
         channels[id] = mixTrack;
     };
 
     var setupMixTracks = function(context) {
         for (var index in tracks) {
-            addChannel(tracks[index].id, tracks[index].spatial, tracks[index].fxSend, context);
+            addChannel(tracks[index].id, tracks[index].spatial, tracks[index].fxSend, tracks[index].settingGain, context);
         }
     };
 

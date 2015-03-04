@@ -26,7 +26,7 @@ define(["sound/SoundLoader",
     };
 
     var initSounds = function() {
-		console.log("Init sound system")
+		console.log("Init sound system", window.AudioContext);
         soundLoader.initSoundSystem();
     };
 

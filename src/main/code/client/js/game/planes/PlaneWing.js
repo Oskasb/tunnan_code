@@ -405,8 +405,8 @@ define([
 			xAoA = shapePhysics.calcSurfaceAxisAngleOfAttack(va.data[0], angles.data[0], Math.sin(pitchYawAngle));
 			yAoA = shapePhysics.calcSurfaceAxisAngleOfAttack(va.data[1], angles.data[0], Math.cos(pitchYawAngle));
 
-			this.angleOfAttack = yAoA*3.14;
-			this.angleOfAttackYaw = xAoA*3.14;
+			this.angleOfAttack = yAoA*1.7;
+			this.angleOfAttackYaw = xAoA*1.7;
 
 			xAoA -= this.entity.spatial.angularVelocity.data[1]*this.pos.data[2];
 			xAoA += pitchVelocity*this.pos.data[2];

@@ -7,6 +7,18 @@
                     "shape":"top_bar_box",
                     "layers": [
                         {
+                            "shape":"anchor_mid_center",
+                            "layers": [{
+                                "shape":"control_panel_button_2",
+                                "id":"lights_control_panel_button",
+                                "on_apply":[{"call":"gui_toggle_template", "params":{"template":"sound_channel_controls", "enabler":"lights_control_button_state_light"}}],
+                                "layers": [{
+                                    "id":"lights_control_button_state_light",
+                                    "text":{"key":"menu_sounds_button_label"},
+                                    "shape":"lights_control_button_state_light"
+                                }]
+                            }]
+                        },{
                             "shape":"stats_tracker",
                             "text":{
                                 "key":"frame_tpf",

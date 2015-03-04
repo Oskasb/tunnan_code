@@ -8,6 +8,13 @@
             "menu_init_takeoff_tomcat":"Takeoff",
             "menu_init_island_carrier":"Island",
 
+            "menu_sounds_button_label":"Sounds",
+            "menu_sounds_master_label":"Master",
+            "menu_sounds_ambient_label":"Ambient",
+            "menu_sounds_ui_label":"UI",
+            "menu_sounds_game_label":"Game",
+            "menu_sounds_music_label":"Music",
+
             "aerodynamic_curves":"Curves",
             "aerodynamic_graph":"Aerodynamics, Lift by AoA and some",
             "debug_mechanics":"Debug",

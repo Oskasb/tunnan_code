@@ -35,6 +35,7 @@
             "configs/gui/templates/game/radar_overview.json",
             "configs/gui/templates/game/teleport_panel.json",
             "configs/gui/templates/menus/menu_init_app.json",
+            "configs/gui/templates/menus/sound_channel_controls.json",
             "configs/gui/templates/debug/aerodynamics_graph.json",
             "configs/gui/templates/tomcat/tomcat_hud_control_buttons.json",
             "configs/gui/templates/tomcat/tomcat_controls.json",

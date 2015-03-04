@@ -20,12 +20,17 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
 
         var canPlayOgg = !!audio.canPlayType && audio.canPlayType('audio/ogg') !== "";
         var canPlayMp3 = !!audio.canPlayType && audio.canPlayType('audio/mp3') !== "";
-        if (canPlayOgg) {
+
+
+		if (canPlayMp3) {
+			codec = "mp3";
+		}
+
+		if (canPlayOgg) {
             codec = "ogg";
-            //    codec = "mp3"
-        } else if (canPlayMp3) {
-            codec = "mp3";
-        } else {
+        }
+
+		if (!codec) {
             alert("Browser can not play the sounds needed for this game.");
         }
         return codec;
@@ -48,11 +53,12 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
         if (!audioModel) return;
         if (audioModel != "Audio") {
             context = new window[audioModel]();
+			console.log("Audio Model: ", audioModel, context);
             event.fireEvent(event.list().REGISTER_AUDIO_CONTEXT, {context:context, model:audioModel});
             if (typeof(context.createGain) != "function") context.createGain = context.createGainNode;
             return context;
         } else {
-            alert("This browser does not support the Web Audio Api. Will run with limited sounds.");
+            console.error("This browser does not support the Web Audio Api. Will run with limited sounds.");
         }
     };
 
@@ -64,11 +70,7 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
         };
 
         var pause = function(sourceNode) {
-            if (typeof(sourceNode.stop) == "function") {
-                sourceNode.stop(0);
-            } else {
-                sourceNode.noteOff(0);
-            }
+            sourceNode.stop(0);
         };
 
         var setGain = function(value) {
@@ -96,11 +98,7 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
 
         var play = function(sourceNode, looping) {
             sourceNode.loop = looping;
-            if (typeof(sourceNode.start) == "function") {
-                sourceNode.start(0);
-            } else {
-                sourceNode.noteOn(0);
-            }
+            sourceNode.start(0);
         };
 
         return {
@@ -150,12 +148,14 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
         var dataCallback = function(listSound, response) {
             var onError = function() {
                 completionCallback(0, 0, 1, file);
-                console.log("Decode Error: ", listSound, response);
-                alert("Sound decoding Error");
+                console.error("Decode Error: ", listSound, response);
+
+            //    alert("Sound decoding Error");
             };
 
             context.decodeAudioData(response, function(buffer) {
                 listSound.source = new contextSource(buffer);
+				console.log("Sound Loaded: ", listSound, file, url, buffer)
                 completionCallback(0, 1, 0, file);
             }, onError);
 
