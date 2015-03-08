@@ -2,52 +2,19 @@
 <head>
     <meta charset="utf-8">
 
-    <title></title>
+    <title>Photonfrog</title>
 
     <link rel="stylesheet" type="text/css" href="css/layout/base.css" />
-    <link rel="stylesheet" type="text/css" href="css/layout/analog_feedback.css" />
-    <link rel="stylesheet" type="text/css" href="css/layout/buttons.css" />
-    <link rel="stylesheet" type="text/css" href="css/layout/branding.css" />
-    <link rel="stylesheet" type="text/css" href="css/layout/plane_ui.css" />
-    <link rel="stylesheet" type="text/css" href="css/layout/scenarios.css" />
-    <link rel="stylesheet" type="text/css" href="css/layout/text_elements.css" />
-    <link rel="stylesheet" type="text/css" href="css/colors/icon_images.css" />
-    <link rel="stylesheet" type="text/css" href="css/colors/backgrounds.css" />
-    <link rel="stylesheet" type="text/css" href="css/colors/button_colors.css" />
-    <link rel="stylesheet" type="text/css" href="css/colors/page_colors.css" />
-    <link rel="stylesheet" type="text/css" href="css/colors/hud_colors.css" />
-
-
-    <!-- This includes Require.js into the project.
-The `data-main` attribute tells Require.js
-where the game's main script is located. -->
     <script src="build/OculusBridge.js"></script>
     <script src="build/ammo.js"></script>
     <script data-main="build/tunnan.js" src="build/require.js"></script>
 </head>
 
-<body id="body">
-<div id="loading_screen" class="loading_screen full_size" style="z-index:21; display:none">
-    <div id="load_title" class="loading_header"></div>
-    <div id="load_tagline" class="loading_tagline"></div>
-    <div id="file_feedback" class="file_feedback"></div>
-    <div class="progress_container">
-        <div id="progress_title">Loading...</div>
-        <div id="progress_bar" class="progress_bar"></div>
-        <div id="progress_label"></div>
-    </div>
-</div>
-
-<div id="game_window">
-    <div id="viewporter" class="full_size" style="pointer-events:none">
-        <div id="menu_parent" class="full_size" style="z-index:20; display:none"></div>
-    </div>
-</div>
-</div>
+<body id="body"><div id="game_window"></div></div>
 
 <script>
-
-
+    window.resourcePath = "./resources/";
+    window.gooBundlesPath = "./";
     function suppressBackspace(evt) {
         evt = evt || window.event;
         var target = evt.target || evt.srcElement;
@@ -66,6 +33,12 @@ where the game's main script is located. -->
         ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
+
+    document.oncontextmenu = function() { return false; };
+
+    console.log = function() {};
+
+
 
 </script>
 

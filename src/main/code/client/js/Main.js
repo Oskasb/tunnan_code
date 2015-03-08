@@ -2,8 +2,6 @@
 
 var gameUtil;
 
-window.resourcePath = "../../../../../../projects/tunnan/tunnan_resources/";
-
 require.config({
     paths: {
         goo: "../../../../../../../projects/goojs/src/goo",

@@ -112,7 +112,7 @@ define([
                 lastY : NaN
             };
 
-            this.domElement.oncontextmenu = function() { return false; };
+        //    this.domElement.oncontextmenu = function() { return false; };
         }
 
         FlightCameraScript.prototype.setCamera = function (cam) {
