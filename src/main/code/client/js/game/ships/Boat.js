@@ -183,11 +183,13 @@ define(['game/world/PhysicalWorld',
         };
 
         Boat.prototype.applyCatapultThrustToPlane = function(plane) {
+			plane.spatial.velocity.setDirect(0, 0, 1);
+			plane.spatial.rot.applyPost(plane.spatial.velocity);
+
+			plane.spatial.velocity.mulDirect(0.2, 0, 0.2);
             for (var i = 0; i < plane.systems.engine.engines.length; i++) {
                 plane.systems.engine.engines[i].maxThrust *= 2;
             };
-            plane.spatial.velocity.normalize();
-            plane.spatial.velocity.mul(0.4);
 
             var instance = this;
             setTimeout(function() {
@@ -227,23 +229,19 @@ define(['game/world/PhysicalWorld',
 				}, 4000);
 
 				setTimeout(function() {
-					plane.spatial.velocity.mul(0.4);
 					SystemBus.emit("message_to_gui", {channel:'alert_channel', message:"- 1 -"});
 					catapult.catapultTrigger();
 				}, 3000)
 
 				setTimeout(function() {
-					plane.spatial.velocity.mul(0.4);
 					SystemBus.emit("message_to_gui", {channel:'alert_channel', message:"-  2  -"});
 				}, 2000)
 
 				setTimeout(function() {
-					plane.spatial.velocity.mul(0.4);
 					SystemBus.emit("message_to_gui", {channel:'alert_channel', message:"-   3   -"});
 					SystemBus.emit("message_to_gui", {channel:'system_channel', message:"Systems Ready"});
 				}, 1000)
 
-				plane.spatial.velocity.mul(0.4);
             } else {
                 setTimeout(function() {
                     instance.catapultPlane(plane);
@@ -252,7 +250,7 @@ define(['game/world/PhysicalWorld',
         };
 
 		Boat.prototype.checkCatapultForLaunch = function(plane) {
-			plane.spatial.velocity.mul(0.9);
+
 			if (!plane.systems.engine.engines[0].started){
 				SystemBus.emit("message_to_gui", {channel:'hint_channel', message:"Start Engines"});
 				return false;
@@ -316,14 +314,12 @@ define(['game/world/PhysicalWorld',
 		Boat.prototype.initPlaneReadyAtLot = function(passenger, parkingLot) {
 			this.setPassengerParkingLot(passenger, parkingLot);
 			console.log("Attach passenger:",passenger.id);
-			passenger.spatial.velocity.mul(0.2);
 		//	playerPieceHandler.removePlayerControlFrom(passenger);
 		};
 
         Boat.prototype.attachPassenger = function(passenger, parkingLot) {
             this.setPassengerParkingLot(passenger, parkingLot);
             console.log("Attach passenger:",passenger.id);
-            passenger.spatial.velocity.mul(0.2);
             var pilot = passenger.pilot;
             var instance = this;
 
@@ -345,6 +341,22 @@ define(['game/world/PhysicalWorld',
 
         Boat.prototype.updatePassenger = function(passenger) {
     //        console.log("Update Passenger: ", passenger)
+
+			passenger.entity.spatial.velocity.x = this.entity.spatial.velocity.x;
+			passenger.entity.spatial.velocity.z = this.entity.spatial.velocity.z;
+			passenger.entity.spatial.velocity.y *= 0.9;
+	//		passenger.entity.spatial.velocity.normalize();
+
+	//		passenger.entity.spatial.velocity.mulDirect(20, 20, 20);
+
+			for (var i = 0; i < passenger.entity.systems.gears.wheels.length; i++) {
+				if (!passenger.entity.systems.gears.wheels[i]) {
+					console.error("wheel missing: ", passenger.entity.systems.gears.wheels, i)
+				} else {
+					passenger.entity.systems.gears.wheels[i].setGroundVelocity(this.entity.spatial.velocity);
+				}
+			}
+
             calcVec.set(passenger.posOffset);
             this.entity.spatial.rot.applyPost(calcVec);
             calcVec.add(this.entity.spatial.pos);

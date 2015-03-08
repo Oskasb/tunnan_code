@@ -43,6 +43,7 @@ define([
             this.springCompression = 0;
             this.wheelSpeed = 0;
             this.wheelRot = 0;
+			this.groundVelocity = new Vector3(0, 0, 0);
         }
 
         var updateBoneRotation = function(entity, wheelBoneId, dRot) {
@@ -51,6 +52,8 @@ define([
             var bone = entity.animationChannels[boneId];
             GooJointAnimator.rotateBone(bone, dRot, 0, 0)
         };
+
+
 
         var addBoneRotation = function(entity, wheelBoneId, dRot) {
             var boneId = entity.pieceData.boneMap[wheelBoneId];
@@ -65,6 +68,12 @@ define([
             var bone = entity.animationChannels[boneId];
             GooJointAnimator.translateBone(bone, [axis[0]*-comp , axis[1]*-comp, axis[2]*-comp])
         };
+
+		WheelPart.prototype.setGroundVelocity = function(vec3) {
+			this.groundVelocity.setVector(vec3);
+		};
+
+
 
         WheelPart.prototype.updateWheelRotation = function(entity, speed) {
             //    var springForce = calcVec.set(0, springCompression*this.suspStiffness, 0)
@@ -117,7 +126,15 @@ define([
             var drag = 0;
             var compAmp = (this.springCompression+this.compressionLoss);
             updateSuspensionBone(entity, this.suspBone, this.suspRange-compAmp, this.suspAxis);
-            var speed = entity.spatial.speed + entity.spatial.angularVelocity.data[1]*(this.pos.data[2]-this.pos.data[0]);
+
+			calcVec.set(entity.spatial.velocity);
+
+			calcVec.subVector(this.groundVelocity)
+
+			var speed = calcVec.length() + entity.spatial.angularVelocity.data[1]*(this.pos.data[2]-this.pos.data[0]);
+
+        //    var speed = entity.spatial.speed + entity.spatial.angularVelocity.data[1]*(this.pos.data[2]-this.pos.data[0]);
+
 
             var controlValue = 0;
             if (this.controlId) {
@@ -200,6 +217,7 @@ define([
             this.calcSpringCompression(entity);
             var speed = this.calcWheelForceVector(entity);
             this.updateWheelRotation(entity, speed);
+			this.groundVelocity.mulDirect(0.9999, 0.9999,0.9999);
         };
 
 
