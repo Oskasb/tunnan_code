@@ -28,7 +28,7 @@
 			"globals":{
 				"baseFogNear": 150,
 				"baseFogFar":20000,
-				"baseCycleDuration": 1000,
+				"baseCycleDuration": 10000,
 				"startCycleIndex": 0
 			},
 			"cycles":[

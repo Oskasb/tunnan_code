@@ -8,6 +8,7 @@ define(["application/EventManager",
 	"game/EntityController",
 	"game/combat/CombatSystem",
 	"game/GameUiCallbacks",
+	"game/GuiStateTransitionCallbacks",
 	'io/PointerInputHandler',
 	'gui/GuiWidgetComposer',
 	'3d/GooEffectController',
@@ -21,6 +22,7 @@ define(["application/EventManager",
 			 entityController,
 			 CombatSystem,
 			 GameUiCallbacks,
+			 GuiStateTransitionCallbacks,
 			 PointerInputHandler,
 			 GuiWidgetComposer,
 			 GooEffectController,
@@ -71,6 +73,12 @@ define(["application/EventManager",
 
 		};
 
+		GameController.prototype.setupGuiStateTransitionCallbacks = function(callbacks) {
+			for (var index in callbacks) {
+				this.canvasGuiAPI.addGuiStateTransitionCallback(index, callbacks[index])
+			}
+		};
+
 		GameController.prototype.addCanvasGui = function(camera, guiRegUrl) {
 
 			var handleSetControlledEntity = function(e) {
@@ -85,6 +93,8 @@ define(["application/EventManager",
 					ready = true;
 
 				}, 200)
+
+				this.setupGuiStateTransitionCallbacks(GuiStateTransitionCallbacks);
 
 				this.setGuiState('load_page');
 				event.registerListener(event.list().SET_PLAYER_CONTROLLED_ENTITY, handleSetControlledEntity);

@@ -9,26 +9,33 @@ define([
 	) {
     "use strict";
 
-    var MixTrack = function(id, is3dSource, fxSend, settingGain, context) {
+    var MixTrack = function(id, is3dSource, settingGain, settingFxSend, context) {
         this.channelId = id;
         this.is3dSource = is3dSource;
         this.context = context;
-        this.fxSend = fxSend;
+        this.fxSend = settingFxSend.getProcessedValue();
+		this.fxConnected = false;
+		this.auxSendGain;
         this.channelGain = 1;
-        this.tuneLevel = 1;
+        this.tuneLevel = settingGain.getProcessedValue();
         this.wireTrack();
         this.defaultMix();
 		this.settingGain = settingGain;
+		this.settingFxSend = settingFxSend;
 
-		var tuneGain = function(value) {
-			this.tuneGain(value)
+		var tuneGain = function() {
+			this.tuneGain()
 		}.bind(this);
 
-		var tuneFreq = function(value) {
-			this.tuneFilterFreq(value)
+		var tuneFx = function(value) {
+			this.tuneFxSend(value)
 		}.bind(this);
+
 
 		this.settingGain.addOnChangeCallback(tuneGain);
+		this.settingFxSend.addOnChangeCallback(tuneFx);
+		tuneGain();
+		tuneFx();
     };
 
     MixTrack.prototype.wireTrack = function() {
@@ -39,18 +46,37 @@ define([
 
         MasterTrack.connectTrack(this.gainNode);
 
-        if (this.fxSend) {
-            var auxSend = this.context.createGain();
-            this.gainNode.connect(auxSend);
-            auxSend.gain.value = this.fxSend;
-            EffectTrack.connectTrackToFx(auxSend)
-        }
+		this.setupFxSend();
+
     };
 
-    MixTrack.prototype.defaultMix = function() {
-        this.setTrackGain(1, 0.1);
-        this.setFilterQValue(0.00001, 0.1);
-        this.setFilterFreqValue(20000, 0.1);
+	MixTrack.prototype.setupFxSend = function() {
+		this.auxSendGain = this.context.createGain();
+		this.gainNode.connect(this.auxSendGain);
+		this.connectFxSend()
+	};
+
+	MixTrack.prototype.connectFxSend = function() {
+		this.auxSendGain.gain.value = this.fxSend;
+		if (this.fxSend) {
+			if (!this.fxConnected) {
+				console.log("Connect to FX: ", this.channelId)
+				EffectTrack.connectTrackToFx(this.auxSendGain);
+			}
+			this.fxConnected = true;
+		} else {
+			if (this.fxConnected) {
+				console.log("Disconnect FX: ", this.channelId)
+				this.auxSendGain.disconnect();
+			}
+			this.fxConnected = false;
+		}
+	};
+
+
+	MixTrack.prototype.defaultMix = function() {
+        this.setFilterQValue(0.00001, 0);
+        this.setFilterFreqValue(20000, 0);
     };
 
     MixTrack.prototype.addSourceNode = function(node) {
@@ -82,22 +108,27 @@ define([
 
     MixTrack.prototype.tuneFilterQ = function(amount) {
  //       console.log(this.filterNode)
-        this.setFilterQValue(1*amount, 0.01);
+        this.setFilterQValue(1*amount, 0.0001);
     };
 
     MixTrack.prototype.tuneFilterFreq = function(amount) {
         this.setFilterFreqValue(20000*amount, 0.01);
     };
 
-    MixTrack.prototype.tuneGain = function(amount) {
-		console.log("Tune Gain: ", this.channelId, amount)
-        this.tuneLevel = amount;
-        this.setTrackGain(this.channelGain * this.tuneLevel, 0.01);
+    MixTrack.prototype.tuneGain = function() {
+	//	console.log("tuneGain: ", this.channelId, this.settingGain.getProcessedValue())
+        this.setTrackGain(this.channelGain * this.settingGain.getProcessedValue(), 0.01);
     };
+
+	MixTrack.prototype.tuneFxSend = function() {
+	//	console.log("FxSend: ", this.channelId, this.settingFxSend.getProcessedValue());
+		this.fxSend = this.settingFxSend.getProcessedValue();
+		this.connectFxSend();
+	};
 
     MixTrack.prototype.setChannelGain = function(gain) {
         this.channelGain = gain;
-        this.setTrackGain(this.channelGain * this.tuneLevel, 0.01);
+        this.tuneGain(1);
     };
 
     MixTrack.prototype.getChannelGain = function() {

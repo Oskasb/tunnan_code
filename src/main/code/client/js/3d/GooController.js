@@ -1,13 +1,16 @@
 "use strict"
 
 
-define(['application/EventManager',
+define([
+	'application/Settings',
+	'application/EventManager',
 	'goo/animationpack/systems/AnimationSystem',
 	'3d/GooCameraController',
     '3d/GooEntityFactory',
     '3d/GooEffectController',
     'goo/entities/components/ScriptComponent',
     'goo/entities/GooRunner',
+	'goo/renderer/Renderer',
     'goo/math/Vector3',
 	'goo/animationpack/handlers/SkeletonHandler',
 	'goo/animationpack/handlers/AnimationComponentHandler',
@@ -19,6 +22,7 @@ define(['application/EventManager',
 	'goo/math/Vector'
 
 ], function(
+	Settings,
     event,
 	AnimationSystem,
 	GooCameraController,
@@ -26,6 +30,7 @@ define(['application/EventManager',
     GooEffectController,
     ScriptComponent,
     GooRunner,
+	Renderer,
     Vector3,
 	Texture,
 	Vector
@@ -39,6 +44,10 @@ define(['application/EventManager',
 	GooController.prototype.setupGooRunner = function() {
 
 
+
+
+
+
 		var goo = new GooRunner({
 			showStats:false,
 			debug:false,
@@ -46,6 +55,15 @@ define(['application/EventManager',
 			tpfSmoothingCount:1,
 			useTryCatch:false
 		});
+
+
+		var adjustPxScale = function(value) {
+			console.log("Adjust Px Scale: ", value)
+			goo.renderer.downScale = value;
+		};
+
+		Settings.getSetting('display_pixel_scale').addOnChangeCallback(adjustPxScale);
+
 		this.goo = goo;
 		goo.renderer.setClearColor(0, 0.1, 0.2, 1.0);
 		goo.world.world_root = goo.world.createEntity("world_root");
@@ -96,6 +114,48 @@ define(['application/EventManager',
 			this.data = new Float64Array(size);
 		};
 
+
+		var width = 0;
+		var height = 0;
+
+
+
+		var width = window.innerWidth;
+		var height = window.innerHeight;
+
+		var handleResize = function() {
+			width = window.innerWidth;
+			height = window.innerHeight;
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		Renderer.prototype.checkResize = function (camera) {
+			var devicePixelRatio = this.devicePixelRatio = this._useDevicePixelRatio && window.devicePixelRatio ? window.devicePixelRatio / this.svg.currentScale : 1;
+
+			var adjustWidth = width * devicePixelRatio / this.downScale;
+			var adjustHeight = height * devicePixelRatio / this.downScale;
+
+			var fullWidth = adjustWidth;
+			var fullHeight = adjustHeight;
+
+			if (camera && camera.lockedRatio === true && camera.aspect) {
+				adjustWidth = adjustHeight * camera.aspect;
+			}
+
+			var aspect = adjustWidth / adjustHeight;
+			this.setSize(adjustWidth, adjustHeight, fullWidth, fullHeight);
+
+			if (camera && camera.lockedRatio === false && camera.aspect !== aspect) {
+				camera.aspect = aspect;
+				if (camera.projectionMode === 0) {
+					camera.setFrustumPerspective();
+				} else {
+					camera.setFrustum();
+				}
+				camera.onFrameChange();
+			}
+		};
 
 	};
 

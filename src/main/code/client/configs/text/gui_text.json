@@ -1,19 +1,30 @@
 [
     {
         "text_keys":{
-            "menu_init_header":"Time To Fly",
-            "menu_init_fly_tomcat":"Fly F-14",
+            "menu_init_header":"F-14 Tomcat",
+            "menu_init_fly_tomcat":"Flight",
             "menu_init_flight_tunnan":"Fly J-29",
 
             "menu_init_takeoff_tomcat":"Takeoff",
             "menu_init_island_carrier":"Island",
 
+            "menu_environment_button_label":"Env",
+            "menu_environment_header_label":"Environment",
+            "environment_time_scale_label":"Speed",
+            "environment_time_of_day_label":"Time of Day",
+
+            "menu_display_button_label":"Display",
+            "menu_display_pixel_scale_label":"Px Scale",
+
+
             "menu_sounds_button_label":"Sounds",
+
             "menu_sounds_master_label":"Master",
             "menu_sounds_ambient_label":"Ambient",
             "menu_sounds_ui_label":"UI",
             "menu_sounds_game_label":"Game",
             "menu_sounds_music_label":"Music",
+            "menu_sounds_fx_send_label":"FX Send",
 
             "aerodynamic_curves":"Curves",
             "aerodynamic_graph":"Aerodynamics, Lift by AoA and some",

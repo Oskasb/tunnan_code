@@ -1,5 +1,49 @@
 [{
     "shapes": {
+        "environment_settings_button":{
+            "passive":{
+                "pos": {
+                    "unit": "px",
+                    "top": 10,
+                    "left": -400
+                },
+                "shape":"shape_panel_input_box",
+                "border": "border_control_slider_passive",
+                "background": "background_control_slider_passive"
+            },
+            "on_hover":"shape_panel_activation_button_hover",
+            "on_active":"shape_panel_activation_button_active"
+        },
+        "display_settings_button":{
+            "passive":{
+                "pos": {
+                    "unit": "px",
+                    "top": 10,
+                    "left": -300
+                },
+                "shape":"shape_panel_input_box",
+                "border": "border_control_slider_passive",
+                "background": "background_control_slider_passive"
+            },
+            "on_hover":"shape_panel_activation_button_hover",
+            "on_active":"shape_panel_activation_button_active"
+        },
+
+        "sound_settings_button": {
+            "passive":{
+                "pos": {
+                    "unit": "px",
+                    "top": 10,
+                    "left": -200
+                },
+                "shape":"shape_panel_input_box",
+                "border": "border_control_slider_passive",
+                "background": "background_control_slider_passive"
+            },
+            "on_hover":"shape_panel_activation_button_hover",
+            "on_active":"shape_panel_activation_button_active"
+        },
+
         "shape_menu_container_close_x":{
             "passive":{
                 "pos":{

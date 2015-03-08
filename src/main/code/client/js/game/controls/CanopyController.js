@@ -63,7 +63,7 @@ define(["game/GameConfiguration", "application/EventManager", "3d/GooJointAnimat
         };
 
         if (entity.isPlayer) {
-            event.fireEvent(event.list().MIX_CHANNEL_VALUE, {channelId:gameConfig.MIX_TRACKS.game.id, valueId:"tuneGain", amount:0.5 +Math.sin(1.68*controlValue)*0.5});
+            event.fireEvent(event.list().MIX_CHANNEL_VALUE, {channelId:gameConfig.MIX_TRACKS.game.id, valueId:"setChannelGain", amount:0.5 +Math.sin(1.68*controlValue)*0.5});
             event.fireEvent(event.list().MIX_CHANNEL_VALUE, {channelId:gameConfig.MIX_TRACKS.game.id, valueId:"tuneFilterFreq", amount:0.01+(Math.sin(1.68*controlValue))});
             event.fireEvent(event.list().MIX_CHANNEL_VALUE, {channelId:gameConfig.MIX_TRACKS.game.id, valueId:"tuneFilterQ", amount:0.01+controlValue*controlValue*0.04});
             event.fireEvent(event.list().PLAYER_CONTROL_STATE_UPDATE, {control:"canopy", currentState:controlValue})

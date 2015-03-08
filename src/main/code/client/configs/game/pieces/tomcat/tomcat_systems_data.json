@@ -22,9 +22,9 @@
                         "stands":{"gear_nose":[-1.66, 0, 0], "gear_r":[-1.66, 0, 0], "gear_l":[1.66, 0, 0], "gear_susp_l":[1.5, 0, 0], "gear_susp_r":[-1.5, 0, 0]}
                     },
                     "wheels":{
-                        "nose_wheel": {"control":"rudder", "radius":-0.4, "pos":[0, -1.71, 5.9], "axis":[1, 0, 0],      "breakMax":755.02, "drag":5, "suspension":{"boneId":"nose_susp", "range":0.41, "axis":[0, 0, 10], "stiffness":32550}},
-                        "wheel_r":{"control":null, "radius":-0.5,    "pos":[-2.6, -1.70, -1.07],  "breakMax":5225, "drag":5, "suspension":{"boneId":"gear_susp_r", "range":0.41, "axis":[0, 0, 10], "stiffness":115000}},
-                        "wheel_l": {"control":null, "radius":0.5,   "pos":[2.6, -1.70, -1.07], "breakMax":5225, "drag":5, "suspension":{"boneId":"gear_susp_l",  "range":0.41, "axis":[0, 0, 10], "stiffness":115000}}
+                        "nose_wheel": {"control":"rudder", "radius":-0.4, "pos":[0, -1.71, 5.9], "axis":[1, 0, 0],      "breakMax":755.02, "drag":5, "suspension":{"boneId":"nose_susp", "range":0.41, "axis":[0, 0, 10], "stiffness":52550}},
+                        "wheel_r":{"control":null, "radius":-0.5,    "pos":[-2.6, -1.70, -1.07],  "breakMax":5225, "drag":5, "suspension":{"boneId":"gear_susp_r", "range":0.41, "axis":[0, 0, 10], "stiffness":215000}},
+                        "wheel_l": {"control":null, "radius":0.5,   "pos":[2.6, -1.70, -1.07], "breakMax":5225, "drag":5, "suspension":{"boneId":"gear_susp_l",  "range":0.41, "axis":[0, 0, 10], "stiffness":215000}}
                     },
                     "speed":0.01
                 },

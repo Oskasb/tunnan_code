@@ -26,13 +26,15 @@
 		},
         "debug_state":{
             "templates": [
-                "top_bar"
+                "top_bar",
+                "sound_channel_controls",
+                "display_settings",
+                "environment_settings"
             ]
         },
 		"tomcat_controls":{
 			"templates": [
                 "messages",
-                "sound_channel_controls",
                 "tomcat_controls",
                 "tomcat_hud_buttons",
                 "tomcat_lights_controls",

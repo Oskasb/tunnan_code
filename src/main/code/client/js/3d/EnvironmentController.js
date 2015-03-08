@@ -1,6 +1,8 @@
 "use strict";
 
-define(["application/EventManager",
+define([
+	"application/Settings",
+	"application/EventManager",
     '3d/WorldParticleSystems',
     '3d/HeightmapManager',
 
@@ -30,6 +32,7 @@ define(["application/EventManager",
     //   '3d/TxInjectedFlatWaterRenderer'
     //    'goo/addons/water/ProjectedGridWaterRenderer'
     ], function(
+		Settings,
     event,
     worldParticleSystems,
     HeightmapManager,
@@ -101,6 +104,24 @@ define(["application/EventManager",
 
 	    PipelineAPI.subscribeToCategoryKey('environments', 'ocean_env', applyEnv);
 
+		var setTimeScale = function(value) {
+			environmentAPI.setEnvironmentTimeScale(value);
+		};
+
+		var setTimeOfDay = function(value) {
+			environmentAPI.setEnvironmentTimeOfDay(value);
+		};
+
+		Settings.getSetting('environemnt_time_scale').addOnChangeCallback(setTimeScale);
+		Settings.getSetting('environemnt_time_of_day').addOnChangeCallback(setTimeOfDay);
+
+
+
+		setTimeout(function() {
+			setTimeScale(Settings.getSetting('environemnt_time_scale').getProcessedValue());
+		}, 2000)
+
+		setTimeOfDay(Settings.getSetting('environemnt_time_of_day').getProcessedValue());
     }
 
     function addWorldRoot(callback) {

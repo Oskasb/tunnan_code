@@ -29,17 +29,18 @@ define([
         return channels;
     };
 
-    var addChannel = function(id, spatial, fxSend, settingId, context) {
+    var addChannel = function(id, spatial, settingGainId, settingFxSendId, context) {
 
-		var setting = Settings.getSetting(settingId)
+		var settingGain = Settings.getSetting(settingGainId);
+		var settingFxSend = Settings.getSetting(settingFxSendId);
 
-        var mixTrack = new MixTrack(id, spatial, fxSend, setting, context);
+        var mixTrack = new MixTrack(id, spatial, settingGain, settingFxSend, context);
         channels[id] = mixTrack;
     };
 
     var setupMixTracks = function(context) {
         for (var index in tracks) {
-            addChannel(tracks[index].id, tracks[index].spatial, tracks[index].fxSend, tracks[index].settingGain, context);
+            addChannel(tracks[index].id, tracks[index].spatial, tracks[index].settingGain, tracks[index].settingFxSend,  context);
         }
     };
 

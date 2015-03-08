@@ -4,21 +4,44 @@
         "top_bar":{
             "layers": [
                 {
+                    "shape":"anchor_top_right",
+                    "layers": [{
+                        "shape":"environment_settings_button",
+                        "id":"env_settings_menu",
+                        "on_apply":[{"call":"gui_toggle_template", "params":{"template":"environment_settings", "enabler":"environment_settings_button_state_light"}}],
+                        "layers": [{
+                            "id":"environment_settings_button_state_light",
+                            "text":{"key":"menu_environment_button_label"},
+                            "shape":"lights_control_button_state_light"
+                        }]
+                    }]
+                }, {
+                    "shape":"anchor_top_right",
+                    "layers": [{
+                        "shape":"display_settings_button",
+                        "id":"display_settings_menu",
+                        "on_apply":[{"call":"gui_toggle_template", "params":{"template":"display_settings", "enabler":"display_settings_button_state_light"}}],
+                        "layers": [{
+                            "id":"display_settings_button_state_light",
+                            "text":{"key":"menu_display_button_label"},
+                            "shape":"lights_control_button_state_light"
+                        }]
+                    }]
+                }, {
+                    "shape":"anchor_top_right",
+                    "layers": [{
+                        "shape":"sound_settings_button",
+                        "id":"sound_settings_menu",
+                        "on_apply":[{"call":"gui_toggle_template", "params":{"template":"sound_channel_controls", "enabler":"sound_settings_button_state_light"}}],
+                        "layers": [{
+                            "id":"sound_settings_button_state_light",
+                            "text":{"key":"menu_sounds_button_label"},
+                            "shape":"lights_control_button_state_light"
+                        }]
+                    }]
+                }, {
                     "shape":"top_bar_box",
-                    "layers": [
-                        {
-                            "shape":"anchor_mid_center",
-                            "layers": [{
-                                "shape":"control_panel_button_2",
-                                "id":"lights_control_panel_button",
-                                "on_apply":[{"call":"gui_toggle_template", "params":{"template":"sound_channel_controls", "enabler":"lights_control_button_state_light"}}],
-                                "layers": [{
-                                    "id":"lights_control_button_state_light",
-                                    "text":{"key":"menu_sounds_button_label"},
-                                    "shape":"lights_control_button_state_light"
-                                }]
-                            }]
-                        },{
+                    "layers": [{
                             "shape":"stats_tracker",
                             "text":{
                                 "key":"frame_tpf",

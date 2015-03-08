@@ -5,10 +5,10 @@ define(["game/GameConfiguration"],function(gameConfig){
     var TRACKS = gameConfig.MIX_TRACKS;
 
     return {
-        UI_HOVER        :   {folder:"ui"      ,file:"blipp1"         , gain:0.18,  track:TRACKS.ui,      options:{preload:true}},
-        UI_ACTIVE       :   {folder:"ui"      ,file:"blipp2"         , gain:0.16,  track:TRACKS.ui,      options:{preload:true}},
-        UI_CLICK        :   {folder:"ui"      ,file:"blipp3"         , gain:0.28,  track:TRACKS.ui,      options:{preload:true}},
-        UI_OUT          :   {folder:"ui"      ,file:"blipp4"         , gain:0.05,  track:TRACKS.ui,      options:{preload:true}},
+        UI_HOVER        :   {folder:"ui"      ,file:"blipp1"         , gain:0.48,  track:TRACKS.ui,      options:{preload:true}},
+        UI_ACTIVE       :   {folder:"ui"      ,file:"blipp2"         , gain:0.46,  track:TRACKS.ui,      options:{preload:true}},
+        UI_CLICK        :   {folder:"ui"      ,file:"blipp3"         , gain:0.95,  track:TRACKS.ui,      options:{preload:true}},
+        UI_OUT          :   {folder:"ui"      ,file:"blipp4"         , gain:0.25,  track:TRACKS.ui,      options:{preload:true}},
         SEATOWN_AMB     :   {folder:"ambient" ,file:"seatown_birds"  , gain:1.45,  track:TRACKS.game,    options:{preload:true}},
         DARK_SUSPENS    :   {folder:"ambient" ,file:"dark_suspens"   , gain:0.85,  track:TRACKS.game,    options:{preload:true}},
         CANNON_20_0     :   {folder:"shots"   ,file:"cannon_0"       , gain:1.11,  track:TRACKS.game,    options:{preload:true,  refDist:18,  rolloff:1.1}},

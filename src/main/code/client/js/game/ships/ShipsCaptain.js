@@ -85,7 +85,7 @@ define(["application/EventManager"],
 
             var instance = this;
             setTimeout(function() {
-                instance.determineTargets();
+        //        instance.determineTargets();
             }, 28000 + Math.random()*12000);
 
         };

@@ -1,0 +1,59 @@
+[{
+    "template":{
+        "display_settings":{
+            "hidden":true,
+            "layers": [{
+
+                "shape":"anchor_top_right",
+                "zIndex":101,
+                "layers": [{
+
+                    "shape":"display_control_panel_open",
+                    "layers": [{
+                        "shape":"color_sub_menu_panel"
+                    },{
+                        "shape":"lights_cockpit_form_lights_container",
+                        "layers": [{
+                            "id":"pos_light_intensity_ctrl",
+                            "shape":"lights_cockpit_control_container",
+                            "on_drag":[{"call":"setting_control_event", "params":{"setting":"display_pixel_scale", "axis":1}}],
+                            "feedback_gadgets":[{
+                                "gadget":"control_direct_slider",
+                                "params":{
+                                    "control":"display_pixel_scale",
+                                    "factor":0.25,
+                                    "source":"setting_control_update"
+                                }
+                            }],
+                            "layers": [{
+                                "text":{"key":"menu_display_pixel_scale_label"},
+                                "shape":"instrument_slider_label"
+                            }]
+                        }]
+                    },{
+                        "shape":"anchor_top_left",
+                        "layers": [{
+                            "shape":"sub_menu_label",
+                            "text":{"key":"menu_display_button_label"}
+                        }]
+                    },{
+                        "zIndex":10,
+                        "shape":"anchor_top_right",
+                        "layers": [{
+                            "shape":"shape_menu_container_close_x",
+                            "layers": [{
+                                "shape":"color_sub_menu_panel"
+                            },{
+                                "zIndex":10,
+                                "shape":"shape_menu_button_close_x",
+                                "on_apply":[{"call":"gui_toggle_template", "params":{"template":"display_settings"}}],
+                                "text":{"key":"menu_button_close_x"}
+
+                            }]
+                        }]
+                    }]
+                }]
+            }]
+        }
+    }
+}]
