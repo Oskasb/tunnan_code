@@ -12,15 +12,34 @@
                     "layers": [{
                         "shape":"color_sub_menu_panel"
                     },{
+                        "shape":"lights_cockpit_taxi_lights_container",
+                        "layers": [{
+                            "id":"environment_particle_density",
+                            "shape":"lights_cockpit_control_container",
+                            "on_drag":[{"call":"setting_control_event", "params":{"setting":"environment_particle_density", "axis":1}}],
+                            "feedback_gadgets":[{
+                                "gadget":"control_direct_slider",
+                                "params":{
+                                    "control":"environment_particle_density",
+                                    "factor":0.5,
+                                    "source":"setting_control_update"
+                                }
+                            }],
+                            "layers": [{
+                                "text":{"key":"environment_particle_density_label"},
+                                "shape":"instrument_slider_label"
+                            }]
+                        }]
+                    },{
                         "shape":"lights_cockpit_coll_lights_container",
                         "layers": [{
                             "id":"coll_light_intensity_ctrl",
                             "shape":"lights_cockpit_control_container",
-                            "on_drag":[{"call":"setting_control_event", "params":{"setting":"environemnt_time_of_day", "axis":1}}],
+                            "on_drag":[{"call":"setting_control_event", "params":{"setting":"environment_time_of_day", "axis":1}}],
                             "feedback_gadgets":[{
                                 "gadget":"control_direct_slider",
                                 "params":{
-                                    "control":"environemnt_time_of_day",
+                                    "control":"environment_time_of_day",
                                     "factor":1,
                                     "source":"setting_control_update"
                                 }
@@ -35,11 +54,11 @@
                         "layers": [{
                             "id":"pos_light_intensity_ctrl",
                             "shape":"lights_cockpit_control_container",
-                            "on_drag":[{"call":"setting_control_event", "params":{"setting":"environemnt_time_scale", "axis":1}}],
+                            "on_drag":[{"call":"setting_control_event", "params":{"setting":"environment_time_scale", "axis":1}}],
                             "feedback_gadgets":[{
                                 "gadget":"control_direct_slider",
                                 "params":{
-                                    "control":"environemnt_time_scale",
+                                    "control":"environment_time_scale",
                                     "factor":1,
                                     "source":"setting_control_update"
                                 }

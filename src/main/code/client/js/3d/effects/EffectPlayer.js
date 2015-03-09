@@ -1,5 +1,6 @@
 define(
 	[
+		'application/Settings',
 		'goo/math/Vector3',
 		'goo/entities/SystemBus',
 		'3d/effects/EffectConfigs',
@@ -10,6 +11,7 @@ define(
 		'goo/renderer/Texture'
 	],
 	function(
+		Settings,
 		Vector3,
 		SystemBus,
 		EffectConfigs,
@@ -189,7 +191,14 @@ define(
 			}
 		}
 
+		var particleDensity = 1;
+			var setParticleDensity = function(value) {
+				particleDensity = value;
+			};
+			Settings.getSetting('environment_particle_density').addOnChangeCallback(setParticleDensity);
+
 		function playEffectParticles(simulatorId, pos, vel, data, callbacks) {
+			data.count = Math.ceil(data.count * particleDensity);
 			simpleParticles.spawn(simulatorId, pos, vel, data, callbacks);
 		}
 
@@ -222,6 +231,8 @@ define(
 		function handleStopAllSounds() {
 			SoundHandler.stopAllLoops()
 		}
+
+
 
 		function handlePlayParticles(args) {
 			playEffectParticles(args.simulatorId, args.pos, args.vel, args.effectData, args.callbacks);

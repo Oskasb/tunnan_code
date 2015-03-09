@@ -112,16 +112,9 @@ define([
 			environmentAPI.setEnvironmentTimeOfDay(value);
 		};
 
-		Settings.getSetting('environemnt_time_scale').addOnChangeCallback(setTimeScale);
-		Settings.getSetting('environemnt_time_of_day').addOnChangeCallback(setTimeOfDay);
+		Settings.getSetting('environment_time_scale').addOnChangeCallback(setTimeScale);
+		Settings.getSetting('environment_time_of_day').addOnChangeCallback(setTimeOfDay);
 
-
-
-		setTimeout(function() {
-			setTimeScale(Settings.getSetting('environemnt_time_scale').getProcessedValue());
-		}, 2000)
-
-		setTimeOfDay(Settings.getSetting('environemnt_time_of_day').getProcessedValue());
     }
 
     function addWorldRoot(callback) {

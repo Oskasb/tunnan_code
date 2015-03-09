@@ -106,8 +106,9 @@ define([
 			sound_fx_music:new Setting('Music FX Senf', 0, 0, 1, curves['zeroToOneExp']),
 			display_pixel_scale:new Setting('Pixel Scale', 1, 0.5, 4, curves['zeroToOneExp']),
 			display_ui_pixel_scale:new Setting('UI Pixel Scale', 1, 0.25, 4, curves['zeroToOne']),
-			environemnt_time_scale:new Setting('Environment Time Scale', 0.05, 0, 1, curves['zeroToOneExp']),
-			environemnt_time_of_day:new Setting('Environment Time Of Day', 0.3, 0, 1, curves['zeroToOne'])
+			environment_time_scale:new Setting('Environment Time Scale', 0.05, 0, 1, curves['zeroToOneExp']),
+			environment_time_of_day:new Setting('Environment Time Of Day', 0.3, 0, 1, curves['zeroToOne']),
+			environment_particle_density:new Setting('Environment Particle Density', 0.2, 0, 2, curves['zeroToOne'])
 		};
 
 		var Settings = function() {

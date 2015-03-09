@@ -12,6 +12,7 @@
             "menu_environment_header_label":"Environment",
             "environment_time_scale_label":"Speed",
             "environment_time_of_day_label":"Time of Day",
+            "environment_particle_density_label":"Particles",
 
             "menu_display_button_label":"Display",
             "menu_display_pixel_scale_label":"Px Scale",
