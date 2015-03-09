@@ -120,7 +120,7 @@
         "id":"environment_time_scale",
         "params":{
           "name":"Environment Time Scale",
-          "value":1,
+          "value":0.01,
           "min":0,
           "max":1,
           "curveId":"zeroToOne"
@@ -130,7 +130,7 @@
         "id":"environment_time_of_day",
         "params":{
           "name":"Environment Time Of Day",
-          "value":1,
+          "value":0.4,
           "min":0,
           "max":1,
           "curveId":"zeroToOne"

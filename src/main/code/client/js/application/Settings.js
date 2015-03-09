@@ -93,7 +93,8 @@ define([
 
 		var applySettingConfigData = function(id, params) {
 			console.log("add to list", id, list)
-			list[id] = new Setting(id, params.name, params.value, params.min,  params.max, curves[params.curveId])
+			list[id] = new Setting(id, params.name, params.value, params.min,  params.max, curves[params.curveId]);
+			Settings.fireOnChangeCallbacks(id, params.value);
 		};
 
 		var Settings = function() {};
