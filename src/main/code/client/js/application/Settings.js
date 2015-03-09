@@ -1,10 +1,12 @@
 "use strict";
 
 define([
+		'data_pipeline/PipelineAPI',
 	"application/EventManager",
 	"goo/entities/SystemBus"
 ],
 	function(
+		PipelineAPI,
 		event,
 		SystemBus
 		) {
@@ -25,20 +27,14 @@ define([
 		};
 
 
-
-
-		var Setting = function(name, defaultValue, min, max, curve) {
+		var Setting = function(id, name, defaultValue, min, max, curve) {
+			this.id = id;
 			this.name = name;
 			this.value = defaultValue;
-			this.curve = curve || curves["zeroToOne"];
+			this.curve = curve;
 			this.processedValue;
-
-			if (typeof(this.value) != 'number') {
-				this.value = 1;
-			}
-
-			this.min = min || 0;
-			this.max = max || 1;
+			this.min = min;
+			this.max = max;
 			this.changedCallbacks = [];
 			this.processValue();
 		};
@@ -89,30 +85,63 @@ define([
 
 		Setting.prototype.onStateChange = function(value) {
 			SystemBus.emit("message_to_gui", {channel:'system_channel', message:["Setting Change", this.name+": "+this.processedValue]});
-			for (var i = 0; i < this.changedCallbacks.length; i++) {
-				this.changedCallbacks[i](value)
+			Settings.fireOnChangeCallbacks(this.id, value)
+		};
+
+		var list = {};
+		var onChangeCallbacks = {};
+
+		var applySettingConfigData = function(id, params) {
+			console.log("add to list", id, list)
+			list[id] = new Setting(id, params.name, params.value, params.min,  params.max, curves[params.curveId])
+		};
+
+		var Settings = function() {};
+
+		Settings.addOnChangeCallback = function(settingId, callback) {
+			if (!onChangeCallbacks[settingId]) {
+				onChangeCallbacks[settingId] = [];
 			}
+
+			if (onChangeCallbacks[settingId].indexOf(callback) == -1) {
+				onChangeCallbacks[settingId].push(callback);
+			} else {
+				console.error("Setting callback function already registered: ", settingId, onChangeCallbacks[settingId]);
+			}
+
+			var setting = Settings.getSetting(settingId);
+			if (setting) {
+				callback(setting.getProcessedValue());
+			} else {
+				console.log("Setting Callback registered, setting not yet defined");
+			};
+
 		};
 
-		var list = {
-			sound_master:new Setting('Master Sound Level', 1, 0, 1, curves['zeroToOneExp']),
-			sound_ambient:new Setting('Ambient Sound Level', 0.7, 0, 1, curves['zeroToOneExp']),
-			sound_fx_ambient:new Setting('Ambient FX Send', 0, 0, 1, curves['zeroToOneExp']),
-			sound_game:new Setting('Game Sound Level',0.7, 0, 1, curves['zeroToOneExp']),
-			sound_fx_game:new Setting('Game FX Send', 0.7, 0, 1, curves['zeroToOneExp']),
-			sound_ui:new Setting('UI Sound Level', 0.3, 0, 1, curves['zeroToOneExp']),
-			sound_fx_ui:new Setting('UI FX Send', 1, 0, 1, curves['zeroToOneExp']),
-			sound_music:new Setting('Music Level', 0.7, 0, 1, curves['zeroToOneExp']),
-			sound_fx_music:new Setting('Music FX Senf', 0, 0, 1, curves['zeroToOneExp']),
-			display_pixel_scale:new Setting('Pixel Scale', 1, 0.5, 4, curves['zeroToOneExp']),
-			display_ui_pixel_scale:new Setting('UI Pixel Scale', 1, 0.25, 4, curves['zeroToOne']),
-			environment_time_scale:new Setting('Environment Time Scale', 0.05, 0, 1, curves['zeroToOneExp']),
-			environment_time_of_day:new Setting('Environment Time Of Day', 0.3, 0, 1, curves['zeroToOne']),
-			environment_particle_density:new Setting('Environment Particle Density', 0.2, 0, 2, curves['zeroToOne'])
+		Settings.fireOnChangeCallbacks = function(settingId, value) {
+			if (!onChangeCallbacks[settingId]) {
+				onChangeCallbacks[settingId] = [];
+				console.error("Fire request on non existing callbacks:", settingId);
+			}
+
+			for (var i = 0; i < onChangeCallbacks[settingId].length; i++) {
+				onChangeCallbacks[settingId][i](value)
+			}
+
 		};
 
-		var Settings = function() {
 
+		Settings.loadSettingConfigs = function() {
+			var applyConfig = function(srcKey, data) {
+				console.log("Setting data:", srcKey, data)
+				for (var i = 0; i < data.length; i++) {
+					applySettingConfigData(data[i].id, data[i].params)
+				}
+			};
+
+			PipelineAPI.subscribeToCategoryKey('application_settings', 'sound', applyConfig);
+			PipelineAPI.subscribeToCategoryKey('application_settings', 'display', applyConfig);
+			PipelineAPI.subscribeToCategoryKey('application_settings', 'environment', applyConfig);
 		};
 
 		Settings.getAllSettings = function() {

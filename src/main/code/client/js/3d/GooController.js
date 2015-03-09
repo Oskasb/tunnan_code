@@ -62,7 +62,7 @@ define([
 			goo.renderer.downScale = value;
 		};
 
-		Settings.getSetting('display_pixel_scale').addOnChangeCallback(adjustPxScale);
+		Settings.addOnChangeCallback('display_pixel_scale', adjustPxScale);
 
 		this.goo = goo;
 		goo.renderer.setClearColor(0, 0.1, 0.2, 1.0);

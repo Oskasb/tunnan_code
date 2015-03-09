@@ -1,0 +1,151 @@
+[{
+  "application_settings":{
+    "sound":[
+      {
+        "id":"sound_master",
+        "params":{
+          "name":"Master Sound Level",
+          "value":1,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
+        "id":"sound_ambient",
+        "params":{
+          "name":"Ambient Sound Level",
+          "value":0.6,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
+        "id":"sound_fx_ambient",
+        "params":{
+          "name":"Ambient FX Send",
+          "value":0,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
+        "id":"sound_game",
+        "params":{
+          "name":"Master Sound Level",
+          "value":0.7,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
+        "id":"sound_fx_game",
+        "params":{
+          "name":"Game Sound Level",
+          "value":1,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
+        "id":"sound_ui",
+        "params":{
+          "name":"Game FX Send",
+          "value":0.4,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
+        "id":"sound_fx_ui",
+        "params":{
+          "name":"UI Sound Level",
+          "value":1,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
+        "id":"sound_music",
+        "params":{
+          "name":"Music Level",
+          "value":0.5,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
+        "id":"sound_fx_music",
+        "params":{
+          "name":"Music FX Senf",
+          "value":0,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      }
+
+    ],
+    "display":[
+      {
+        "id":"display_pixel_scale",
+        "params":{
+          "name":"Pixel Scale",
+          "value":1,
+          "min":0.25,
+          "max":4,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
+        "id":"display_ui_pixel_scale",
+        "params":{
+          "name":"UI Pixel Scale",
+          "value":1,
+          "min":0.25,
+          "max":4,
+          "curveId":"zeroToOne"
+        }
+      }
+    ],
+    "environment":[
+      {
+        "id":"environment_time_scale",
+        "params":{
+          "name":"Environment Time Scale",
+          "value":1,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
+        "id":"environment_time_of_day",
+        "params":{
+          "name":"Environment Time Of Day",
+          "value":1,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
+        "id":"environment_particle_density",
+        "params":{
+          "name":"Environment Particle Density",
+          "value":1,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      }
+    ]
+  }
+}]

@@ -112,8 +112,8 @@ define([
 			environmentAPI.setEnvironmentTimeOfDay(value);
 		};
 
-		Settings.getSetting('environment_time_scale').addOnChangeCallback(setTimeScale);
-		Settings.getSetting('environment_time_of_day').addOnChangeCallback(setTimeOfDay);
+		Settings.addOnChangeCallback('environment_time_scale', setTimeScale);
+		Settings.addOnChangeCallback('environment_time_of_day',setTimeOfDay);
 
     }
 

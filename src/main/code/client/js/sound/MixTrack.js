@@ -1,41 +1,39 @@
 define([
+    "application/Settings",
 	"application/EventManager",
 	"sound/MasterTrack",
 	"sound/EffectTrack"
 ] ,function(
+    Settings,
 	event,
 	MasterTrack,
 	EffectTrack
 	) {
     "use strict";
 
-    var MixTrack = function(id, is3dSource, settingGain, settingFxSend, context) {
+    var MixTrack = function(id, is3dSource, settingGainId, settingFxSendId, context) {
         this.channelId = id;
         this.is3dSource = is3dSource;
         this.context = context;
-        this.fxSend = settingFxSend.getProcessedValue();
+        this.fxSend = 1;
 		this.fxConnected = false;
 		this.auxSendGain;
         this.channelGain = 1;
-        this.tuneLevel = settingGain.getProcessedValue();
+        this.tuneLevel = 1;
         this.wireTrack();
         this.defaultMix();
-		this.settingGain = settingGain;
-		this.settingFxSend = settingFxSend;
 
-		var tuneGain = function() {
-			this.tuneGain()
+		var tuneGain = function(value) {
+			this.tuneGain(value)
 		}.bind(this);
 
 		var tuneFx = function(value) {
 			this.tuneFxSend(value)
 		}.bind(this);
 
+        Settings.addOnChangeCallback(settingGainId, tuneGain);
+        Settings.addOnChangeCallback(settingFxSendId, tuneFx);
 
-		this.settingGain.addOnChangeCallback(tuneGain);
-		this.settingFxSend.addOnChangeCallback(tuneFx);
-		tuneGain();
-		tuneFx();
     };
 
     MixTrack.prototype.wireTrack = function() {
@@ -115,20 +113,21 @@ define([
         this.setFilterFreqValue(20000*amount, 0.01);
     };
 
-    MixTrack.prototype.tuneGain = function() {
+    MixTrack.prototype.tuneGain = function(value) {
 	//	console.log("tuneGain: ", this.channelId, this.settingGain.getProcessedValue())
-        this.setTrackGain(this.channelGain * this.settingGain.getProcessedValue(), 0.01);
+        this.tuneLevel = value;
+        this.setTrackGain(this.channelGain * this.tuneLevel, 0.01);
     };
 
-	MixTrack.prototype.tuneFxSend = function() {
+	MixTrack.prototype.tuneFxSend = function(value) {
 	//	console.log("FxSend: ", this.channelId, this.settingFxSend.getProcessedValue());
-		this.fxSend = this.settingFxSend.getProcessedValue();
+		this.fxSend = value;
 		this.connectFxSend();
 	};
 
     MixTrack.prototype.setChannelGain = function(gain) {
         this.channelGain = gain;
-        this.tuneGain(1);
+        this.setTrackGain(this.channelGain * this.tuneLevel, 0.01);
     };
 
     MixTrack.prototype.getChannelGain = function() {

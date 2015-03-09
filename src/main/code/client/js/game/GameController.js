@@ -87,7 +87,7 @@ define(["application/Settings",
 			var setGuiTextureScale = function(value) {
 				guiApi.setGuiTextureScale(value);
 			}.bind(this);
-			Settings.getSetting('display_ui_pixel_scale').addOnChangeCallback(setGuiTextureScale);
+			Settings.addOnChangeCallback('display_ui_pixel_scale', setGuiTextureScale);
 		};
 
 
@@ -123,6 +123,7 @@ define(["application/Settings",
 			}.bind(this);
 
 			if(PipelineAPI.checkReadyState()) {
+				Settings.loadSettingConfigs();
 				initGui()
 			} else {
 				PipelineAPI.addReadyCallback(initGui);

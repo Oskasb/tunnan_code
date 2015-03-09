@@ -31,10 +31,7 @@ define([
 
     var addChannel = function(id, spatial, settingGainId, settingFxSendId, context) {
 
-		var settingGain = Settings.getSetting(settingGainId);
-		var settingFxSend = Settings.getSetting(settingFxSendId);
-
-        var mixTrack = new MixTrack(id, spatial, settingGain, settingFxSend, context);
+        var mixTrack = new MixTrack(id, spatial, settingGainId, settingFxSendId, context);
         channels[id] = mixTrack;
     };
 

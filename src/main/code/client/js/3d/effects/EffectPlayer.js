@@ -195,7 +195,7 @@ define(
 			var setParticleDensity = function(value) {
 				particleDensity = value;
 			};
-			Settings.getSetting('environment_particle_density').addOnChangeCallback(setParticleDensity);
+			Settings.addOnChangeCallback('environment_particle_density', setParticleDensity);
 
 		function playEffectParticles(simulatorId, pos, vel, data, callbacks) {
 			data.count = Math.ceil(data.count * particleDensity);
