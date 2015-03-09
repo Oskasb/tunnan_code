@@ -1,6 +1,7 @@
 "use strict";
 
-define(["application/EventManager",
+define(["application/Settings",
+		"application/EventManager",
 	"gui/CanvasGuiAPI",
 	"application/Sequencer",
 	"3d/SceneController",
@@ -14,7 +15,9 @@ define(["application/EventManager",
 	'3d/GooEffectController',
 	'data_pipeline/PipelineAPI'
 ],
-    function(event,
+    function(
+		Settings,
+		event,
              CanvasGuiAPI,
 			 Sequencer,
 			 SceneController,
@@ -79,6 +82,15 @@ define(["application/EventManager",
 			}
 		};
 
+		GameController.prototype.setupGuiSettingControls = function() {
+			var guiApi = this.canvasGuiAPI;
+			var setGuiTextureScale = function(value) {
+				guiApi.setGuiTextureScale(value);
+			}.bind(this);
+			Settings.getSetting('display_ui_pixel_scale').addOnChangeCallback(setGuiTextureScale);
+		};
+
+
 		GameController.prototype.addCanvasGui = function(camera, guiRegUrl) {
 
 			var handleSetControlledEntity = function(e) {
@@ -95,6 +107,8 @@ define(["application/EventManager",
 				}, 200)
 
 				this.setupGuiStateTransitionCallbacks(GuiStateTransitionCallbacks);
+
+				this.setupGuiSettingControls();
 
 				this.setGuiState('load_page');
 				event.registerListener(event.list().SET_PLAYER_CONTROLLED_ENTITY, handleSetControlledEntity);
