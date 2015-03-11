@@ -29,7 +29,7 @@ define([
 			this.rotOffset = new Matrix3x3();
 			this.rotOffset.fromAngles(catapultData.rot[0], catapultData.rot[1], catapultData.rot[2]);
 
-			this.shortest = 2;
+			this.shortest = 1;
 			this.longest = 4;
 
 			this.effectData = {
@@ -63,17 +63,17 @@ define([
 
 		Catapult.prototype.catapultCharged = function() {
 			this.puffCount = 1;
-			this.puffIntensity = 0.5;
+			this.puffIntensity = 0.07;
 		};
 
 		Catapult.prototype.catapultTrigger = function() {
-			this.puffCount = 8;
+			this.puffCount = 2;
 			this.puffIntensity = 1;
 		};
 
 		Catapult.prototype.catapultPassive = function() {
 			this.puffCount = 1;
-			this.puffIntensity = 0.2;
+			this.puffIntensity = 0.04;
 		};
 
 

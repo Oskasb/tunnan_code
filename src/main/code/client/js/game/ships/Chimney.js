@@ -19,7 +19,7 @@ define([
 
         var Chimney = function(shipEntity, chimneyData) {
             this.boat = shipEntity;
-            this.puffIntensity = 0.3;
+            this.puffIntensity = 0.15;
             this.posOffset = chimneyData.posOffset;
 
 			this.shortest = 0.1;
