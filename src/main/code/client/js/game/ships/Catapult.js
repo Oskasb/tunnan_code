@@ -90,7 +90,7 @@ define([
 					calcVec.set(this.posOffset);
 					calcVec2.set( this.boat.entity.spatial.pos);
 					gameUtil.applyRotationToVelocity(this.boat.entity.geometries[0], calcVec);
-					calcVec2.addv(calcVec);
+					calcVec2.addVector(calcVec);
 
 
 

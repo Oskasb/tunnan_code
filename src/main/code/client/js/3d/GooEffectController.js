@@ -53,7 +53,7 @@ define(['application/EventManager',
 	}
 
     function setSunlightColor(color) {
-        dirLight.color.setd(color[0]*(1+Math.random()*0.03), color[1]*(1+Math.random()*0.02), color[2]*(1+Math.random()*0.05), 1.0);
+        dirLight.color.setDirect(color[0]*(1+Math.random()*0.03), color[1]*(1+Math.random()*0.02), color[2]*(1+Math.random()*0.05), 1.0);
     }
 
     function setAmbientColor(color) {
@@ -85,7 +85,7 @@ define(['application/EventManager',
 
         lightEntity = goo.world.createEntity('Light1');
         dirLight = new DirectionalLight();
-        dirLight.color.setd(1, 0.95, 0.85, 1.0);
+        dirLight.color.setDirect(1, 0.95, 0.85, 1.0);
         dirLight.specularIntensity = 1.8;
         dirLight.intensity = 1;
 
@@ -100,7 +100,7 @@ define(['application/EventManager',
         console.log("lightComp ---- ",lightComp);
         lightEntity.setComponent(lightComp);
 
-        lightEntity.transformComponent.transform.translation.setd(0, 0, 0);
+        lightEntity.transformComponent.transform.translation.setDirect(0, 0, 0);
         lightEntity.transformComponent.transform.lookAt(new Vector3(-0.5,-0.4, 0.43), Vector3.UNIT_Y);
         lightEntity.addToWorld();
 

@@ -88,7 +88,7 @@ define(['game/world/PhysicalWorld',
 				calcVec.data[2] += calcVec.data[2]*random;
 				calcVec.data[0] += calcVec.data[0]*-random;
 				var pos = gameUtil.applyRotationToVelocity(this.entity.geometries[0], calcVec);
-				pos.addv(shipPos);
+				pos.addVector(shipPos);
 
 				if (index == 0) {
 					if (Math.random() < speed*0.6) {

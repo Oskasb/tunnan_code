@@ -133,7 +133,7 @@ define(["application/EventManager",
             var planePos = this.planeEntity.spatial.pos;
             calcVec.set(this.pos);
             var pos = gameUtil.applyRotationToVelocity(this.planeEntity.geometries[0], calcVec);
-            pos.addv(planePos);
+            pos.addVector(planePos);
             calcVec2.set(0, 0, -Math.random()*state*12 - 14.4*state -6);
             gameUtil.applyRotationToVelocity(this.planeEntity.geometries[0], calcVec2);
 
@@ -413,7 +413,7 @@ define(["application/EventManager",
             this.updateRpm();
             this.updateTemps();
             this.thrust = calculateEngineThrust(this.rpm, airDensity, this.maxThrust);
-            this.thrustVector.setd(0, 0, this.thrust);
+            this.thrustVector.setDirect(0, 0, this.thrust);
         };
 
         var handleContext = function(e) {

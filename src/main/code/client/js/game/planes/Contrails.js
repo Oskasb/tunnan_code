@@ -19,7 +19,7 @@ define([
          //   console.log(emitPos)
             gameUtil.applyRotationToVelocity(entity.geometries[0], calcVec);
 
-			calcVec.addv(entity.spatial.pos);
+			calcVec.addVector(entity.spatial.pos);
 			calcVec.subv(entity.spatial.velocity);
 			calcVec2.set(entity.spatial.velocity);
 			calcVec2.mul(2);

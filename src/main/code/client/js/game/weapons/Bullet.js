@@ -94,7 +94,7 @@ define([
 
 			var particleUpdate = function(particle) {
 				particle.lifeSpan = this.lifeTime - this.age*3;
-				particle.position.setv(spatial.pos);
+				particle.position.setVector(spatial.pos);
 			}.bind(this);
 
 			var callbacks = {

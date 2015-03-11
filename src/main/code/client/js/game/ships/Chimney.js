@@ -66,7 +66,7 @@ define([
 				calcVec.set(this.posOffset);
 				calcVec2.set( this.boat.spatial.pos);
 				gameUtil.applyRotationToVelocity(this.boat.geometries[0], calcVec);
-				calcVec2.addv(calcVec);
+				calcVec2.addVector(calcVec);
 				calcVec.set(0, 4, 0);
 				SystemBus.emit("playParticles", {simulatorId:"StandardParticle" ,pos:calcVec2, vel:calcVec, effectData:this.effectData});
 			}

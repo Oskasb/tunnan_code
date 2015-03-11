@@ -134,7 +134,7 @@ define([
 
         var updatePlayerAnimations = function() {
             playerEntity = playerController.getPlayerEntity();
-            calcVec.setd(0, 1, 0);
+            calcVec.setDirect(0, 1, 0);
             playerEntity.spatial.rot.applyPre(calcVec);
             updateEntityInstruments(playerEntity, calcVec, physTime)
         };

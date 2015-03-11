@@ -9,12 +9,12 @@ define([
         var calcVec =  new Vector3();
 
         var addForceToAcc = function(force, acc) {
-            acc.addv(force);
+            acc.addVector(force);
         };
 
         var addForceToTorque = function(forceVector, pointOfApplication, torque) {
-            calcVec.setv(pointOfApplication)
-            torque.addv(calcVec.cross(forceVector));
+            calcVec.setVector(pointOfApplication)
+            torque.addVector(calcVec.cross(forceVector));
         };
 
 

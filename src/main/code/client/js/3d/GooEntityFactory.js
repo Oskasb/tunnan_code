@@ -347,7 +347,7 @@ define([
         parentGooEntity.transformComponent.attachChild(primitive.transformComponent)
         primitive.meshRendererComponent.isReflectable = false;
         primitive.addToWorld();
-        primitive.transformComponent.transform.translation.seta(pos.data);
+        primitive.transformComponent.transform.translation.setArray(pos.data);
         primitive.transformComponent.transform.setRotationXYZ(rot.data[0], rot.data[1], rot.data[2]) // = rot // .toAngles());
         event.eventArgs(e).callback(primitive);
     };

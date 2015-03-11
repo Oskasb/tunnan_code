@@ -15,9 +15,9 @@ define(["game/GameConfiguration",
         var updateEntityAttitude = function(entity) {
             var attitudes = new Vector3();
             var dirVec = new Vector3();
-            dirVec.setv(entity.spatial.velocity);
+            dirVec.setVector(entity.spatial.velocity);
             dirVec.div(Math.sqrt(entity.spatial.velocity.lengthSquared()));
-            attitudes.setv(dirVec);
+            attitudes.setVector(dirVec);
             entity.spatial.rot.applyPre(attitudes);
             entity.spatial.axisAttitudes = attitudes;
         };
@@ -34,9 +34,9 @@ define(["game/GameConfiguration",
                 //    var wingAlt = wing.pos[1]+entity.spatial.pos.data[1]
                 calcPosV.set(0,0,0)
                 var wingPos = calcPosV;
-                wingPos.setv(wing.pos)
+                wingPos.setVector(wing.pos)
                 entity.spatial.rot.applyPost(wingPos);
-                wingPos.addv(entity.spatial.pos)
+                wingPos.addVector(entity.spatial.pos)
 
                 var alt = wingPos.data[1];
                 var density = Atmosphere.getAirDensity(alt);

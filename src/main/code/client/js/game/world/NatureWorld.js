@@ -203,7 +203,7 @@ define([
                 transform.translation.y = pos[1];
                 transform.translation.z = pos[2];
 
-                normal.muld(1,1.5,1);
+                normal.mulDirect(1,1.5,1);
                 transform.lookAt(normal, Vector3.UNIT_Y);
                 transform.rotation.rotateY(0.1*Math.random()*0.2);
                 transform.rotation.rotateZ(0.1-Math.random()*10.2);

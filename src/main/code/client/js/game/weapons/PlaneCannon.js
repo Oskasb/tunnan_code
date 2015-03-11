@@ -82,14 +82,14 @@ define([
         PlaneCannon.prototype.createBullet = function() {
 			var cannonSpread = 0.1;
 			var pos = new Vector3();
-			pos.setv(this.planeEntity.spatial.pos);
+			pos.setVector(this.planeEntity.spatial.pos);
 			var posOffset = gameUtil.applyRotationToVelocity(this.planeEntity.geometries[0], new Vector3(this.posOffset));
 
-			pos.addv(posOffset);
+			pos.addVector(posOffset);
 			var exitVelocity = new Vector3(0, this.elevation*(1 / gameConfig.RENDER_SETUP.physicsFPS), this.data.exitVelocity*(1 / gameConfig.RENDER_SETUP.physicsFPS));
 			exitVelocity = gameUtil.applyRotationToVelocity(this.planeEntity.geometries[0], exitVelocity);
-			exitVelocity.add(this.planeEntity.spatial.velocity);
-			exitVelocity.add_d(cannonSpread*(Math.random() -0.5), cannonSpread*(Math.random() -0.5), cannonSpread*(Math.random() -0.5));
+			exitVelocity.addVector(this.planeEntity.spatial.velocity);
+			exitVelocity.addDirect(cannonSpread*(Math.random() -0.5), cannonSpread*(Math.random() -0.5), cannonSpread*(Math.random() -0.5));
 
             var hitCallback = function(bulletSpatial, something) {
                 console.log("Cannan hit!", something);

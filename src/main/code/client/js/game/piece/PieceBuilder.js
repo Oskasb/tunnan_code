@@ -73,7 +73,7 @@ define([
 				//	screens.registerEntityScreens(gamePiece, data.screens, ControlStateCallbacks);
 				}
 
-			gamePiece.forces.weight.setd(0, data.dimensions.massEmpty, 0);
+			gamePiece.forces.weight.setDirect(0, data.dimensions.massEmpty, 0);
 		};
 
 		var buildBoatPiece = function(name, dataKey, boatSpawned) {

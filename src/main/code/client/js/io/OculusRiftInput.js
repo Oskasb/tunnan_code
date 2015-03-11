@@ -44,7 +44,7 @@ define([
 						connectedCallback(ctx.bridge);
 					},
 					onOrientationUpdate: function(quat) {
-						ctx.orientation.setd(quat.x, quat.y, quat.z, quat.w);
+						ctx.orientation.setDirect(quat.x, quat.y, quat.z, quat.w);
 						event.fireEvent(event.list().OCULUS_RIFT_QUATERNION, {quat:ctx.orientation});
 
 						//	var tc = ctx.entity.transformComponent;

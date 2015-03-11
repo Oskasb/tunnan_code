@@ -27,9 +27,9 @@ define([
             for (var i = 0; i < targetEntity.pieceData.physicalShapes.length; i++) {
 
                 var part = targetEntity.pieceData.physicalShapes[i];
-                calcVec.seta(part.posOffset);
+                calcVec.setArray(part.posOffset);
                 var pos = gameUtil.applyRotationToVelocity(targetEntity.geometries[0], calcVec);
-                pos.addv(targetEntity.spatial.pos);
+                pos.addVector(targetEntity.spatial.pos);
                 var distance = pos.subv(posToCheck);
                 var range = Math.sqrt(distance.lengthSquared());
                 if (range < part.radius) {
@@ -45,7 +45,7 @@ define([
                     var targetEntity = physicalEntities[index];
                     var size = targetEntity.pieceData.physicalRadius;
 
-                    var tPos = calcVec.setv(targetEntity.spatial.pos);
+                    var tPos = calcVec.setVector(targetEntity.spatial.pos);
                     if (tPos.data == undefined) console.log(index, targetEntity);
                     var distance = tPos.subv(posToCheck);
                     var range = Math.sqrt(distance.lengthSquared());

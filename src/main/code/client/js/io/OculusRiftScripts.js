@@ -209,8 +209,8 @@ define([
 				var renderList = this.renderList;
 
 				// Left eye
-				this.offsetVector.setv(this.camera._left).scale(this.eyeOffset);
-				this.camera.translation.addv(this.offsetVector);
+				this.offsetVector.setVector(this.camera._left).scale(this.eyeOffset);
+				this.camera.translation.addVector(this.offsetVector);
 				this.camera.update();
 				renderer.render(renderList, this.camera, lights, this.leftTarget, this.clear);
 

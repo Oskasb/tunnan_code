@@ -81,7 +81,7 @@ define([
                     vec.setd(xx, 0, zz);
                     vec.normalize();
                     var dist = Math.random() * 15 + 10;
-                    vec.muld(dist, dist, dist);
+                    vec.mulDirect(dist, dist, dist);
                     vec.x += this.startX;
                     vec.z += this.startZ;
                     xx = vec.x;
@@ -153,7 +153,7 @@ define([
                 vec.setd(xx, 0, zz);
                 vec.normalize();
                 var dist = Math.random() * 30 + 30;
-                vec.muld(dist, dist, dist);
+                vec.mulDirect(dist, dist, dist);
                 vec.x += this.startX;
                 vec.z += this.startZ;
                 xx = vec.x;

@@ -78,10 +78,10 @@ define([
 
         ShipCannon.prototype.createBullet = function(direction, elevation, hitCallback) {
             var pos = new Vector3();
-            pos.setv(this.boatEntity.spatial.visualPos);
+            pos.setVector(this.boatEntity.spatial.visualPos);
             var posOffset = gameUtil.applyRotationToVelocity(this.boatEntity.geometries[0], new Vector3(this.posOffset));
 
-            pos.addv(posOffset);
+            pos.addVector(posOffset);
             var exitVelocity = new Vector3(0, 0, this.data.exitVelocity*(1 / gameConf.RENDER_SETUP.physicsFPS));
             this.turretRot.copy(this.boatEntity.spatial.rot);
             this.turretRot.rotateY(direction);

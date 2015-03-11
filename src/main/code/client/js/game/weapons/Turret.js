@@ -219,7 +219,7 @@ define([
             var tPos = this.targetEntity.spatial.pos;
             var sPos = this.shipEntity.spatial.pos;
             var sRot = this.shipEntity.spatial.rot.toAngles();
-            var distance = this.calcVec.setv(tPos);
+            var distance = this.calcVec.setVector(tPos);
             var bPos = this.basePos;
             distance.subv(sPos);
             var aimRange = Math.sqrt(distance.lengthSquared());

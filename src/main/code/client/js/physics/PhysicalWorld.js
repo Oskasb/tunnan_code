@@ -143,7 +143,7 @@ define([
 					var origin = physTransform.getOrigin();
 					transformComp.setTranslation(origin.x(), origin.y(), origin.z());
 					var pquat = physTransform.getRotation();
-					quaternion.setd(pquat.x(), pquat.y(), pquat.z(), pquat.w());
+					quaternion.setDirect(pquat.x(), pquat.y(), pquat.z(), pquat.w());
 					transformComp.transform.rotation.copyQuaternion(quaternion);
 					transformComp.setUpdated();
 				}

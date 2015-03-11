@@ -54,7 +54,7 @@ define(["application/EventManager",
 
 
         AiPilot.prototype.updateVirtualInstruments = function() {
-            calcVec.setd(0, 1, 0);
+            calcVec.setDirect(0, 1, 0);
             this.plane.spatial.rot.applyPre(calcVec);
             this.virtualInstruments.rollAng = Math.atan2(calcVec.data[0], calcVec.data[1]);
             this.virtualInstruments.horizon.set(calcVec);

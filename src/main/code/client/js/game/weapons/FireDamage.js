@@ -38,8 +38,8 @@ define([
                 var tPos = this.entity.spatial.pos;
                 calcVec.set(this.posOffset);
                 var pos = gameUtil.applyRotationToVelocity(this.entity.geometries[0], calcVec);
-                pos.addv(tPos);
-                pos.add_d(this.partSize*(Math.random()-0.5), this.partSize*0.3+this.partSize*(Math.random()*0.2), this.partSize*(Math.random()-0.5));
+                pos.addVector(tPos);
+                pos.addDirect(this.partSize*(Math.random()-0.5), this.partSize*0.3+this.partSize*(Math.random()*0.2), this.partSize*(Math.random()-0.5));
            //     var pos = this.entity.spatial.pos
                 if (Math.random() < this.intensity*0.5) {
                     event.fireEvent(event.list().DAMAGE_ENTITY, {entity:this.entity, damage:5});

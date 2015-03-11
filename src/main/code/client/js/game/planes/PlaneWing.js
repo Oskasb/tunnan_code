@@ -96,8 +96,8 @@ define([
             var frameRot = wing.frameRot;
             var force = wing.force;
             var wing = wing;
-            var size =new Vector3()
-            size.seta([1,1, 1])
+            var size = new Vector3();
+            size.setDirect(1,1,1);
             var applyWingForce = function(forceGeometry) {
                 //    forceGeometry.transformComponent.transform.lookAt(force, Vector3.UNIT_Y)
                 wing.debugGeometry.push(forceGeometry)
@@ -124,11 +124,11 @@ define([
                             //    pos.data[0] = visForce.data[0] / 2;
                             //    pos.data[1] = visForce.data[1] / 2;
                             //    pos.data[2] = visForce.data[2] ;
-                            geom.transformComponent.transform.scale.setv(visForce);
+                            geom.transformComponent.transform.scale.setVector(visForce);
                             var pos = visForce.clone();
 
                             pos.data[0] = pos.data[0] / 2;
-                            geometry.transformComponent.transform.translation.setv(pos);
+                            geometry.transformComponent.transform.translation.setVector(pos);
                             //    geometry.transformComponent.transform.lookAt(visForce, Vector3.UNIT_Y)
                             forceGeometry.transformComponent.setUpdated();
                             geometry.transformComponent.setUpdated();
@@ -159,10 +159,10 @@ define([
                             //    pos.data[0] = visForce.data[0] / 2;
                             //    pos.data[1] = visForce.data[1] / 2;
                             //    pos.data[2] = visForce.data[2] ;
-                            geom.transformComponent.transform.scale.setv(visForce);
+                            geom.transformComponent.transform.scale.setVector(visForce);
                             var pos = visForce.clone();
                             pos.data[1] = pos.data[1] / 2;
-                            geometry.transformComponent.transform.translation.setv(pos);
+                            geometry.transformComponent.transform.translation.setVector(pos);
                             //    geometry.transformComponent.transform.lookAt(visForce, Vector3.UNIT_Y)
                             forceGeometry.transformComponent.setUpdated();
                             geometry.transformComponent.setUpdated();
@@ -184,10 +184,10 @@ define([
                             visForce.data[0] = 0.05;
                             visForce.data[1] = 0.05;
                             visForce.data[2] = 0.05+force.data[2] * 0.5;
-                            geom.transformComponent.transform.scale.setv(visForce);
+                            geom.transformComponent.transform.scale.setVector(visForce);
                             var pos = visForce.clone();
                             pos.data[2] = pos.data[2] / 2;
-                            geometry.transformComponent.transform.translation.setv(pos);
+                            geometry.transformComponent.transform.translation.setVector(pos);
                             geometry.transformComponent.transform.lookAt(visForce, Vector3.UNIT_Y)
                             //    forceGeometry.transformComponent.transform.lookAt(force, Vector3.UNIT_Y)
                             //    geometry.transformComponent.transform.lookAt(force, Vector3.UNIT_Y)
@@ -333,7 +333,7 @@ define([
 			//    }
 
 			//	this.entity.spatial.rot.applyPost(calcVec);
-			this.force.addv(calcVec);
+			this.force.addVector(calcVec);
 		};
 
 		PlaneWing.prototype.calcEffectSizeVector = function(vector) {

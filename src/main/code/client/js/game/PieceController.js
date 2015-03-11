@@ -55,7 +55,7 @@ define([
         var calcVec2 = new Vector3();
 
         var updateEntitySpatial = function(entity) {
-            entity.spatial.pos.addv(entity.spatial.velocity);
+            entity.spatial.pos.addVector(entity.spatial.velocity);
         };
 
         var addLocalspaceForces = function(rotMat3, forceVectors) {
@@ -83,8 +83,8 @@ define([
 				frameAcc.div(Math.sqrt(frameAcc.lengthSquared()))
 			}
 
-            entity.forces.g.setv(frameAcc)
-            entity.spatial.velocity.addv(frameAcc);
+            entity.forces.g.setVector(frameAcc)
+            entity.spatial.velocity.addVector(frameAcc);
 
 
 
@@ -100,7 +100,7 @@ define([
 			}
 
 
-            entity.spatial.angularVelocity.addv(rotAcc);
+            entity.spatial.angularVelocity.addVector(rotAcc);
             entity.spatial.rot.rotateX(entity.spatial.angularVelocity[0]);
             entity.spatial.rot.rotateY(entity.spatial.angularVelocity[1]);
             entity.spatial.rot.rotateZ(entity.spatial.angularVelocity[2]);
@@ -111,7 +111,7 @@ define([
             entity.spatial.velocity.data[0] =  entity.spatial.velocity.data[0]*0.9999;
             entity.spatial.velocity.data[2] =  entity.spatial.velocity.data[2]*0.9999;
             //    entity.spatial.velocity.data[2]*=0.995;
-            entity.spatial.velocity.add_d(0, -0.0000006, 0);
+            entity.spatial.velocity.addDirect(0, -0.0000006, 0);
             entity.spatial.rot.rotateZ(0.000009*entity.spatial.pos[1]);
             entity.spatial.rot.rotateX(-0.000005*entity.spatial.pos[1]);
             entity.spatial.pos[0] = entity.spatial.pos[0]-(entity.spatial.velocity.data[0]);
@@ -136,7 +136,7 @@ define([
                     }
                 }
 
-                entity.spatial.velocity.add_d(0, (partOfSecond*gameConfig.WORLD_PROPERTIES.gravity[1]) / gameConfig.RENDER_SETUP.physicsFPS, 0);
+                entity.spatial.velocity.addDirect(0, (partOfSecond*gameConfig.WORLD_PROPERTIES.gravity[1]) / gameConfig.RENDER_SETUP.physicsFPS, 0);
                 if (!entity.spatial.velocity.data) return;
 
                 if (entity.spatial.pos[1] <= 0) {
@@ -302,10 +302,10 @@ define([
 				entity.moveSphere.deactivate();
 				return;
 			} else if (entity.screenSystem) {
-				entity.spatial.visualPos.setv(entity.spatial.pos);
+				entity.spatial.visualPos.setVector(entity.spatial.pos);
 				screens.updateEntityScreenState(entity);
 			} else {
-				entity.spatial.visualPos.setv(entity.spatial.pos);
+				entity.spatial.visualPos.setVector(entity.spatial.pos);
 			}
 
 			if (entity.animStateMap) {
@@ -423,7 +423,7 @@ define([
 
 				}
 				entity.spatial.speed = entity.spatial.frameSpeed;
-				entity.spatial.visualPos.setv(entity.spatial.pos);
+				entity.spatial.visualPos.setVector(entity.spatial.pos);
 				calcVec.set(entity.spatial.velocity);
 				calcVec.mul(1/physStepPartOfSecond);
 				entity.spatial.audioVel.set(calcVec);
@@ -435,7 +435,7 @@ define([
 		var updateGamePieceGooTransform = function(entity) {
 			for (var i = 0; i < entity.geometries.length; i++) {
 				entity.geometries[i].transformComponent.transform.rotation.set(entity.spatial.rot);
-				entity.geometries[i].transformComponent.transform.translation.setv(entity.spatial.visualPos);
+				entity.geometries[i].transformComponent.transform.translation.setVector(entity.spatial.visualPos);
 				entity.geometries[i].transformComponent.setUpdated();
 			}
 		};
