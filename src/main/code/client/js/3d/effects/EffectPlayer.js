@@ -193,13 +193,15 @@ define(
 
 		var particleDensity = 1;
 			var setParticleDensity = function(value) {
+
 				particleDensity = value;
+				console.log("Set particle density: ", particleDensity);
 			};
 			Settings.addOnChangeCallback('environment_particle_density', setParticleDensity);
 
 		function playEffectParticles(simulatorId, pos, vel, data, callbacks) {
-			data.count = Math.ceil(data.count * particleDensity);
-			simpleParticles.spawn(simulatorId, pos, vel, data, callbacks);
+		//	data.count = Math.ceil(data.count * particleDensity);
+			simpleParticles.spawn(simulatorId, pos, vel, data, callbacks, particleDensity);
 		}
 
 		function getGroundEffectType(pos) {

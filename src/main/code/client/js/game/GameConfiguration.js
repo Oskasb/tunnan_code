@@ -103,10 +103,10 @@ define(function() {
          //   vehicles:{refFile:"project.project", projectPath:"vehicles", tunnan:"tunnan_skinned", tre_kronor:"tre_kronor", battleship:"battleship_skinned"},
 			tunnan:		{folder:"tunnan_f", 		projectPath:"bundles", entityIds:{tunnan:"tunnan_f"}},
 			human:		{folder:"pilot_animated", 	projectPath:"bundles", entityIds:{pilot:"pilot_bind_AO"}},
-			tomcat:		{folder:"tomcat", 			projectPath:"bundles", entityIds:{tomcat_skinned:"TomcatSkinned"}},
+			tomcat:		{folder:"tunnan_assets", 			projectPath:"bundles", entityIds:{tomcat_skinned:"TomcatSkinned"}},
 
 			environment:{folder:"environment",		projectPath:"bundles", entityIds:{skybox:"Default Environment", effects:"Post effects"}},
-			carrier:	{folder:"carrier", 			projectPath:"bundles", entityIds:{carrier:"carrier"}},
+			carrier:	{folder:"tunnan_assets", 			projectPath:"bundles", entityIds:{carrier:"carrier"}},
 
 
 			car_pv_9031:{refFile:"pv_9031.bundle", projectPath:"bundles", pv_9031:"pv_9031"},
