@@ -28,9 +28,9 @@ define([
         Helmsman.prototype.setNavPoint = function(pos) {
         //    console.log("Set NavPoint: ", pos)
             if (this.nextNavPoint.data[0] == 0 && this.nextNavPoint.data[2] == 0) {
-                this.navPoint.set(pos);
+                this.navPoint.setArray(pos);
             }
-            this.nextNavPoint.set(pos);
+            this.nextNavPoint.setArray(pos);
         };
 
         Helmsman.prototype.checkNavPointSwitch = function() {
@@ -38,7 +38,7 @@ define([
             calcVec.sub(this.entity.spatial.pos);
             if (calcVec.lengthSquared() < 100000) {
             //    console.log("switchNavPoint", this.entity.id, this.nextNavPoint.data, this.navPoint.data)
-                this.navPoint.set(this.nextNavPoint);
+                this.navPoint.lerp(this.nextNavPoint, 0.0011);
             }
         };
 
@@ -50,10 +50,10 @@ define([
 
             this.steerMat.lookAt(calcVec, Vector3.UNIT_Y);
 
-            calcVec2.set(this.targetSpeed);
+            calcVec2.setVector(this.targetSpeed);
             this.steerMat.applyPost(calcVec2);
 
-            this.entity.spatial.velocity.lerp(calcVec2, 0.05);
+            this.entity.spatial.velocity.lerp(calcVec2, 0.01);
 			var wave = Math.sin(new Date().getTime()*0.001);
 			this.entity.spatial.velocity.data[1]+= wave*2
 			this.entity.spatial.rot.rotateX(3*wave)

@@ -85,6 +85,7 @@ define(["application/Settings",
 		GameController.prototype.setupGuiSettingControls = function() {
 			var guiApi = this.canvasGuiAPI;
 			var setGuiTextureScale = function(value) {
+				console.log(" ------------------ GUI", value)
 				guiApi.setGuiTextureScale(value);
 			}.bind(this);
 			Settings.addOnChangeCallback('display_ui_pixel_scale', setGuiTextureScale);

@@ -97,6 +97,9 @@ define([
 			Settings.fireOnChangeCallbacks(id, params.value);
 		};
 
+
+		var setupQueue = [];
+
 		var Settings = function() {};
 
 		Settings.addOnChangeCallback = function(settingId, callback) {
@@ -114,7 +117,8 @@ define([
 			if (setting) {
 				callback(setting.getProcessedValue());
 			} else {
-				console.log("Setting Callback registered, setting not yet defined");
+				console.log("Setting Callback registered, setting not yet defined", settingId);
+				setupQueue.push(settingId);
 			};
 
 		};
