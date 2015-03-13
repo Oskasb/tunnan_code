@@ -144,6 +144,7 @@ define([
 				}
 			};
 
+			PipelineAPI.subscribeToCategoryKey('application_settings', 'controller', applyConfig);
 			PipelineAPI.subscribeToCategoryKey('application_settings', 'sound', applyConfig);
 			PipelineAPI.subscribeToCategoryKey('application_settings', 'display', applyConfig);
 			PipelineAPI.subscribeToCategoryKey('application_settings', 'environment', applyConfig);

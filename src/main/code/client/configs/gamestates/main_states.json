@@ -29,6 +29,7 @@
                 "top_bar",
                 "sound_channel_controls",
                 "display_settings",
+                "controller_settings",
                 "environment_settings"
             ]
         },

@@ -1,5 +1,19 @@
 [{
     "shapes": {
+        "controller_settings_button":{
+            "passive":{
+                "pos": {
+                    "unit": "px",
+                    "top": 10,
+                    "left": -500
+                },
+                "shape":"shape_panel_input_box",
+                "border": "border_control_slider_passive",
+                "background": "background_control_slider_passive"
+            },
+            "on_hover":"shape_panel_activation_button_hover",
+            "on_active":"shape_panel_activation_button_active"
+        },
         "environment_settings_button":{
             "passive":{
                 "pos": {
@@ -28,7 +42,20 @@
             "on_hover":"shape_panel_activation_button_hover",
             "on_active":"shape_panel_activation_button_active"
         },
-
+        "controller_setup_button":{
+            "passive":{
+                "pos": {
+                    "unit": "px",
+                    "top": 20,
+                    "left": -140
+                },
+                "shape":"shape_panel_input_box",
+                "border": "border_control_slider_passive",
+                "background": "background_control_slider_passive"
+            },
+            "on_hover":"shape_panel_activation_button_hover",
+            "on_active":"shape_panel_activation_button_active"
+        },
         "sound_settings_button": {
             "passive":{
                 "pos": {

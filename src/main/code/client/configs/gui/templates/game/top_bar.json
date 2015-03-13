@@ -6,6 +6,18 @@
                 {
                     "shape":"anchor_top_right",
                     "layers": [{
+                        "shape":"controller_settings_button",
+                        "id":"controller_settings_menu",
+                        "on_apply":[{"call":"gui_toggle_template", "params":{"template":"controller_settings", "enabler":"controller_settings_button_state_light"}}],
+                        "layers": [{
+                            "id":"controller_settings_button_state_light",
+                            "text":{"key":"menu_controller_button_label"},
+                            "shape":"lights_control_button_state_light"
+                        }]
+                    }]
+                }, {
+                    "shape":"anchor_top_right",
+                    "layers": [{
                         "shape":"environment_settings_button",
                         "id":"env_settings_menu",
                         "on_apply":[{"call":"gui_toggle_template", "params":{"template":"environment_settings", "enabler":"environment_settings_button_state_light"}}],

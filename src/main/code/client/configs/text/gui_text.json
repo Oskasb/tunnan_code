@@ -8,12 +8,14 @@
             "menu_init_takeoff_tomcat":"Takeoff",
             "menu_init_island_carrier":"Island",
 
+            "menu_controller_button_label":"Controls",
             "menu_environment_button_label":"Env",
             "menu_environment_header_label":"Environment",
             "environment_time_scale_label":"Speed",
             "environment_time_of_day_label":"Time of Day",
             "environment_particle_density_label":"Particles",
 
+            "menu_setup_button_label":"Setup",
             "menu_display_button_label":"Display",
             "menu_display_pixel_scale_label":"Px Scale",
             "menu_display_ui_pixel_scale_label":"Px UI",

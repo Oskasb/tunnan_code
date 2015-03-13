@@ -138,6 +138,10 @@ define([
 				SystemBus.emit("guiToggleTemplate", {template:params.template, enabler:params.enabler})
 			},
 
+			gui_init_configuration: function(params) {
+				console.log("Init Gui Config, setting:", params.setting);
+				SystemBus.emit("guiInitConfiguration", {setting:params.setting});
+			},
 
 			processCallbacks : function(tpf) {
 				for (var channel in messageElements) {

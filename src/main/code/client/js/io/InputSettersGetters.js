@@ -5,7 +5,7 @@ define([
 	"io/PlayerMovementInput",
 	"io/MouseListener",
 	"io/GameScreen",
-	"io/AnalogInput",
+	"io/GamePadSampler",
 	"io/KeyboardHandler",
 	'gui/CanvasGuiAPI'
 ], function(
@@ -13,7 +13,7 @@ define([
 	playerMovementInput,
 	mouseListener,
 	GameScreen,
-	AnalogInput,
+    GamePadSampler,
 	keyboardHandler,
 	CanvasGuiAPI
 	) {
@@ -34,6 +34,7 @@ define([
     var keyBindings = {};
     var focusedElement = "game";
     var setZoom;
+    var gamePadSampler = new GamePadSampler();
 
     var getCodeForKey = function(key) {
         if (typeof(key) == "number") {
@@ -194,6 +195,8 @@ define([
 		// event.eventArgs(e).goo.renderer.domElement; //
         setupElementListener(event.eventArgs(e).goo.renderer.domElement);
         mouseListener.setElementClickFunction(document.body, mouseCallback)
+
+
     };
 
     var handleStartDrag = function(e) {
@@ -253,7 +256,7 @@ define([
 		lastAction[0] = pointerState.action[0];
 		lastAction[1] = pointerState.action[1];
 
-
+        gamePadSampler.update();
 	};
 
     event.registerListener(event.list().RENDER_TICK, tickInput);

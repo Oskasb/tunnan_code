@@ -1,5 +1,18 @@
 [{
   "application_settings":{
+
+    "controller":[
+      {
+        "id":"setting_controller_setup",
+        "params":{
+          "name":"Controller Setup Progress",
+          "value":0,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      }
+    ],
     "sound":[
       {
         "id":"sound_master",
@@ -108,7 +121,7 @@
         "id":"display_ui_pixel_scale",
         "params":{
           "name":"UI Pixel Scale",
-          "value":0.2,
+          "value":0.5,
           "min":0.12,
           "max":4,
           "curveId":"zeroToOne"

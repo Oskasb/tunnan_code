@@ -44,6 +44,28 @@
                 }
             }
         },
+        "controller_settings_panel_open":{
+            "passive":{
+                "pos":{
+                    "unit":"px",
+                    "top":54,
+                    "left":-1080
+                },
+                "shape":{
+                    "unit":"px",
+                    "width":160,
+                    "height":200
+                },
+                "border": {
+                    "unit":"px",
+                    "color":  "color_slider_border_hover",
+                    "line_width":4
+                },
+                "background": {
+                    "color":  "color_slider_back_hover"
+                }
+            }
+        },
         "environment_control_panel_open":{
             "passive":{
                 "pos":{
