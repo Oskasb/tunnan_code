@@ -1,0 +1,46 @@
+[{
+  "default_controls":{
+    "controls":[
+      {
+        "id":"elevator",
+        "params":{
+          "name":"Pitch Up",
+          "control":"elevator",
+          "axis": 1
+        }
+      },
+      {
+        "id":"aeilrons",
+        "params":{
+          "name":"Roll Left",
+          "control":"aeilrons",
+          "axis": 0
+        }
+      },
+      {
+        "id":"rudder",
+        "params":{
+          "name":"Yaw Left",
+          "control":"rudder",
+          "axis": 2
+        }
+      },
+      {
+        "id":"throttle",
+        "params":{
+          "name":"Throttle",
+          "control":"throttle",
+          "axis":3
+        }
+      },
+      {
+        "id":"cannons",
+        "params":{
+          "name":"Fire Cannon",
+          "control":"cannons",
+          "axis": 1
+        }
+      }
+    ]
+  }
+}]

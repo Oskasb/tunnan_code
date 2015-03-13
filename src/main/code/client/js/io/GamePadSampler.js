@@ -1,49 +1,16 @@
 "use strict";
 
 define([
+    'data_pipeline/PipelineAPI',
     "goo/entities/SystemBus",
     "application/EventManager"
 ], function(
+    PipelineAPI,
     SystemBus,
     event
 ) {
 
-    var gamepadConfig = {
-        controls:[
-            {
-                "id":"elevator",
-                "params":{
-                    "control":"elevator",
-                    "name":"Pitch Up",
-                    "axis": 1
-                }
-            },
-            {
-                "id":"aeilrons",
-                "params":{
-                    "control":"aeilrons",
-                    "name":"Roll Left",
-                    "axis": 0
-                }
-            },
-            {
-                "id":"rudder",
-                "params":{
-                    "control":"rudder",
-                    "name":"Yaw Left",
-                    "axis": 2
-                }
-            },
-            {
-                "id":"throttle",
-                "params":{
-                    "control":"throttle",
-                    "name":"Throttle",
-                    "axis":3
-                }
-            }
-        ]
-    };
+    var gamepadConfig = {};
 
     var InputState = function(id) {
         this.sourceId = id;
@@ -71,9 +38,59 @@ define([
         this.buttons = [];
     };
 
+
+    var saveConfiguration = function(gamePads) {
+        var pads = [];
+
+        var saveState = function(stateObj) {
+            var saveObj = {
+                sourceId:stateObj.sourceId,
+                controlChannel:stateObj.controlChannel,
+                factor:stateObj.factor,
+                controlId:stateObj.controlId
+            }
+            pads.push(saveObj);
+        }
+
+
+        for (var i = 0; i < gamePads.length; i++) {
+
+            for (var j = 0; j < gamePads[i].axes.length; j++) {
+                if (gamePads[i].axes[j].controlId) {
+                    saveState(gamePads[i].axes[j]);
+                }
+
+            }
+
+            for (var k = 0; k < gamePads[i].buttons.length; k++) {
+                if (gamePads[i].buttons[k].controlId) {
+                    saveState(gamePads[i].buttons[k]);
+                }
+            }
+        }
+
+        localStorage.setItem("gamePadConfigs", JSON.stringify(pads));
+
+    };
+
+    var loadSavedConfig = function(configJson) {
+        var gamePads = JSON.parse(configJson);
+
+        console.log("Saved config: ", gamePads);
+
+    };
+
     var GamePadSampler = function() {
 
         var ctx = this;
+
+        ctx.inputUpdated = function(inputState) {
+
+        };
+
+        ctx.playingInputUpdate = function(inputState) {
+            event.fireEvent(event.list().PLAYER_CONTROL_EVENT, {control:inputState.controlChannel, value:inputState.state})
+        };
 
         ctx.registerGamepadAxis = function(padIndex, axis, axisIndex) {
             ctx.gamePadStates[padIndex].axes[axisIndex] = new InputState("pad_"+padIndex+'_axis_'+axisIndex)
@@ -88,12 +105,11 @@ define([
             if (Math.abs(gamePadValue) < 0.02) {
                 gamePadValue = 0;
             }
+
             if (gamePadValue != gamePadInputState.state * gamePadInputState.factor) {
                 gamePadInputState.analogValue = gamePadValue;
                 gamePadInputState.state = gamePadInputState.analogValue * gamePadInputState.factor;
-
-                event.fireEvent(event.list().PLAYER_CONTROL_EVENT, {control:gamePadInputState.controlChannel, value:gamePadInputState.state})
-
+                ctx.inputUpdated(gamePadInputState);
             }
         };
 
@@ -128,6 +144,10 @@ define([
 
             ctx.gamePadsFound.push(index);
 
+            var savedConfig = localStorage.getItem("gamePadConfigs");
+            if (savedConfig) {
+                loadSavedConfig(savedConfig)
+            }
         };
 
         var setupValues;
@@ -144,6 +164,7 @@ define([
             setupValues = {};
             biggestFactor = 0;
             registeringForStateId;
+            ctx.inputUpdated = ctx.playingInputUpdate;
         };
 
         ctx.gamePadsFound = [];
@@ -163,8 +184,11 @@ define([
 
             if (ctx.setupIndex ==  gamepadConfig.controls.length) {
                 SystemBus.emit("message_to_gui", {channel:'system_channel', message:"Controller setup completed"});
-                SystemBus.removeListener('input_state_change', ctx.handleSetupInputStateUpdate);
+            //    SystemBus.removeListener('input_state_change', ctx.handleSetupInputStateUpdate);
                 ctx.setupInProgress = false;
+
+                ctx.inputUpdated = ctx.playingInputUpdate;
+                saveConfiguration(ctx.gamePadStates)
             }
 
         };
@@ -281,11 +305,22 @@ define([
             }
             ctx.setupInProgress = true;
 
-            SystemBus.addListener('input_state_change', ctx.handleSetupInputStateUpdate);
+            ctx.inputUpdated = ctx.handleSetupInputStateUpdate;
+
             SystemBus.emit("message_to_gui", {channel:'alert_channel', message:"Init Controller Setup"});
 
         };
 
+        ctx.loadControlConfigs = function() {
+            var applyConfig = function(srcKey, data) {
+                console.log("Controls data:", srcKey, data)
+                gamepadConfig[srcKey] = data;
+            };
+            PipelineAPI.subscribeToCategoryKey('default_controls', 'controls', applyConfig);
+        };
+
+
+        ctx.loadControlConfigs();
 
         SystemBus.addListener('guiInitConfiguration', ctx.initGamePadConfiguration);
 

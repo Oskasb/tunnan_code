@@ -8,6 +8,8 @@
 		  	"configs/gamestates/main_states.json",
 			"configs/game/application_settings.json",
 
+		  	"configs/game/controls/default_controls.json",
+
 			"configs/game/values/aerodynamics.json",
 			"configs/game/environment/ocean_env.json",
 			"configs/game/effects/particle_effects.json",
