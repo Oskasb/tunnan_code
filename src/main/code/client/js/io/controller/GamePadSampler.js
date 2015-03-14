@@ -71,6 +71,7 @@ define([
 		for (var i = 0; i < storedGamePads.length; i++) {
 			console.log("Stored pads: ", storedGamePads[i]);
 				if (gamePadStates[storedGamePads[i].id]) {
+					id = storedGamePads[i].id;
 					console.log("Saved and connected pad: ", storedGamePads[i].id);
 					for (var j = 0; j < storedGamePads[i].inputs.length; j++) {
 
@@ -216,6 +217,8 @@ define([
 		var detectDesiredControl;
 
         ctx.initGamePadConfiguration = function() {
+
+			resetGamePadStates(ctx.gamePadStates);
 
             ctx.init();
 			configuredInputs = {};

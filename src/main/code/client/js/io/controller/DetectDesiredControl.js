@@ -38,6 +38,7 @@ define([], function() {
 
 	DetectDesiredControl.prototype.inputUpdated = function(inputState) {
 		if (inputState.getControlId()) {
+		//	console.log("Already Mapped", inputState)
 			return;
 		}
 
@@ -66,28 +67,53 @@ define([], function() {
 
 	var reCompareTimeout;
 
-	DetectDesiredControl.prototype.candidateSelsected = function(candidate, selectedCallback, seekingCallback) {
-		clearTimeout(reCompareTimeout);
+	var selectedFactor = 0;
+	var selectionCount = 0;
 
-		seekingCallback(["Candidate", candidate.diff]);
+	DetectDesiredControl.prototype.candidateSelected = function(candidate, selectedCallback, seekingCallback) {
 		var _this = this;
 
-
-
 		var matchCheck = function(oldCandidate) {
-			if (!_this.keepChecking) {
-				candidate.booked = true;
+			selectedFactor = 0;
+			selectionCount = 0;
+				oldCandidate.booked = true;
 				_this.hottestCandidate = null;
 				_this.keepChecking = true;
-				candidate.inputState.setFactor(candidate.lastStrength);
-				selectedCallback(candidate.inputState);
+				oldCandidate.inputState.setFactor(oldCandidate.lastStrength);
+				selectedCallback(oldCandidate.inputState);
 				_this.candidates = {};
-			}
+
 		};
 
-		reCompareTimeout = setTimeout(function() {
-			matchCheck(candidate);
-		}, 1000)
+		if (Math.abs(candidate.lastStrength) < Math.abs(candidate.inputState.analogValue)) {
+			clearTimeout(reCompareTimeout);
+			seekingCallback(["Candidate", candidate.diff]);
+		} else {
+			if (Math.abs(candidate.inputState.analogValue) < Math.abs(selectedFactor*0.95)) {
+				clearTimeout(reCompareTimeout);
+				selectionCount = 0;
+			}
+
+			if (selectionCount) {
+				clearTimeout(reCompareTimeout);
+				reCompareTimeout = setTimeout(function() {
+					matchCheck(candidate);
+				}, (1 / Math.abs(candidate.lastStrength)) * (1000 / selectionCount));
+				selectedFactor = candidate.lastStrength;
+
+				seekingCallback(["Setting Axis:", Math.round(1000 / selectionCount)]);
+			} else {
+				seekingCallback(["Cancelling Axis:", candidate.inputState.sourceId]);
+				clearTimeout(reCompareTimeout);
+			}
+
+			if (this.hottestCandidate == candidate) {
+				selectionCount++
+			} else {
+				selectionCount = 0;
+			}
+		}
+		this.hottestCandidate = candidate;
 	};
 
 
@@ -112,18 +138,16 @@ define([], function() {
 			this.candidates = {};
 			return;
 		}
-
+	/*
 		if (this.keepChecking) {
 			clearTimeout(reCompareTimeout);
 			this.hottestCandidate = null;
 			seekingCallback(["Seeking", "Diff: ", candidate.diff]);
 			return;
 		}
+    */
+		this.candidateSelected(candidate, selectedCallback, seekingCallback);
 
-		if (this.hottestCandidate != candidate) {
-			this.candidateSelsected(candidate, selectedCallback, seekingCallback);
-			this.hottestCandidate = candidate;
-		}
 
 	};
 
@@ -157,7 +181,8 @@ define([], function() {
 				clearTimeout(reCompareTimeout);
 				seekingCallback(["No Candidate"]);
 			} else {
-				seekingCallback(["Hot Candidate:", this.hottestCandidate.sourceId]);
+				seekingCallback(["Hot Candidate:", this.hottestCandidate.inputState.sourceId]);
+				this.axisCandidate(this.hottestCandidate, selectedCallback, seekingCallback);
 			}
 
 		}

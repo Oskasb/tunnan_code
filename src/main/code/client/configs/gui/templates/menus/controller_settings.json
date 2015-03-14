@@ -58,7 +58,7 @@
               },{
                 "zIndex":10,
                 "shape":"shape_menu_button_close_x",
-                "on_apply":[{"call":"gui_toggle_template", "params":{"template":"display_settings"}}],
+                "on_apply":[{"call":"gui_toggle_template", "params":{"template":"controller_settings"}}],
                 "text":{"key":"menu_button_close_x"}
               }]
             }]
