@@ -64,7 +64,7 @@ define([
 			},
 
 			fetchSettingState : function(setting) {
-				return Settings.getAllSettings()[setting].getValue();
+				return Settings.readSettingValue(setting);
 			},
 
 			fetchPlayerPiece : function() {

@@ -1,7 +1,7 @@
 [{
   "template":{
     "controller_settings":{
-      "hidden":false,
+      "hidden":true,
       "layers": [{
 
         "shape":"anchor_top_right",

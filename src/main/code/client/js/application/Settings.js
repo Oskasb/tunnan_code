@@ -158,6 +158,11 @@ define([
 			return list[settingId];
 		};
 
+		Settings.readSettingValue = function(settingId) {
+			if (!list[settingId]) return false;
+			return list[settingId].value;
+		};
+
 		var handleSettingChanged = function(e){
 		    list[event.eventArgs(e).setting].setValue(event.eventArgs(e).value);
 		};

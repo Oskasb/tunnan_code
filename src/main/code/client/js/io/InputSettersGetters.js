@@ -5,7 +5,7 @@ define([
 	"io/PlayerMovementInput",
 	"io/MouseListener",
 	"io/GameScreen",
-	"io/GamePadSampler",
+	"io/controller/GamePadSampler",
 	"io/KeyboardHandler",
 	'gui/CanvasGuiAPI'
 ], function(
