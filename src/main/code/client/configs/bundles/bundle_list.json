@@ -12,7 +12,7 @@
 				"id":"tunnan_assets",
 				"folder":"bundles/tunnan_assets/",
 				"file":"root.bundle",
-				"entities":["pilot_bind_AO", "TomcatSkinned", "carrier", "tre_kronor", "battleship", "tunnan_f"]
+				"entities":["pilot_bind_AO", "TomcatSkinned", "enterprise", "tre_kronor", "battleship", "tunnan_f"]
 			},
             {
                 "id":"environment",
