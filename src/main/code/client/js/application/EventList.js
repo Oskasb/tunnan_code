@@ -150,7 +150,7 @@ define(function() {
         FETCH_SOUND:{type:"FETCH_SOUND", eArgs:{soundData:{}, callback:func}},
         FETCH_BUFFER:{type:"FETCH_BUFFER", eArgs:{soundData:{}, callback:func}},
         STOP_SOUND:{type:"STOP_SOUND", eArgs:{playId:""}},
-        ONESHOT_SOUND:{type:"ONESHOT_SOUND", eArgs:{soundData:{}}},
+        ONESHOT_SOUND:{type:"ONESHOT_SOUND", eArgs:{soundData:{}, playId:"", callback:func}},
         START_SOUND_LOOP:{type:"START_SOUND_LOOP", eArgs:{soundData:{}, loopId:"", callback:function(){}}},
         STOP_SOUND_LOOP:{type:"STOP_SOUND_LOOP", eArgs:{loopId:""}},
         SEND_SOUND_TO_REVERB:{type:"SEND_SOUND_TO_REVERB", eArgs:{node:{}}},

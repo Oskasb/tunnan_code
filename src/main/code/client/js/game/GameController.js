@@ -2,6 +2,7 @@
 
 define(["application/Settings",
 		"application/EventManager",
+		'goo/entities/SystemBus',
 	"gui/CanvasGuiAPI",
 	"application/Sequencer",
 	"3d/SceneController",
@@ -13,11 +14,13 @@ define(["application/Settings",
 	'io/PointerInputHandler',
 	'gui/GuiWidgetComposer',
 	'3d/GooEffectController',
-	'data_pipeline/PipelineAPI'
+	'data_pipeline/PipelineAPI',
+		"sound/MusicPlayer"
 ],
     function(
 		Settings,
 		event,
+		SystemBus,
              CanvasGuiAPI,
 			 Sequencer,
 			 SceneController,
@@ -29,7 +32,8 @@ define(["application/Settings",
 			 PointerInputHandler,
 			 GuiWidgetComposer,
 			 GooEffectController,
-			 PipelineAPI
+			 PipelineAPI,
+			MusicPlayer
 		) {
 
 	    var useDebugGui = true;
@@ -37,7 +41,7 @@ define(["application/Settings",
 	    var ready = false;
 
 		var GameController = function() {
-
+			this.musicPlayer = new MusicPlayer();
 			this.sequencer = new Sequencer();
 			this.sceneController = new SceneController();
 			this.canvasGuiAPI = new CanvasGuiAPI(1024);
@@ -45,17 +49,19 @@ define(["application/Settings",
 			this.guiWidgetComposer = new GuiWidgetComposer();
 		};
 
-	    GameController.prototype.tickGui = function(time) {
+	    GameController.prototype.tickGui = function(tpf) {
 	//	    PipelineAPI.updateDataPipeline(time);
 		    if (!ready) return;
 		//    this.pointerInputHandler.tickInput(time);
-			this.canvasGuiAPI.updateCanvasGui(time);
+			this.canvasGuiAPI.updateCanvasGui(tpf);
+			this.musicPlayer.updateMusicPlayer(tpf);
 	    };
 
 		GameController.prototype.tickGame = function(time) {
 			this.sceneController.viewTick(time);
 			pieceController.tickEntities(time);
 			this.sequencer.tick(time);
+
         };
 
 
@@ -69,6 +75,10 @@ define(["application/Settings",
 
 		GameController.prototype.setGuiState = function(state) {
 			this.canvasGuiAPI.setUiToStateId(state);
+
+			if (state == "main_menu") {
+				SystemBus.emit('enterMusicState', {musicState:'main_menu'})
+			}
 
 			if (useDebugGui) {
 				this.canvasGuiAPI.attachUiSubstateId('debug_state');

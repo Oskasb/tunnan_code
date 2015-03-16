@@ -49,6 +49,7 @@ define(["game/GameConfiguration"],function(gameConfig){
         STEP_GRAVEL_2   :   {folder:"steps"   ,file:"gravel_step_2"  , gain:10.46, track:TRACKS.ambient, options:{preload:false, refDist:4,   rolloff:0.84}},
         STEP_GRAVEL_3   :   {folder:"steps"   ,file:"gravel_step_3"  , gain:10.46, track:TRACKS.ambient, options:{preload:false, refDist:4,   rolloff:0.84}},
         FOUNTAIN_LOOP   :   {folder:"water"   ,file:"fountain"       , gain:1,     track:TRACKS.game,    options:{preload:false, refDist:4,   rolloff:0.44}},
-        FX_VERB         :   {folder:"fx"      ,file:"AmbMix"         , gain:1,     track:TRACKS.ambient, options:{preload:true,  refDist:4,   rolloff:0.04}}
+        FX_VERB         :   {folder:"fx"      ,file:"AmbMix"         , gain:1,     track:TRACKS.ambient, options:{preload:true,  refDist:4,   rolloff:0.04}},
+        MUSIC_BLIPPIT   :   {folder:"music"   ,file:"blippit"        , gain:1,     track:TRACKS.music,   options:{preload:false}}
     }
 });
