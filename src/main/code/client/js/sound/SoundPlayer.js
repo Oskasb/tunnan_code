@@ -172,12 +172,12 @@ define(["application/EventManager",
         if (!vel) vel = [0, 0, 0];
         panner.setVelocity(vel[0], vel[1], vel[2]);
         panner.setOrientation(dir[0], dir[1], dir[2]);
-        var callback = function(sound) {
+        var callback = function(soundData) {
             gainNode.gain.value = 1;
-            sound.data.sourceGain.connect(gainNode);
+			soundData.data.sourceGain.connect(gainNode);
             gainNode.connect(panner);
             channelMixer.connectNodeToChannel(panner, channelMixer.getTracks().game.id);
-            sound.play(sound.sourceNode, true, fadeTime);
+			soundData.source.play(soundData.sourceNode, false, fadeTime);
         };
 
         fetchSound(soundData, callback);
@@ -192,19 +192,19 @@ define(["application/EventManager",
         var panner = getAvailablePannerNode(soundData.options.refDist, soundData.options.rolloff);
         var gainNode = context.createGain();
 
-        var soundCB = function(sound) {
+        var soundCB = function(soundData) {
             gainNode.gain.value = 1;
-            sound.data.sourceGain.connect(gainNode);
+			soundData.data.sourceGain.connect(gainNode);
             gainNode.connect(panner);
          //   panner.connect(context.destination);
             channelMixer.connectNodeToChannel(panner, channelMixer.getTracks().game.id);
         //    event.fireEvent(event.list().SEND_SOUND_TO_REVERB, {node:panner});
-            sound.panner = panner;
-            sound.gainNode = gainNode;
-            sound.playId = playId;
-            callback(sound);
-            sound.play(sound.sourceNode, true, fadeTime);
-            loopingSounds[playId] = sound;
+			soundData.panner = panner;
+			soundData.gainNode = gainNode;
+			soundData.playId = playId;
+            callback(soundData);
+			soundData.source.play(soundData.sourceNode, true, fadeTime);
+            loopingSounds[playId] = soundData;
         };
 
         fetchSound(soundData, soundCB);

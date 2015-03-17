@@ -27,19 +27,19 @@ define(
         };
 
         MusicState.prototype.triggerInitMusicState = function() {
-            this.musicPlayer.playMusic(this.data.init.soundName);
+            this.musicPlayer.playMusic(this.data.init.soundName, 0);
         };
 
         MusicState.prototype.triggerActiveState = function() {
             this.active = true;
-            this.musicPlayer.playMusic(this.data.active.soundName);
+            this.musicPlayer.playMusic(this.data.active.soundName, this.data.active.fadeIn);
         };
 
         MusicState.prototype.endMusicState = function() {
             if (!this.active) {
-                this.musicPlayer.stopMusic(this.data.init.soundName);
+                this.musicPlayer.stopMusic(this.data.init.soundName, this.data.active.fadeOut);
             }
-            this.musicPlayer.stopMusic(this.data.active.soundName);
+            this.musicPlayer.stopMusic(this.data.active.soundName, this.data.active.fadeOut);
         };
 
 
@@ -76,7 +76,7 @@ define(
             PipelineAPI.subscribeToCategoryKey('music_states', 'game_music', applyConfig);
         };
 
-        MusicPlayer.prototype.playMusic = function(soundName) {
+        MusicPlayer.prototype.playMusic = function(soundName, fadeTime) {
             if (this.currentSong == soundName) return;
             if (!soundName && this.currentSong) soundName = this.currentSong;
             this.currentSong = soundName;
@@ -87,19 +87,15 @@ define(
                 _this.playingSoundData = soundData;
             };
 
-
-
             if(!this.muted && soundName){
-            //    SoundHandler.play(soundName);
-
-                event.fireEvent(event.list().ONESHOT_SOUND, {soundData:event.sound()[soundName], playId:'music_'+soundName, callback:playCallback});
-
+                event.fireEvent(event.list().ONESHOT_SOUND, {soundData:event.sound()[soundName], playId:'music_'+soundName, fadeTime:fadeTime, callback:playCallback});
             }
         };
 
-        MusicPlayer.prototype.stopMusic = function(soundName) {
+        MusicPlayer.prototype.stopMusic = function(soundName, fadeTime) {
             if (!soundName && this.currentSong) soundName = this.currentSong;
          //   SoundHandler.stop(soundName);
+			event.fireEvent(event.list().STOP_SOUND, {playId:'music_'+soundName, fadeTime:fadeTime});
             this.currentSong = null;
         };
 

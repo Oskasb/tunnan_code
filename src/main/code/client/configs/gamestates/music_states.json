@@ -2,10 +2,15 @@
   "music_states":{
     "game_music": [
       {
-        "id":"main_menu_",
+        "id":"main_menu",
         "data":{
           "init":{"delay":1, "soundName":"ENGINE_START"},
-          "active":{"delay":2, "soundName":"MUSIC_INTRO_ANT"}
+          "active":{
+              "delay":1,
+              "fadeIn": 7,
+              "fadeOut": 7,
+              "soundName":"MUSIC_INTRO_ANT"
+          }
         }
       }
     ]

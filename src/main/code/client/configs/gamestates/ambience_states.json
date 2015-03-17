@@ -9,7 +9,7 @@
             "soundList": ["ENGINE_STOP"]
           },
           "loops": {
-            "delay": 0.1,
+            "delay": 1.1,
             "fadeIn": 4,
             "fadeOut": 6,
             "soundList": ["SPACEPORT_SUS"]
@@ -45,8 +45,8 @@
             "soundList":["FX_VERB", "ENGINE_START"]
           },
           "loops":{
-            "delay":5.1,
-            "fadeIn": 4,
+            "delay":1.1,
+            "fadeIn": 6,
             "fadeOut": 4,
             "soundList":["SPACEPORT_SUS"]
           },
