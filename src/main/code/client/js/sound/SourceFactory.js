@@ -65,12 +65,20 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
     var contextSource = function(bufferData) {
         var buffer = bufferData;
         var gain = 1;
+        var gainNode = context.createGain();
+
         var updateGainNode = function(value) {
             gain = value;
         };
 
-        var pause = function(sourceNode) {
-            sourceNode.stop(0);
+        var pause = function(sourceNode, fadeTime) {
+            if (fadeTime) {
+                console.log("Fade out: ", context.currentTime, fadeTime)
+                gainNode.linearRampToValueAtTime(0, context.currentTime + fadeTime);
+                sourceNode.stop(context.currentTime + fadeTime);
+            } else {
+                sourceNode.stop(0);
+            }
         };
 
         var setGain = function(value) {
@@ -85,18 +93,22 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
         };
 
         var wire = function(sourceNode) {
-            var gainNode = context.createGain();
             sourceNode.buffer = buffer;
             sourceNode.connect(gainNode);
-            gainNode.gain.value = gain;
+            gainNode.value = gain;
             updateGainNode = function(value) {
 //                console.log("Gain value: ", value);
-                gainNode.gain.value = value;
+                gainNode.value = value;
             };
             return gainNode;
         };
 
-        var play = function(sourceNode, looping) {
+        var play = function(sourceNode, looping, fadeTime) {
+            if (fadeTime) {
+                gainNode.value = 0;
+                gainNode.linearRampToValueAtTime(gain, context.currentTime + fadeTime);
+                sourceNode.stop(context.currentTime + fadeTime);
+            }
             sourceNode.loop = looping;
             sourceNode.start(0);
         };

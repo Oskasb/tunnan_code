@@ -36,11 +36,9 @@ define(
 
         AmbientState.prototype.triggerActiveState = function() {
             this.active = true;
-
             for (var i = 0; i < this.data.loops.soundList.length; i++) {
-                this.ambiencePlayer.loopAmbience(this.data.loops.soundList[i], this.data.loops.soundList[i]+this.initTime);
+                this.ambiencePlayer.loopAmbience(this.data.loops.soundList[i], this.data.loops.soundList[i]+this.initTime, this.data.loops.fadeIn);
             }
-
         };
 
         AmbientState.prototype.endAmbientState = function() {
@@ -49,7 +47,7 @@ define(
             }
             if (this.active) {
                 for (var i = 0; i < this.data.loops.soundList.length; i++) {
-                    this.ambiencePlayer.stopAmbience(this.data.loops.soundList[i]+this.initTime);
+                    this.ambiencePlayer.stopAmbience(this.data.loops.soundList[i]+this.initTime, this.data.loops.fadeOut);
                 }
             }
             this.ending = true;
@@ -96,7 +94,7 @@ define(
             }
         };
 
-        AmbiencePlayer.prototype.loopAmbience = function(soundName, loopId) {
+        AmbiencePlayer.prototype.loopAmbience = function(soundName, loopId, fadeTime) {
             if (this.ambientLoops[loopId]) {
                 console.error("Ambient Loop already playing:", soundName, this.ambientLoops);
                 return;
@@ -112,19 +110,19 @@ define(
 
             if(!this.muted && soundName){
                 //    SoundHandler.play(soundName);
-                event.fireEvent(event.list().START_SOUND_LOOP, {soundData:event.sound()[soundName], loopId:loopId, callback:playCallback});
+                event.fireEvent(event.list().START_SOUND_LOOP, {soundData:event.sound()[soundName], loopId:loopId, fadeTime:fadeTime, callback:playCallback});
 
             }
         };
 
-        AmbiencePlayer.prototype.stopAmbience = function(loopId) {
+        AmbiencePlayer.prototype.stopAmbience = function(loopId, fadeTime) {
 console.log("Stop Ambient sounds", loopId, this.ambientLoops)
             if (!this.ambientLoops[loopId]) {
                 console.error("No loop registered for ", loopId, this.ambientLoops);
                 return;
             }
 
-            event.fireEvent(event.list().STOP_SOUND_LOOP, {loopId:loopId});
+            event.fireEvent(event.list().STOP_SOUND_LOOP, {loopId:loopId, fadeTime:fadeTime});
             delete this.ambientLoops[loopId];
 
         };

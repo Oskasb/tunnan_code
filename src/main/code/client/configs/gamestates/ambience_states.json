@@ -10,6 +10,8 @@
           },
           "loops": {
             "delay": 0.1,
+            "fadeIn": 25,
+            "fadeOut": 3,
             "soundList": ["HANGAR_AMB"]
           },
           "oneshots": {
@@ -44,6 +46,8 @@
           },
           "loops":{
             "delay":0.1,
+            "fadeIn": 2,
+            "fadeOut": 2,
             "soundList":["SPACEPORT_SUS"]
           },
           "oneshots":{

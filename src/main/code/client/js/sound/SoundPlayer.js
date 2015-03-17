@@ -65,6 +65,7 @@ define(["application/EventManager",
     var fetchSound = function(sound, callback) {
         if (typeof(sound.source.getSource) == "function") {
             var sourceNode = sound.source.getSource();
+            sound.sourceGain = sound.source.wire(sourceNode);
         } else {
             //    alert("Source Not Available: "+sound.file);
             return;
@@ -84,15 +85,15 @@ define(["application/EventManager",
         callback(buffer);
     };
 
-    var stopLoop = function(loopId) {
+    var stopLoop = function(loopId, fadeTime) {
         var source = loopingSounds[loopId].source;
-        source.pause(loopingSounds[loopId].sourceNode);
+        source.pause(loopingSounds[loopId].sourceNode, fadeTime);
         delete loopingSounds[loopId];
     };
 
-    var stopOneshot = function(playId) {
+    var stopOneshot = function(playId, fadeTime) {
         var source = startedOneshots[playId].source;
-        source.pause(startedOneshots[playId].sourceNode);
+        source.pause(startedOneshots[playId].sourceNode, fadeTime);
         delete startedOneshots[playId];
     };
 
@@ -113,13 +114,11 @@ define(["application/EventManager",
     };
 
     var handleStopLoop = function(e) {
-        var loopId = event.eventArgs(e).loopId;
-        stopLoop(loopId);
+        stopLoop(event.eventArgs(e).loopId, event.eventArgs(e).fadeTime);
     };
 
     var handleStopEvent = function(e) {
-        var playId = event.eventArgs(e).playId;
-        stopOneshot(playId);
+        stopOneshot(event.eventArgs(e).playId, event.eventArgs(e).fadeTime);
     };
 
     var handleFetchSoundEvent = function(e) {
@@ -162,6 +161,7 @@ define(["application/EventManager",
         var pos = event.eventArgs(e).pos;
         var vel = event.eventArgs(e).vel;
         var dir = event.eventArgs(e).dir;
+        var fadeTime =event.eventArgs(e).fadeTime;
 
         var distance = getDistanceFromListener(pos);
         if (distance > 10000) return;
@@ -173,10 +173,10 @@ define(["application/EventManager",
         panner.setOrientation(dir[0], dir[1], dir[2]);
         var callback = function(sound) {
             gainNode.gain.value = 1;
-            sound.sourceNode.connect(gainNode);
+            sound.data.sourceGain.connect(gainNode);
             gainNode.connect(panner);
             channelMixer.connectNodeToChannel(panner, channelMixer.getTracks().game.id);
-            sound.sourceNode.start(0);
+            sound.play(sound.sourceNode, true, fadeTime);
         };
 
         fetchSound(soundData, callback);
@@ -186,14 +186,14 @@ define(["application/EventManager",
         var soundData = event.eventArgs(e).soundData;
         var playId = event.eventArgs(e).playId;
         var callback = event.eventArgs(e).callback;
+        var fadeTime =event.eventArgs(e).fadeTime;
 
         var panner = getAvailablePannerNode(soundData.options.refDist, soundData.options.rolloff);
         var gainNode = context.createGain();
 
         var soundCB = function(sound) {
             gainNode.gain.value = 1;
-            sound.sourceNode.connect(gainNode);
-            sound.sourceNode.loop = true;
+            sound.data.sourceGain.connect(gainNode);
             gainNode.connect(panner);
          //   panner.connect(context.destination);
             channelMixer.connectNodeToChannel(panner, channelMixer.getTracks().game.id);
@@ -202,7 +202,7 @@ define(["application/EventManager",
             sound.gainNode = gainNode;
             sound.playId = playId;
             callback(sound);
-            sound.sourceNode.start(0);
+            sound.play(sound.sourceNode, true, fadeTime);
             loopingSounds[playId] = sound;
         };
 
