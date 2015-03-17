@@ -65,7 +65,6 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
     var contextSource = function(bufferData) {
         var buffer = bufferData;
         var gain = 1;
-        var gainNode = context.createGain();
 
         var updateGainNode = function(value) {
             gain = value;
@@ -73,8 +72,8 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
 
         var pause = function(sourceNode, fadeTime) {
             if (fadeTime) {
-                console.log("Fade out: ", context.currentTime, fadeTime)
-                gainNode.linearRampToValueAtTime(0, context.currentTime + fadeTime);
+                console.log("Fade out: ", context.currentTime, fadeTime);
+				fadeGain(sourceNode.gainNode, 0, fadeTime);
                 sourceNode.stop(context.currentTime + fadeTime);
             } else {
                 sourceNode.stop(0);
@@ -88,29 +87,33 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
         var getSource = function() {
             var sourceNode = context.createBufferSource();
             sourceNode.buffer = buffer;
-            // sourceNode.gain.value = 1;
+			sourceNode.gainNode = context.createGain();
+			sourceNode.gainNode.gain.linearRampToValueAtTime(0.00001, context.currentTime);
             return sourceNode;
         };
 
         var wire = function(sourceNode) {
             sourceNode.buffer = buffer;
-            sourceNode.connect(gainNode);
-            gainNode.value = gain;
-            updateGainNode = function(value) {
-//                console.log("Gain value: ", value);
-                gainNode.value = value;
-            };
-            return gainNode;
+            sourceNode.connect(sourceNode.gainNode);
+			sourceNode.gainNode.gain.value = 0.001;
+            return sourceNode.gainNode;
         };
 
+		var fadeGain = function(gainNode, value, fadeTime) {
+			if (!fadeTime) {
+				fadeTime = 0.001;
+			}
+			console.log("Fade: ", fadeTime);
+		//	gainNode.gain.linearRampToValueAtTime(0.01, context.currentTime + 0);
+			gainNode.gain.linearRampToValueAtTime(value, context.currentTime + fadeTime);
+		//	gainNode.gain.value = value;
+		};
+
+
         var play = function(sourceNode, looping, fadeTime) {
-            if (fadeTime) {
-                gainNode.value = 0;
-                gainNode.linearRampToValueAtTime(gain, context.currentTime + fadeTime);
-                sourceNode.stop(context.currentTime + fadeTime);
-            }
-            sourceNode.loop = looping;
-            sourceNode.start(0);
+			sourceNode.loop = looping;
+			sourceNode.start(0);
+			fadeGain(sourceNode.gainNode, gain, fadeTime)
         };
 
         return {

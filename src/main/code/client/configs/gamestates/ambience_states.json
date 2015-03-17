@@ -6,13 +6,13 @@
         "data": {
           "init": {
             "delay": 0.1,
-            "soundList": ["FX_VERB"]
+            "soundList": ["ENGINE_STOP"]
           },
           "loops": {
             "delay": 0.1,
-            "fadeIn": 25,
-            "fadeOut": 3,
-            "soundList": ["HANGAR_AMB"]
+            "fadeIn": 4,
+            "fadeOut": 6,
+            "soundList": ["SPACEPORT_SUS"]
           },
           "oneshots": {
             "channels": [
@@ -42,12 +42,12 @@
         "data":{
           "init":{
             "delay":0.1,
-            "soundList":["FX_VERB"]
+            "soundList":["FX_VERB", "ENGINE_START"]
           },
           "loops":{
-            "delay":0.1,
-            "fadeIn": 2,
-            "fadeOut": 2,
+            "delay":5.1,
+            "fadeIn": 4,
+            "fadeOut": 4,
             "soundList":["SPACEPORT_SUS"]
           },
           "oneshots":{

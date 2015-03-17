@@ -41,7 +41,7 @@ define(["application/EventManager",
         console.log("PANNER POOL:", pannerPool)
     };
 
-    var playSound = function(sound, playId, callback, loop) {
+    var playSound = function(sound, playId, fadeTime, callback, loop) {
         sound.source.setGain(sound.gain);
 
         var sourceNode = sound.source.getSource();
@@ -57,7 +57,7 @@ define(["application/EventManager",
         }
 
         channelMixer.addSoundToChannel(sound, soundData);
-        sound.source.play(sourceNode, loop);
+        sound.source.play(sourceNode, loop, fadeTime);
 
         if (typeof(callback) == "function") callback(soundData);
     };
@@ -102,15 +102,16 @@ define(["application/EventManager",
         var soundData = event.eventArgs(e).soundData;
         var playId = event.eventArgs(e).playId;
         var callback = event.eventArgs(e).callback;
-
-        playSound(soundData, playId, callback, false);
+		var fadeTime = event.eventArgs(e).fadeTime;
+        playSound(soundData, playId, fadeTime, callback, false);
     };
 
     var handleStartLoop = function(e) {
         var soundData = event.eventArgs(e).soundData;
         var loopId = event.eventArgs(e).loopId;
         var callback = event.eventArgs(e).callback;
-        playSound(soundData, loopId, callback, true);
+		var fadeTime = event.eventArgs(e).fadeTime;
+        playSound(soundData, loopId, fadeTime, callback, true);
     };
 
     var handleStopLoop = function(e) {
