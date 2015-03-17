@@ -9,8 +9,6 @@ define(["game/GameConfiguration"],function(gameConfig){
         UI_ACTIVE       :   {folder:"ui"      ,file:"blipp2"         , gain:0.46,  track:TRACKS.ui,      options:{preload:true}},
         UI_CLICK        :   {folder:"ui"      ,file:"blipp3"         , gain:0.95,  track:TRACKS.ui,      options:{preload:true}},
         UI_OUT          :   {folder:"ui"      ,file:"blipp4"         , gain:0.25,  track:TRACKS.ui,      options:{preload:true}},
-        SEATOWN_AMB     :   {folder:"ambient" ,file:"seatown_birds"  , gain:1.45,  track:TRACKS.ambient,    options:{preload:true}},
-        DARK_SUSPENS    :   {folder:"ambient" ,file:"dark_suspens"   , gain:0.85,  track:TRACKS.ambient,    options:{preload:true}},
         CANNON_20_0     :   {folder:"shots"   ,file:"cannon_0"       , gain:1.11,  track:TRACKS.game,    options:{preload:true,  refDist:18,  rolloff:1.1}},
         CANNON_20_1     :   {folder:"shots"   ,file:"cannon_1"       , gain:1.11,  track:TRACKS.game,    options:{preload:true,  refDist:18,  rolloff:1.1}},
         CANNON_20_2     :   {folder:"shots"   ,file:"cannon_2"       , gain:1.11,  track:TRACKS.game,    options:{preload:true,  refDist:18,  rolloff:1.1}},
@@ -50,6 +48,15 @@ define(["game/GameConfiguration"],function(gameConfig){
         STEP_GRAVEL_3   :   {folder:"steps"   ,file:"gravel_step_3"  , gain:10.46, track:TRACKS.ambient, options:{preload:false, refDist:4,   rolloff:0.84}},
         FOUNTAIN_LOOP   :   {folder:"water"   ,file:"fountain"       , gain:1,     track:TRACKS.game,    options:{preload:false, refDist:4,   rolloff:0.44}},
         FX_VERB         :   {folder:"fx"      ,file:"AmbMix"         , gain:1,     track:TRACKS.ambient, options:{preload:true,  refDist:4,   rolloff:0.04}},
+
+        SEATOWN_AMB     :   {folder:"ambient" ,file:"seatown_birds"  , gain:1.45,  track:TRACKS.ambient, options:{preload:false}},
+        DARK_SUSPENS    :   {folder:"ambient" ,file:"dark_suspens"   , gain:0.85,  track:TRACKS.ambient, options:{preload:false}},
+        HANGAR_AMB      :   {folder:"ambient" ,file:"hangar_amb"  , gain:1.45,  track:TRACKS.ambient, options:{preload:false}},
+        DARK_SUSPENS    :   {folder:"ambient" ,file:"dark_suspens"   , gain:0.85,  track:TRACKS.ambient, options:{preload:false}},
+
+        MUSIC_INTRO_ANT :   {folder:"music"   ,file:"intro_ant"      , gain:6,     track:TRACKS.music,   options:{preload:false}},
+        MUSIC_CA_OPEM   :   {folder:"music"   ,file:"CA_Open"        , gain:1,     track:TRACKS.music,   options:{preload:false}},
+        MUSIC_CA_BOMBI  :   {folder:"music"   ,file:"CA_Bombi"       , gain:1,     track:TRACKS.music,   options:{preload:false}},
         MUSIC_BLIPPIT   :   {folder:"music"   ,file:"blippit"        , gain:1,     track:TRACKS.music,   options:{preload:false}}
     }
 });

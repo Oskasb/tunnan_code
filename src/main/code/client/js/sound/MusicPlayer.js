@@ -1,10 +1,11 @@
 define(
     [
+        'data_pipeline/PipelineAPI',
         'goo/entities/SystemBus',
         'application/EventManager'
-
     ],
     function(
+        PipelineAPI,
         SystemBus,
         event
     ) {
@@ -64,10 +65,15 @@ define(
 
         MusicPlayer.prototype.loadConfigs = function() {
 
-            for (var i = 0; i < configs.length; i++) {
-                this.configs[configs[i].id] = configs[i].data;
-            }
 
+            var applyConfig = function(srcKey, config) {
+                console.log("Music data:", srcKey, config)
+                for (var i = 0; i < config.length; i++) {
+                    this.configs[config[i].id] = config[i].data;
+                }
+            }.bind(this);
+
+            PipelineAPI.subscribeToCategoryKey('music_states', 'game_music', applyConfig);
         };
 
         MusicPlayer.prototype.playMusic = function(soundName) {

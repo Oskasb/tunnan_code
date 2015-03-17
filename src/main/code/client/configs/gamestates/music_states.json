@@ -5,7 +5,7 @@
         "id":"main_menu",
         "data":{
           "init":{"delay":1, "soundName":"ENGINE_START"},
-          "active":{"delay":2, "soundName":"MUSIC_BLIPPIT"}
+          "active":{"delay":2, "soundName":"MUSIC_INTRO_ANT"}
         }
       }
     ]

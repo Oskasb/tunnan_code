@@ -15,6 +15,7 @@ define(["application/Settings",
 	'gui/GuiWidgetComposer',
 	'3d/GooEffectController',
 	'data_pipeline/PipelineAPI',
+		"sound/AmbiencePlayer",
 		"sound/MusicPlayer"
 ],
     function(
@@ -33,6 +34,7 @@ define(["application/Settings",
 			 GuiWidgetComposer,
 			 GooEffectController,
 			 PipelineAPI,
+		AmbiencePlayer,
 			MusicPlayer
 		) {
 
@@ -42,6 +44,7 @@ define(["application/Settings",
 
 		var GameController = function() {
 			this.musicPlayer = new MusicPlayer();
+			this.ambiencePlayer = new AmbiencePlayer();
 			this.sequencer = new Sequencer();
 			this.sceneController = new SceneController();
 			this.canvasGuiAPI = new CanvasGuiAPI(1024);
@@ -61,7 +64,6 @@ define(["application/Settings",
 			this.sceneController.viewTick(time);
 			pieceController.tickEntities(time);
 			this.sequencer.tick(time);
-
         };
 
 

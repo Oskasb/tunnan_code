@@ -58,10 +58,10 @@ define(
 
         AmbiencePlayer.prototype.loadConfigs = function() {
 
-            var applyConfig = function(srcKey, data) {
-                console.log("Ambience data:", srcKey, data)
-                for (var i = 0; i < data.length; i++) {
-                    this.configs[data[i].id] = data[i];
+            var applyConfig = function(srcKey, config) {
+                console.log("Ambience data:", srcKey, config)
+                for (var i = 0; i < config.length; i++) {
+                    this.configs[config[i].id] = config[i].data;
                 }
             }.bind(this);
 
