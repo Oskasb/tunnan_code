@@ -117,7 +117,13 @@ define(
         };
 
         MusicPlayer.prototype.transitToState = function(state) {
-            this.transitionQueue.push(new MusicState(this.totalTime, this.configs[state], this));
+
+            if (this.configs[state]) {
+                this.transitionQueue.push(new MusicState(this.totalTime, this.configs[state], this));
+            } else {
+                console.log("no music state config for state:", state);
+            }
+
             if (this.currentMusicState) {
                 this.currentMusicState.endMusicState();
             }

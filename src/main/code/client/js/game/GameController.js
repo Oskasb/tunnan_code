@@ -53,11 +53,10 @@ define(["application/Settings",
 		};
 
 	    GameController.prototype.tickGui = function(tpf) {
-	//	    PipelineAPI.updateDataPipeline(time);
 		    if (!ready) return;
-		//    this.pointerInputHandler.tickInput(time);
 			this.canvasGuiAPI.updateCanvasGui(tpf);
 			this.musicPlayer.updateMusicPlayer(tpf);
+			this.ambiencePlayer.updateAmbiencePlayer(tpf);
 	    };
 
 		GameController.prototype.tickGame = function(time) {
@@ -78,9 +77,10 @@ define(["application/Settings",
 		GameController.prototype.setGuiState = function(state) {
 			this.canvasGuiAPI.setUiToStateId(state);
 
-			if (state == "main_menu") {
-				SystemBus.emit('enterMusicState', {musicState:'main_menu'})
-			}
+		//	if (state == "main_menu") {
+				SystemBus.emit('enterMusicState', {musicState:state});
+				SystemBus.emit('enterAmbientState', {ambientState:state})
+		//	}
 
 			if (useDebugGui) {
 				this.canvasGuiAPI.attachUiSubstateId('debug_state');

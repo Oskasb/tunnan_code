@@ -51,8 +51,8 @@ define(["game/GameConfiguration"],function(gameConfig){
 
         SEATOWN_AMB     :   {folder:"ambient" ,file:"seatown_birds"  , gain:1.45,  track:TRACKS.ambient, options:{preload:false}},
         DARK_SUSPENS    :   {folder:"ambient" ,file:"dark_suspens"   , gain:0.85,  track:TRACKS.ambient, options:{preload:false}},
-        HANGAR_AMB      :   {folder:"ambient" ,file:"hangar_amb"  , gain:1.45,  track:TRACKS.ambient, options:{preload:false}},
-        DARK_SUSPENS    :   {folder:"ambient" ,file:"dark_suspens"   , gain:0.85,  track:TRACKS.ambient, options:{preload:false}},
+        HANGAR_AMB      :   {folder:"ambient" ,file:"hangar_amb"     , gain:1.45,  track:TRACKS.ambient, options:{preload:false}},
+        SPACEPORT_SUS   :   {folder:"ambient" ,file:"spaceport_sus"  , gain:2.85,  track:TRACKS.ambient, options:{preload:false}},
 
         MUSIC_INTRO_ANT :   {folder:"music"   ,file:"intro_ant"      , gain:6,     track:TRACKS.music,   options:{preload:false}},
         MUSIC_CA_OPEM   :   {folder:"music"   ,file:"CA_Open"        , gain:1,     track:TRACKS.music,   options:{preload:false}},

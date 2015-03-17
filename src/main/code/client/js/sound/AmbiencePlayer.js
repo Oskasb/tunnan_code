@@ -14,8 +14,10 @@ define(
         var AmbientState = function(initTime, data, ambiencePlayer) {
             this.ambiencePlayer = ambiencePlayer;
             this.initTime = initTime;
+            this.currentTime = 0;
             this.data=data;
             this.active = false;
+            this.ending = false;
         };
 
         AmbientState.prototype.getInitAfterTime = function() {
@@ -23,29 +25,47 @@ define(
         };
 
         AmbientState.prototype.getActivateAfterTime = function() {
-            return this.initTime + this.data.active.delay;
+            return this.initTime + this.data.loops.delay;
         };
 
         AmbientState.prototype.triggerInitAmbientState = function() {
-            this.ambiencePlayer.playAmbience(this.data.init.soundName);
+            for (var i = 0; i < this.data.init.soundList.length; i++) {
+                this.ambiencePlayer.playAmbientOneshot(this.data.init.soundList[i]);
+            }
         };
 
         AmbientState.prototype.triggerActiveState = function() {
             this.active = true;
-            this.ambiencePlayer.playAmbience(this.data.active.soundName);
+
+            for (var i = 0; i < this.data.loops.soundList.length; i++) {
+                this.ambiencePlayer.loopAmbience(this.data.loops.soundList[i], this.data.loops.soundList[i]+this.initTime);
+            }
+
         };
 
         AmbientState.prototype.endAmbientState = function() {
-            if (!this.active) {
-                this.ambiencePlayer.stopAmbience(this.data.init.soundName);
+            if (this.ending) {
+                return;
             }
-            this.ambiencePlayer.playAmbience(this.data.active.soundName);
+            if (this.active) {
+                for (var i = 0; i < this.data.loops.soundList.length; i++) {
+                    this.ambiencePlayer.stopAmbience(this.data.loops.soundList[i]+this.initTime);
+                }
+            }
+            this.ending = true;
         };
+
+        AmbientState.prototype.progressTime = function(tpf) {
+            this.currentTime += tpf;
+
+        };
+
 
 
 
         var AmbiencePlayer = function() {
             this.currentAmbience = null;
+            this.ambientLoops = {};
             this.muted = false;
             this.totalTime = 0;
             this.transitionQueue = [];
@@ -68,31 +88,45 @@ define(
             PipelineAPI.subscribeToCategoryKey('ambience_states', 'game_ambience', applyConfig);
         };
 
-        AmbiencePlayer.prototype.playAmbience = function(soundName) {
-            if (this.currentAmbience == soundName) return;
-            if (!soundName && this.currentAmbience) soundName = this.currentAmbience;
-            this.currentAmbience = soundName;
+        AmbiencePlayer.prototype.playAmbientOneshot = function(soundName) {
+            if(!this.muted && soundName){
+
+                event.fireEvent(event.list().ONESHOT_SOUND, {soundData:event.sound()[soundName]});
+
+            }
+        };
+
+        AmbiencePlayer.prototype.loopAmbience = function(soundName, loopId) {
+            if (this.ambientLoops[loopId]) {
+                console.error("Ambient Loop already playing:", soundName, this.ambientLoops);
+                return;
+            }
 
             var _this = this;
 
             var playCallback = function(soundData) {
-                _this.playingSoundData = soundData;
+                _this.ambientLoops[loopId] = soundData;
             };
 
 
 
             if(!this.muted && soundName){
                 //    SoundHandler.play(soundName);
-
-                event.fireEvent(event.list().ONESHOT_SOUND, {soundData:event.sound()[soundName], playId:'ambient_'+soundName, callback:playCallback});
+                event.fireEvent(event.list().START_SOUND_LOOP, {soundData:event.sound()[soundName], loopId:loopId, callback:playCallback});
 
             }
         };
 
-        AmbiencePlayer.prototype.stopAmbience = function(soundName) {
-            if (!soundName && this.currentAmbience) soundName = this.currentAmbience;
-            //   SoundHandler.stop(soundName);
-            this.currentAmbience = null;
+        AmbiencePlayer.prototype.stopAmbience = function(loopId) {
+console.log("Stop Ambient sounds", loopId, this.ambientLoops)
+            if (!this.ambientLoops[loopId]) {
+                console.error("No loop registered for ", loopId, this.ambientLoops);
+                return;
+            }
+
+            event.fireEvent(event.list().STOP_SOUND_LOOP, {loopId:loopId});
+            delete this.ambientLoops[loopId];
+
         };
 
         AmbiencePlayer.prototype.mute = function(){
@@ -109,7 +143,13 @@ define(
         };
 
         AmbiencePlayer.prototype.transitToState = function(state) {
-            this.transitionQueue.push(new AmbientState(this.totalTime, this.configs[state], this));
+            if (this.configs[state]) {
+                console.log("transit to ambience state:", state, this.configs);
+                this.transitionQueue.push(new AmbientState(this.totalTime, this.configs[state], this));
+            } else {
+                console.log("no ambience state config for state:", state);
+            }
+
             if (this.currentAmbientState) {
                 this.currentAmbientState.endAmbientState();
             }
@@ -123,7 +163,7 @@ define(
             }
         };
 
-        AmbiencePlayer.prototype.processTimeUpdate = function() {
+        AmbiencePlayer.prototype.processTimeUpdate = function(tpf) {
             var next = this.getNextInLine();
 
             if (next) {
@@ -135,6 +175,7 @@ define(
             }
 
             if (this.currentAmbientState) {
+                this.currentAmbientState.progressTime(tpf);
                 if(!this.currentAmbientState.active) {
                     if (this.totalTime > this.currentAmbientState.getActivateAfterTime()) {
                         this.currentAmbientState.triggerActiveState();
@@ -147,7 +188,7 @@ define(
 
         AmbiencePlayer.prototype.updateAmbiencePlayer = function(tpf) {
             this.totalTime += tpf;
-            this.processTimeUpdate();
+            this.processTimeUpdate(tpf);
         };
 
         AmbiencePlayer.prototype.setupEventListener = function() {
