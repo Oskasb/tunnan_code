@@ -6,6 +6,8 @@
 			"configs/validation/type_validation.json",
 			"configs/validation/shapes_validation.json",
 		  	"configs/gamestates/main_states.json",
+		  	"configs/gamestates/music_states.json",
+		  	"configs/gamestates/ambience_states.json",
 			"configs/game/application_settings.json",
 
 		  	"configs/game/controls/default_controls.json",

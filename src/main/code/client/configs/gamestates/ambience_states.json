@@ -1,0 +1,33 @@
+[{
+  "ambience_states":{
+    "game_ambience": [
+      {
+        "id":"main_menu",
+        "data":{
+          "init":{
+            "delay":0.1,
+            "soundName":"FX_VERB"
+          },
+          "loops":{
+            "delay":0.1,
+            "soundList":["DARK_SUSPENS"]
+          },
+          "oneshots":{
+            "channels":[
+              {
+                "intensity":0.05,
+                "delay":4,
+                "soundList": ["ENGINE_START", "ENGINE_STOP"]
+              },
+              {
+                "intensity":0.15,
+                "delay":1,
+                "soundList": ["SPLASH_0", "SPLASH_1", "SPLASH_2", "SPLASH_3"]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}]
