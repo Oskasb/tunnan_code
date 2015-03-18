@@ -100,7 +100,7 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
         var play = function(sourceNode, gain, looping, fadeTime) {
 			sourceNode.loop = looping;
 			sourceNode.start(0);
-            sourceNode.gainNode.gain.value = gain;
+            sourceNode.gainNode.gain.linearRampToValueAtTime(gain, context.currentTime);
 			fadeGain(sourceNode.fadeNode, 1, fadeTime)
         };
 

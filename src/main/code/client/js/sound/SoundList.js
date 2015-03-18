@@ -49,10 +49,10 @@ define(["game/GameConfiguration"],function(gameConfig){
         FOUNTAIN_LOOP   :   {folder:"water"   ,file:"fountain"       , gain:1,     track:TRACKS.game,    options:{preload:false, refDist:4,   rolloff:0.44}},
         FX_VERB         :   {folder:"fx"      ,file:"AmbMix"         , gain:1,     track:TRACKS.ambient, options:{preload:true,  refDist:4,   rolloff:0.04}},
 
-        JET_LOOP_LOUD_1 :   {folder:"jet"     ,file:"jet_loop_loud_1", gain:0.7,   track:TRACKS.game, options:{preload:true}},
+        JET_LOOP_LOUD_1 :   {folder:"jet"     ,file:"jet_loop_loud_1", gain:0.5,   track:TRACKS.game, options:{preload:true}},
         JET_LOOP_LOUD_2 :   {folder:"jet"     ,file:"jet_loop_loud_2", gain:0.8,   track:TRACKS.game, options:{preload:true}},
         JET_LOOP_WEAK_1 :   {folder:"jet"     ,file:"jet_loop_weak_1", gain:1.3,   track:TRACKS.game, options:{preload:true}},
-        JET_LOOP_AMB_1  :   {folder:"jet"     ,file:"jet_loop_ambient_1", gain:4.3,   track:TRACKS.game, options:{preload:true}},
+        JET_LOOP_AMB_1  :   {folder:"jet"     ,file:"jet_loop_ambient_1", gain:2.3,   track:TRACKS.game, options:{preload:true}},
 
         JET_REV_UP_WEAK_1:  {folder:"jet"     ,file:"jet_revup_weak_1",gain:1.0,   track:TRACKS.game, options:{preload:true}},
         JET_TAKEOFF_1    :  {folder:"jet"     ,file:"jet_takeoff_1"   ,gain:0.2,   track:TRACKS.game, options:{preload:true}},

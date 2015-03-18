@@ -16,7 +16,7 @@
             "soundList": ["JET_LOOP_WEAK_1"]
           },
           "exit":{
-              "delay":3
+              "delay":2
           },
           "oneshots": {
             "channels": [
@@ -46,14 +46,14 @@
         "id":"tomcat_controls",
         "data":{
           "init":{
-            "delay":0.1,
+            "delay":0,
             "soundList":[]
           },
           "loops":{
-            "delay":1.1,
-            "fadeIn": 6,
+            "delay":0.1,
+            "fadeIn": 1,
             "fadeOut": 4,
-            "soundList":["JET_LOOP_AMB_1"]
+            "soundList":["JET_LOOP_AMB_1", "JET_LOOP_LOUD_1"]
           },
           "exit":{
             "delay":1

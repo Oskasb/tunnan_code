@@ -56,7 +56,7 @@ define(
                 var stopAmb = function(soundName, fadeTime, delay) {
                     setTimeout(function() {
                         player.stopAmbience(soundName, fadeTime);
-                    }, delay);
+                    }, delay * 1000);
                 };
 
                 for (var i = 0; i < this.data.loops.soundList.length; i++) {
