@@ -281,6 +281,7 @@ define(['game/world/PhysicalWorld',
 				return false
 			}
 
+			SystemBus.emit('enterMusicState', {musicState:"catapult_ready"});
 			SystemBus.emit("message_to_gui", {channel:'system_channel', message:"Catapult Ready"});
 			return true;
 
@@ -313,6 +314,7 @@ define(['game/world/PhysicalWorld',
 
 		Boat.prototype.initPlaneReadyAtLot = function(passenger, parkingLot) {
 			this.setPassengerParkingLot(passenger, parkingLot);
+			SystemBus.emit('enterMusicState', {musicState:"plane_ready"});
 			console.log("Attach passenger:",passenger.id);
 		//	playerPieceHandler.removePlayerControlFrom(passenger);
 		};

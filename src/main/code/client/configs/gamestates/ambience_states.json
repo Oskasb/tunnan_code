@@ -5,14 +5,15 @@
         "id": "main_menu",
         "data": {
           "init": {
-            "delay": 0.1,
-            "soundList": ["ENGINE_STOP"]
+            "delay": 0.01,
+            "soundList": ["JET_REV_UP_WEAK_1"]
           },
           "loops": {
             "delay": 1.1,
-            "fadeIn": 4,
+            "fadeIn": 8,
             "fadeOut": 6,
-            "soundList": ["SPACEPORT_SUS"]
+            "tracks":[],
+            "soundList": ["JET_LOOP_LOUD_2"]
           },
           "oneshots": {
             "channels": [
@@ -48,7 +49,7 @@
             "delay":1.1,
             "fadeIn": 6,
             "fadeOut": 4,
-            "soundList":["SPACEPORT_SUS"]
+            "soundList":["SPACEPORT_SUS", "JET_LOOP_WEAK_1"]
           },
           "oneshots":{
             "channels":[

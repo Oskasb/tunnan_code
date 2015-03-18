@@ -27,7 +27,10 @@ define(
         };
 
         MusicState.prototype.triggerInitMusicState = function() {
-            this.musicPlayer.playMusic(this.data.init.soundName, 0);
+            if (this.data.init.soundName) {
+                this.musicPlayer.playMusic(this.data.init.soundName, 0);
+            }
+
         };
 
         MusicState.prototype.triggerActiveState = function() {
@@ -36,10 +39,10 @@ define(
         };
 
         MusicState.prototype.endMusicState = function() {
-            if (!this.active) {
-                this.musicPlayer.stopMusic(this.data.init.soundName, this.data.active.fadeOut);
+            if (this.active) {
+                this.musicPlayer.stopMusic(this.data.active.soundName, this.data.active.fadeOut);
             }
-            this.musicPlayer.stopMusic(this.data.active.soundName, this.data.active.fadeOut);
+
         };
 
 
@@ -93,7 +96,9 @@ define(
         };
 
         MusicPlayer.prototype.stopMusic = function(soundName, fadeTime) {
-            if (!soundName && this.currentSong) soundName = this.currentSong;
+            if (!soundName) {
+                return;
+            }
          //   SoundHandler.stop(soundName);
 			event.fireEvent(event.list().STOP_SOUND, {playId:'music_'+soundName, fadeTime:fadeTime});
             this.currentSong = null;
@@ -114,15 +119,18 @@ define(
 
         MusicPlayer.prototype.transitToState = function(state) {
 
+            if (this.currentMusicState) {
+                this.currentMusicState.endMusicState();
+            }
+
             if (this.configs[state]) {
                 this.transitionQueue.push(new MusicState(this.totalTime, this.configs[state], this));
             } else {
                 console.log("no music state config for state:", state);
+                this.currentMusicState = null;
             }
 
-            if (this.currentMusicState) {
-                this.currentMusicState.endMusicState();
-            }
+
         };
 
         MusicPlayer.prototype.getNextInLine = function() {

@@ -72,7 +72,6 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
 
         var pause = function(sourceNode, fadeTime) {
             if (fadeTime) {
-                console.log("Fade out: ", context.currentTime, fadeTime);
 				fadeGain(sourceNode.gainNode, 0, fadeTime);
                 sourceNode.stop(context.currentTime + fadeTime);
             } else {
@@ -103,14 +102,11 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
 			if (!fadeTime) {
 				fadeTime = 0.001;
 			}
-			console.log("Fade: ", fadeTime);
-		//	gainNode.gain.linearRampToValueAtTime(0.01, context.currentTime + 0);
 			gainNode.gain.linearRampToValueAtTime(value, context.currentTime + fadeTime);
-		//	gainNode.gain.value = value;
 		};
 
 
-        var play = function(sourceNode, looping, fadeTime) {
+        var play = function(sourceNode, gain, looping, fadeTime) {
 			sourceNode.loop = looping;
 			sourceNode.start(0);
 			fadeGain(sourceNode.gainNode, gain, fadeTime)

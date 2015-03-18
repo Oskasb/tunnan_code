@@ -15,7 +15,7 @@ define(
             this.ambiencePlayer = ambiencePlayer;
             this.initTime = initTime;
             this.currentTime = 0;
-            this.data=data;
+            this.data = data;
             this.active = false;
             this.ending = false;
         };
@@ -57,9 +57,6 @@ define(
             this.currentTime += tpf;
 
         };
-
-
-
 
         var AmbiencePlayer = function() {
             this.currentAmbience = null;
@@ -116,7 +113,7 @@ define(
         };
 
         AmbiencePlayer.prototype.stopAmbience = function(loopId, fadeTime) {
-console.log("Stop Ambient sounds", loopId, this.ambientLoops)
+            console.log("Stop Ambient sounds", loopId, fadeTime, this.ambientLoops)
             if (!this.ambientLoops[loopId]) {
                 console.error("No loop registered for ", loopId, this.ambientLoops);
                 return;

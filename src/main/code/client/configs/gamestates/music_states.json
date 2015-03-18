@@ -12,6 +12,28 @@
               "soundName":"MUSIC_INTRO_ANT"
           }
         }
+      },{
+        "id":"plane_ready",
+        "data":{
+          "init":{"delay":1},
+          "active":{
+            "delay":2,
+            "fadeIn": 3,
+            "fadeOut": 2,
+            "soundName":"MUSIC_SYNTH_BACK"
+          }
+        }
+      },{
+        "id":"catapult_ready",
+        "data":{
+          "init":{"delay":0},
+          "active":{
+            "delay":0,
+            "fadeIn": 1,
+            "fadeOut": 2,
+            "soundName":"MUSIC_INDO_PROT"
+          }
+        }
       }
     ]
   }

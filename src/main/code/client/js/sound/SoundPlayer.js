@@ -57,7 +57,7 @@ define(["application/EventManager",
         }
 
         channelMixer.addSoundToChannel(sound, soundData);
-        sound.source.play(sourceNode, loop, fadeTime);
+        sound.source.play(sourceNode, sound.gain, loop, fadeTime);
 
         if (typeof(callback) == "function") callback(soundData);
     };
@@ -86,14 +86,12 @@ define(["application/EventManager",
     };
 
     var stopLoop = function(loopId, fadeTime) {
-        var source = loopingSounds[loopId].source;
-        source.pause(loopingSounds[loopId].sourceNode, fadeTime);
+        loopingSounds[loopId].source.pause(loopingSounds[loopId].sourceNode, fadeTime);
         delete loopingSounds[loopId];
     };
 
     var stopOneshot = function(playId, fadeTime) {
-        var source = startedOneshots[playId].source;
-        source.pause(startedOneshots[playId].sourceNode, fadeTime);
+        startedOneshots[playId].source.pause(startedOneshots[playId].sourceNode, fadeTime);
         delete startedOneshots[playId];
     };
 
@@ -158,7 +156,7 @@ define(["application/EventManager",
     };
 
     var handleAmbientOneshot = function(e) {
-        var soundData = event.eventArgs(e).soundData;
+        var soundListData = event.eventArgs(e).soundData;
         var pos = event.eventArgs(e).pos;
         var vel = event.eventArgs(e).vel;
         var dir = event.eventArgs(e).dir;
@@ -166,7 +164,7 @@ define(["application/EventManager",
 
         var distance = getDistanceFromListener(pos);
         if (distance > 10000) return;
-        var panner = getAvailablePannerNode(soundData.options.refDist, soundData.options.rolloff);
+        var panner = getAvailablePannerNode(soundListData.options.refDist, soundListData.options.rolloff);
         var gainNode = context.createGain();
         panner.setPosition(pos[0], pos[1], pos[2]);
         if (!vel) vel = [0, 0, 0];
@@ -177,19 +175,19 @@ define(["application/EventManager",
 			soundData.data.sourceGain.connect(gainNode);
             gainNode.connect(panner);
             channelMixer.connectNodeToChannel(panner, channelMixer.getTracks().game.id);
-			soundData.source.play(soundData.sourceNode, false, fadeTime);
+			soundData.source.play(soundData.sourceNode, soundListData.gain, false, fadeTime);
         };
 
-        fetchSound(soundData, callback);
+        fetchSound(soundListData, callback);
     };
 
     var handleAmbientLoop = function(e) {
-        var soundData = event.eventArgs(e).soundData;
+        var soundListData = event.eventArgs(e).soundData;
         var playId = event.eventArgs(e).playId;
         var callback = event.eventArgs(e).callback;
         var fadeTime =event.eventArgs(e).fadeTime;
 
-        var panner = getAvailablePannerNode(soundData.options.refDist, soundData.options.rolloff);
+        var panner = getAvailablePannerNode(soundListData.options.refDist, soundListData.options.rolloff);
         var gainNode = context.createGain();
 
         var soundCB = function(soundData) {
@@ -203,11 +201,11 @@ define(["application/EventManager",
 			soundData.gainNode = gainNode;
 			soundData.playId = playId;
             callback(soundData);
-			soundData.source.play(soundData.sourceNode, true, fadeTime);
+			soundData.source.play(soundData.sourceNode, soundListData.gain, true, fadeTime);
             loopingSounds[playId] = soundData;
         };
 
-        fetchSound(soundData, soundCB);
+        fetchSound(soundListData, soundCB);
     };
 
     var handleListenerMoved = function(e) {

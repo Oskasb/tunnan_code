@@ -49,13 +49,24 @@ define(["game/GameConfiguration"],function(gameConfig){
         FOUNTAIN_LOOP   :   {folder:"water"   ,file:"fountain"       , gain:1,     track:TRACKS.game,    options:{preload:false, refDist:4,   rolloff:0.44}},
         FX_VERB         :   {folder:"fx"      ,file:"AmbMix"         , gain:1,     track:TRACKS.ambient, options:{preload:true,  refDist:4,   rolloff:0.04}},
 
-        SEATOWN_AMB     :   {folder:"ambient" ,file:"seatown_birds"  , gain:1.45,  track:TRACKS.ambient, options:{preload:false}},
-        DARK_SUSPENS    :   {folder:"ambient" ,file:"dark_suspens"   , gain:0.85,  track:TRACKS.ambient, options:{preload:false}},
-        HANGAR_AMB      :   {folder:"ambient" ,file:"hangar_amb"     , gain:1.45,  track:TRACKS.ambient, options:{preload:false}},
-        SPACEPORT_SUS   :   {folder:"ambient" ,file:"spaceport_sus"  , gain:2.85,  track:TRACKS.ambient, options:{preload:false}},
+        JET_LOOP_LOUD_1 :   {folder:"jet"     ,file:"jet_loop_loud_1", gain:0.5,   track:TRACKS.game, options:{preload:true}},
+        JET_LOOP_LOUD_2 :   {folder:"jet"     ,file:"jet_loop_loud_2", gain:0.3,   track:TRACKS.game, options:{preload:true}},
+        JET_LOOP_WEAK_1 :   {folder:"jet"     ,file:"jet_loop_weak_1", gain:1.0,   track:TRACKS.game, options:{preload:true}},
 
-        MUSIC_INTRO_ANT :   {folder:"music"   ,file:"intro_ant"      , gain:6,     track:TRACKS.music,   options:{preload:false}},
-        MUSIC_CA_OPEM   :   {folder:"music"   ,file:"CA_Open"        , gain:1,     track:TRACKS.music,   options:{preload:false}},
+        JET_REV_UP_WEAK_1:  {folder:"jet"     ,file:"jet_revup_weak_1",gain:1.0,   track:TRACKS.game, options:{preload:true}},
+        JET_TAKEOFF_1    :  {folder:"jet"     ,file:"jet_takeoff_1"   ,gain:1.0,   track:TRACKS.game, options:{preload:true}},
+        JET_TAKEOFF_2    :  {folder:"jet"     ,file:"jet_takeoff_2"   ,gain:1.0,   track:TRACKS.game, options:{preload:true}},
+
+        SEATOWN_AMB     :   {folder:"ambient" ,file:"seatown_birds"  , gain:1.45,  track:TRACKS.game, options:{preload:true}},
+        DARK_SUSPENS    :   {folder:"ambient" ,file:"dark_suspens"   , gain:0.85,  track:TRACKS.game, options:{preload:true}},
+        HANGAR_AMB      :   {folder:"ambient" ,file:"hangar_amb"     , gain:1.45,  track:TRACKS.game, options:{preload:true}},
+        SPACEPORT_SUS   :   {folder:"ambient" ,file:"spaceport_sus"  , gain:2.85,  track:TRACKS.game, options:{preload:true}},
+
+        MUSIC_INTRO_ANT :   {folder:"music"   ,file:"intro_ant"      , gain:5,     track:TRACKS.music,   options:{preload:true}},
+        MUSIC_SYNTH_BACK:   {folder:"music"   ,file:"SynthBack1"     , gain:1,     track:TRACKS.music,   options:{preload:false}},
+        MUSIC_INDO_PROT :   {folder:"music"   ,file:"IndoPrototype"  , gain:1,     track:TRACKS.music,   options:{preload:false}},
+
+        MUSIC_CA_OPEN   :   {folder:"music"   ,file:"CA_Open"        , gain:1,     track:TRACKS.music,   options:{preload:false}},
         MUSIC_CA_BOMBI  :   {folder:"music"   ,file:"CA_Bombi"       , gain:1,     track:TRACKS.music,   options:{preload:false}},
         MUSIC_BLIPPIT   :   {folder:"music"   ,file:"blippit"        , gain:1,     track:TRACKS.music,   options:{preload:false}}
     }
