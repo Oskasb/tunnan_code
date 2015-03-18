@@ -46,8 +46,21 @@ define(
                 return;
             }
             if (this.active) {
+
+                var exitDelay = 0;
+                if (this.data.exit) {
+                    exitDelay += this.data.exit.delay;
+                }
+                var player = this.ambiencePlayer;
+
+                var stopAmb = function(soundName, fadeTime, delay) {
+                    setTimeout(function() {
+                        player.stopAmbience(soundName, fadeTime);
+                    }, delay);
+                };
+
                 for (var i = 0; i < this.data.loops.soundList.length; i++) {
-                    this.ambiencePlayer.stopAmbience(this.data.loops.soundList[i]+this.initTime, this.data.loops.fadeOut);
+                    stopAmb(this.data.loops.soundList[i]+this.initTime, this.data.loops.fadeOut, exitDelay);
                 }
             }
             this.ending = true;

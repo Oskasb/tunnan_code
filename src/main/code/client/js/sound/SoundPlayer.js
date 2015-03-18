@@ -42,7 +42,6 @@ define(["application/EventManager",
     };
 
     var playSound = function(sound, playId, fadeTime, callback, loop) {
-        sound.source.setGain(sound.gain);
 
         var sourceNode = sound.source.getSource();
         var gainNode = sound.source.wire(sourceNode);

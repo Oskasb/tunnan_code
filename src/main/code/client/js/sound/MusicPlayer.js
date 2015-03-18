@@ -40,7 +40,17 @@ define(
 
         MusicState.prototype.endMusicState = function() {
             if (this.active) {
-                this.musicPlayer.stopMusic(this.data.active.soundName, this.data.active.fadeOut);
+                var exitDelay = 0;
+                if (this.data.exit) {
+                    exitDelay += this.data.exit.delay;
+                }
+                var player = this.musicPlayer;
+                var soundName = this.data.active.soundName;
+                var fadeTime = this.data.active.fadeOut
+                setTimeout(function() {
+                    player.stopMusic(soundName, fadeTime);
+                }, exitDelay * 1000);
+
             }
 
         };

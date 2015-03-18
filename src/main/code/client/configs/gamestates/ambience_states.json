@@ -6,14 +6,17 @@
         "data": {
           "init": {
             "delay": 0.01,
-            "soundList": ["JET_REV_UP_WEAK_1"]
+            "soundList": ["JET_TAKEOFF_1", "JET_REV_UP_WEAK_1"]
           },
           "loops": {
-            "delay": 1.1,
-            "fadeIn": 8,
-            "fadeOut": 6,
+            "delay": 0.1,
+            "fadeIn": 2,
+            "fadeOut": 8,
             "tracks":[],
-            "soundList": ["JET_LOOP_LOUD_2"]
+            "soundList": ["JET_LOOP_WEAK_1"]
+          },
+          "exit":{
+              "delay":3
           },
           "oneshots": {
             "channels": [
@@ -21,6 +24,7 @@
                 "intensity": 0.05,
                 "delay": 4,
                 "soundList": [
+                  "JET_REV_UP_WEAK_1",
                   "ENGINE_START",
                   "ENGINE_STOP"
                 ]
@@ -43,13 +47,16 @@
         "data":{
           "init":{
             "delay":0.1,
-            "soundList":["FX_VERB", "ENGINE_START"]
+            "soundList":[]
           },
           "loops":{
             "delay":1.1,
             "fadeIn": 6,
             "fadeOut": 4,
-            "soundList":["SPACEPORT_SUS", "JET_LOOP_WEAK_1"]
+            "soundList":["JET_LOOP_AMB_1"]
+          },
+          "exit":{
+            "delay":1
           },
           "oneshots":{
             "channels":[

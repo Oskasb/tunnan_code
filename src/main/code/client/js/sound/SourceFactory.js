@@ -64,60 +64,51 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
 
     var contextSource = function(bufferData) {
         var buffer = bufferData;
-        var gain = 1;
-
-        var updateGainNode = function(value) {
-            gain = value;
-        };
 
         var pause = function(sourceNode, fadeTime) {
             if (fadeTime) {
-				fadeGain(sourceNode.gainNode, 0, fadeTime);
+				fadeGain(sourceNode.fadeNode, 0, fadeTime);
                 sourceNode.stop(context.currentTime + fadeTime);
             } else {
                 sourceNode.stop(0);
             }
         };
 
-        var setGain = function(value) {
-            updateGainNode(value);
-        };
-
         var getSource = function() {
             var sourceNode = context.createBufferSource();
             sourceNode.buffer = buffer;
 			sourceNode.gainNode = context.createGain();
-			sourceNode.gainNode.gain.linearRampToValueAtTime(0.00001, context.currentTime);
+            sourceNode.fadeNode = context.createGain();
             return sourceNode;
         };
 
         var wire = function(sourceNode) {
             sourceNode.buffer = buffer;
-            sourceNode.connect(sourceNode.gainNode);
-			sourceNode.gainNode.gain.value = 0.001;
+            sourceNode.connect(sourceNode.fadeNode);
+            sourceNode.fadeNode.connect(sourceNode.gainNode);
+            sourceNode.fadeNode.gain.linearRampToValueAtTime(0.00001, context.currentTime);
             return sourceNode.gainNode;
         };
 
-		var fadeGain = function(gainNode, value, fadeTime) {
+		var fadeGain = function(fadeNode, value, fadeTime) {
 			if (!fadeTime) {
 				fadeTime = 0.001;
 			}
-			gainNode.gain.linearRampToValueAtTime(value, context.currentTime + fadeTime);
+            fadeNode.gain.linearRampToValueAtTime(value, context.currentTime + fadeTime);
 		};
-
 
         var play = function(sourceNode, gain, looping, fadeTime) {
 			sourceNode.loop = looping;
 			sourceNode.start(0);
-			fadeGain(sourceNode.gainNode, gain, fadeTime)
+            sourceNode.gainNode.gain.value = gain;
+			fadeGain(sourceNode.fadeNode, 1, fadeTime)
         };
 
         return {
             getSource:getSource,
             wire:wire,
             play:play,
-            pause:pause,
-            setGain:setGain
+            pause:pause
         };
     };
 
