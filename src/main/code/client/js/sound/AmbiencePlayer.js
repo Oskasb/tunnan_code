@@ -66,8 +66,14 @@ define(
             this.ending = true;
         };
 
-        AmbientState.prototype.progressTime = function(tpf) {
+        AmbientState.prototype.progressTime = function(tpf, totalTime) {
             this.currentTime += tpf;
+
+            if (totalTime > this.getActivateAfterTime()) {
+                if(!this.active) {
+                    this.triggerActiveState();
+                }
+            }
 
         };
 
@@ -183,12 +189,14 @@ define(
             }
 
             if (this.currentAmbientState) {
-                this.currentAmbientState.progressTime(tpf);
+                this.currentAmbientState.progressTime(tpf, this.totalTime);
+                /*
                 if(!this.currentAmbientState.active) {
                     if (this.totalTime > this.currentAmbientState.getActivateAfterTime()) {
                         this.currentAmbientState.triggerActiveState();
                     }
                 }
+                */
             }
 
         };
