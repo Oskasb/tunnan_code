@@ -55,7 +55,10 @@
                 {"posOffset":[7, 0, -135.7], 	"spread":0.18},
                 {"posOffset":[11, 0, 155], 		"spread":0.2}
             ],
-            "radars":[],
+            "radars":[
+                {"bonePivot":"radar_main", "rotVel":0.03},
+                {"bonePivot":"radar_square", "rotVel":-0.01}
+            ],
             "flags":[],
             "turrets":[],
             "instruments": {},
