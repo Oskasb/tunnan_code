@@ -57,7 +57,11 @@
             ],
             "radars":[
                 {"bonePivot":"radar_main", "rotVel":0.03},
-                {"bonePivot":"radar_square", "rotVel":-0.01}
+                {"bonePivot":"radar_square", "rotVel":-0.02},
+                {"bonePivot":"radar_square_small", "rotVel":-0.045},
+                {"bonePivot":"radar_mast_flat", "rotVel":-0.065},
+                {"bonePivot":"radar_mast_1", "rotVel":-0.065},
+                {"bonePivot":"radar_mast_2", "rotVel":0.055}
             ],
             "flags":[],
             "turrets":[],
