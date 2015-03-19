@@ -46,8 +46,8 @@
             "physicalRadius":220,
             "chimneys":[],
             "wakes":[
-                {"posOffset":[0, 0, -160], 		"spread":0.001},
-                {"posOffset":[-0, 0, 170], 		"spread":0.5},
+                {"posOffset":[0, 0, -155], 		"spread":0.3},
+                {"posOffset":[-0, 0, 156], 		"spread":0.5},
                 {"posOffset":[-11, 0, 155], 	"spread":0.2},
                 {"posOffset":[3, -0, -145.7], 	"spread":0.07},
                 {"posOffset":[-3, -0, -145.7], 	"spread":0.07},
