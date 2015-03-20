@@ -10,6 +10,34 @@ define(
         event
     ) {
 
+        var OneshotChannel = function(ambiencePlayer, soundList, delay, intensity) {
+            this.ambiencePlayer = ambiencePlayer;
+            this.soundList = soundList;
+            this.playNextAt = 0;
+            this.delay = delay;
+            this.intensity = intensity;
+
+        };
+
+        OneshotChannel.prototype.triggerNext = function() {
+
+            var selection = Math.floor(Math.random()*this.soundList.length);
+            this.ambiencePlayer.playAmbientOneshot(this.soundList[selection]);
+
+        };
+
+        OneshotChannel.prototype.updateTime = function(stateTime) {
+
+            if (stateTime > this.playNextAt) {
+
+                if (Math.random() < this.intensity) {
+                    this.playNextAt  = stateTime+this.delay;
+                    this.triggerNext();
+                }
+
+            }
+
+        };
 
         var AmbientState = function(initTime, data, ambiencePlayer) {
             this.ambiencePlayer = ambiencePlayer;
@@ -18,6 +46,21 @@ define(
             this.data = data;
             this.active = false;
             this.ending = false;
+
+            this.oneshotChannels = [];
+
+        };
+
+        AmbientState.prototype.setupOneshotChannels = function() {
+            if (!this.data.oneshots) {
+                return;
+            }
+
+            for (var i = 0; i < this.data.oneshots.channels.length; i++) {
+                var chanData = this.data.oneshots.channels[i];
+                this.oneshotChannels.push(new OneshotChannel(this.ambiencePlayer, chanData.soundList, chanData.delay, chanData.intensity));
+            }
+
         };
 
         AmbientState.prototype.getInitAfterTime = function() {
@@ -71,8 +114,14 @@ define(
 
             if (totalTime > this.getActivateAfterTime()) {
                 if(!this.active) {
+                    this.setupOneshotChannels();
                     this.triggerActiveState();
                 }
+
+                for (var i = 0; i < this.oneshotChannels.length; i++) {
+                    this.oneshotChannels[i].updateTime(this.currentTime);
+                }
+
             }
 
         };

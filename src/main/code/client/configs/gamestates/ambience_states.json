@@ -5,11 +5,11 @@
         "id": "main_menu",
         "data": {
           "init": {
-            "delay": 2.01,
-            "soundList": ["JET_TAKEOFF_1", "JET_REV_UP_WEAK_1"]
+            "delay": 0.01,
+            "soundList": ["JET_REV_UP_WEAK_1"]
           },
           "loops": {
-            "delay": 0.1,
+            "delay": 2.1,
             "fadeIn": 2,
             "fadeOut": 8,
             "tracks":[],
@@ -21,32 +21,55 @@
           "oneshots": {
             "channels": [
               {
-                "intensity": 0.05,
+                "intensity": 0.01,
                 "delay": 4,
                 "soundList": [
                   "JET_REV_UP_WEAK_1",
+                  "JET_REV_UP_WEAK_1",
+                  "JET_REV_UP_WEAK_1",
                   "ENGINE_START",
-                  "ENGINE_STOP"
+                  "ENGINE_STOP",
+                  "JET_TAKEOFF_1",
+                  "JET_TAKEOFF_2",
+                  "JET_TAKEOFF_3"
                 ]
               },
               {
-                "intensity": 0.15,
-                "delay": 2,
+                "intensity": 0.01,
+                "delay": 4,
                 "soundList": [
-                  "SPLASH_0",
-                  "SPLASH_1",
-                  "SPLASH_2",
-                  "SPLASH_3"
+                  "MACHINE_ROT_SWELL_1",
+                  "MACHINE_ROT_SWELL_2",
+                  "MACHINE_ROT_SWELL_3",
+                  "HELICOPTER_SWELL_1",
+                  "HELICOPTER_SWELL_2"
                 ]
               },
               {
-                "intensity": 0.15,
-                "delay": 1,
+                "intensity": 0.01,
+                "delay": 3,
                 "soundList": [
-                  "SPLASH_0",
-                  "SPLASH_1",
-                  "SPLASH_2",
-                  "SPLASH_3"
+                  "ATC_CHATTER_1",
+                  "ATC_CHATTER_2",
+                  "ATC_CHATTER_3",
+                  "ATC_CHATTER_4",
+                  "ATC_CHATTER_5",
+                  "ATC_CHATTER_6",
+                  "ATC_CHATTER_7",
+                  "ATC_CHATTER_8",
+                  "ATC_CHATTER_9",
+                  "ATC_CHATTER_10",
+                  "ATC_CHATTER_11",
+                  "ATC_CHATTER_12",
+                  "ATC_CHATTER_13",
+                  "ATC_CHATTER_14",
+                  "ATC_CHATTER_15",
+                  "ATC_CHATTER_16",
+                  "ATC_CHATTER_17",
+                  "ATC_CHATTER_18",
+                  "ATC_CHATTER_19",
+                  "ATC_CHATTER_20",
+                  "ATC_CHATTER_21"
                 ]
               }
             ]
@@ -63,7 +86,7 @@
             "delay":0.1,
             "fadeIn": 1,
             "fadeOut": 4,
-            "soundList":["JET_LOOP_AMB_1"]
+            "soundList":["JET_LOOP_AMB_1", "JET_LOOP_LOUD_1"]
           },
           "exit":{
             "delay":1
@@ -71,14 +94,43 @@
           "oneshots":{
             "channels":[
               {
-                "intensity":0.05,
-                "delay":4,
-                "soundList": []
+                "intensity": 0.02,
+                "delay": 6,
+                "soundList": [
+                  "JET_REV_UP_WEAK_1",
+                  "ENGINE_START",
+                  "ENGINE_STOP"
+                ]
               },
               {
-                "intensity":0.15,
-                "delay":1,
-                "soundList": []
+                "intensity": 0.01,
+                "delay": 6,
+                "soundList": [
+                  "MACHINE_ROT_SWELL_1",
+                  "MACHINE_ROT_SWELL_2",
+                  "MACHINE_ROT_SWELL_3",
+                  "HELICOPTER_SWELL_1",
+                  "HELICOPTER_SWELL_2"
+                ]
+              },
+              {
+                "intensity": 0.002,
+                "delay": 4,
+                "soundList": [
+                  "MILITARY_CHATTER_1",
+                  "MILITARY_CHATTER_2",
+                  "MILITARY_CHATTER_3",
+                  "MILITARY_CHATTER_4",
+                  "MILITARY_CHATTER_5",
+                  "MILITARY_CHATTER_6",
+                  "MILITARY_CHATTER_7",
+                  "MILITARY_CHATTER_8",
+                  "MILITARY_CHATTER_9",
+                  "MILITARY_CHATTER_10",
+                  "MILITARY_CHATTER_11",
+                  "MILITARY_CHATTER_12",
+                  "MILITARY_CHATTER_13"
+                ]
               }
             ]
           }

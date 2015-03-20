@@ -26,7 +26,7 @@
             "soundName":"MUSIC_SYNTH_BACK"
           },
           "exit":{
-            "delay":3
+            "delay":0
           }
         }
       },{
