@@ -117,6 +117,16 @@
         }
       },
       {
+        "id":"display_blend_mode",
+        "params":{
+          "name":"Blend Mode",
+          "value":1,
+          "min":0,
+          "max":1,
+          "curveId":"zeroToOne"
+        }
+      },
+      {
         "id":"display_ui_pixel_scale",
         "params":{
           "name":"UI Pixel Scale",

@@ -35,7 +35,7 @@
           "init":{"delay":0},
           "active":{
             "delay":0,
-            "fadeIn": 1,
+            "fadeIn": 7,
             "fadeOut": 2,
             "soundName":"MUSIC_INDO_PROT"
           },

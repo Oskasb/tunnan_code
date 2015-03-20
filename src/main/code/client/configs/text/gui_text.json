@@ -18,6 +18,7 @@
             "menu_setup_button_label":"Setup",
             "menu_display_button_label":"Display",
             "menu_display_pixel_scale_label":"Px Scale",
+            "menu_display_blend_label":"Blend",
             "menu_display_ui_pixel_scale_label":"Px UI",
 
             "menu_sounds_button_label":"Sounds",

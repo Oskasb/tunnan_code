@@ -6,7 +6,7 @@
         "data": {
           "init": {
             "delay": 0.01,
-            "soundList": ["JET_REV_UP_WEAK_1"]
+            "soundList": ["ENGINE_STOP"]
           },
           "loops": {
             "delay": 2.1,
