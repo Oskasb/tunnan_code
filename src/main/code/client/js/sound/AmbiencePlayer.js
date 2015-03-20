@@ -16,12 +16,16 @@ define(
             this.playNextAt = 0;
             this.delay = delay;
             this.intensity = intensity;
-
+            this.lastSelection = 0;
         };
 
         OneshotChannel.prototype.triggerNext = function() {
 
             var selection = Math.floor(Math.random()*this.soundList.length);
+            if (selection == this.lastSelection) {
+                return;
+            }
+            this.lastSelection = selection;
             this.ambiencePlayer.playAmbientOneshot(this.soundList[selection]);
 
         };
