@@ -5,7 +5,7 @@
         "id": "main_menu",
         "data": {
           "init": {
-            "delay": 0.01,
+            "delay": 2.01,
             "soundList": ["JET_TAKEOFF_1", "JET_REV_UP_WEAK_1"]
           },
           "loops": {
@@ -27,6 +27,16 @@
                   "JET_REV_UP_WEAK_1",
                   "ENGINE_START",
                   "ENGINE_STOP"
+                ]
+              },
+              {
+                "intensity": 0.15,
+                "delay": 2,
+                "soundList": [
+                  "SPLASH_0",
+                  "SPLASH_1",
+                  "SPLASH_2",
+                  "SPLASH_3"
                 ]
               },
               {

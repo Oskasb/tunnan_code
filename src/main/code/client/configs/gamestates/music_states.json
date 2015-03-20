@@ -7,7 +7,7 @@
           "init":{"delay":0},
           "active":{
               "delay":0,
-              "fadeIn": 7,
+              "fadeIn": 2,
               "fadeOut": 7,
               "soundName":"MUSIC_INTRO_ANT"
           },

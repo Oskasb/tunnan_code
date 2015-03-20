@@ -49,12 +49,36 @@ define(["game/GameConfiguration"],function(gameConfig){
         FOUNTAIN_LOOP   :   {folder:"water"   ,file:"fountain"       , gain:1,     track:TRACKS.game,    options:{preload:false, refDist:4,   rolloff:0.44}},
         FX_VERB         :   {folder:"fx"      ,file:"AmbMix"         , gain:1,     track:TRACKS.ambient, options:{preload:true,  refDist:4,   rolloff:0.04}},
 
+
+        ATC_CHATTER_1   :   {folder:"chatter" ,file:"atc_chatter_1"  , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_2   :   {folder:"chatter" ,file:"atc_chatter_2"  , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_3   :   {folder:"chatter" ,file:"atc_chatter_3"  , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_4   :   {folder:"chatter" ,file:"atc_chatter_4"  , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_5   :   {folder:"chatter" ,file:"atc_chatter_5"  , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_6   :   {folder:"chatter" ,file:"atc_chatter_6"  , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_7   :   {folder:"chatter" ,file:"atc_chatter_7"  , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_8   :   {folder:"chatter" ,file:"atc_chatter_8"  , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_9   :   {folder:"chatter" ,file:"atc_chatter_9"  , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_10  :   {folder:"chatter" ,file:"atc_chatter_10" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_11  :   {folder:"chatter" ,file:"atc_chatter_11" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+
+        ATC_CHATTER_12   :  {folder:"chatter" ,file:"atc_chatter_12" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_13   :  {folder:"chatter" ,file:"atc_chatter_13" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_14   :  {folder:"chatter" ,file:"atc_chatter_14" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_15   :  {folder:"chatter" ,file:"atc_chatter_15" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_16   :  {folder:"chatter" ,file:"atc_chatter_16" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_17   :  {folder:"chatter" ,file:"atc_chatter_17" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_18   :  {folder:"chatter" ,file:"atc_chatter_18" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_19   :  {folder:"chatter" ,file:"atc_chatter_19" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_20   :  {folder:"chatter" ,file:"atc_chatter_20" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+        ATC_CHATTER_21   :  {folder:"chatter" ,file:"atc_chatter_21" , gain:0.5,   track:TRACKS.ambient, options:{preload:true}},
+
         JET_LOOP_LOUD_1 :   {folder:"jet"     ,file:"jet_loop_loud_1", gain:0.5,   track:TRACKS.game, options:{preload:true}},
         JET_LOOP_LOUD_2 :   {folder:"jet"     ,file:"jet_loop_loud_2", gain:0.8,   track:TRACKS.game, options:{preload:true}},
-        JET_LOOP_WEAK_1 :   {folder:"jet"     ,file:"jet_loop_weak_1", gain:1.3,   track:TRACKS.game, options:{preload:true}},
+        JET_LOOP_WEAK_1 :   {folder:"jet"     ,file:"jet_loop_standby_1", gain:1.3,   track:TRACKS.game, options:{preload:true}},
         JET_LOOP_AMB_1  :   {folder:"jet"     ,file:"jet_loop_ambient_1", gain:2.3,   track:TRACKS.game, options:{preload:true}},
 
-        JET_REV_UP_WEAK_1:  {folder:"jet"     ,file:"jet_revup_weak_1",gain:1.0,   track:TRACKS.game, options:{preload:true}},
+        JET_REV_UP_WEAK_1:  {folder:"jet"     ,file:"jet_start_1"     ,gain:1.0,   track:TRACKS.game, options:{preload:true}},
         JET_TAKEOFF_1    :  {folder:"jet"     ,file:"jet_takeoff_1"   ,gain:0.2,   track:TRACKS.game, options:{preload:true}},
         JET_TAKEOFF_2    :  {folder:"jet"     ,file:"jet_takeoff_2"   ,gain:1.0,   track:TRACKS.game, options:{preload:true}},
 
@@ -62,6 +86,8 @@ define(["game/GameConfiguration"],function(gameConfig){
         DARK_SUSPENS    :   {folder:"ambient" ,file:"dark_suspens"   , gain:1,  track:TRACKS.game, options:{preload:true}},
         HANGAR_AMB      :   {folder:"ambient" ,file:"hangar_amb"     , gain:1,  track:TRACKS.game, options:{preload:true}},
         SPACEPORT_SUS   :   {folder:"ambient" ,file:"spaceport_sus"  , gain:1,  track:TRACKS.game, options:{preload:true}},
+
+
 
         MUSIC_INTRO_ANT :   {folder:"music"   ,file:"intro_ant"      , gain:5,     track:TRACKS.music,   options:{preload:true}},
         MUSIC_SYNTH_BACK:   {folder:"music"   ,file:"SynthBack1"     , gain:1,     track:TRACKS.music,   options:{preload:false}},
