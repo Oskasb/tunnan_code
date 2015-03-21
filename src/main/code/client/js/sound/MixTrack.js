@@ -58,13 +58,13 @@ define([
 		this.auxSendGain.gain.value = this.fxSend;
 		if (this.fxSend) {
 			if (!this.fxConnected) {
-				console.log("Connect to FX: ", this.channelId)
+		//		console.log("Connect to FX: ", this.channelId)
 				EffectTrack.connectTrackToFx(this.auxSendGain);
 			}
 			this.fxConnected = true;
 		} else {
 			if (this.fxConnected) {
-				console.log("Disconnect FX: ", this.channelId)
+		//		console.log("Disconnect FX: ", this.channelId)
 				this.auxSendGain.disconnect();
 			}
 			this.fxConnected = false;

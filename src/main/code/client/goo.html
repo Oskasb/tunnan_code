@@ -21,6 +21,34 @@
 <script>
     window.resourcePath = "../../../../../../projects/tunnan/tunnan_resources/";
     window.gooBundlesPath = "../../../../../../projects/tunnan/tunnan_resources/";
+
+    window.dataPipelineSetup = {
+        "jsonPipe":{
+            "polling":{
+                "enabled":false,
+                "frequency":30
+            }
+        },
+        "svgPipe":{
+            "polling":{
+                "enabled":false,
+                "frequency":2
+            }
+        },
+        "imagePipe":{
+            "polling":{
+                "enabled":false,
+                "frequency":2
+            }
+        },
+        "gooPipe":{
+            "polling":{
+                "enabled":false,
+                "frequency":2
+            }
+        }
+    };
+
     function suppressBackspace(evt) {
         evt = evt || window.event;
         var target = evt.target || evt.srcElement;

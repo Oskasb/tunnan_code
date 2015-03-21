@@ -101,11 +101,20 @@ define(["application/EventManager",
 
         PlaneEngine.prototype.updateEffects = function(state, target, density, tpf) {
 
+			if (!this.fireSounds[getJetSoundId(this.engineId)]) {
+				return;
+			}
+
+			if (!this.fireSounds[getTurbineSoundId(this.engineId)]) {
+				return;
+			}
+
+			if (!this.fireSounds[getToneSoundId(this.engineId)]) {
+				return;
+			}
+
 			var flameAmount = 0.4 *(1 - Math.cos(0.5 * Math.PI * state));
 			var smokeAmount = 10*(target-state);
-
-
-
 
 
         /*

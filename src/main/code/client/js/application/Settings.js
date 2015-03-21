@@ -46,7 +46,6 @@ define([
 		};
 
 		Setting.prototype.applyConfigParams = function(params) {
-			console.log("Apply Config Params", params)
 			this.params = new SettingParams(params.name, params.min,  params.max, params.curveId);
 			this.setValue(params.value);
 		};
@@ -140,12 +139,11 @@ define([
 			}
 
 			var onLoad = function(loadedId, loadedParams) {
-				console.log("Loaded settings", loadedId, loadedParams)
 				list[loadedId].applyConfigParams(loadedParams);
 			};
 
 			var loaded = loadSetting(id, onLoad);
-			console.log("Loaded check: ", loaded)
+
 			if (loaded != 4) {
 				list[id].applyConfigParams(params)
 			}
@@ -170,7 +168,7 @@ define([
 			if (list[settingId]) {
 				callback(list[settingId].getProcessedValue());
 			} else {
-				console.log("Setting Callback registered, setting not yet defined", settingId);
+			//	console.log("Setting Callback registered, setting not yet defined", settingId);
 			}
 
 		};
@@ -179,7 +177,6 @@ define([
 			if (!onChangeCallbacks[settingId]) {
 				onChangeCallbacks[settingId] = [];
 				setupQueue.push(settingId);
-				console.error("Fire request on non existing callbacks:", settingId);
 			}
 
 			for (var i = 0; i < onChangeCallbacks[settingId].length; i++) {

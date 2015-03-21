@@ -1,6 +1,9 @@
-define(["application/EventManager",
+define([
+	'sound/SoundLoader',
+	"application/EventManager",
     'application/DeviceHandler',
     'sound/ChannelMixer'], function(
+		SoundLoader,
     event,
     deviceHandler,
     channelMixer) {
@@ -41,37 +44,76 @@ define(["application/EventManager",
         console.log("PANNER POOL:", pannerPool)
     };
 
+	var play = function(sound, playId, fadeTime, callback, loop) {
+		var sourceNode = sound.source.getSource();
+		var gainNode = sound.source.wire(sourceNode);
+
+		var soundData = {playId:playId, source:sound.source, sourceNode:sourceNode, gainNode:gainNode};
+
+
+		if (loop) {
+			loopingSounds[playId] = soundData;
+		} else {
+			if (playId) startedOneshots[playId] = soundData;
+		}
+
+		channelMixer.addSoundToChannel(sound, soundData);
+		sound.source.play(sourceNode, sound.gain, loop, fadeTime);
+
+		if (typeof(callback) == "function") callback(soundData);
+	};
+
+	var lazyLoads = {};
+
+	var lazySound = function(sound, callback) {
+		SoundLoader.loadSoundItem(sound, callback)
+	};
+
     var playSound = function(sound, playId, fadeTime, callback, loop) {
 
-        var sourceNode = sound.source.getSource();
-        var gainNode = sound.source.wire(sourceNode);
+		if (!sound.source) {
+			if (lazyLoads[sound.file]) {
+				return;
+			}
 
-        var soundData = {playId:playId, source:sound.source, sourceNode:sourceNode, gainNode:gainNode};
+			lazyLoads[sound.file] = function() {
+				play(sound, playId, fadeTime, callback, loop);
+				delete lazyLoads[sound.file];
+			};
+
+			var onLoaded = function() {
+				lazyLoads[sound.file]();
+			};
+			lazySound(sound, onLoaded)
 
 
-        if (loop) {
-            loopingSounds[playId] = soundData;
-        } else {
-            if (playId) startedOneshots[playId] = soundData;
-        }
+		} else {
+			play(sound, playId, fadeTime, callback, loop)
+		}
 
-        channelMixer.addSoundToChannel(sound, soundData);
-        sound.source.play(sourceNode, sound.gain, loop, fadeTime);
-
-        if (typeof(callback) == "function") callback(soundData);
     };
 
     var fetchSound = function(sound, callback) {
-        if (typeof(sound.source.getSource) == "function") {
-            var sourceNode = sound.source.getSource();
-            sound.sourceGain = sound.source.wire(sourceNode);
-        } else {
-            //    alert("Source Not Available: "+sound.file);
-            return;
-        }
-        var soundData = {source:sound.source, sourceNode:sourceNode, data:sound};
-        //    console.log("soundData: ", soundData)
-        callback(soundData);
+
+		var sourceReady = function() {
+			if (typeof(sound.source.getSource) == "function") {
+				var sourceNode = sound.source.getSource();
+				sound.sourceGain = sound.source.wire(sourceNode);
+			} else {
+				//    alert("Source Not Available: "+sound.file);
+				return;
+			}
+			var soundData = {source:sound.source, sourceNode:sourceNode, data:sound};
+			//    console.log("soundData: ", soundData)
+			callback(soundData);
+		};
+
+		if (!sound.source) {
+			lazySound(sound, sourceReady);
+		} else {
+			sourceReady()
+		}
+
     };
 
     var fetchBuffer = function(sound, callback) {

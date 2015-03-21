@@ -83,7 +83,6 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
         };
 
         var wire = function(sourceNode) {
-            sourceNode.buffer = buffer;
             sourceNode.connect(sourceNode.fadeNode);
             sourceNode.fadeNode.connect(sourceNode.gainNode);
             sourceNode.fadeNode.gain.linearRampToValueAtTime(0.00001, context.currentTime);
@@ -157,7 +156,7 @@ define(["io/Requests", "io/Send","application/EventManager"], function(requests,
 
             context.decodeAudioData(response, function(buffer) {
                 listSound.source = new contextSource(buffer);
-				console.log("Sound Loaded: ", listSound, file, url, buffer)
+			//	console.log("Sound Loaded: ", listSound, file, url, buffer)
                 completionCallback(0, 1, 0, file);
             }, onError);
 
