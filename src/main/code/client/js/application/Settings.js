@@ -26,28 +26,22 @@ define([
 			"growShrink":   [[0, 1], [0.5,0], [1, -2]]
 		};
 
-
-		var Setting = function(id) {
-			this.id = id;
-			this.params = {
-
-			};
-			this.name = id;
-			this.value = 1;
-			this.curve = [[0, 0], [1, 1]];
-			this.processedValue;
-			this.min = 0;
-			this.max = 1;
-			this.changedCallbacks = [];
-			this.processValue();
-		};
-
-		Setting.prototype.applyConfigParams = function(name, defaultValue, min, max, curve) {
+		var SettingParams = function(name, min, max, curve) {
+			this.value;
 			this.name = name;
 			this.curve = curve;
 			this.min = min;
 			this.max = max;
-			this.setValue(defaultValue);
+		};
+
+		var Setting = function(id) {
+			this.id = id;
+			this.processedValue;
+		};
+
+		Setting.prototype.applyConfigParams = function(params) {
+			this.params = new SettingParams(params.name, params.min,  params.max, curves[params.curveId]);
+			this.setValue(params.value);
 		};
 
 		Setting.prototype.getInterpolatedInCurveAboveIndex = function(value, curve, index) {
@@ -63,46 +57,45 @@ define([
 		};
 
 		Setting.prototype.setValue = function(value) {
-			if (value > this.max) {
-				value = this.max
-			} else if (value < this.min) (
-			    value = this.min
+			if (value > this.params.max) {
+				value = this.params.max
+			} else if (value < this.params.min) (
+			    value = this.params.min
 			);
 
-			if (this.value != value) {
-				this.value = value;
+			if (this.params.value != value) {
+				this.params.value = value;
 				this.processValue();
-				this.onStateChange(this.processedValue);
+				this.onStateChange();
 			}
 		};
 
 		Setting.prototype.processValue = function() {
-			this.processedValue = Math.round(100*(this.min + this.valueFromCurve(this.value / this.max, this.curve) * (this.max - this.min))) / 100;
+			this.processedValue = Math.round(100*(this.params.min + this.valueFromCurve(this.params.value / this.params.max, this.params.curve) * (this.params.max - this.params.min))) / 100;
 		};
 
 		Setting.prototype.getValue = function() {
-			return this.value;
+			return this.params.value;
 		};
 
 		Setting.prototype.getProcessedValue = function() {
 			return this.processedValue;
 		};
 
-		Setting.prototype.onStateChange = function(value) {
-			SystemBus.emit("message_to_gui", {channel:'system_channel', message:["Setting Change", this.name+": "+this.processedValue]});
-			Settings.fireOnChangeCallbacks(this.id, value)
+		Setting.prototype.onStateChange = function() {
+			SystemBus.emit("message_to_gui", {channel:'system_channel', message:["Setting Change", this.params.name+": "+this.processedValue]});
+			Settings.fireOnChangeCallbacks(this.id, this.processedValue)
 		};
 
 		var list = {};
 		var onChangeCallbacks = {};
 
 		var applySettingConfigData = function(id, params) {
-			console.log("add to list", id, list)
+			console.log("add to list", id, list, params)
 			if (!list[id]) {
 				list[id] = new Setting(id);
 			}
-			list[id].applyConfigParams(params.name, params.value, params.min,  params.max, curves[params.curveId])
-			Settings.fireOnChangeCallbacks(id, params.value);
+			list[id].applyConfigParams(params)
 		};
 
 
@@ -121,13 +114,12 @@ define([
 				console.error("Setting callback function already registered: ", settingId, onChangeCallbacks[settingId]);
 			}
 
-			var setting = Settings.getSetting(settingId);
-			if (setting) {
-				callback(setting.getProcessedValue());
+			if (list[settingId]) {
+				callback(list[settingId].getProcessedValue());
 			} else {
 				console.log("Setting Callback registered, setting not yet defined", settingId);
 				setupQueue.push(settingId);
-			};
+			}
 
 		};
 
@@ -159,9 +151,6 @@ define([
 			PipelineAPI.subscribeToCategoryKey('application_settings', 'environment', applyConfig);
 		};
 
-		Settings.getAllSettings = function() {
-			return list;
-		};
 
 		Settings.getSetting = function(settingId) {
 			return list[settingId];
@@ -169,7 +158,7 @@ define([
 
 		Settings.readSettingValue = function(settingId) {
 			if (!list[settingId]) return false;
-			return list[settingId].value;
+			return list[settingId].getValue();
 		};
 
 		var handleSettingChanged = function(e){

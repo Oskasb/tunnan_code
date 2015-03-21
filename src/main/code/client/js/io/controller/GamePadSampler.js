@@ -87,8 +87,6 @@ define([
 		if (loadedControls) {
 			SystemBus.emit("message_to_gui", {channel:'alert_channel', message:["Controller Config Loaded", "ID: "+ id, "Control Count: "+loadedControls]});
 		}
-
-
     };
 
 	var resetGamePadStates = function(gamePadStates){
