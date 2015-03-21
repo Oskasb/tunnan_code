@@ -27,16 +27,27 @@ define([
 		};
 
 
-		var Setting = function(id, name, defaultValue, min, max, curve) {
+		var Setting = function(id) {
 			this.id = id;
-			this.name = name;
-			this.value = defaultValue;
-			this.curve = curve;
+			this.params = {
+
+			};
+			this.name = id;
+			this.value = 1;
+			this.curve = [[0, 0], [1, 1]];
 			this.processedValue;
-			this.min = min;
-			this.max = max;
+			this.min = 0;
+			this.max = 1;
 			this.changedCallbacks = [];
 			this.processValue();
+		};
+
+		Setting.prototype.applyConfigParams = function(name, defaultValue, min, max, curve) {
+			this.name = name;
+			this.curve = curve;
+			this.min = min;
+			this.max = max;
+			this.setValue(defaultValue);
 		};
 
 		Setting.prototype.getInterpolatedInCurveAboveIndex = function(value, curve, index) {
@@ -77,12 +88,6 @@ define([
 			return this.processedValue;
 		};
 
-		Setting.prototype.addOnChangeCallback = function(callback) {
-			this.changedCallbacks.push(callback);
-			this.processValue();
-			callback(this.processedValue);
-		};
-
 		Setting.prototype.onStateChange = function(value) {
 			SystemBus.emit("message_to_gui", {channel:'system_channel', message:["Setting Change", this.name+": "+this.processedValue]});
 			Settings.fireOnChangeCallbacks(this.id, value)
@@ -93,7 +98,10 @@ define([
 
 		var applySettingConfigData = function(id, params) {
 			console.log("add to list", id, list)
-			list[id] = new Setting(id, params.name, params.value, params.min,  params.max, curves[params.curveId]);
+			if (!list[id]) {
+				list[id] = new Setting(id);
+			}
+			list[id].applyConfigParams(params.name, params.value, params.min,  params.max, curves[params.curveId])
 			Settings.fireOnChangeCallbacks(id, params.value);
 		};
 
