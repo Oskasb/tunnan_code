@@ -26,10 +26,16 @@ define([
 			"growShrink":   [[0, 1], [0.5,0], [1, -2]]
 		};
 
-		var SettingParams = function(name, min, max, curve) {
+		var settingsVersion = 0.012;
+		var LocalStoreId = "Settings";
+
+
+
+		var SettingParams = function(name, min, max, curveId) {
 			this.value;
 			this.name = name;
-			this.curve = curve;
+			this.curveId = curveId;
+			this.curve = curves[this.curveId];
 			this.min = min;
 			this.max = max;
 		};
@@ -40,7 +46,8 @@ define([
 		};
 
 		Setting.prototype.applyConfigParams = function(params) {
-			this.params = new SettingParams(params.name, params.min,  params.max, curves[params.curveId]);
+			console.log("Apply Config Params", params)
+			this.params = new SettingParams(params.name, params.min,  params.max, params.curveId);
 			this.setValue(params.value);
 		};
 
@@ -82,22 +89,68 @@ define([
 			return this.processedValue;
 		};
 
+		Setting.prototype.saveSetting = function() {
+			saveData[this.id] = this.params;
+			localStorage.setItem(LocalStoreId, JSON.stringify(saveData));
+		};
+
 		Setting.prototype.onStateChange = function() {
 			SystemBus.emit("message_to_gui", {channel:'system_channel', message:["Setting Change", this.params.name+": "+this.processedValue]});
-			Settings.fireOnChangeCallbacks(this.id, this.processedValue)
+			Settings.fireOnChangeCallbacks(this.id, this.processedValue);
+
+			this.saveSetting(this.id, this.params);
 		};
 
 		var list = {};
 		var onChangeCallbacks = {};
 
+		var saveData = {
+			settingsVersion:settingsVersion
+		};
+
+		var savedJson = localStorage.getItem(LocalStoreId);
+
+
+		var loadSetting = function(id, callback) {
+
+			if (!savedJson) {
+				return 1;
+			}
+
+			var savedSettings = JSON.parse(savedJson);
+
+			if (savedSettings.settingsVersion != settingsVersion) {
+				return 2;
+			}
+
+			if (!savedSettings[id]) {
+				console.log("No setting ", id, savedSettings)
+				return 3;
+			}
+
+			if (savedSettings.settingsVersion == settingsVersion) {
+				callback(id, savedSettings[id]);
+				return 4;
+			}
+		};
+
 		var applySettingConfigData = function(id, params) {
-			console.log("add to list", id, list, params)
 			if (!list[id]) {
 				list[id] = new Setting(id);
 			}
-			list[id].applyConfigParams(params)
-		};
 
+			var onLoad = function(loadedId, loadedParams) {
+				console.log("Loaded settings", loadedId, loadedParams)
+				list[loadedId].applyConfigParams(loadedParams);
+			};
+
+			var loaded = loadSetting(id, onLoad);
+			console.log("Loaded check: ", loaded)
+			if (loaded != 4) {
+				list[id].applyConfigParams(params)
+			}
+
+		};
 
 		var setupQueue = [];
 
@@ -118,7 +171,6 @@ define([
 				callback(list[settingId].getProcessedValue());
 			} else {
 				console.log("Setting Callback registered, setting not yet defined", settingId);
-				setupQueue.push(settingId);
 			}
 
 		};
