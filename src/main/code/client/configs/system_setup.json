@@ -1,81 +1,164 @@
 [{
 
-	"setup": {
-		"pipeline":{
-			"jsonPipe":{
-				"polling":{
-					"enabled":true,
-					"frequency":30
-				}
-			},
-			"svgPipe":{
-				"polling":{
-					"enabled":true,
-					"frequency":2
-				}
-			},
+    "setup": {
+        "pipeline":{
+            "jsonPipe":{
+                "polling":{
+                    "enabled":true,
+                    "frequency":30
+                }
+            },
+            "svgPipe":{
+                "polling":{
+                    "enabled":true,
+                    "frequency":2
+                }
+            },
             "imagePipe":{
                 "polling":{
                     "enabled":true,
                     "frequency":2
                 }
             },
-			"gooPipe":{
-				"polling":{
-					"enabled":true,
-					"frequency":2
-				}
-			}
-		},
-		"page":{
-			"resolution":1024,
-			"blending":{
-				"default":"color_add",
-				"modes":{
-					"color_add":{
-						"blending" : "CustomBlending",
-						"blendEquation" : "AddEquation",
-						"blendSrc" : "SrcColorFactor",
-						"blendDst" : "SrcAlphaFactor"
-					},
-					"alpha_cover":{
-						"blending" : "CustomBlending",
-						"blendEquation" : "AddEquation",
-						"blendSrc" : "SrcAlphaFactor",
-						"blendDst" : "OneMinusSrcColorFactor"
-					},
-					"color_cover":{
-						"blending" : "CustomBlending",
-						"blendEquation" : "AddEquation",
-						"blendSrc" : "SrcColorFactor",
-						"blendDst" : "OneMinusSrcColorFactor"
-					},
-					"color_alpha":{
-						"blending" : "CustomBlending",
-						"blendEquation" : "AddEquation",
-						"blendSrc" : "SrcColorFactor",
-						"blendDst" : "DstAlphaFactor"
-					},
-					"add_cover":{
-						"blending" : "CustomBlending",
-						"blendEquation" : "AddEquation",
-						"blendSrc" : "OneFactor",
-						"blendDst" : "OneMinusSrcColorFactor"
-					},
-					"add_alpha":{
-						"blending" : "CustomBlending",
-						"blendEquation" : "AddEquation",
-						"blendSrc" : "SrcAlphaFactor",
-						"blendDst" : "OneFactor"
-					},
-					"add_color":{
-						"blending" : "CustomBlending",
-						"blendEquation" : "AddEquation",
-						"blendSrc" : "SrcColorFactor",
-						"blendDst" : "OneFactor"
-					}
-				}
-			}
-		}
-	}
+            "gooPipe":{
+                "polling":{
+                    "enabled":true,
+                    "frequency":2
+                }
+            }
+        },
+        "page":{
+            "resolution":1024,
+            "blending":{
+                "default":"color_cover",
+                "modes":[
+                    {
+                        "id":"opaque",
+                        "data":{
+                            "name":"Opaque",
+                            "blendState":{
+                                "blending" : "NoBlending"
+                            },
+                            "uniforms":{
+                                "discardThreshold":0.01
+                            }
+                        }
+                    },
+                    {
+                        "id":"threshold",
+                        "data":{
+                            "name":"Threshold",
+                            "blendState":{
+                                "blending" : "NoBlending"
+                            },
+                            "uniforms":{
+                                "discardThreshold":0.4
+                            }
+                        }
+                    },
+                    {
+                        "id":"color_add",
+                        "data":{
+                            "name":"Additive",
+                            "blendState":{
+                                "blending" : "CustomBlending",
+                                "blendEquation" : "AddEquation",
+                                "blendSrc" : "SrcColorFactor",
+                                "blendDst" : "SrcAlphaFactor"
+                            },
+                            "uniforms":{
+                                "discardThreshold":0.4
+                            }
+                        }
+                    },
+                    {
+                        "id":"alpha_cover",
+                        "data":{
+                            "name":"Alpha Cover",
+                            "blendState":{
+
+                                "blending" : "CustomBlending",
+                                "blendEquation" : "AddEquation",
+                                "blendSrc" : "SrcAlphaFactor",
+                                "blendDst" : "OneMinusSrcColorFactor"
+                            },
+                            "uniforms":{
+                                "discardThreshold":0.4
+                            }
+                        }
+                    },{
+                        "id":"color_cover",
+                        "data":{
+                            "name":"Color Cover",
+                            "blendState":{
+                                "blending" : "CustomBlending",
+                                "blendEquation" : "AddEquation",
+                                "blendSrc" : "SrcColorFactor",
+                                "blendDst" : "OneMinusSrcColorFactor"
+                            },
+                            "uniforms":{
+                                "discardThreshold":0.1
+                            }
+                        }
+                    },{
+                        "id":"color_alpha",
+                        "data":{
+                            "name":"Color Alpha",
+                            "blendState":{
+                                "blending" : "CustomBlending",
+                                "blendEquation" : "AddEquation",
+                                "blendSrc" : "SrcColorFactor",
+                                "blendDst" : "DstAlphaFactor"
+                            },
+                            "uniforms":{
+                                "discardThreshold":0.1
+                            }
+                        }
+                    },{
+                        "id":"add_cover",
+                        "data":{
+                            "name":"Add Covera",
+                            "blendState":{
+                                "blending" : "CustomBlending",
+                                "blendEquation" : "AddEquation",
+                                "blendSrc" : "OneFactor",
+                                "blendDst" : "OneMinusSrcColorFactor"
+                            },
+                            "uniforms":{
+                                "discardThreshold":0.1
+                            }
+                        }
+                    },{
+                        "id":"add_alpha",
+                        "data":{
+                            "name":"Add Alpha",
+                            "blendState":{
+                                "blending" : "CustomBlending",
+                                "blendEquation" : "AddEquation",
+                                "blendSrc" : "SrcAlphaFactor",
+                                "blendDst" : "OneFactor"
+                            },
+                            "uniforms":{
+                                "discardThreshold":0.1
+                            }
+                        }
+                    },{
+                        "id":"add_color",
+                        "data":{
+                            "name":"Add Color",
+                            "blendState":{
+                                "blending" : "CustomBlending",
+                                "blendEquation" : "AddEquation",
+                                "blendSrc" : "SrcColorFactor",
+                                "blendDst" : "OneFactor"
+                            },
+                            "uniforms":{
+                                "discardThreshold":0.1
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
 }]

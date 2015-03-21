@@ -97,10 +97,21 @@ define(["application/Settings",
 		GameController.prototype.setupGuiSettingControls = function() {
 			var guiApi = this.canvasGuiAPI;
 			var setGuiTextureScale = function(value) {
-				console.log(" ------------------ GUI", value)
 				guiApi.setGuiTextureScale(value);
 			}.bind(this);
 			Settings.addOnChangeCallback('display_ui_pixel_scale', setGuiTextureScale);
+
+
+			var modeChangedCallback = function(appliedMode) {
+				SystemBus.emit("message_to_gui", {channel:'alert_channel', message:""+appliedMode.name});
+			}
+
+			var setGuiBlendMode = function(value) {
+
+				guiApi.adjustCanvasBlendMode(value, modeChangedCallback);
+			}.bind(this);
+			Settings.addOnChangeCallback('display_ui_blend_mode', setGuiBlendMode);
+
 		};
 
 

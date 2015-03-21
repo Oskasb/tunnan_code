@@ -117,10 +117,10 @@
         }
       },
       {
-        "id":"display_blend_mode",
+        "id":"display_ui_blend_mode",
         "params":{
           "name":"Blend Mode",
-          "value":1,
+          "value":0.51,
           "min":0,
           "max":1,
           "curveId":"zeroToOne"

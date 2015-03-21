@@ -35,11 +35,11 @@
                         "layers": [{
                             "id":"pos_light_intensity_ctrl",
                             "shape":"lights_cockpit_control_container",
-                            "on_drag":[{"call":"setting_control_event", "params":{"setting":"display_blend_mode", "axis":1}}],
+                            "on_drag":[{"call":"setting_control_event", "params":{"setting":"display_ui_blend_mode", "axis":1}}],
                             "feedback_gadgets":[{
                                 "gadget":"control_direct_slider",
                                 "params":{
-                                    "control":"display_blend_mode",
+                                    "control":"display_ui_blend_mode",
                                     "factor":1,
                                     "source":"setting_control_update"
                                 }

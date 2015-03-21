@@ -126,6 +126,7 @@ define([
 		Settings.fireOnChangeCallbacks = function(settingId, value) {
 			if (!onChangeCallbacks[settingId]) {
 				onChangeCallbacks[settingId] = [];
+				setupQueue.push(settingId);
 				console.error("Fire request on non existing callbacks:", settingId);
 			}
 
