@@ -25,7 +25,7 @@ define([
 
     function deleteMobileUnit(gameEntity) {
         console.log("DELETE MOBILE UNIT: ", gameEntity)
-        PhysicalWorld.removeAmmoComponent(gameEntity.moveSphere.ammoComponent);
+        PhysicalWorld.removePhysicsComponent(gameEntity.moveSphere.ammoComponent);
     }
 
     function sphericalMobile(radius, pos, visualise) {
@@ -38,8 +38,8 @@ define([
             var sphereEntity = world.createEntity();
         }
 
-        sphereEntity.ammoComponent = PhysicalWorld.createAmmoJSSphere(radius, pos);
-        sphereEntity.setComponent(PhysicalWorld.createAmmoComponentScript());
+        sphereEntity.ammoComponent = PhysicalWorld.createPhysicsSphere(radius, pos);
+        sphereEntity.setComponent(PhysicalWorld.createPhysicsComponentScript());
         sphereEntity.addToWorld();
         return sphereEntity;
     }

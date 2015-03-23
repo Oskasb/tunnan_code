@@ -1,11 +1,9 @@
 define([
-    'physics/PhysicalWorld',
     'goo/math/Vector2',
     'goo/math/Vector3',
     'goo/math/Matrix3x3',
     'goo/math/MathUtils'],
     function (
-        PhysicalWorld,
         Vector2,
         Vector3,
         Matrix3x3,

@@ -35,7 +35,7 @@ define(["application/EventManager",
 				boat.entity.spatial.rot.fromAngles(rot[0], rot[1], rot[2]);
 				boat.entity.spatial.velocity.set(vel);
 				activateSpawned(boat.entity);
-				AmmoPhysicalWorld.createAmmoShapeComponent(boat.entity, boat.entity.geometries[0]);
+				AmmoPhysicalWorld.createPhysicsShapeComponent(boat.entity, boat.entity.geometries[0]);
 				boatReady(boat);
 			};
 

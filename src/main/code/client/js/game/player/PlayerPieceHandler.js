@@ -48,8 +48,8 @@ define([
             event.fireEvent(event.list().ADD_KEYBINDINGS, {bindings:gameConfig.KEY_BINDINGS[entity.pieceData.keyBindings]});
 
             if (entity.moveSphere) {
-                //     entity.moveSphere.ammoComponent = PhysicalWorld.createAmmoJSSphere(entity.pieceData.dimensions.mobRadius, entity.spatial.pos.data)
-               PhysicalWorld.activateAmmoComponent(entity.moveSphere.ammoComponent, entity.spatial.pos.data, entity.spatial.velocity.data, entity.pieceData.dimensions.mobRadius);
+                //     entity.moveSphere.ammoComponent = PhysicalWorld.createPhysicsSphere(entity.pieceData.dimensions.mobRadius, entity.spatial.pos.data)
+               PhysicalWorld.activatePhysicsComponent(entity.moveSphere.ammoComponent, entity.spatial.pos.data, entity.spatial.velocity.data, entity.pieceData.dimensions.mobRadius);
             }
 
 
@@ -108,7 +108,7 @@ define([
             event.fireEvent(event.list().CLEAR_KEYBINDINGS, {bindings:entity.pieceData.keyBindings});
 
             if (entity.moveSphere) {
-                PhysicalWorld.removeAmmoComponent(event.moveSphere.ammoComponent);
+                PhysicalWorld.removePhysicsComponent(event.moveSphere.ammoComponent);
             }
 
             unloadControledEntityUi(entity, unloadedOk);

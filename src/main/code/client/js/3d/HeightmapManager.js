@@ -10,7 +10,6 @@ define([
     'goo/scriptpack/WorldFittedTerrainScript',
     'goo/util/CanvasUtils',
     '3d/TerrainColorer',
-    'physics/PhysicalWorld',
     '3d/Colorer',
     '3d/addons/Terrain'
 
@@ -24,7 +23,6 @@ define([
              WorldFittedTerrainScript,
              CanvasUtils,
              TerrainColorer,
-             PhysicalWorld,
              Colorer,
              Terrain
         ) {
