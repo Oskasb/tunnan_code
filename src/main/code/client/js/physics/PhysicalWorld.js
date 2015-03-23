@@ -1,12 +1,15 @@
 define([
-    'physics/AmmoPhysics'],
+        'physics/AmmoPhysics',
+        'physics/CannonPhysics'
+    ],
 	function(
-        AmmoPhysics
+        AmmoPhysics,
+        CannonPhysics
 		) {
 		"use strict";
 
         var physicsApi = new AmmoPhysics();
-
+        var cannonPhysics = new CannonPhysics();
         function addPhysicalWorldMesh(meshData, x, y, z) {
             return physicsApi.addPhysicalWorldMesh(meshData, x, y, z);
         }
@@ -15,7 +18,8 @@ define([
             return physicsApi.stepSimulation(1/60, 3);
         }
 
-		function initPhysics() {
+		function initPhysics(gooWorld) {
+            cannonPhysics.initPhysics(gooWorld);
             return physicsApi.initPhysics();
 		}
 

@@ -20,7 +20,7 @@ define([
 
     function setWorld(gooWorld) {
         world = gooWorld;
-        PhysicalWorld.initPhysics();
+        PhysicalWorld.initPhysics(gooWorld);
     }
 
     function deleteMobileUnit(gameEntity) {
