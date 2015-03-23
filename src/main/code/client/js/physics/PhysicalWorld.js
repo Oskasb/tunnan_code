@@ -401,7 +401,7 @@ define([
 		return {
             addHeightmap:addHeightmap,
 			initPhysics:initPhysics,
-            stepAmmoSimulation:stepAmmoSimulation,
+            stepPhysicsSimulation:stepAmmoSimulation,
             addPhysicalWorldMesh:addPhysicalWorldMesh,
             setTrimeshPhysicsTransform:setTrimeshPhysicsTransform,
             physicsRayRange:physicsRayRange,

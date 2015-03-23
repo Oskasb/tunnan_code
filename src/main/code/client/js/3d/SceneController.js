@@ -15,7 +15,7 @@ define(["application/EventManager", 'physics/PhysicalWorld'],
 		};
 
 		SceneController.prototype.viewTick = function(time) {
-			PhysicalWorld.stepAmmoSimulation();
+			PhysicalWorld.stepPhysicsSimulation();
             event.fireEvent(event.list().UPDATE_ACTIVE_ENTITIES, {frameTime:time});
         };
 	/*
