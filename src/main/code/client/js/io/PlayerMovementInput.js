@@ -161,7 +161,9 @@ require(["application/EventManager","io/InputSettersGetters"], function(event, i
     };
 
     var handleClearEntityKeyBindings = function(e) {
-        removeKeyboardInput(event.eventArgs(e).bindings);
+
+
+        // removeKeyboardInput(event.eventArgs(e).bindings);
     };
 
     event.registerListener(event.list().CLEAR_KEYBINDINGS, handleClearEntityKeyBindings);

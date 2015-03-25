@@ -5,6 +5,26 @@
 
                 "shape":"anchor_bottom_right",
                 "layers": [{
+
+                    "shape":"exit_vehicle_button",
+                    "id":"debug_ball_button",
+                    "on_apply":[{"call":"gui_init_configuration", "params":{"setting":"trigger_exit_vehicle", "axis":1, "enabler":"exit_vehicle_button_light"}}],
+                    "layers": [{
+                        "id":"exit_vehicle_button_light",
+                        "text":{"key":"exit_vehicle"},
+                        "shape":"lights_control_button_state_light"
+                    }]
+                }, {
+                    "shape":"debug_ball_state_button",
+                    "id":"debug_ball_button",
+                    "on_apply":[{"call":"gui_init_configuration", "params":{"setting":"trigger_debug_ball", "axis":1, "enabler":"debug_ball_button_light"}}],
+                    "layers": [{
+                        "id":"debug_ball_button_light",
+                        "text":{"key":"debug_ball"},
+                        "shape":"lights_control_button_state_light"
+                    }]
+                }, {
+
                     "shape":"debug_physics_state_button",
                     "id":"debug_physics_button",
                     "on_apply":[{"call":"gui_init_configuration", "params":{"setting":"toggle_debug_physics", "axis":1, "enabler":"debug_physics_button_light"}}],

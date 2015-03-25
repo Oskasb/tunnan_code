@@ -46,9 +46,11 @@ define([
     }
 
     function applySphereImpulse(entity, targetVelocity) {
+
+		return;
         var ammoComponent = entity.moveSphere.ammoComponent;
 
-        torqueVector.setValue(0,0,0);
+    //    torqueVector.setValue(0,0,0);
         ammoComponent.setAngularVelocity(torqueVector);
         torqueVector.setValue(ammoComponent.getLinearVelocity().getX()*0.5, ammoComponent.getLinearVelocity().getY(), ammoComponent.getLinearVelocity().getZ()*0.5);
 

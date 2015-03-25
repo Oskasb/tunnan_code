@@ -34,6 +34,8 @@
             "aerodynamic_graph":"Aerodynamics, Lift by AoA and some",
             "debug_mechanics":"Debug",
             "debug_physics":"Physics",
+            "debug_ball":"Ball",
+            "exit_vehicle":"Exit",
             "wing_smoke":"Smoke",
             "menu_button_close_x":"X",
             "button_canopy":"Canopy",

@@ -1,6 +1,8 @@
 "use strict";
 
-define(["application/EventManager",
+define([
+	'goo/entities/SystemBus',
+	"application/EventManager",
     'game/EntityModel',
     'game/world/VideoBroadcasts',
     "game/ships/BoatData",
@@ -10,9 +12,12 @@ define(["application/EventManager",
     "game/characters/CharacterData",
     'game/world/ZoneData',
     'game/world/SpawnSystem',
-    'game/planes/AiPilot'
+    'game/planes/AiPilot',
+	'game/movement/MobileUnits'
 ],
-    function(event,
+    function(
+		SystemBus,
+		event,
              entityModel,
              VideoBroadcasts,
              boatData,
@@ -22,7 +27,8 @@ define(["application/EventManager",
              characterData,
              zoneData,
              spawnSystem,
-             AiPilot) {
+             AiPilot,
+			 MobileUnits) {
 
         var scenario;
         var loadPlayerId;
@@ -307,8 +313,10 @@ define(["application/EventManager",
 
 
         var spawnMobileUnit = function(pos, callback) {
-            //    var sphereEntity = MobileUnits.sphericalMobile(radius, pos, true);
-            callback(addHuman("PILOT", null, pos, [0, 0, 0], [0, 0, 0], 0));
+
+			//    var sphereEntity = MobileUnits.sphericalMobile(1, pos, true);
+
+            addHuman("PILOT", null, pos, [0, 0, 0], [0, 0, 0], 0, callback);
         };
 
         var handleSpawnPhysical = function(e) {
@@ -316,6 +324,15 @@ define(["application/EventManager",
         };
 
         event.registerListener(event.list().SPAWN_PHYSICAL, handleSpawnPhysical);
+
+		var controlEvent = function(eArgs) {
+			if (eArgs.setting != "trigger_debug_ball") {
+				return;
+			};
+			event.fireEvent(event.list().POP_SPHERE, {});
+		};
+
+		SystemBus.addListener('guiInitConfiguration', controlEvent);
 
         return {
             getBoats:getBoats,

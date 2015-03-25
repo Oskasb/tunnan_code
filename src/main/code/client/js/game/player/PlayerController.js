@@ -1,6 +1,7 @@
 "use strict";
 
 define([
+	'goo/entities/SystemBus',
     'application/EventManager',
     'game/player/PlayerUtils',
     'game/player/PlayerPieceHandler',
@@ -8,6 +9,7 @@ define([
     '3d/cameras/WalkMode'
 ],
     function(
+		SystemBus,
         event,
         playerUtils,
         playerPieceHandler,
@@ -53,7 +55,7 @@ define([
             var pos = getPlayerEntity().spatial.pos.data;
             var rot = getPlayerEntity().spatial.rot.toAngles();
         //    rot.normalize();
-            var vel = getPlayerEntity().spatial.velocity.data;
+            var vel = getPlayerEntity().spatial.velocity;
 
 			var unloadOk = function() {
 				if (!pilot) {
@@ -99,6 +101,11 @@ define([
 
 						console.log("SWITCH TO: ", entity);
 						entity.spatial.pos.set(pos);
+						entity.spatial.pos.addDirect(10, 6, 5);
+						entity.moveSphere.rigidBodyComponent.setVelocity(vel);
+						entity.moveSphere.rigidBodyComponent.setPosition(entity.spatial.pos);
+						entity.moveSphere.setTranslation(entity.spatial.pos);
+
 						entity.spatial.rot.fromAngles(0, rot.data[1], 0);
 						setPlayerControlledEntity(entity, uiCallback);
 					};
@@ -117,9 +124,29 @@ define([
 
         var handlePopSphere = function() {
             console.log("POP Sphere")
-            event.fireEvent(event.list().SPAWN_PHYSICAL, {pos:getPlayerEntity().spatial.pos.data});
+
+			var callback = function(spawned) {
+				console.log("POP spawned:", spawned)
+			}
+
+            event.fireEvent(event.list().SPAWN_PHYSICAL, {pos:getPlayerEntity().spatial.pos.data, callback:callback});
 
         };
+
+
+		var controlEvent = function(eArgs) {
+			if (eArgs.setting != "trigger_exit_vehicle") {
+				return;
+			};
+
+			var callback = function(ent) {
+				console.log("Exit ok", ent)
+			}
+
+			event.fireEvent(event.list().EXIT_CONTROLLED_ENTITY, {callback:callback});
+		}
+
+		SystemBus.addListener('guiInitConfiguration', controlEvent);
 
         event.registerListener(event.list().SET_PLAYER_CONTROLLED_ENTITY, handleSetPlayerEntity);
         event.registerListener(event.list().EXIT_CONTROLLED_ENTITY, handleExitEntity);

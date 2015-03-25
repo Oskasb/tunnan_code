@@ -1,10 +1,12 @@
 define([
         'goo/entities/SystemBus',
-        'physics/CannonPhysics'
+        'physics/CannonPhysics',
+		'goo/entities/components/ScriptComponent'
     ],
 	function(
         SystemBus,
-        CannonPhysics
+        CannonPhysics,
+		ScriptComponent
 		) {
 		"use strict";
 
@@ -30,8 +32,8 @@ define([
             return physicsApi.createPhysicsShapeComponent(gameEntity, gooEntity);
         }
 
-		function createPhysicsSphere(radius, pos) {
-            return physicsApi.createPhysicsSphere(radius, pos);
+		function createPhysicsSphere(entity, radius, pos) {
+            return physicsApi.createPhysicsSphere(entity, radius, pos);
 		}
 
         function physicsRayRange(pos, dir) {
@@ -39,7 +41,35 @@ define([
         }
 
 		function attachSphericalMovementScript(translateParent, gameEntity) {
-            return physicsApi.attachSphericalMovementScript(translateParent, gameEntity);
+
+			translateParent.gameEntity = gameEntity;
+
+			 var attachToSphereScript = new ScriptComponent({
+			 run: function(entity) {
+			 entity.gameEntity.spatial.pos.set(entity.sphereEntity.transformComponent.transform.translation);
+			 entity.gameEntity.moveSphere.spatialControl.sphereMovement.groundContact = physicsApi.groundContact(entity.gameEntity.spatial.pos, entity.gameEntity.pieceData.dimensions.mobRadius)
+			 }}
+			 );
+
+			 translateParent.set(attachToSphereScript);
+
+
+			var _this = this;
+			translateParent.sphereEntity.updatePhysics = function() {
+				gameEntity.spatial.pos.set(translateParent.sphereEntity.transformComponent.transform.translation);
+				gameEntity.moveSphere.spatialControl.sphereMovement.groundContact = physicsApi.groundContact(gameEntity.spatial.pos, gameEntity.pieceData.dimensions.mobRadius)
+			};
+
+
+			translateParent.sphereEntity.deactivate = function() {
+				_this.deactivateAmmoComponent(translateParent.sphereEntity.ammoComponent)
+			};
+
+			translateParent.sphereEntity.activate = function(pos, vel, radius) {
+				_this.activatePhysicsComponent(translateParent.sphereEntity.ammoComponent, pos, vel, radius)
+			};
+
+			return translateParent;
 		}
 
 		function removePhysicsComponent(component) {

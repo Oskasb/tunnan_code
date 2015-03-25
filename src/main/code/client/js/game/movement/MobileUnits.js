@@ -37,8 +37,8 @@ define([
         } else {
             var sphereEntity = world.createEntity();
         }
-
-    //    sphereEntity.ammoComponent = PhysicalWorld.createPhysicsSphere(radius, pos);
+		sphereEntity.transformComponent.transform.translation.setDirect(pos[0], pos[1], pos[2])
+        PhysicalWorld.createPhysicsSphere(sphereEntity, radius, pos);
     //    sphereEntity.setComponent(PhysicalWorld.createPhysicsComponentScript());
         sphereEntity.addToWorld();
         return sphereEntity;

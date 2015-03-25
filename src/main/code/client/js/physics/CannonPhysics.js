@@ -157,8 +157,17 @@ define([
             this.addPhysicalMeshChild(gooEntity.transformComponent.children[0].entity.meshDataComponent.meshData, gooEntity.transformComponent.children[0].entity, gameEntity);
         };
 
-        CannonPhysics.prototype.createPhysicsSphere = function(radius, pos) {
-
+        CannonPhysics.prototype.createPhysicsSphere = function(entity, radius, pos) {
+			entity
+				.set(new RigidBodyComponent({
+				velocity: new Vector3(0,0,0),
+				friction: 0.1,
+				mass: 3,
+				angularDamping: 0.4
+			}))
+				.set(new ColliderComponent({
+				collider: new SphereCollider({ radius: radius })
+			}));
         };
 
 

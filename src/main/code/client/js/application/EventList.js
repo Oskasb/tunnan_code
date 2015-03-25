@@ -66,7 +66,7 @@ define(function() {
         MOUSE_WHEEL_UPDATE:{type:"MOUSE_WHEEL_UPDATE", eArgs:{delta:0}},
         MOUSE_POSITION_UPDATE:{type:"MOUSE_POSITION_UPDATE", eArgs:{xy:[]}},
         ADD_KEYBINDINGS:{type:"ADD_KEYBINDINGS", eArgs:{bindings:{}}},
-        CLEAR_KEYBINDINGS:{type:"CLEAR_KEYBINDINGS", eArgs:{bindings:{}}},
+        CLEAR_KEYBINDINGS:{type:"CLEAR_KEYBINDINGS", eArgs:{bindings:""}},
         UPDATE_KEYBINDING:{type:"UPDATE_KEYBINDING", eArgs:{control:"", value:0}},
 
         POP_SPHERE:{type:"POP_SPHERE", eArgs:{}},
