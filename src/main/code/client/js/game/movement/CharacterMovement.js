@@ -8,7 +8,7 @@ define([
     'use strict';
 
     var movement = new Vector3();
-    var torqueVector = new Ammo.btVector3(0, 0, 0);
+    var torqueVector = new Vector3(0, 0, 0);
 
     var moveControlStates = {
         forward:0,

@@ -129,7 +129,7 @@ define([
 			this.calcVec3.set(this.targetSpatial.pos);
 			this.calcVec3.add(this.lookAtPoint);
 
-			var hit = PhysicalWorld.physicsRayRange(this.calcVec3.data, this.calcVec.data);
+			var hit = PhysicalWorld.physicsRayRange(this.calcVec3, this.calcVec);
 
 			if (hit) {
 				camPoint.mul(hit.fraction);

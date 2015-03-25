@@ -58,7 +58,7 @@ define([
             world: world,
     //       loader: loader
         };
-        MobileUnits.setWorld(goo.world);
+        MobileUnits.setWorld(goo);
  //       meshLoader = new MeshLoader(loaderSettings);
  //       materialLoader = new MaterialLoader(loaderSettings);
     };

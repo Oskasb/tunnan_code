@@ -1,11 +1,14 @@
-define(['game/movement/sphereMovement'],
+define([
+        'goo/math/Vector3',
+        'game/movement/sphereMovement'],
     function(
+        Vector3,
         SphereMovement
         ) {
         "use strict";
 
         function SphereSpatial(sphereEntity) {
-            this.torqueVector = new Ammo.btVector3(0, 0, 0);
+            this.torqueVector = new Vector3(0, 0, 0);
             this.sphereEntity = sphereEntity;
             this.ammoComponent = this.sphereEntity.ammoComponent;
             this.sphereMovement = new SphereMovement();

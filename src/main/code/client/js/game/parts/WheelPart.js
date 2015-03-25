@@ -169,12 +169,12 @@ define([
             calcVec.data[1] += 1;
             calcVec2.set(this.worldPos);
             calcVec2.data[1] -= this.suspRange;
-            var meshHit = PhysicalWorld.physicsRayRange(calcVec.data, calcVec2.data);
+            var meshHit = PhysicalWorld.physicsRayRange(calcVec, calcVec2);
 
             if (meshHit) {
                 calcVec.sub(calcVec2);
                 groundDist = ((meshHit.fraction*Math.sqrt(calcVec.lengthSquared()))-1);
-                groundNormal.set(meshHit.normal.getX(), meshHit.normal.getY(), meshHit.normal.getZ());
+                groundNormal.setVector(meshHit.normal);
                 var worldHit = WorldPhysicalWorld.checkSpatialConflict(entity, 100);
 
                 if (entity.cable) {

@@ -299,7 +299,7 @@ define([
 			entity.spatial.audioVel.mul(1/partOfSecond);
 
 			if (entity.isPilot) {
-				entity.moveSphere.deactivate();
+			//	entity.moveSphere.deactivate();
 				return;
 			} else if (entity.screenSystem) {
 				entity.spatial.visualPos.setVector(entity.spatial.pos);
@@ -311,7 +311,7 @@ define([
 			if (entity.animStateMap) {
 				CharacterMovement.updateCharacterControlState(entity);
 			} else {
-				entity.moveSphere.deactivate();
+			//	entity.moveSphere.deactivate();
 			}
 		};
 
@@ -419,6 +419,7 @@ define([
 
 
 				for (var i = 0; i < remainingSteps; i++) {
+                    i++
 					upadateGamePieceFixedFramerate(entity, physStepPartOfSecond);
 
 				}

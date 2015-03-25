@@ -146,7 +146,7 @@ define([
 			this.calcVec3.set(this.targetSpatial.pos);
 			//	calcVec3.sub(vehicle.spatial.velocity)
 			this.calcVec3.add(this.calcVec);
-			var hit = PhysicalWorld.physicsRayRange(this.targetSpatial.pos, this.calcVec3.data);
+			var hit = PhysicalWorld.physicsRayRange(this.targetSpatial.pos, this.calcVec3);
 
 			if (hit) {
 				this.calcVec.mul(hit.fraction);

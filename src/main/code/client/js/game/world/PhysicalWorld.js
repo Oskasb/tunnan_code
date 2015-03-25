@@ -63,7 +63,9 @@ define([
             var timeFactor = time;
             var hit;
 
-            var meshHit = AmmoPhysicalWorld.physicsRayRange(entity.spatial.pos, [entity.spatial.pos[0]+entity.spatial.velocity[0]*timeFactor, entity.spatial.pos[1]+entity.spatial.velocity[1]*timeFactor,entity.spatial.pos[2]+entity.spatial.velocity[2]*timeFactor]);
+            calcVec.setDirect(entity.spatial.pos[0]+entity.spatial.velocity[0]*timeFactor, entity.spatial.pos[1]+entity.spatial.velocity[1]*timeFactor,entity.spatial.pos[2]+entity.spatial.velocity[2]*timeFactor);
+
+            var meshHit = AmmoPhysicalWorld.physicsRayRange(entity.spatial.pos, calcVec);
             if (meshHit) {
                 var pos = calcVec2.set(entity.spatial.pos[0]+entity.spatial.velocity[0]*meshHit.fraction*timeFactor, entity.spatial.pos[1]+entity.spatial.velocity[1]*meshHit.fraction*timeFactor,entity.spatial.pos[2]+entity.spatial.velocity[2]*meshHit.fraction*timeFactor);
                 hit = checkEntityPosAgainstShapes(entity, pos);

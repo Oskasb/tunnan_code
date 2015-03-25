@@ -22,7 +22,7 @@ define([
             this.navPoint = new Vector3(this.entity.spatial.pos);
             this.nextNavPoint = new Vector3(this.entity.spatial.pos);
             this.steerMat = new Matrix3x3();
-            this.targetSpeed = new Vector3(0, 0, 0.1);
+            this.targetSpeed = new Vector3(0, 0, 0);
         };
 
         Helmsman.prototype.setNavPoint = function(pos) {
@@ -43,6 +43,7 @@ define([
         };
 
         Helmsman.prototype.updateHelmsman = function() {
+
             this.checkNavPointSwitch();
             calcVec.setVector(this.navPoint);
             calcVec.subVector(this.entity.spatial.pos);

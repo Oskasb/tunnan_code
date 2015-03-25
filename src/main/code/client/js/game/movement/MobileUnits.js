@@ -18,14 +18,14 @@ define([
 
     var world;
 
-    function setWorld(gooWorld) {
-        world = gooWorld;
-        PhysicalWorld.initPhysics(gooWorld);
+    function setWorld(goo) {
+        world = goo.world;
+        PhysicalWorld.initPhysics(goo);
     }
 
     function deleteMobileUnit(gameEntity) {
         console.log("DELETE MOBILE UNIT: ", gameEntity)
-        PhysicalWorld.removePhysicsComponent(gameEntity.moveSphere.ammoComponent);
+    //    PhysicalWorld.removePhysicsComponent(gameEntity.moveSphere.ammoComponent);
     }
 
     function sphericalMobile(radius, pos, visualise) {
@@ -38,8 +38,8 @@ define([
             var sphereEntity = world.createEntity();
         }
 
-        sphereEntity.ammoComponent = PhysicalWorld.createPhysicsSphere(radius, pos);
-        sphereEntity.setComponent(PhysicalWorld.createPhysicsComponentScript());
+    //    sphereEntity.ammoComponent = PhysicalWorld.createPhysicsSphere(radius, pos);
+    //    sphereEntity.setComponent(PhysicalWorld.createPhysicsComponentScript());
         sphereEntity.addToWorld();
         return sphereEntity;
     }

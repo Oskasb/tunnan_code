@@ -43,8 +43,8 @@ define(['game/world/PhysicalWorld',
                     entity.geometries[0] = gooEntity;
 					entity.geometries[0].addToWorld();
                     if (gooEntity.animationComponent) GooJointAnimator.printClipInitialTransform(entity);
-                    entity.spatial.velocity.data[2] = 0.3*(Math.random()-0.5);
-                    entity.spatial.velocity.data[0] = 0.3*(Math.random()-0.5);
+                    entity.spatial.velocity.data[2] = 0;
+                    entity.spatial.velocity.data[0] = 0;
 					boatReady(instance);
                 };
 
@@ -372,6 +372,7 @@ define(['game/world/PhysicalWorld',
 
         Boat.prototype.updateBoat = function() {
             var boat = this.entity;
+			boat.spatial.velocity.setDirect(0, 0, 0);
             for (var index in boat.turrets) {
                 GooJointAnimator.updateEntityBoneRotX(boat, boat.turrets[index].pivotBoneId, boat.turrets[index].direction);
                 GooJointAnimator.updateEntityBoneRotX(boat, boat.turrets[index].elevateJointId, boat.turrets[index].elevation);
@@ -396,7 +397,7 @@ define(['game/world/PhysicalWorld',
 					this.catapults[i].updateCatapult();
 				}
 
-            this.helmsman.updateHelmsman();
+           // this.helmsman.updateHelmsman();
 
             this.pushWakes();
         };

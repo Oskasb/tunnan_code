@@ -53,7 +53,7 @@ define([
 				console.log("Pilot transition failed! ", pilotEntity);
 			}
 
-			pilotEntity.moveSphere.deactivate();
+		//	pilotEntity.moveSphere.deactivate();
             vehicleEntity.pilot = pilotEntity;
 
 
