@@ -404,11 +404,12 @@ define([
 
 		};
 
+		var maxSteps = 2;
 
 		var updateEntityGameState = function(time, entity, tpf) {
 			var physicsFps = gameConfig.RENDER_SETUP.physicsFPS;
 			var physStepPartOfSecond = 1/physicsFps;
-			var remainingSteps = Math.round(tpf / physStepPartOfSecond);
+			var remainingSteps = Math.min(Math.floor(tpf / physStepPartOfSecond), maxSteps );
 
 			distanceFilter(entity);
 			if (entity.moveSphere) {
@@ -419,7 +420,8 @@ define([
 
 
 				for (var i = 0; i < remainingSteps; i++) {
-                    i++
+
+               //     i++
 					upadateGamePieceFixedFramerate(entity, physStepPartOfSecond);
 
 				}

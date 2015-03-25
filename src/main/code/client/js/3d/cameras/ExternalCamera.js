@@ -130,7 +130,9 @@ define([
 
 			camPoint.mul(0.5);
 			return camPoint;
-		}
+		};
+
+		var pullFraction = 1;
 
 		ExternalCamera.prototype.calcCamPos = function(cartesian) {
 
@@ -149,20 +151,21 @@ define([
 			var hit = PhysicalWorld.physicsRayRange(this.targetSpatial.pos, this.calcVec3);
 
 			if (hit) {
-				this.calcVec.mul(hit.fraction);
+				pullFraction = hit.fraction;
+
+			//	this.calcVec2.setVector(hit.normal);
+			//	this.calcVec2.mulDirect(0.2, 0.2, 0.2);
+			//	this.calcVec.addVector(this.calcVec2)
 			}
+
+		//	this.calcVec.mul(hit.fraction);
+
+			this.calcVec.mul(0.9 * pullFraction)
 
 			this.camPos.add(this.calcVec);
 
-			/*
-			 lookAtPoint.set(targetOffset);
-			 calcVec2.set(cartesian);
-			 calcVec2.add(targetOffset);
-			 calcVec.set(adjustPhysical(calcVec2));
-			 calcVec.add(targetOffset);
-			 camPos.set(calcVec);
+			pullFraction = MathUtils.lerp(0.07, pullFraction, 1);
 
-			 */
 			return this.camPos;
 		}
 

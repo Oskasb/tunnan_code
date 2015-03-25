@@ -134,7 +134,8 @@ define([
             goo.setRenderSystem( this.physicsDebugRenderSystem);
             this.lineRenderSystem = new LineRenderSystem(this.world);
             goo.setRenderSystem(this.lineRenderSystem);
-
+			this.physicsDebugRenderSystem.passive = !this.debugOn;
+			this.lineRenderSystem.passive = !this.debugOn;
         };
 
         CannonPhysics.prototype.createPhysicsComponentScript = function() {
@@ -210,6 +211,8 @@ define([
         CannonPhysics.prototype.addHeightmap = function(matrix, dim, widthPoints, lengthPoints) {
 
         }
+
+
 
 
 
