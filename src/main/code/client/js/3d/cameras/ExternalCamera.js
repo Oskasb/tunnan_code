@@ -152,10 +152,6 @@ define([
 
 			if (hit) {
 				pullFraction = hit.fraction;
-
-			//	this.calcVec2.setVector(hit.normal);
-			//	this.calcVec2.mulDirect(0.2, 0.2, 0.2);
-			//	this.calcVec.addVector(this.calcVec2)
 			}
 
 		//	this.calcVec.mul(hit.fraction);

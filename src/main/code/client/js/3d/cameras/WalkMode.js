@@ -52,6 +52,7 @@ define([
 			return 0.8  // - Math.max(1.2 * this.targetSpherical.x*0.05, 0);
 		}
 
+		var pullFraction = 1;
 		WalkMode.prototype.adjustPhysical = function(camPoint) {
 			this.calcVec.set(camPoint);
 
@@ -66,7 +67,13 @@ define([
 			if (hit) {
 				camPoint.mul(hit.fraction);
 			}
-			camPoint.mul(0.5);
+
+			if (hit) {
+				pullFraction = hit.fraction;
+			}
+			pullFraction = MathUtils.lerp(0.07, pullFraction, 1);
+
+			camPoint.mul(0.9 * pullFraction);
 			return camPoint;
 		}
 
@@ -108,7 +115,7 @@ define([
 		}
 
 		WalkMode.prototype.adjustFov = function(fv) {
-			this.targetFov = fv;
+		//	this.targetFov += fv;
 		}
 
 		return WalkMode
