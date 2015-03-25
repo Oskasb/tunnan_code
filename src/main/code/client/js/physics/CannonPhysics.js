@@ -77,6 +77,7 @@ define([
 
 
     var CannonPhysics = function() {
+        this.debugOn = false;
             this.physicsSystem = new PhysicsSystem();
             this.rayOpts = this.physicsSystem._getCannonRaycastOptions({skipBackfaces : true});
             this.rayResult = new RaycastResult();
@@ -128,7 +129,9 @@ define([
             this.world.setSystem(new ColliderSystem());
 
 
-            goo.setRenderSystem(new PhysicsDebugRenderSystem());
+            this.physicsDebugRenderSystem = new PhysicsDebugRenderSystem()
+
+            goo.setRenderSystem( this.physicsDebugRenderSystem);
             this.lineRenderSystem = new LineRenderSystem(this.world);
             goo.setRenderSystem(this.lineRenderSystem);
 
@@ -161,12 +164,19 @@ define([
         CannonPhysics.prototype.physicsRayRange = function(start, end) {
 
             this.rayHitContainer.setupRayCast(start, end);
-            this.lineRenderSystem.drawLine(this.rayHitContainer.start, this.rayHitContainer.end, this.lineRenderSystem.MAGENTA);
+
+            if (this.debugOn) {
+                this.lineRenderSystem.drawLine(this.rayHitContainer.start, this.rayHitContainer.end, this.lineRenderSystem.MAGENTA);
+            }
+
         //    this.lineRenderSystem.drawLine(this.rayHitContainer.start, end, this.lineRenderSystem.GREEN);
             var hit = this.physicsSystem.raycastClosest(this.rayHitContainer.start, this.rayHitContainer.direction, this.rayHitContainer.distance, this.rayOpts, this.rayResult);
 
             if (hit) {
-                this.lineRenderSystem.drawCross(this.rayResult.point, this.lineRenderSystem.YELLOW, 0.4);
+                if (this.debugOn) {
+                    this.lineRenderSystem.drawCross(this.rayResult.point, this.lineRenderSystem.YELLOW, 0.4);
+                }
+
             //    console.log("Cannon ray hit: ", hit, this.rayResult);
                 this.rayHitContainer.applyHitResult(this.rayResult);
                 this.rayHitContainer.calcFraction();
@@ -200,6 +210,17 @@ define([
         CannonPhysics.prototype.addHeightmap = function(matrix, dim, widthPoints, lengthPoints) {
 
         }
+
+
+
+    CannonPhysics.prototype.toggleDebugPhysics = function() {
+        this.debugOn = !this.debugOn;
+
+        this.physicsDebugRenderSystem.passive = !this.debugOn;
+        this.lineRenderSystem.passive = !this.debugOn;
+
+
+    }
 
         return CannonPhysics;
 

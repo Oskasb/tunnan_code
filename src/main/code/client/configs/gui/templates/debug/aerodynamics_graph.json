@@ -5,6 +5,15 @@
 
                 "shape":"anchor_bottom_right",
                 "layers": [{
+                    "shape":"debug_physics_state_button",
+                    "id":"debug_physics_button",
+                    "on_apply":[{"call":"gui_init_configuration", "params":{"setting":"toggle_debug_physics", "axis":1, "enabler":"debug_physics_button_light"}}],
+                    "layers": [{
+                        "id":"debug_physics_button_light",
+                        "text":{"key":"debug_physics"},
+                        "shape":"lights_control_button_state_light"
+                    }]
+                }, {
                     "shape":"debug_control_state_button",
                     "id":"debug_mechanics_button",
                     "on_apply":[

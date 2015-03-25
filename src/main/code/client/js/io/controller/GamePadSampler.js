@@ -214,8 +214,11 @@ define([
 
 		var detectDesiredControl;
 
-        ctx.initGamePadConfiguration = function() {
+        ctx.initGamePadConfiguration = function(eArgs) {
 
+            if (eArgs.setting != "setting_controller_setup") {
+                return;
+            };
 			resetGamePadStates(ctx.gamePadStates);
 
             ctx.init();

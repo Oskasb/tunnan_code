@@ -1,7 +1,9 @@
 define([
+        'goo/entities/SystemBus',
         'physics/CannonPhysics'
     ],
 	function(
+        SystemBus,
         CannonPhysics
 		) {
 		"use strict";
@@ -55,6 +57,16 @@ define([
         function addHeightmap(matrix, dim, widthPoints, lengthPoints) {
             return physicsApi.addHeightmap(matrix, dim, widthPoints, lengthPoints);
         }
+
+        var controlEvent = function(eArgs) {
+            if (eArgs.setting != "toggle_debug_physics") {
+                return;
+            };
+            physicsApi.toggleDebugPhysics();
+
+        }
+
+        SystemBus.addListener('guiInitConfiguration', controlEvent);
 
 		return {
             addHeightmap:addHeightmap,

@@ -1,12 +1,12 @@
 [{
     "shapes": {
 
-            "debug_control_state_button": {
+            "debug_physics_state_button": {
                 "passive":{
                     "pos": {
                         "unit": "px",
                         "top": -30,
-                        "left": -80
+                        "left": -240
                     },
                     "shape":"shape_panel_input_box",
                     "border": "border_control_slider_passive",
@@ -15,6 +15,20 @@
                 "on_hover":"shape_panel_activation_button_hover",
                 "on_active":"shape_panel_activation_button_active"
             },
+        "debug_control_state_button": {
+            "passive":{
+                "pos": {
+                    "unit": "px",
+                    "top": -30,
+                    "left": -80
+                },
+                "shape":"shape_panel_input_box",
+                "border": "border_control_slider_passive",
+                "background": "background_control_slider_passive"
+            },
+            "on_hover":"shape_panel_activation_button_hover",
+            "on_active":"shape_panel_activation_button_active"
+        },
             "debug_aerodynamics_graphs_button": {
                 "passive":{
                     "pos": {

@@ -33,7 +33,10 @@ define(["application/EventManager", "game/GameConfiguration"], function(event, g
         turnleft:       {control:"turnleft",   value:1},
         turnright:      {control:"turnright",  value:1},
         strafeModifier: {control:"strafe",     value:1},
-        jump:           {control:"jump",       value:1}
+        jump:           {control:"jump",       value:1},
+
+        debug_mechanics:{control:"debug_mechanics", value:1},
+        debug_physics:  {control:"debug_physics", value:1}
 
     };
 

@@ -269,7 +269,6 @@ define(function() {
                 trimRollRight:["L"],
                 trimYawLeft:["U"],
                 trimYawRight:["O"]
-
             },
             car: {
                 breaksOn:["B","X"],
