@@ -5,6 +5,7 @@ define([
 	"game/ships/BoatFactory",
 	"game/piece/PieceConfigurator",
     "game/piece/PieceInput",
+		"game/characters/Human",
 	"game/planes/Plane",
 	'game/parts/Lights',
 	'game/parts/Screens',
@@ -18,6 +19,7 @@ define([
 		BoatFactory,
 		PieceConfigurator,
         PieceInput,
+		Human,
 		Plane,
 		lights,
 		screens,
@@ -48,17 +50,30 @@ define([
 			gamePiece.pieceInput = new PieceInput(gamePiece);
 		};
 
-		var buildHuman = function(gamePiece) {
+		var buildHuman = function(id, humanDataId, pos, pieceReady ) {
+			var human = new Human(id);
 
-
-			var configReady = function() {
-				addPieceInputSystems(gamePiece.entity);
-				GooLayerAnimator.printEntityLayerMap(gamePiece.entity);
-				console.log("HUMAN BUILT:", gamePiece);
+			var charReady = function() {
+				pieceReady(human.gamePiece);
 			};
 
-		//	PieceConfigurator.configurePiece(gamePiece, 0, configReady);
-			configReady();
+			var humanLoaded = function() {
+				var configReady = function() {
+					GooLayerAnimator.printEntityLayerMap(human.gamePiece.entity);
+					console.log("HUMAN BUILT:", human.gamePiece);
+					human.attachCharacter(human.gamePiece.entity.pieceData, pos, charReady);
+				};
+				addPieceInputSystems(human.gamePiece.entity);
+				PieceConfigurator.configurePiece(human.gamePiece, 0, configReady);
+			};
+
+			var pieceDataUpdated = function(srcKey, data) {
+				human.gamePiece.applyPieceData(data, humanLoaded);
+			};
+
+			var baseDataKey = pieceData.characters[humanDataId].base_data_key;
+			PipelineAPI.subscribeToCategoryKey('piece_data', baseDataKey, pieceDataUpdated)
+
 		};
 
 		function addSystemControls(gamePiece, systemData, ControlStateCallbacks) {

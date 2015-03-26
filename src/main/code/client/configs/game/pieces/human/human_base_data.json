@@ -1,13 +1,53 @@
 [{
     "piece_data":{
         "human_base_data":{
+            "modelPath":"pilot_bind_AO",
+            "gooProjectUrl":"bundles",
             "configs":{
                 "dataKeys":[
-
-                ]
+                    "human_systems_data"
+                ],
+                "control_settings":"control_settings"
             },
 
-            "keyBindings":"pilot"
+            "dimensions": {
+                "massEmpty":70,
+                "massMax":80,
+                "weightDistribution":[1, 1, 1],
+                "length":1,
+                "mobRadius":0.7,
+                "wingspan":1,
+                "height":2
+            },
+
+            "physicalShapes":[
+                {"partId":"body","posOffset":[0, 0, 0], 	"radius":1}
+            ],
+            "physicalRadius":5,
+            "hitPoints":20,
+            "keyBindings":"move",
+
+
+            "animations":{
+                "moveStates":{
+                    "idle":"idle",
+                    "forward":"run",
+                    "back":"backwards",
+                    "backLeft":"back_left",
+                    "backRight":"back_right",
+                    "turnLeft":"turn_left",
+                    "turnRight":"turn_right",
+                    "strafeLeft":"strafe_left",
+                    "strafeRight":"strafe_right",
+                    "halfStrafeLeft":"half_strafe_left",
+                    "halfStrafeRight":"half_strafe_right",
+                    "jumpState":"jumpstate"
+                },
+                "seated":{
+                    "pilotSit":"pilot_sit",
+                    "sit":"sit"
+                }
+            }
         }
     }
 }]

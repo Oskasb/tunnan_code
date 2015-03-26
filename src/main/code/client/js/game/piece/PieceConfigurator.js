@@ -44,12 +44,10 @@ define([
 
 			console.log("Apply config to piece: ", config, gamePiece);
 
-
-			var ready = false;
 			var configsApplied = function(key) {
 				console.log("Applied ", key);
-				countdown--;
-				if (countdown == 0) {
+				gamePiece.countdown--;
+				if (gamePiece.countdown == 0) {
 					gamePiece.entity.pieceInput.applySystemConfigs(gamePiece.configs[controlSystemKey]);
 					pieceInitiated();
 				}
@@ -117,12 +115,14 @@ define([
 
 		PieceConfigurator.configurePiece = function(gamePiece, state, configReady) {
 			gamePiece.configs = {};
+			gamePiece.countdown = gamePiece.entity.pieceData.configs.dataKeys.length;
 			var pieceInitiated = function() {
 				configReady()
 			};
 
 			var applyConfig = function(srcKey, data) {
 				console.log("Apply :: ", srcKey, data);
+
 				PieceConfigurator.applyConfigData(gamePiece, data, state, pieceInitiated);
 			};
 

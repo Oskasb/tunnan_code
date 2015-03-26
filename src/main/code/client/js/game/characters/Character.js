@@ -11,17 +11,13 @@ define(['game/world/PhysicalWorld',
         ) {
 
 
-        var Character = function(id, data, pos, readyCallback) {
+        var Character = function(gamePiece, data, pos, readyCallback) {
             var instance = this;
-
-            var entityAddedCallback = function(entity) {
-                instance.entity = entity;
+                var entity = gamePiece.entity;
+                instance.entity = gamePiece.entity;
                 console.log("SPHERE POS: ", pos)
 
-                entity.pieceData = data;
-                console.log(data)
-                physicalWorld.registerPhysicalEntity(entity);
-                entity.combat.hitPoints = entity.pieceData.hitPoints;
+                physicalWorld.registerPhysicalEntity(gamePiece.entity);
 
                 var visualEntityReady = function(gooEntity) {
 					if (entity.geometries[0]) entity.geometries[0].removeFromWorld();
@@ -36,9 +32,8 @@ define(['game/world/PhysicalWorld',
                 	readyCallback(instance);
 				};
 
-                event.fireEvent(event.list().BUILD_GOO_GAMEPIECE, {projPath:entity.pieceData.gooProject.projectPath, modelPath:entity.pieceData.modelPath, callback:visualEntityReady});
-            };
-            event.fireEvent(event.list().ADD_GAME_ENTITY, {entityId:id, callback:entityAddedCallback});
+                event.fireEvent(event.list().BUILD_GOO_GAMEPIECE, {projPath:gamePiece.entity.pieceData.gooProjectUrl, modelPath:gamePiece.entity.pieceData.modelPath, callback:visualEntityReady});
+
         };
 
 		return Character;
