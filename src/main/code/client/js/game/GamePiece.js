@@ -9,11 +9,11 @@ define(['game/world/PhysicalWorld',
              GooJointAnimator
         ) {
 
-        var Vehicle = function(id) {
+        var GamePiece = function(id) {
 			this.id = id;
         };
 
-		Vehicle.prototype.attachGooEntity = function(gooEntity) {
+		GamePiece.prototype.attachGooEntity = function(gooEntity) {
 			if (this.entity.geometries[0]) this.entity.geometries[0].removeFromWorld();
 			this.entity.geometries[0] = gooEntity;
 			this.entity.geometries[0].addToWorld();
@@ -22,11 +22,11 @@ define(['game/world/PhysicalWorld',
 
 			this.entity.spatial.velocity.data[2] = 0.3*(Math.random()-0.5);
 			this.entity.spatial.velocity.data[0] = 0.3*(Math.random()-0.5);
-			this.vehicleReady(this.entity);
+			this.gamePieceReady(this.entity);
 		};
 
 
-		Vehicle.prototype.attachEntity = function(entity, data) {
+		GamePiece.prototype.attachEntity = function(entity, data) {
 			this.entity = entity;
 			this.entity.pieceData = data;
 			this.entity.combat.hitPoints = data.hitPoints;
@@ -45,8 +45,8 @@ define(['game/world/PhysicalWorld',
 			event.fireEvent(event.list().BUILD_GOO_GAMEPIECE, {projPath:this.entity.pieceData.gooProjectUrl, modelPath:this.entity.pieceData.modelPath, callback:visualEntityReady});
 		};
 
-		Vehicle.prototype.applyPieceData = function(data, vehicleReady) {
-			this.vehicleReady = vehicleReady;
+		GamePiece.prototype.applyPieceData = function(data, vehicleReady) {
+			this.gamePieceReady = vehicleReady;
 			var entityAddedCallback = function(entity) {
 
 				this.attachEntity(entity, data);
@@ -55,5 +55,5 @@ define(['game/world/PhysicalWorld',
 		};
 
 
-        return Vehicle;
+        return GamePiece;
     });

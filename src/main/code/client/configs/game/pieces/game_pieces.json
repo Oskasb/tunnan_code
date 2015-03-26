@@ -1,5 +1,11 @@
 [{
     "game_pieces":{
+        "characters":[
+            {
+                "id":"HUMAN",
+                "base_data_key":"human_base_data"
+            }
+        ],
         "vehicles":[
             {
                 "id":"TOMCAT",

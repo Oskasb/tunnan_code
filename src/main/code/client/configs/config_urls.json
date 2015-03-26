@@ -78,6 +78,8 @@
             "configs/game/pieces/battleship/battleship_base_data.json",
             "configs/game/pieces/tre_kronor/tre_kronor_base_data.json",
 
+		  	"configs/game/pieces/human/human_base_data.json",
+
             "configs/game/pieces/tomcat/tomcat_base_data.json",
 			"configs/game/pieces/tomcat/tomcat_control_systems.json",
             "configs/game/pieces/tomcat/tomcat_control_surfaces.json",

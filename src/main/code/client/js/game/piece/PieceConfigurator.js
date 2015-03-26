@@ -29,9 +29,6 @@ define([
 
 		PieceConfigurator.applyModelRelatedConfigs = function(gamePiece, config) {
 			var display_settings = gamePiece.entity.pieceData.configs.display_settings;
-
-
-
 		};
 
 

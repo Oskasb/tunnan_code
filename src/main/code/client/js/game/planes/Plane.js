@@ -1,15 +1,15 @@
 "use strict";
 
-define(['game/parts/Vehicle',
+define(['game/GamePiece',
 	'game/controls/SurfaceController',
 	'game/planes/PlaneWing'],
-    function(Vehicle,
+    function(GamePiece,
 			 SurfaceController,
 			 PlaneWing
         ) {
 
         var Plane = function(id) {
-            this.vehicle = new Vehicle(id);
+            this.gamePiece = new GamePiece(id);
         };
 
 		Plane.prototype.parseWingData = function(wingData, aerodynamics) {

@@ -6,7 +6,7 @@ define(["game/characters/Character",
 
         var buildCharacter = function(id, data, pos, charReady) {
             if (!data) data = CharacterData["PILOT"];
-           new Character(id, data, pos, charReady);
+           return new Character(id, data, pos, charReady);
 
         };
 

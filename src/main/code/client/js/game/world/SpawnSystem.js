@@ -87,7 +87,7 @@ define(["application/EventManager",
 				//    human.entity.spatial.pos.set(pos);
 				char.entity.spatial.rot.fromAngles(rot[0], rot[1], rot[2]);
 				char.entity.spatial.velocity.set(vel);
-				pieceBuilder.buildHuman(char.entity, char.entity.pieceData, 0);
+				pieceBuilder.buildHuman(char, char.entity.pieceData, 0);
 				activateSpawned(char.entity);
 				humanReady(char);
 			};

@@ -32,7 +32,7 @@ define([
 			characters:{}
 		};
 
-		var vehicleDataUpdated = function(srcKey, data) {
+		var pieceDataUpdated = function(srcKey, data) {
 			if (!pieceData[srcKey]) {
 				pieceData[srcKey] = {};
 			}
@@ -41,17 +41,24 @@ define([
 			}
 		};
 
-		PipelineAPI.subscribeToCategoryKey('game_pieces', 'vehicles', vehicleDataUpdated)
-
+		PipelineAPI.subscribeToCategoryKey('game_pieces', 'vehicles', pieceDataUpdated);
+		PipelineAPI.subscribeToCategoryKey('game_pieces', 'characters', pieceDataUpdated);
 
 		var addPieceInputSystems = function(gamePiece) {
 			gamePiece.pieceInput = new PieceInput(gamePiece);
 		};
 
 		var buildHuman = function(gamePiece) {
-			addPieceInputSystems(gamePiece);
 
-			GooLayerAnimator.printEntityLayerMap(gamePiece);
+
+			var configReady = function() {
+				addPieceInputSystems(gamePiece.entity);
+				GooLayerAnimator.printEntityLayerMap(gamePiece.entity);
+				console.log("HUMAN BUILT:", gamePiece);
+			};
+
+		//	PieceConfigurator.configurePiece(gamePiece, 0, configReady);
+			configReady();
 		};
 
 		function addSystemControls(gamePiece, systemData, ControlStateCallbacks) {
@@ -63,15 +70,6 @@ define([
 		}
 
 		var buildPiece = function(gamePiece, data, landedState) {
-
-		//	controlsController.buildPieceControls(gamePiece, data, landedState);
-
-				if (data.lights) {
-				//	lights.registerEntityLights(gamePiece, data.lights);
-				}
-				if (data.screens) {
-				//	screens.registerEntityScreens(gamePiece, data.screens, ControlStateCallbacks);
-				}
 
 			gamePiece.forces.weight.setDirect(0, data.dimensions.massEmpty, 0);
 		};
@@ -115,7 +113,7 @@ define([
 
 			var plane = new Plane(id);
 			var pieceDataUpdated = function(srcKey, data) {
-				plane.vehicle.applyPieceData(data, planeLoaded);
+				plane.gamePiece.applyPieceData(data, planeLoaded);
 			};
 
 			var baseDataKey = pieceData.vehicles[planeId].base_data_key;
