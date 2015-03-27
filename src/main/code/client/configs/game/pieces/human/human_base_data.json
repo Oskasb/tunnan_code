@@ -30,7 +30,7 @@
 
             "animations":{
                 "moveStates":{
-                    "idle":"idle",
+                    "idle":"basic_idle",
                     "forward":"run",
                     "back":"backwards",
                     "backLeft":"back_left",

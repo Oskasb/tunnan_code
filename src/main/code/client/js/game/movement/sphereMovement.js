@@ -8,11 +8,11 @@ define([
         var calcVec = new Vector3();
 
         function SphereMovement() {
-            this.jumpPower = 8;
+            this.jumpPower = 1000;
             this.jumpImpulse = this.jumpPower;
-            this.modRun=4;
-            this.modBack=2;
-            this.modStrafe=3;
+            this.modRun=15;
+            this.modBack=8;
+            this.modStrafe=10;
             this.groundContact = true;
             this.targetVelocity = new Vector3();
             this.targetHeading = new Vector3();
@@ -107,6 +107,7 @@ define([
          * @returns {Array} The modulated directional movement state
          */
         SphereMovement.prototype.applyDirectionalModulation = function(strafe, run) {
+
             strafe *= this.modStrafe;
 
             if (run < 0) {

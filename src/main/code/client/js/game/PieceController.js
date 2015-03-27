@@ -150,9 +150,9 @@ define([
 
                 }
 
-                invVel.setVector(entity.spatial.velocity);
-                invVel.mul(-1)
-                entity.spatial.rot.lookAt(invVel, Vector3.UNIT_Y);
+            //    invVel.setVector(entity.spatial.velocity);
+             //   invVel.mul(-1)
+             //   entity.spatial.rot.lookAt(invVel, Vector3.UNIT_Y);
                 //   entity.spatial.rot.fromAngles(0, 1, 0);
              //   entity.spatial.rot.rotateY(-Math.PI*0.5);
             }

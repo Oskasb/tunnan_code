@@ -2,16 +2,13 @@
   "piece_data":{
     "human_systems_data":{
       "control_settings":[
-        {
-          "control":"forward",
-          "range":{
-            "min":-1,
-            "max":1
-          },
-          "default":0
-        },
-
-        {"control":"debug_mechanics", "range":{ "min":  0,"max":1 }}
+        {"control":"forward", "range":{"min":0, "max":1}, "default":0},
+        {"control":"back", "range":{"min":0, "max":1}, "default":0},
+        {"control":"turnleft", "range":{"min":0, "max":1}, "default":0},
+        {"control":"turnright", "range":{"min":0, "max":1}, "default":0},
+        {"control":"strafe", "range":{"min":0, "max":1}, "default":0},
+        {"control":"jump", "range":{"min":0, "max":1}, "default":0},
+        {"control":"debug_mechanics", "range":{ "min":  0,"max":1 }, "default":0}
       ]
     }
   }

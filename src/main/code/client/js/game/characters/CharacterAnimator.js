@@ -89,7 +89,7 @@ define(["application/EventManager", 'game/characters/CharacterData'
 		// 	var newLayer = gameEntity.geometries[0].animationComponent.layers[0].getStateByName(state);
 
        var newLayer = gameEntity.animStateMap[state];
-        console.log(state, newLayer, gameEntity)
+     //   console.log(state, newLayer, gameEntity)
 
         gameEntity.geometries[0].animationComponent.transitionTo(newLayer);
 

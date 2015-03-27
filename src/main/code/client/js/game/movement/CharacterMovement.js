@@ -47,30 +47,18 @@ define([
 
     function applySphereImpulse(entity, targetVelocity) {
 
-		return;
-        var ammoComponent = entity.moveSphere.ammoComponent;
-
-    //    torqueVector.setValue(0,0,0);
-        ammoComponent.setAngularVelocity(torqueVector);
-        torqueVector.setValue(ammoComponent.getLinearVelocity().getX()*0.5, ammoComponent.getLinearVelocity().getY(), ammoComponent.getLinearVelocity().getZ()*0.5);
-
-        if (targetVelocity.lengthSquared() < 1) {
-            torqueVector.setValue(ammoComponent.getLinearVelocity().getX()*0.5, ammoComponent.getLinearVelocity().getY(), ammoComponent.getLinearVelocity().getZ()*0.5);
-            ammoComponent.setLinearVelocity(torqueVector);
+        if (targetVelocity.data[1] != 0) {
+            targetVelocity.x = 0;
+            targetVelocity.z = 0;
+            entity.moveSphere.rigidBodyComponent.applyForce(targetVelocity);
         }
 
-
-
-        torqueVector.setValue(targetVelocity.data[0], targetVelocity.data[1],targetVelocity.data[2]);
-        ammoComponent.clearForces();
-        ammoComponent.applyTorqueImpulse(torqueVector);
-
-        if(targetVelocity.data[1] != 0) {
-            torqueVector.setValue(0, targetVelocity.data[1], 0);
-            ammoComponent.applyCentralImpulse(torqueVector);
-            //   this.sphereMovement.groundContact = 0;
+        if (!entity.moveSphere.spatialControl.sphereMovement.groundContact) {
+            targetVelocity.setDirect(0, 0, 0);
         }
-        ammoComponent.activate();
+
+        entity.moveSphere.rigidBodyComponent.setAngularVelocity(targetVelocity);
+
     }
 
     function controlStateChanged(entity, moveStates) {

@@ -45,21 +45,24 @@ define([
 			translateParent.gameEntity = gameEntity;
 
 			 var attachToSphereScript = new ScriptComponent({
-			 run: function(entity) {
-			 entity.gameEntity.spatial.pos.set(entity.sphereEntity.transformComponent.transform.translation);
-			 entity.gameEntity.moveSphere.spatialControl.sphereMovement.groundContact = physicsApi.groundContact(entity.gameEntity.spatial.pos, entity.gameEntity.pieceData.dimensions.mobRadius)
-			 }}
+			 run: function(entity, tpf) {
+			    entity.gameEntity.spatial.pos.setVector(entity.sphereEntity.transformComponent.transform.translation);
+                entity.gameEntity.moveSphere.rigidBodyComponent.getVelocity(entity.gameEntity.spatial.velocity);
+                entity.gameEntity.spatial.velocity.mulDirect(tpf, tpf, tpf);
+			    entity.gameEntity.moveSphere.spatialControl.sphereMovement.groundContact = physicsApi.groundContact(entity.gameEntity.spatial.pos, entity.gameEntity.pieceData.dimensions.mobRadius, entity.gameEntity.spatial.velocity)
+             }}
 			 );
 
 			 translateParent.set(attachToSphereScript);
 
 
 			var _this = this;
+            /*
 			translateParent.sphereEntity.updatePhysics = function() {
 				gameEntity.spatial.pos.set(translateParent.sphereEntity.transformComponent.transform.translation);
-				gameEntity.moveSphere.spatialControl.sphereMovement.groundContact = physicsApi.groundContact(gameEntity.spatial.pos, gameEntity.pieceData.dimensions.mobRadius)
+				gameEntity.moveSphere.spatialControl.sphereMovement.groundContact = physicsApi.groundContact(gameEntity.spatial.pos, gameEntity.pieceData.dimensions.mobRadius, gameEntity.spatial.velocity)
 			};
-
+            */
 
 			translateParent.sphereEntity.deactivate = function() {
 				_this.deactivateAmmoComponent(translateParent.sphereEntity.ammoComponent)

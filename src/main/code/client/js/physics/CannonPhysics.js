@@ -100,6 +100,7 @@ define([
                 isKinematic: true
             });
             entity.set(rbComponent);
+            spatial.rigidBodyComponent = rbComponent;
         }
 
         function attachMeshCollider(entity, meshData) {
@@ -195,31 +196,35 @@ define([
             return false;
         };
 
-
-        CannonPhysics.prototype.groundContact = function(pos, radius) {
-
-        }
+        CannonPhysics.prototype.groundContact = function(pos, radius, velocity) {
+            calcVec.setVector(pos);
+            calcVec.y -= radius*0.5;
+            calcVec2.setVector(velocity);
+            calcVec2.y -= radius;
+            calcVec2.addVector(calcVec);
+            return this.physicsRayRange(calcVec, calcVec2);
+        };
 
 
         CannonPhysics.prototype.attachSphericalMovementScript = function(translateParent, gameEntity) {
 
-        }
+        };
 
         CannonPhysics.prototype.removePhysicsComponent = function(component) {
 
-        }
+        };
 
         CannonPhysics.prototype.activatePhysicsComponent = function(component, pos, vel, radius) {
 
-        }
+        };
 
         CannonPhysics.prototype.deactivateAmmoComponent = function(component) {
 
-        }
+        };
 
         CannonPhysics.prototype.addHeightmap = function(matrix, dim, widthPoints, lengthPoints) {
 
-        }
+        };
 
 
 
@@ -232,7 +237,7 @@ define([
         this.lineRenderSystem.passive = !this.debugOn;
 
 
-    }
+    };
 
         return CannonPhysics;
 

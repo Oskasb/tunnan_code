@@ -397,7 +397,7 @@ define(['game/world/PhysicalWorld',
 					this.catapults[i].updateCatapult();
 				}
 
-           // this.helmsman.updateHelmsman();
+            this.helmsman.updateHelmsman();
 
             this.pushWakes();
         };
