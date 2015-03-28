@@ -288,7 +288,7 @@ define(['game/world/PhysicalWorld',
 		};
 
         Boat.prototype.launchPlane = function(plane) {
-			this.entity.pilot = null;
+
 			var instance = this;
 			var readyCatapult = function() {
 				setTimeout(function() {
@@ -298,7 +298,7 @@ define(['game/world/PhysicalWorld',
 
 
             event.fireEvent(event.list().PILOT_VEHICLE, {pilot:this.entity.pilot, vehicle:plane, callback:readyCatapult});
-
+			this.entity.pilot = null;
 
         };
 
