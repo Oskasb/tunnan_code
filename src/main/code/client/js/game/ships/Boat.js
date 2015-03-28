@@ -346,7 +346,7 @@ define(['game/world/PhysicalWorld',
 
 			passenger.entity.spatial.velocity.x = this.entity.spatial.velocity.x;
 			passenger.entity.spatial.velocity.z = this.entity.spatial.velocity.z;
-			passenger.entity.spatial.velocity.y *= 0.9;
+			passenger.entity.spatial.velocity.y *= 0.98;
 	//		passenger.entity.spatial.velocity.normalize();
 
 	//		passenger.entity.spatial.velocity.mulDirect(20, 20, 20);
@@ -372,7 +372,6 @@ define(['game/world/PhysicalWorld',
 
         Boat.prototype.updateBoat = function() {
             var boat = this.entity;
-			boat.spatial.velocity.setDirect(0, 0, 0);
             for (var index in boat.turrets) {
                 GooJointAnimator.updateEntityBoneRotX(boat, boat.turrets[index].pivotBoneId, boat.turrets[index].direction);
                 GooJointAnimator.updateEntityBoneRotX(boat, boat.turrets[index].elevateJointId, boat.turrets[index].elevation);

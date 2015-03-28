@@ -18,13 +18,13 @@
                     "id":"ready_1",
                     "posOffset":[13.2, 21.5, -79],
                     "rot":[0, -3.04, 0],
-                    "length":110
+                    "length":95
                 },
                 {
                     "id":"ready_2",
                     "posOffset":[-1.8, 21.5, -79],
                     "rot":[0, -3.40, 0],
-                    "length":110
+                    "length":95
                 }
             ],
             "keyBindings":"plane",

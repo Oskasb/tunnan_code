@@ -15,7 +15,7 @@
                 "massMax":80,
                 "weightDistribution":[1, 1, 1],
                 "length":1,
-                "mobRadius":0.7,
+                "mobRadius":0.5,
                 "wingspan":1,
                 "height":2
             },

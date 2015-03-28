@@ -2,6 +2,7 @@
 
 define([
 	'goo/entities/SystemBus',
+	'goo/math/Vector3',
     'application/EventManager',
     'game/player/PlayerUtils',
     'game/player/PlayerPieceHandler',
@@ -10,6 +11,7 @@ define([
 ],
     function(
 		SystemBus,
+		Vector3,
         event,
         playerUtils,
         playerPieceHandler,
@@ -102,7 +104,9 @@ define([
 						console.log("SWITCH TO: ", entity);
 						entity.spatial.pos.set(pos);
 						entity.spatial.pos.addDirect(10, 6, 5);
-						entity.moveSphere.rigidBodyComponent.setVelocity(vel);
+						entity.spatial.velocity.setVector(vel);
+						entity.spatial.velocity.mul(60);
+						entity.moveSphere.rigidBodyComponent.setVelocity(entity.spatial.velocity);
 						entity.moveSphere.rigidBodyComponent.setPosition(entity.spatial.pos);
 						entity.moveSphere.setTranslation(entity.spatial.pos);
 
@@ -125,11 +129,32 @@ define([
         var handlePopSphere = function() {
             console.log("POP Sphere")
 
+			var pos = new Vector3(0, -200, 0);
+
 			var callback = function(spawned) {
 				console.log("POP spawned:", spawned)
-			}
 
-            event.fireEvent(event.list().SPAWN_PHYSICAL, {pos:getPlayerEntity().spatial.pos.data, callback:callback});
+			//	setTimeout(function() {
+					spawned.spatial.velocity.setVector(getPlayerEntity().spatial.velocity);
+					pos.setDirect(5, -2, 0);
+					getPlayerEntity().spatial.rot.applyPost(pos);
+					pos.addVector(getPlayerEntity().spatial.pos);
+
+				//	spawned.moveSphere.rigidBodyComponent.setPosition(pos);
+
+					spawned.spatial.velocity.setVector(getPlayerEntity().spatial.velocity);
+					spawned.spatial.velocity.mul(60);
+					spawned.moveSphere.rigidBodyComponent.setVelocity(spawned.spatial.velocity);
+					spawned.spatial.velocity.mul(0);
+			//	},420)
+
+			};
+
+			pos.setDirect(5, 0, -2);
+			getPlayerEntity().spatial.rot.applyPost(pos);
+			pos.addVector(getPlayerEntity().spatial.pos);
+
+			event.fireEvent(event.list().SPAWN_PHYSICAL, {pos:pos, callback:callback});
 
         };
 
