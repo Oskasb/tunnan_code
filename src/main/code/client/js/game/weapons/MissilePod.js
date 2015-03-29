@@ -29,7 +29,7 @@ define([
 
 			this.target = this.planeEntity;
 
-			this.elevation = -2;
+			this.elevation = -1;
 
 			this.targetState = 0;
 			this.flameEffect = null;
@@ -94,7 +94,7 @@ define([
 			exitVelocity.addDirect(this.data.exitVelocity*cannonSpread*(Math.random() -0.5), this.data.exitVelocity*cannonSpread*(Math.random() -0.5), this.data.exitVelocity*cannonSpread*(Math.random() -0.5));
 
 			var hitCallback = function(bulletSpatial, something) {
-				console.log("Cannan hit!", something);
+				console.log("Missile hit!", something);
 			};
 			//    console.log(exitVelocity)
 			this.lastMissileVelocity.set(exitVelocity);
@@ -104,7 +104,7 @@ define([
 
 			for (var i = 0; i < this.data.onFireEffects.length; i++) {
 				//			SystemBus.emit('playParticles', {simulatorId:"StandardParticle", pos:pos, vel:exitVelocity, effectData:effectData});
-				SystemBus.emit('playParticles', {simulatorId:this.data.onFireEffects[i].simulatorId, pos:pos, vel:exitVelocity, effectData:this.data.onFireEffects[i].effectData});
+		//		SystemBus.emit('playParticles', {simulatorId:this.data.onFireEffects[i].simulatorId, pos:pos, vel:exitVelocity, effectData:this.data.onFireEffects[i].effectData});
 			}
 		};
 

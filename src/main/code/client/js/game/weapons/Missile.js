@@ -8,9 +8,9 @@ define([
 	"application/EventManager",
 	'goo/math/Matrix3x3',
 	'goo/math/Vector3',
+	'goo/math/MathUtils',
 	'goo/entities/SystemBus',
-	'game/world/PhysicalWorld',
-	'3d/GooEffectController'
+	'game/world/PhysicalWorld'
 ],
 	function(
 		weaponData,
@@ -20,17 +20,17 @@ define([
 		event,
 		Matrix3x3,
 		Vector3,
+		MathUtils,
 		SystemBus,
-		physicalWorld,
-		GooEffectController
+		physicalWorld
 		) {
 
 		var activeMissiles = [];
-		var bulletCount = 0;
+		var missileCount = 0;
 		var calcVec = new Vector3();
 
 		var registerMissile = function(bullet, caliber, visible) {
-			bulletCount += 1;
+			missileCount += 1;
 
 
 
@@ -39,9 +39,10 @@ define([
 				bullet.entity = entity;
 				entity.spatial = bullet.spatial;
 				entity.pieceData = bullet.bulletData;
-				event.fireEvent(event.list().REGISTER_ACTIVE_ENTITY, {entity:bullet.entity});            };
+				event.fireEvent(event.list().REGISTER_ACTIVE_ENTITY, {entity:bullet.entity});
+			};
 
-			event.fireEvent(event.list().ADD_GAME_ENTITY, {entityId:"bullet_"+bulletCount, callback:callback});
+			event.fireEvent(event.list().ADD_GAME_ENTITY, {entityId:"missile_"+missileCount, callback:callback});
 
 			activeMissiles.push(bullet);
 		};
@@ -53,13 +54,21 @@ define([
 
 			this.targetSpatial = targetSpatial;
 
+			this.xStability = 0.3;
+			this.yStability = 0.1;
+
+			this.xOffset = 3.5 * Math.random();
+			this.yOffset = 0.2 * Math.random();
+
 			var rot = new Matrix3x3();
 			this.aimRot = new Matrix3x3();
-			this.warheadActivationTime = 5000;
-			this.activationTime = 1300;
+			this.warheadActivationTime = 8000;
+			this.homingActivationTime = 5000;
+			this.activationTime = 300;
 			this.detonationRange = 80;
 			this.engineOn = false;
-			this.enginePower = 0.15;
+			this.engineMaxPower = 0.3;
+			this.enginePower = 0;
 			this.engineForce = new Vector3(0, 0, this.enginePower);
 
 			this.hitVec = new Vector3();
@@ -209,21 +218,23 @@ define([
 
 
 		var triggerData = {
-			"color":[0.1, 0.1, 0.1, 1],
+			"color0":[0.2,0.2, 0.1],
+			"color1":[0.7,0.6, 0.4],
+			"colorRandom":0.01,
 			"count":2,
 			"opacity":[0.08, 0.3],
-			"alpha":"zeroOneZero",
+			"alpha":"oneToZero",
 			"growthFactor":[1.1, 2],
-			"growth":"zeroToOne",
+			"growth":"oneToZero",
 			"stretch":0.4,
-			"strength":5,
+			"strength":1,
 			"spread":1,
 			"acceleration":0.98,
 			"gravity":0,
 			"rotation":[0,7],
 			"spin":"oneToZero",
 			"size":[0,2.3],
-			"lifespan":[0.1, 0.2],
+			"lifespan":[0.01, 0.1],
 			"spinspeed":[-0.1, 0.1],
 			"sprite":"smokey",
 			"loopcount":1,
@@ -237,17 +248,17 @@ define([
 			"count":1,
 			"opacity":[0.2, 0.9],
 			"alpha":"zeroOneZero",
-			"growthFactor":[5, 18],
-			"growth":"zeroToOne",
+			"growthFactor":[4, 12],
+			"growth":"oneToZero",
 			"stretch":0.4,
-			"strength":5,
+			"strength":1,
 			"spread":1,
 			"acceleration":0.98,
 			"gravity":0,
 			"rotation":[0,7],
 			"spin":"oneToZero",
-			"size":[0.1,2.3],
-			"lifespan":[0.1, 2],
+			"size":[0,0],
+			"lifespan":[0.2, 8],
 			"spinspeed":[-0.1, 0.1],
 			"sprite":"smokey",
 			"loopcount":1,
@@ -256,21 +267,23 @@ define([
 		};
 
 		var smokeData = {
-			"color":[0.1, 0.1, 0.1, 1],
+			"color0":[0.0,0.0, 0.0],
+			"color1":[0.2,0.2, 0.2],
+			"colorRandom":0.01,
 			"count":1,
-			"opacity":[0.05, 0.1],
-			"alpha":"zeroOneZero",
+			"opacity":[0.25, 0.9],
+			"alpha":"oneToZero",
 			"growthFactor":[5.1, 28],
-			"growth":"zeroToOne",
-			"stretch":0.4,
+			"growth":"oneToZero",
+			"stretch":1,
 			"strength":5,
 			"spread":0.5,
 			"acceleration":0.98,
 			"gravity":0,
 			"rotation":[0,7],
 			"spin":"oneToZero",
-			"size":[0.1,2.3],
-			"lifespan":[0.01, 0.2],
+			"size":[0, 0.3],
+			"lifespan":[0.06, 0.9],
 			"spinspeed":[-0.1, 0.1],
 			"sprite":"smokey",
 			"loopcount":1,
@@ -279,50 +292,65 @@ define([
 		};
 
 		Missile.prototype.activateMissileEngine = function() {
-			SystemBus.emit('playParticles', {simulatorId:"AdditiveParticle", pos:this.spatial.pos, vel:this.spatial.velocity, effectData:triggerData});
+		//	SystemBus.emit('playParticles', {simulatorId:"AdditiveParticle", pos:this.spatial.pos, vel:this.spatial.velocity, effectData:triggerData});
 			this.engineOn = true;
 		};
 
 		var calcVec2 = new Vector3();
 
-		Missile.prototype.applyEngineForce = function() {
+		Missile.prototype.turnTowardsTarget = function() {
+			calcVec2.setVector(this.targetSpatial.velocity);
+			calcVec2.mul(Math.sqrt(this.spatial.pos.distance(this.targetSpatial.pos)) * 0.5);
+			calcVec.setVector(this.targetSpatial.pos);
+			calcVec.addVector(calcVec2);
 
+			calcVec.y += this.spatial.pos.distance(this.targetSpatial.pos) * 0.1;
 
 			if (lineRenderSystem.passive == false) {
-				lineRenderSystem.drawLine(this.spatial.pos, this.targetSpatial.pos, lineRenderSystem.RED);
+				lineRenderSystem.drawLine(this.spatial.pos, calcVec, lineRenderSystem.RED);
 			}
 
-			this.engineForce.setDirect(0, 0, 1);
 
-			calcVec.setVector(this.spatial.pos);
-			calcVec.sub(this.targetSpatial.pos);
+			if (this.age > this.homingActivationTime) {
+				calcVec.subVector(this.spatial.pos);
 
-
-
-		//	calcVec.mul(-1)
-			this.aimRot.lookAt(calcVec, Vector3.UNIT_Y);
-
-			this.aimRot.applyPost(this.engineForce);
-
-			calcVec.setVector(this.spatial.velocity);
-			calcVec.normalize();
-			calcVec.lerp(this.engineForce , 0.7);
+				calcVec.mul(-1)
+				this.aimRot.lookAt(calcVec, Vector3.UNIT_Y);
 
 
-		//	calcVec.setVector(this.engineForce);
-			calcVec.normalize();
+			} else {
+				//	this.spatial.rot.rotateX(0.01);
+				calcVec.setDirect(0, this.yStability*-0.08, -1);
+				this.spatial.rot.applyPost(calcVec);
+			}
 
+			this.xStability*=0.99;
+			this.yStability*=0.99;
 
-			calcVec.mul(this.enginePower);
+			calcVec2.setDirect(0.1*this.xStability*Math.sin(0.1*this.xOffset + this.age*0.0003),this.yStability*Math.sin(this.yOffset + this.age*0.0002), 1);
 
-			this.spatial.velocity.addVector(calcVec);
-
+			this.spatial.rot.applyPost(calcVec2);
+			//	calcVec.normalize();
+			calcVec.lerp(calcVec2, 0.05 / calcVec.length());
 
 			this.spatial.rot.lookAt(calcVec, Vector3.UNIT_Y);
 
-			if (Math.random() < 0.6) {
-				SystemBus.emit('playParticles', {simulatorId:"StandardParticle", pos:this.spatial.pos, vel:this.spatial.velocity, effectData:smokeData});
-			}
+		};
+
+		Missile.prototype.applyEngineForce = function() {
+
+			this.enginePower = MathUtils.lerp(0.05, this.enginePower, this.engineMaxPower);
+
+			this.engineForce.setDirect(0, 0, this.enginePower);
+
+			this.spatial.rot.applyPost(this.engineForce);
+
+			this.spatial.velocity.addVector(this.engineForce);
+
+
+		//	if (Math.random() < 0.6) {
+			SystemBus.emit('playParticles', {simulatorId:"StandardParticle", pos:this.spatial.pos, vel:this.engineForce, effectData:smokeData});
+		//	}
 
 			if (Math.random() < 0.1) {
 				SystemBus.emit("playVaporEffect", {pos:this.spatial.pos, vel:Vector3.UNIT_Y, effectData:vaporData});
@@ -339,6 +367,11 @@ define([
 				 if (!this.engineOn) {
 					 this.activateMissileEngine();
 				 } else {
+
+
+					 this.turnTowardsTarget();
+
+
 					 this.applyEngineForce();
 
 					 if (this.age > this.warheadActivationTime) {
@@ -349,11 +382,10 @@ define([
 						 }
 
 					 }
-
 				 }
 			}
 
-			this.dragFactor = 0.007;
+			this.dragFactor = 0.004;
 			this.spatial.velocity.mul(1-this.dragFactor);
 
 			if (checkHit) {
