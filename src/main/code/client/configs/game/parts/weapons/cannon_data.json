@@ -256,7 +256,7 @@
                 "name":"Missile Pod",
                 "caliber":80,
                 "barrelLength":10,
-                "exitVelocity":4,
+                "exitVelocity":0.1,
                 "rateOfFire":2.4,
                 "onFireSounds":["AAA_0", "AAA_1", "AAA_2"],
                 "onFireEffects": [

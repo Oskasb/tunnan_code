@@ -269,7 +269,8 @@
                 "damageEffects":[{"kinetic":{"points":100}}, {"fire":{"intensity":0.7, "size":20}}],
                 "onHitSounds":["MAIN_HIT_0", "MAIN_HIT_1", "MAIN_HIT_2"],
                 "lifeTime": 238000,
-
+                "modelName":"PhoenixRoot",
+                "enginePosOffset":[0, 0, -1.4],
                 "trailEffects":[{
                     "simulatorId":"FastAdditiveTrail",
                     "effectData":{
@@ -304,8 +305,8 @@
                         "count":1,
                         "opacity":[1, 1],
                         "alpha":"oneToZero",
-                        "growthFactor":[4.01, 4.7],
-                        "size":[3, 4.2],
+                        "growthFactor":[1.01, 1.7],
+                        "size":[1, 1.2],
                         "growth":"oneToZero",
                         "stretch":0.0001,
                         "strength":0,

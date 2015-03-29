@@ -29,22 +29,40 @@ define([
 		var missileCount = 0;
 		var calcVec = new Vector3();
 
-		var registerMissile = function(bullet, caliber, visible) {
+		var registerMissile = function(bullet, caliber, visible, ready) {
 			missileCount += 1;
 
-
-
 			var callback = function(entity) {
-				bullet.id = entity.id;
-				bullet.entity = entity;
-				entity.spatial = bullet.spatial;
-				entity.pieceData = bullet.bulletData;
-				event.fireEvent(event.list().REGISTER_ACTIVE_ENTITY, {entity:bullet.entity});
+
+				var register = function() {
+					bullet.id = entity.id;
+					bullet.entity = entity;
+					entity.spatial = bullet.spatial;
+					entity.pieceData = bullet.bulletData;
+					event.fireEvent(event.list().REGISTER_ACTIVE_ENTITY, {entity:bullet.entity});
+					activeMissiles.push(bullet);
+					ready(bullet);
+				};
+
+				var visualEntityReady = function(gooEntity) {
+					if (entity.geometries[0]) entity.geometries[0].removeFromWorld();
+					gooEntity.transformComponent.children[0].transform.rotation.rotateX(Math.PI * 0.5);
+					gooEntity.transformComponent.children[0].setUpdated();
+					entity.geometries[0] = gooEntity;
+					entity.geometries[0].addToWorld();
+					register();
+				};
+
+
+				if (bullet.bulletData.modelName) {
+					event.fireEvent(event.list().BUILD_GOO_GAMEPIECE, {projPath:'bundles', modelPath:bullet.bulletData.modelName, callback:visualEntityReady});
+				} else {
+					register();
+				}
 			};
 
 			event.fireEvent(event.list().ADD_GAME_ENTITY, {entityId:"missile_"+missileCount, callback:callback});
 
-			activeMissiles.push(bullet);
 		};
 
 
@@ -59,6 +77,8 @@ define([
 
 			this.xOffset = 3.5 * Math.random();
 			this.yOffset = 0.2 * Math.random();
+
+
 
 			var rot = new Matrix3x3();
 			this.aimRot = new Matrix3x3();
@@ -76,6 +96,9 @@ define([
 			this.originatorId = originatorId;
 			this.onHitEffects = bulletData.onHitEffects;
 			this.bulletData = bulletData;
+
+			this.enginePosOffset = new Vector3();
+
 			this.spatial = {
 				visualPos:new Vector3(0, 0, 0),
 				pos: pos,
@@ -87,22 +110,26 @@ define([
 			vel.mul(-1);
 			this.spatial.rot.lookAt(vel, Vector3.UNIT_Y);
 
+			this.spatial.velocity.y -= 0.04;
+
 			this.caliber = cannonData.caliber;
 			this.lifetime = cannonData.lifetime;
 			this.age = 0;
 			this.lifeTime = bulletData.lifeTime;
 			this.hitCallback = callback;
-			registerMissile(this, this.caliber, this.visible);
+
 			this.particles = [];
+			var ready = function(missile) {
 
-			if (bulletData.trailEffects) {
-				for (var i = 0; i < bulletData.trailEffects.length; i++) {
-					this.attachTrailEffect(this.spatial, bulletData.trailEffects[i]);
-				}
-			}
 
-			this.removed = false;
-			this.updateMissile(0.01);
+
+
+				missile.removed = false;
+				missile.updateMissile(0.01);
+			};
+
+			registerMissile(this, this.caliber, this.visible, ready);
+
 		};
 
 		Missile.prototype.attachTrailEffect = function(spatial, bulletEffect) {
@@ -116,8 +143,13 @@ define([
 			}.bind(this);
 
 			var particleUpdate = function(particle) {
+
+				this.enginePosOffset.setArray(this.bulletData.enginePosOffset);
+				this.spatial.rot.applyPost(this.enginePosOffset);
+				this.enginePosOffset.addVector(this.spatial.pos);
+
 				particle.lifeSpan = this.lifeTime - this.age*3;
-				particle.position.setVector(spatial.pos);
+				particle.position.setVector(this.enginePosOffset);
 			}.bind(this);
 
 			var callbacks = {
@@ -293,6 +325,14 @@ define([
 
 		Missile.prototype.activateMissileEngine = function() {
 		//	SystemBus.emit('playParticles', {simulatorId:"AdditiveParticle", pos:this.spatial.pos, vel:this.spatial.velocity, effectData:triggerData});
+
+			if (this.bulletData.trailEffects) {
+				for (var i = 0; i < this.bulletData.trailEffects.length; i++) {
+					this.attachTrailEffect(this.spatial, this.bulletData.trailEffects[i]);
+				}
+			}
+
+
 			this.engineOn = true;
 		};
 
@@ -357,17 +397,19 @@ define([
 
 
 		//	if (Math.random() < 0.6) {
-			SystemBus.emit('playParticles', {simulatorId:"StandardParticle", pos:this.spatial.pos, vel:this.engineForce, effectData:smokeData});
+			SystemBus.emit('playParticles', {simulatorId:"StandardParticle", pos:this.enginePosOffset, vel:this.engineForce, effectData:smokeData});
 		//	}
 
 			if (Math.random() < 0.1) {
-				SystemBus.emit("playVaporEffect", {pos:this.spatial.pos, vel:Vector3.UNIT_Y, effectData:vaporData});
+				SystemBus.emit("playVaporEffect", {pos:this.enginePosOffset, vel:Vector3.UNIT_Y, effectData:vaporData});
 			}
 
 		};
 
 		Missile.prototype.updateMissile = function(time) {
 			this.age+=time;
+
+
 
 			var checkHit = physicalWorld.checkSpatialConflict(this, time);
 
@@ -409,6 +451,8 @@ define([
 			}
 			this.hitNormal.set(this.spatial.velocity);
 			this.hitNormal.mul(2)
+
+
 
 			if (this.age > this.lifeTime) {
 				this.disappear();

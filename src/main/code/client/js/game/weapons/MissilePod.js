@@ -30,7 +30,7 @@ define([
 
 			this.target = this.planeEntity;
 
-			this.elevation = -1;
+			this.elevation = 0;
 
 			this.targetState = 0;
 			this.flameEffect = null;
