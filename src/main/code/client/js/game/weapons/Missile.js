@@ -306,10 +306,10 @@ define([
 
 			calcVec.setVector(this.spatial.velocity);
 			calcVec.normalize();
-			calcVec.lerp(this.engineForce , 0.4);
+			calcVec.lerp(this.engineForce , 0.7);
 
 
-			calcVec.setVector(this.engineForce);
+		//	calcVec.setVector(this.engineForce);
 			calcVec.normalize();
 
 
