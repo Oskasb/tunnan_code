@@ -250,6 +250,68 @@
                         }
                     }
                 ]
+            },{
+
+                "id":"missile_pod",
+                "name":"Missile Pod",
+                "caliber":80,
+                "barrelLength":10,
+                "exitVelocity":4,
+                "rateOfFire":2.4,
+                "onFireSounds":["AAA_0", "AAA_1", "AAA_2"],
+                "onFireEffects": [
+                    {
+                        "simulatorId":"AdditiveParticle",
+                        "effectData" : {
+                            "color":[1,0.6, 0.3, 1],
+                            "count":8,
+                            "size":[0.4,1],
+                            "lifespan":[0.2, 1.7],
+                            "opacity":[1, 1],
+                            "alpha":"oneToZero",
+                            "growthFactor":[2, 5],
+                            "growth":"posToNeg",
+                            "stretch":0.8,
+                            "strength":1,
+                            "spread":0.3,
+                            "acceleration":0.99,
+                            "gravity":5,
+                            "rotation":[0,7],
+                            "spin":"oneToZero",
+                            "spinspeed":[-2,2],
+                            "sprite":"smokey",
+                            "loopcount":1,
+                            "trailsprite":"projectile_1",
+                            "trailwidth":1
+                        }
+                    },
+                    {
+                        "simulatorId":"StandardParticle",
+                        "effectData" : {
+                            "color":[0.1,0.1, 0.1, 1],
+                            "count":4,
+                            "size":[0.4,2],
+                            "lifespan":[1.2, 4.2],
+                            "opacity":[1, 1],
+                            "alpha":"zeroOneZero",
+                            "growthFactor":[2, 9],
+                            "growth":"posToNeg",
+                            "stretch":1,
+                            "strength":4,
+                            "spread":1,
+                            "acceleration":0.98,
+                            "gravity":1,
+                            "rotation":[0,7],
+                            "spin":"oneToZero",
+                            "spinspeed":[-2,2],
+                            "sprite":"smokey",
+                            "loopcount":1,
+                            "trailsprite":"projectile_1",
+                            "trailwidth":1
+                        }
+                    }
+                ],
+                "lifetime":7000
 
             }
         ]

@@ -133,7 +133,7 @@ define([
             entity.hideDelay = setTimeout(function() {
                 entity.removedFromWorld = true;
 
-                entity.geometries[0].removeFromWorld();
+                entity.geometries[0].hide();
 
                 for (var i = 0; i < entity.geometries[0].transformComponent.children.length; i++) {
             //        entity.geometries[0].transformComponent.children[i].entity.removeFromWorld();
@@ -146,7 +146,7 @@ define([
             entity.hideDelay = null;
             if (!entity.removedFromWorld) return;
 
-          entity.geometries[0].addToWorld();
+          entity.geometries[0].show();
             entity.removedFromWorld = false;
        //  return;
             for (var i = 0; i < entity.geometries[0].transformComponent.children.length; i++) {

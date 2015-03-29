@@ -104,7 +104,8 @@ define([
 			};
 
 			var effect_data = bulletEffect.effectData;
-			effect_data.size = [0.1 + this.caliber*0.003, 0.1+this.caliber*0.005];
+			var sourceSize = bulletEffect.effectData.growthFactor[0];
+			effect_data.size = [0.1 + this.caliber*0.003 * sourceSize, 0.1+this.caliber*0.005 * sourceSize];
 			effect_data.lifespan = [this.age, this.age];
 
 			SystemBus.emit('playParticles', {simulatorId:bulletEffect.simulatorId, pos:this.spatial.pos, vel:this.hitNormal, effectData:effect_data, callbacks:callbacks});
@@ -210,7 +211,7 @@ define([
             }
 			this.hitNormal.set(this.spatial.velocity)
 			this.hitNormal.mul(2)
-
+		/*
 			if (this.bulletData.trailEffects) {
 				for (var i = 0; i < this.bulletData.trailEffects.length; i++){
 
@@ -234,7 +235,7 @@ define([
 			//		SystemBus.emit('playParticles', {effectName:this.bulletData.trailEffects[i].id, pos:this.spatial.pos, vel:this.hitNormal, effectData:effectData});
 				}
 			}
-
+          */
 	        //    if (Math.random() < 0.07 * (1/(1+this.age/1000))) event.fireEvent(event.list().ACROBATIC_SMOKE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
         //    if (Math.random() < 0.01 * (1/(1+this.age/1000))) event.fireEvent(event.list().PUFF_WHITE_SMOKE, {pos:this.spatial.pos.data, count:1, dir:this.spatial.velocity.data})
 

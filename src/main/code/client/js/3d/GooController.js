@@ -12,14 +12,19 @@ define([
     'goo/entities/GooRunner',
 	'goo/renderer/Renderer',
     'goo/math/Vector3',
+	'goo/renderer/Texture',
+	'goo/math/Vector',
+
 	'goo/animationpack/handlers/SkeletonHandler',
 	'goo/animationpack/handlers/AnimationComponentHandler',
 	'goo/animationpack/handlers/AnimationStateHandler',
 	'goo/animationpack/handlers/AnimationLayersHandler',
 	'goo/animationpack/handlers/AnimationClipHandler',
-	'goo/passpack/PosteffectsHandler',
-	'goo/renderer/Texture',
-	'goo/math/Vector'
+
+	//'goo/addons/physicspack/handlers/ColliderComponentHandler',
+	//'goo/addons/physicspack/handlers/RigidBodyComponentHandler',
+
+	'goo/passpack/PosteffectsHandler'
 
 ], function(
 	Settings,

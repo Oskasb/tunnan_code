@@ -1,0 +1,44 @@
+[{
+    "game_parts_data":{
+        "missiles":[
+            {
+                "id":"phoenix",
+                "name":"AIM 47",
+                "caliber":350,
+                "barrelLength":25,
+                "exitVelocity":630,
+                "rateOfFire":0.15,
+                "onFireSounds":["MAIN_GUN_0", "MAIN_GUN_1", "MAIN_GUN_2"],
+
+                "onFireEffects": [
+                    {
+                        "simulatorId":"AdditiveParticle",
+                        "effectData" : {
+                            "color":[1,0.6, 0.3, 1],
+                            "count":16,
+                            "opacity":[1, 1],
+                            "alpha":"oneToZero",
+                            "growthFactor":[4, 12],
+                            "growth":"posToNeg",
+                            "stretch":1,
+                            "strength":30,
+                            "spread":0.2,
+                            "acceleration":0.99,
+                            "gravity":7,
+                            "rotation":[0,7],
+                            "spin":"oneToZero",
+                            "size":[0.3,1.8],
+                            "lifespan":[0.1, 2.4],
+                            "spinspeed":[-2, 2],
+                            "sprite":"smokey",
+                            "loopcount":1,
+                            "trailsprite":"projectile_1",
+                            "trailwidth":1
+                        }
+                    }
+                ],
+                "lifetime":92000
+            }
+        ]
+    }
+}]

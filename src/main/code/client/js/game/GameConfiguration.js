@@ -245,6 +245,7 @@ define(function() {
         KEY_BINDINGS: {
             plane: {
                 cannons:["1", 32],
+				missiles:["2"],
                 throttleUp:["R",107],
                 throttleDown:["F",109],
 

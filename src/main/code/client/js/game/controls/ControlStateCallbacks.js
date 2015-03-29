@@ -69,9 +69,10 @@ define(["application/EventManager",
 
 					break;
 				case "cannons":
+				case "missiles":
 					return function(entity, value, control) {
 
-						value = weaponsController.applyControlStateToWeapons(entity, value)
+						value = weaponsController.applyControlStateToWeapons(entity, value, control);
 						event.fireEvent(event.list().PLAYER_CONTROL_STATE_UPDATE, {control:control, currentState:value})
 					};
 

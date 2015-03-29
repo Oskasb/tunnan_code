@@ -137,6 +137,9 @@ define([
             goo.setRenderSystem(this.lineRenderSystem);
 			this.physicsDebugRenderSystem.passive = !this.debugOn;
 			this.lineRenderSystem.passive = !this.debugOn;
+
+			window.lineRenderSystem = this.lineRenderSystem;
+
         };
 
         CannonPhysics.prototype.createPhysicsComponentScript = function() {

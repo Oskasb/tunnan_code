@@ -103,17 +103,51 @@
                 },
                 {"id": "weapons",
                     "pieceInput":{
-                        "cannons": {"value":0, "controlState":0}
+                        "cannons": {"value":0, "controlState":0},
+                        "missiles": {"value":0, "controlState":0}
                     },
                     "inputBehavior":{"type":"button", "speed":6},
                     "controls": {
-                        "cannons":{"lights":["hot_trig"]}
+                        "cannons":{"lights":["hot_trig"]},
+                        "missiles":{"lights":["seam_lock"]}
                     },
                     "cannons": [
                         {
                             "data":"vulcan_20",
                             "bulletData":"BULLET_20",
                             "posOffset":[0.71, 0.23, 8.0]
+                        }
+                    ],
+                    "missiles": [
+                        {
+                            "data":"missile_pod",
+                            "bulletData":"MISSILE_PHOENIX",
+                            "posOffset":[3.171939, 0.1146126, 0.07496355]
+                        },
+                        {
+                            "data":"missile_pod",
+                            "bulletData":"MISSILE_PHOENIX",
+                            "posOffset":[-3.171939, 0.1146126, 0.07496355]
+                        },
+                        {
+                            "data":"missile_pod",
+                            "bulletData":"MISSILE_PHOENIX",
+                            "posOffset":[0.3939822, -0.2676334, 1.582232]
+                        },
+                        {
+                            "data":"missile_pod",
+                            "bulletData":"MISSILE_PHOENIX",
+                            "posOffset":[-0.3939822, -0.2676334, 1.582232]
+                        },
+                        {
+                            "data":"missile_pod",
+                            "bulletData":"MISSILE_PHOENIX",
+                            "posOffset":[0.3939822, -0.3325653, -3.664795]
+                        },
+                        {
+                            "data":"missile_pod",
+                            "bulletData":"MISSILE_PHOENIX",
+                            "posOffset":[-0.3939822, -0.3325653, -3.664795]
                         }
                     ],
                     "speed":1
