@@ -19,7 +19,7 @@ define([
         Vector3
         ) {
 
-        var PlaneCannon = function(planeEntity, cannonDataId, weaponSystemData, bulletId) {
+        var PlaneCannon = function(planeEntity, cannonDataId, weaponSystemData, bulletId, controlData) {
             this.planeEntity = planeEntity;
 			this.posOffset = weaponSystemData.posOffset;
 
@@ -28,6 +28,8 @@ define([
 
             this.elevation = 0.06;
             this.currentState = 0;
+
+			this.controlData = controlData;
 
             this.targetState = 0;
             this.flameEffect = null;

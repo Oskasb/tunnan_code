@@ -311,6 +311,9 @@ define([
             event.fireEvent(event.list().FETCH_LEVEL_ENTITY, {entityId:loadPlayerId, callback:callback});
         };
 
+		var getLevelEntities = function() {
+			return levelEntities;
+		}
 
         var spawnMobileUnit = function(pos, callback) {
 
@@ -335,6 +338,7 @@ define([
 		SystemBus.addListener('guiInitConfiguration', controlEvent);
 
         return {
+			getLevelEntities:getLevelEntities,
             getBoats:getBoats,
 			updateBoats:updateBoats,
             registerScenario:registerScenario,

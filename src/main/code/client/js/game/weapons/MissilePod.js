@@ -19,13 +19,14 @@ define([
 		Vector3
 		) {
 
-		var MissilePod = function(planeEntity, cannonDataId, weaponSystemData, bulletId) {
+		var MissilePod = function(planeEntity, cannonDataId, weaponSystemData, bulletId, controlData) {
 			this.planeEntity = planeEntity;
 			this.posOffset = weaponSystemData.posOffset;
 
 			this.attachCannonData(cannonDataId);
 			this.attachMissileData(bulletId);
 
+			this.controlData = controlData;
 
 			this.target = this.planeEntity;
 
@@ -117,6 +118,9 @@ define([
 		};
 
 		MissilePod.prototype.sequenceShot = function(delay) {
+
+			this.setTargetEntity(this.planeEntity.systems.weapons.target_select[0].target);
+
 			var fire = function() {
 				if (this.currentState == 1) {
 					this.fire();
@@ -131,6 +135,11 @@ define([
 			var delay = step * this.cooldownTime/total;
 			this.sequenceShot(delay);
 			return this.currentState;
+		};
+
+
+		MissilePod.prototype.setTargetEntity = function(targetEntity) {
+			this.target = targetEntity;
 		};
 
 		return MissilePod;

@@ -8,6 +8,7 @@ define(["application/EventManager", "game/GameConfiguration"], function(event, g
         gears:          {control:"gears",    value:1},
         cannons:        {control:"cannons",  value:1},
 		missiles:       {control:"missiles", value:1},
+		target_select:  {control:"target_select", value:1},
         flapsDown:      {control:"flaps",    value:1},
         flapsUp:        {control:"flaps",    value:-1},
         throttleUp:     {control:"throttle", value:1},

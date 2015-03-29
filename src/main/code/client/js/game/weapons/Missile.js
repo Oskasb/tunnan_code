@@ -63,8 +63,8 @@ define([
 			var rot = new Matrix3x3();
 			this.aimRot = new Matrix3x3();
 			this.warheadActivationTime = 8000;
-			this.homingActivationTime = 5000;
-			this.activationTime = 300;
+			this.homingActivationTime = 3000;
+			this.activationTime = 700;
 			this.detonationRange = 80;
 			this.engineOn = false;
 			this.engineMaxPower = 0.3;
@@ -298,13 +298,20 @@ define([
 
 		var calcVec2 = new Vector3();
 
+		var calcVec3 = new Vector3();
+		var calcVec4 = new Vector3();
+
 		Missile.prototype.turnTowardsTarget = function() {
 			calcVec2.setVector(this.targetSpatial.velocity);
 			calcVec2.mul(Math.sqrt(this.spatial.pos.distance(this.targetSpatial.pos)) * 0.5);
 			calcVec.setVector(this.targetSpatial.pos);
 			calcVec.addVector(calcVec2);
 
-			calcVec.y += this.spatial.pos.distance(this.targetSpatial.pos) * 0.1;
+			calcVec3.setVector(this.spatial.pos);
+			calcVec4.setVector(this.targetSpatial.pos);
+			calcVec4.y = calcVec3.y;
+
+			calcVec.y += Math.min(calcVec3.distanceSquared(calcVec4) * 0.00002, 4000);
 
 			if (lineRenderSystem.passive == false) {
 				lineRenderSystem.drawLine(this.spatial.pos, calcVec, lineRenderSystem.RED);
@@ -317,23 +324,24 @@ define([
 				calcVec.mul(-1)
 				this.aimRot.lookAt(calcVec, Vector3.UNIT_Y);
 
-
+				calcVec2.setDirect(0, 0, -1);
 			} else {
 				//	this.spatial.rot.rotateX(0.01);
 				calcVec.setDirect(0, this.yStability*-0.08, -1);
 				this.spatial.rot.applyPost(calcVec);
+				this.xStability*=0.99;
+				this.yStability*=0.99;
+
+				calcVec2.setDirect(0.1*this.xStability*Math.sin(0.1*this.xOffset + this.age*0.0003),this.yStability*Math.sin(this.yOffset + this.age*0.0002), -1);
 			}
 
-			this.xStability*=0.99;
-			this.yStability*=0.99;
 
-			calcVec2.setDirect(0.1*this.xStability*Math.sin(0.1*this.xOffset + this.age*0.0003),this.yStability*Math.sin(this.yOffset + this.age*0.0002), 1);
 
 			this.spatial.rot.applyPost(calcVec2);
-			//	calcVec.normalize();
-			calcVec.lerp(calcVec2, 0.05 / calcVec.length());
+			calcVec2.normalize();
+			calcVec2.lerp(calcVec, 0.0001);
 
-			this.spatial.rot.lookAt(calcVec, Vector3.UNIT_Y);
+			this.spatial.rot.lookAt(calcVec2, Vector3.UNIT_Y);
 
 		};
 
@@ -385,7 +393,7 @@ define([
 				 }
 			}
 
-			this.dragFactor = 0.004;
+			this.dragFactor = 0.0001 + 0.06*this.enginePower ;
 			this.spatial.velocity.mul(1-this.dragFactor);
 
 			if (checkHit) {

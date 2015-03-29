@@ -246,6 +246,7 @@ define(function() {
             plane: {
                 cannons:["1", 32],
 				missiles:["2"],
+				target_select:["3"],
                 throttleUp:["R",107],
                 throttleDown:["F",109],
 

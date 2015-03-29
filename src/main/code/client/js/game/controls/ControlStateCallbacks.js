@@ -70,6 +70,7 @@ define(["application/EventManager",
 					break;
 				case "cannons":
 				case "missiles":
+				case "target_select":
 					return function(entity, value, control) {
 
 						value = weaponsController.applyControlStateToWeapons(entity, value, control);

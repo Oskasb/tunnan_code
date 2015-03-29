@@ -5,14 +5,16 @@ define(["application/EventManager",
 	'data_pipeline/PipelineAPI',
 	'game/weapons/WeaponData',
 	"game/weapons/PlaneCannon",
-	"game/weapons/MissilePod"
+	"game/weapons/MissilePod",
+	"game/weapons/TargetSelect"
 ], function(
 	event,
 	GooJointAnimator,
 	PipelineAPI,
 	WeaponData,
 	PlaneCannon,
-	MissilePod
+	MissilePod,
+	TargetSelect
 	) {
 
 
@@ -21,20 +23,24 @@ define(["application/EventManager",
 			weaponData:weaponData,
 			cannons:[],
 			missiles:[],
+			target_select:[],
 			locked:false
 		};
 
 		for (var index in weaponData.controls) {
 			for (var i = 0; i < weaponData[index].length; i++) {
 				if (index == "cannons") {
-					weaponSystem[index].push(new PlaneCannon(entity, weaponData[index][i].data, weaponData[index][i], weaponData[index][i].bulletData))
+					weaponSystem[index].push(new PlaneCannon(entity, weaponData[index][i].data, weaponData[index][i], weaponData[index][i].bulletData, weaponData.controls[index]))
 				}
 
 				if (index == "missiles") {
-					weaponSystem[index].push(new MissilePod(entity, weaponData[index][i].data, weaponData[index][i], weaponData[index][i].bulletData))
+					weaponSystem[index].push(new MissilePod(entity, weaponData[index][i].data, weaponData[index][i], weaponData[index][i].bulletData, weaponData.controls[index]))
 				}
 
-			//	cannons.push(new PlaneCannon(entity, weaponData[index][i].data, weaponData[index][i], weaponData[index][i].bulletData))
+				if (index == "target_select") {
+					weaponSystem[index].push(new TargetSelect(entity, weaponData.controls[index]))
+				}
+
 			}
 		}
 
@@ -55,24 +61,27 @@ define(["application/EventManager",
     };
 
     var updateTriggerLights = function(entity, lights, controlState) {
-        console.log("Trigger lights: ", lights, controlState)
+        console.log("Trigger lights: ", lights, controlState);
         for (var i = 0; i < lights.length; i++) {
             var boneId = entity.lights[lights[i]].setIntensity(controlState);
         }
     };
 
     var applyControlStateToWeapons = function(entity, value, control) {
-             console.log("Update Weapon CTRL", value, control)
+        console.log("Update Weapon CTRL", value, control);
         if (value == undefined) value = 0;
 
-
-		         var weapons = entity.systems.weapons[control];
+		var weapons = entity.systems.weapons[control];
 
         for (var i = 0; i < weapons.length; i++) {
 
             var weapon = weapons[i];
             if (weapon.currentState == value) value = 0;
             value = weapon.updateTriggerState(value, i, weapons.length);
+			if (weapon.controlData.lights) {
+				updateTriggerLights(entity, weapon.controlData.lights, value)
+			}
+
         }
 
         return value;
