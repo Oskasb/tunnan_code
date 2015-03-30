@@ -13,7 +13,9 @@ define([
     'game/world/ZoneData',
     'game/world/SpawnSystem',
     'game/planes/AiPilot',
-	'game/movement/MobileUnits'
+	'game/movement/MobileUnits',
+        'physics/PhysicalWorld',
+        'goo/math/Vector3'
 ],
     function(
 		SystemBus,
@@ -28,7 +30,9 @@ define([
              zoneData,
              spawnSystem,
              AiPilot,
-			 MobileUnits) {
+			 MobileUnits,
+        PhysicalWorld,
+        Vector3) {
 
         var scenario;
         var loadPlayerId;
@@ -140,6 +144,23 @@ define([
         };
 
 
+        var loadWorldChunk = function(chunk) {
+            var pos = chunk.pos;
+            var modelName = chunk.modelName;
+
+            var gameEntity = {};
+
+            entityModel.addEntitySpatial(gameEntity);
+            gameEntity.spatial.pos.setArray(pos);
+            var callback = function(gooEntity) {
+                PhysicalWorld.createPhysicsShapeComponent(gameEntity, gooEntity);
+                gooEntity.addToWorld();
+                gooEntity.transformComponent.setUpdated()
+            };
+
+            event.fireEvent(event.list().BUILD_GOO_GAMEPIECE, {projPath:'bundles', modelPath:modelName, callback:callback});
+
+        };
 
         var loadZoneVehicles = function(zoneData, vehicles) {
             var zonePos = zoneData.pos;
@@ -215,6 +236,13 @@ define([
 					for (var j = 0; j < scenario.loadVehicles[i].length; j++) {
 						loadZoneVehicles(scenario.loadZones[i], scenario.loadVehicles[i][j]);
 					}
+
+                    if (scenario.loadZones[i].worldChunks) {
+                        for (var j = 0; j < scenario.loadZones[i].worldChunks.length; j++) {
+                            loadWorldChunk(scenario.loadZones[i].worldChunks[j]);
+                        }
+                    }
+
 				}
 
 				event.eventArgs(e).callback();

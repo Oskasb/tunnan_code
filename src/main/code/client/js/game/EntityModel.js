@@ -171,6 +171,7 @@ define([
 
     return {
 		clientEntities:clientEntities,
+        addEntitySpatial:addEntitySpatial,
 		resetSeed:resetSeed,
         getEntityById:getEntityById,
         createClientEntity:createClientEntity,

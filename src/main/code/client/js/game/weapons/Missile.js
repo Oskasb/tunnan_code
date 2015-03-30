@@ -8,6 +8,7 @@ define([
 	"application/EventManager",
 	'goo/math/Matrix3x3',
 	'goo/math/Vector3',
+		'goo/math/Quaternion',
 	'goo/math/MathUtils',
 	'goo/entities/SystemBus',
 	'game/world/PhysicalWorld'
@@ -20,6 +21,7 @@ define([
 		event,
 		Matrix3x3,
 		Vector3,
+		Quaternion,
 		MathUtils,
 		SystemBus,
 		physicalWorld
@@ -72,11 +74,10 @@ define([
 
 			this.targetSpatial = targetSpatial;
 
-			this.xStability = 0.3;
-			this.yStability = 0.1;
-
+			this.xStability = 3 + Math.random();
+			this.yStability = 3 + Math.random();
 			this.xOffset = 3.5 * Math.random();
-			this.yOffset = 0.2 * Math.random();
+			this.yOffset = 3.2 * Math.random();
 
 
 
@@ -341,9 +342,12 @@ define([
 		var calcVec3 = new Vector3();
 		var calcVec4 = new Vector3();
 
+		var calcQuat = new Quaternion();
+		var calcQuat2 = new Quaternion();
+
 		Missile.prototype.turnTowardsTarget = function() {
 			calcVec2.setVector(this.targetSpatial.velocity);
-			calcVec2.mul(Math.sqrt(this.spatial.pos.distance(this.targetSpatial.pos)) * 0.5);
+			calcVec2.mul(Math.sqrt(this.spatial.pos.distance(this.targetSpatial.pos)) * 2.5);
 			calcVec.setVector(this.targetSpatial.pos);
 			calcVec.addVector(calcVec2);
 
@@ -351,7 +355,9 @@ define([
 			calcVec4.setVector(this.targetSpatial.pos);
 			calcVec4.y = calcVec3.y;
 
-			calcVec.y += Math.min(calcVec3.distanceSquared(calcVec4) * 0.00002, 4000);
+			var distSquared = calcVec3.distanceSquared(calcVec4)
+
+			calcVec.y += Math.min(distSquared * 0.00002, 4000);
 
 			if (lineRenderSystem.passive == false) {
 				lineRenderSystem.drawLine(this.spatial.pos, calcVec, lineRenderSystem.RED);
@@ -362,26 +368,38 @@ define([
 				calcVec.subVector(this.spatial.pos);
 
 				calcVec.mul(-1)
-				this.aimRot.lookAt(calcVec, Vector3.UNIT_Y);
 
-				calcVec2.setDirect(0, 0, -1);
 			} else {
 				//	this.spatial.rot.rotateX(0.01);
-				calcVec.setDirect(0, this.yStability*-0.08, -1);
+				calcVec.setDirect(this.xStability*Math.sin(this.xOffset + this.age*0.0003), this.yStability*Math.sin(this.yOffset + this.age*0.0002), -1);
 				this.spatial.rot.applyPost(calcVec);
 				this.xStability*=0.99;
 				this.yStability*=0.99;
 
-				calcVec2.setDirect(0.1*this.xStability*Math.sin(0.1*this.xOffset + this.age*0.0003),this.yStability*Math.sin(this.yOffset + this.age*0.0002), -1);
+			//	calcVec2.setDirect(0.1*this.xStability*Math.sin(0.1*this.xOffset + this.age*0.0003),this.yStability*Math.sin(this.yOffset + this.age*0.0002), -1);
 			}
 
+			this.spatial.rot.applyPost(calcVec2);
+			calcVec2.subVector(calcVec);
+			calcVec.subVector(calcVec2);
 
+			this.aimRot.lookAt(calcVec, Vector3.UNIT_Y);
+			calcQuat.fromRotationMatrix(this.aimRot);
+
+			calcQuat2.fromRotationMatrix(this.spatial.rot);
+
+			calcQuat2.slerp(calcQuat, 0.01*Math.sqrt(this.age * 0.01));
+			calcQuat2.toRotationMatrix(this.spatial.rot);
+			/*
+			this.spatial.rot.lookAt(calcVec2, Vector3.UNIT_Y);
+
+			calcVec2.setDirect(0, 0, -1);
 
 			this.spatial.rot.applyPost(calcVec2);
 			calcVec2.normalize();
 			calcVec2.lerp(calcVec, 0.0001);
+*/
 
-			this.spatial.rot.lookAt(calcVec2, Vector3.UNIT_Y);
 
 		};
 

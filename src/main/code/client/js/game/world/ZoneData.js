@@ -23,6 +23,7 @@ define(function() {
                 height: 800,
                 pos:[0, 0, 0],
                 clouds:{intensity:1},
+                worldChunks:[{"pos":[-1500, 0, -3000], "modelName":"CityRoot"},{"pos":[-1800, 0, -5000], "modelName":"CityRoot"}],
                 playerSpawn:{
                     plane:{
                         pos:[-1342, 620, 3280],
@@ -45,6 +46,7 @@ define(function() {
 				height: 800,
 				pos:[0, 0, 0],
 				clouds:{intensity:1},
+
 				playerSpawn:{
 					plane:{
 						pos:[-200, 29, 500],
