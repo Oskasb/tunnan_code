@@ -24,7 +24,7 @@
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&false)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.CANNON=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 module.exports={
   "name": "cannon",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "A lightweight 3D physics engine written in JavaScript.",
   "homepage": "https://github.com/schteppe/cannon.js",
   "author": "Stefan Hedman <schteppe@gmail.com> (http://steffe.se)",
@@ -141,7 +141,7 @@ function AABB(options){
     /**
      * The lower bound of the bounding box.
      * @property lowerBound
-     * @type {Array}
+     * @type {Vec3}
      */
     this.lowerBound = new Vec3();
     if(options.lowerBound){
@@ -151,7 +151,7 @@ function AABB(options){
     /**
      * The upper bound of the bounding box.
      * @property upperBound
-     * @type {Array}
+     * @type {Vec3}
      */
     this.upperBound = new Vec3();
     if(options.upperBound){
@@ -242,41 +242,12 @@ AABB.prototype.clone = function(){
  * @param  {AABB} aabb
  */
 AABB.prototype.extend = function(aabb){
-    // Extend lower bound
-    var l = aabb.lowerBound.x;
-    if(this.lowerBound.x > l){
-        this.lowerBound.x = l;
-    }
-
-    // Upper
-    var u = aabb.upperBound.x;
-    if(this.upperBound.x < u){
-        this.upperBound.x = u;
-    }
-
-    // Extend lower bound
-    var l = aabb.lowerBound.y;
-    if(this.lowerBound.y > l){
-        this.lowerBound.y = l;
-    }
-
-    // Upper
-    var u = aabb.upperBound.y;
-    if(this.upperBound.y < u){
-        this.upperBound.y = u;
-    }
-
-    // Extend lower bound
-    var l = aabb.lowerBound.z;
-    if(this.lowerBound.z > l){
-        this.lowerBound.z = l;
-    }
-
-    // Upper
-    var u = aabb.upperBound.z;
-    if(this.upperBound.z < u){
-        this.upperBound.z = u;
-    }
+    this.lowerBound.x = Math.min(this.lowerBound.x, aabb.lowerBound.x);
+    this.upperBound.x = Math.max(this.upperBound.x, aabb.upperBound.x);
+    this.lowerBound.y = Math.min(this.lowerBound.y, aabb.lowerBound.y);
+    this.upperBound.y = Math.max(this.upperBound.y, aabb.upperBound.y);
+    this.lowerBound.z = Math.min(this.lowerBound.z, aabb.lowerBound.z);
+    this.upperBound.z = Math.max(this.upperBound.z, aabb.upperBound.z);
 };
 
 /**
@@ -296,10 +267,20 @@ AABB.prototype.overlaps = function(aabb){
     // |--------|
     // l1       u1
 
-    return ((l2.x <= u1.x && u1.x <= u2.x) || (l1.x <= u2.x && u2.x <= u1.x)) &&
-           ((l2.y <= u1.y && u1.y <= u2.y) || (l1.y <= u2.y && u2.y <= u1.y)) &&
-           ((l2.z <= u1.z && u1.z <= u2.z) || (l1.z <= u2.z && u2.z <= u1.z));
+    var overlapsX = ((l2.x <= u1.x && u1.x <= u2.x) || (l1.x <= u2.x && u2.x <= u1.x));
+    var overlapsY = ((l2.y <= u1.y && u1.y <= u2.y) || (l1.y <= u2.y && u2.y <= u1.y));
+    var overlapsZ = ((l2.z <= u1.z && u1.z <= u2.z) || (l1.z <= u2.z && u2.z <= u1.z));
+
+    return overlapsX && overlapsY && overlapsZ;
 };
+
+// Mostly for debugging
+AABB.prototype.volume = function(){
+    var l = this.lowerBound,
+        u = this.upperBound;
+    return (u.x - l.x) * (u.y - l.y) * (u.z - l.z);
+};
+
 
 /**
  * Returns true if the given AABB is fully contained in this AABB.
@@ -698,9 +679,10 @@ Broadphase.boundingSphereCheck = function(bodyA,bodyB){
  * @method aabbQuery
  * @param  {World} world
  * @param  {AABB} aabb
+ * @param  {array} result An array to store resulting bodies in.
  * @return {array}
  */
-Broadphase.prototype.aabbQuery = function(world, aabb){
+Broadphase.prototype.aabbQuery = function(world, aabb, result){
     console.warn('.aabbQuery is not implemented in this Broadphase subclass.');
     return [];
 };
@@ -1560,29 +1542,22 @@ Ray.prototype.intersectSphere = function(shape, quat, position, body){
         var d1 = (- b - Math.sqrt(delta)) / (2 * a);
         var d2 = (- b + Math.sqrt(delta)) / (2 * a);
 
-        if (d1 >= 0) {
-
-
-
+        if(d1 >= 0 && d1 <= 1){
             from.lerp(to, d1, intersectionPoint);
             intersectionPoint.vsub(position, normal);
             normal.normalize();
             this.reportIntersection(normal, intersectionPoint, shape, body, -1);
         }
+
         if(this.result._shouldStop){
             return;
         }
 
-        if (d2 >= 0) {
-
-
-
-
+        if(d2 >= 0 && d2 <= 1){
             from.lerp(to, d2, intersectionPoint);
             intersectionPoint.vsub(position, normal);
             normal.normalize();
             this.reportIntersection(normal, intersectionPoint, shape, body, -1);
-
         }
     }
 };
@@ -1759,11 +1734,8 @@ Ray.prototype.intersectTrimesh = function intersectTrimesh(
 
     // Transform ray to local space!
     Transform.vectorToLocalFrame(position, quat, direction, localDirection);
-    //body.vectorToLocalFrame(direction, localDirection);
     Transform.pointToLocalFrame(position, quat, from, localFrom);
-    //body.pointToLocalFrame(from, localFrom);
     Transform.pointToLocalFrame(position, quat, to, localTo);
-    //body.pointToLocalFrame(to, localTo);
     var fromToDistanceSquared = localFrom.distanceSquared(localTo);
 
     mesh.tree.rayQuery(this, treeTransform, triangles);
@@ -1781,9 +1753,6 @@ Ray.prototype.intersectTrimesh = function intersectTrimesh(
 
         // ...but make it relative to the ray from. We'll fix this later.
         a.vsub(localFrom,vector);
-
-        // Get plane normal
-        // quat.vmult(normal, normal);
 
         // If this dot product is negative, we have something interesting
         var dot = localDirection.dot(normal);
@@ -1817,9 +1786,7 @@ Ray.prototype.intersectTrimesh = function intersectTrimesh(
 
         // transform intersectpoint and normal to world
         Transform.vectorToWorldFrame(quat, normal, worldNormal);
-        //body.vectorToWorldFrame(normal, worldNormal);
         Transform.pointToWorldFrame(position, quat, intersectPoint, worldIntersectPoint);
-        //body.pointToWorldFrame(intersectPoint, worldIntersectPoint);
         this.reportIntersection(worldNormal, worldIntersectPoint, mesh, body, trianglesIndex);
     }
     triangles.length = 0;
@@ -3722,6 +3689,7 @@ function Material(options){
     /**
      * material id.
      * @property id
+     * @type {number}
      */
     this.id = Material.idCounter++;
 
@@ -3849,6 +3817,7 @@ Mat3.prototype.setZero = function(){
 /**
  * Sets the matrix diagonal elements from a Vec3
  * @method setTrace
+ * @param {Vec3} vec3
  */
 Mat3.prototype.setTrace = function(vec3){
     var e = this.elements;
@@ -3858,8 +3827,9 @@ Mat3.prototype.setTrace = function(vec3){
 };
 
 /**
- * Sets the matrix diagonal elements from a Vec3
+ * Gets the matrix diagonal elements
  * @method getTrace
+ * @return {Vec3}
  */
 Mat3.prototype.getTrace = function(target){
     var target = target || new Vec3();
@@ -5474,7 +5444,7 @@ function Body(options){
 
     /**
      * @property aabb
-     * @type {Vec3}
+     * @type {AABB}
      */
     this.aabb = new AABB();
 
@@ -5745,15 +5715,12 @@ Body.prototype.computeAABB = function(){
     for(var i=0; i!==N; i++){
         var shape = shapes[i];
 
-        // Get shape world quaternion
-        shapeOrientations[i].mult(bodyQuat, orientation);
-
         // Get shape world position
-        orientation.vmult(shapeOffsets[i], offset);
+        bodyQuat.vmult(shapeOffsets[i], offset);
         offset.vadd(this.position, offset);
 
-        // vec2.rotate(offset, shapeOffsets[i], bodyAngle);
-        // vec2.add(offset, offset, this.position);
+        // Get shape world quaternion
+        shapeOrientations[i].mult(bodyQuat, orientation);
 
         // Get shape AABB
         shape.calculateWorldAABB(offset, orientation, shapeAABB.lowerBound, shapeAABB.upperBound);
@@ -5792,13 +5759,7 @@ Body.prototype.updateInertiaWorld = function(force){
         m1.transpose(m2);
         m1.scale(I,m1);
         m1.mmult(m2,this.invInertiaWorld);
-        //m3.getTrace(this.invInertiaWorld);
     }
-
-    /*
-    this.quaternion.vmult(this.inertia,this.inertiaWorld);
-    this.quaternion.vmult(this.invInertia,this.invInertiaWorld);
-    */
 };
 
 /**
@@ -6121,7 +6082,7 @@ RaycastVehicle.prototype.updateVehicle = function(timeStep){
     var chassisBody = this.chassisBody;
 
     for (var i = 0; i < numWheels; i++) {
-        this.updateWheelTransform(i, false);
+        this.updateWheelTransform(i);
     }
 
     this.currentVehicleSpeedKmHour = 3.6 * chassisBody.velocity.norm();
@@ -6340,6 +6301,13 @@ RaycastVehicle.prototype.updateWheelTransformWorld = function(wheel){
     chassisBody.vectorToWorldFrame(wheel.axleLocal, wheel.axleWorld);
 };
 
+
+/**
+ * Update one of the wheel transform.
+ * Note when rendering wheels: during each step, wheel transforms are updated BEFORE the chassis; ie. their position becomes invalid after the step. Thus when you render wheels, you must update wheel transforms before rendering them. See raycastVehicle demo for an example.
+ * @method updateWheelTransform
+ * @param {integer} wheelIndex The wheel index to update.
+ */
 RaycastVehicle.prototype.updateWheelTransform = function(wheelIndex){
     var up = tmpVec4;
     var right = tmpVec5;
@@ -6671,7 +6639,7 @@ module.exports = RigidVehicle;
  * Simple vehicle helper class with spherical rigid body wheels.
  * @class RigidVehicle
  * @constructor
- * @param {object} [options.chassisBody]
+ * @param {Body} [options.chassisBody]
  */
 function RigidVehicle(options){
     this.wheelBodies = [];
@@ -6707,7 +6675,7 @@ function RigidVehicle(options){
  * Add a wheel
  * @method addWheel
  * @param {object} options
- * @param {object} [options.isFrontWheel]
+ * @param {boolean} [options.isFrontWheel]
  * @param {Vec3} [options.position] Position of the wheel, locally in the chassis body.
  * @param {Vec3} [options.direction] Slide direction of the wheel along the suspension.
  * @param {Vec3} [options.axis] Axis of rotation of the wheel, locally defined in the chassis.
@@ -6897,9 +6865,25 @@ var Material = _dereq_('../material/Material');
  */
 function SPHSystem(){
     this.particles = [];
-    this.density = 1; // kg/m3
-    this.smoothingRadius = 1; // Adjust so there are about 15-20 neighbor particles within this radius
+	
+    /**
+     * Density of the system (kg/m3).
+     * @property {number} density
+     */
+    this.density = 1;
+	
+    /**
+     * Distance below which two particles are considered to be neighbors.
+     * It should be adjusted so there are about 15-20 neighbor particles within this radius.
+     * @property {number} smoothingRadius
+     */
+    this.smoothingRadius = 1;
     this.speedOfSound = 1;
+	
+    /**
+     * Viscosity of the system.
+     * @property {number} viscosity
+     */
     this.viscosity = 0.01;
     this.eps = 0.000001;
 
@@ -6909,6 +6893,11 @@ function SPHSystem(){
     this.neighbors = [];
 }
 
+/**
+ * Add a particle to the system.
+ * @method add
+ * @param {Body} particle
+ */
 SPHSystem.prototype.add = function(particle){
     this.particles.push(particle);
     if(this.neighbors.length < this.particles.length){
@@ -6916,6 +6905,11 @@ SPHSystem.prototype.add = function(particle){
     }
 };
 
+/**
+ * Remove a particle from the system.
+ * @method remove
+ * @param {Body} particle
+ */
 SPHSystem.prototype.remove = function(particle){
     var idx = this.particles.indexOf(particle);
     if(idx !== -1){
@@ -7295,14 +7289,14 @@ module.exports = WheelInfo;
  * @param {number} [options.deltaRotation=0]
  * @param {number} [options.rollInfluence=0.01]
  * @param {number} [options.maxSuspensionForce]
- * @param {number} [options.isFrontWheel=true]
+ * @param {boolean} [options.isFrontWheel=true]
  * @param {number} [options.clippedInvContactDotSuspension=1]
  * @param {number} [options.suspensionRelativeVelocity=0]
  * @param {number} [options.suspensionForce=0]
  * @param {number} [options.skidInfo=0]
  * @param {number} [options.suspensionLength=0]
  * @param {number} [options.maxSuspensionTravel=1]
- * @param {number} [options.useCustomSlidingRotationalSpeed=false]
+ * @param {boolean} [options.useCustomSlidingRotationalSpeed=false]
  * @param {number} [options.customSlidingRotationalSpeed=-0.1]
  */
 function WheelInfo(options){
@@ -7649,8 +7643,8 @@ Box.calculateInertia = function(halfExtents,mass,target){
 /**
  * Get the box 6 side normals
  * @method getSideNormals
- * @param {Boolean}     includeNegative If true, this function returns 6 vectors. If false, it only returns 3 (but you get 6 by reversing those 3)
- * @param {Quaternion}  quat            Orientation to apply to the normal vectors. If not provided, the vectors will be in respect to the local frame.
+ * @param {array}      sixTargetVectors An array of 6 vectors, to store the resulting side normals in.
+ * @param {Quaternion} quat             Orientation to apply to the normal vectors. If not provided, the vectors will be in respect to the local frame.
  * @return {array}
  */
 Box.prototype.getSideNormals = function(sixTargetVectors,quat){
@@ -8175,7 +8169,7 @@ var maxminA=[], maxminB=[];
  * @param {Quaternion} quatA
  * @param {Vec3} posB
  * @param {Quaternion} quatB
- * @return {float} The overlap depth, or FALSE if no penetration.
+ * @return {number} The overlap depth, or FALSE if no penetration.
  */
 ConvexPolyhedron.prototype.testSepAxis = function(axis, hullB, posA, quatA, posB, quatB){
     var hullA=this;
@@ -9408,6 +9402,12 @@ var Material = _dereq_('../material/Material');
 function Shape(){
 
     /**
+     * Identifyer of the Shape.
+     * @property {number} id
+     */
+    this.id = Shape.idCounter++;
+
+    /**
      * The type of this shape. Must be set to an int > 0 by subclasses.
      * @property type
      * @type {Number}
@@ -9461,6 +9461,8 @@ Shape.prototype.volume = function(){
 Shape.prototype.calculateLocalInertia = function(mass,target){
     throw "calculateLocalInertia() not implemented for shape type "+this.type;
 };
+
+Shape.idCounter = 0;
 
 /**
  * The available shape types.
@@ -10062,7 +10064,7 @@ Trimesh.prototype.volume = function(){
  * @param  {number} [radialSegments=8]
  * @param  {number} [tubularSegments=6]
  * @param  {number} [arc=6.283185307179586]
- * @return {Torus}
+ * @return {Trimesh} A torus
  */
 Trimesh.createTorus = function (radius, tube, radialSegments, tubularSegments, arc) {
     radius = radius || 1;
@@ -12875,7 +12877,7 @@ function World(){
     };
 
     /**
-     * @property subystems
+     * @property subsystems
      * @type {Array}
      */
     this.subsystems = [];

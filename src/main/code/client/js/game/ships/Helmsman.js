@@ -57,10 +57,10 @@ define([
 
             this.steerMat.lookAt(calcVec, Vector3.UNIT_Y);
 
-            this.targetSpeed.setDirect(0, 0, 15);
+            this.targetSpeed.setDirect(0, 0, -15);
 
             calcVec2.setVector(this.targetSpeed);
-            this.steerMat.applyPost(calcVec2);
+        //    this.steerMat.applyPost(calcVec2);
 
 
             calcQuat.fromRotationMatrix(this.steerMat);
@@ -68,10 +68,11 @@ define([
             //
                 this.entity.spatial.rigidBodyComponent.getQuaternion(calcQuat);
                 calcQuat.toRotationMatrix(this.entity.spatial.rot);
-
+                this.entity.spatial.rot.applyPost(calcVec2);
                 this.entity.spatial.rigidBodyComponent.setVelocity(calcVec2);
                 this.entity.spatial.rigidBodyComponent.getPosition(this.entity.spatial.pos);
-                calcVec2.mul(0.01);
+                this.entity.spatial.rigidBodyComponent.getVelocity(calcVec2);
+                calcVec2.mul(-0.01);
                 this.entity.spatial.velocity.setVector(calcVec2);
 
             }

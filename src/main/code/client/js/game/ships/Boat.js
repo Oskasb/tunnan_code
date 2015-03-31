@@ -32,6 +32,8 @@ define(['game/world/PhysicalWorld',
                 instance.entity = entity;
                 entity.pieceData = boatData;
                 physicalWorld.registerPhysicalEntity(entity);
+
+
                 entity.combat.hitPoints = boatData.hitPoints;
 
                 entity.combat.destroyed = function(entity) {
@@ -49,10 +51,6 @@ define(['game/world/PhysicalWorld',
                 };
 
                 event.fireEvent(event.list().BUILD_GOO_GAMEPIECE, {projPath:"bundles", modelPath:boatData.piecePath, callback:visualEntityReady});
-             //   addTurretsToBoat(entity, boatData);
-             //   addChimneysToBoat(entity, boatData);
-             //   addRadarsToBoat(entity, boatData);
-             //   addFlagsToBoat(entity, boatData);
             };
 
             event.fireEvent(event.list().ADD_GAME_ENTITY, {entityId:shipId, callback:entityAddedCallback});
@@ -370,8 +368,13 @@ define(['game/world/PhysicalWorld',
             passenger.entity.spatial.rot.fromAngles(passenger.rot.data[0], angles.data[1], passenger.rot.data[2]);
         };
 
+		var angVel = new Vector3(0, 0.1, 0);
+
         Boat.prototype.updateBoat = function() {
             var boat = this.entity;
+
+			boat.spatial.rigidBodyComponent.setAngularVelocity(angVel);
+
             for (var index in boat.turrets) {
                 GooJointAnimator.updateEntityBoneRotX(boat, boat.turrets[index].pivotBoneId, boat.turrets[index].direction);
                 GooJointAnimator.updateEntityBoneRotX(boat, boat.turrets[index].elevateJointId, boat.turrets[index].elevation);

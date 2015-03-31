@@ -79,7 +79,7 @@ define([
     var CannonPhysics = function() {
         this.debugOn = false;
             this.physicsSystem = new PhysicsSystem();
-            this.rayOpts = this.physicsSystem._getCannonRaycastOptions({skipBackfaces : true});
+            this.rayOpts = this.physicsSystem._getCannonRaycastOptions({skipBackfaces : false});
             this.rayResult = new RaycastResult();
             this.rayHitContainer = new RayHitContainer();
         };
@@ -213,8 +213,10 @@ define([
 
         };
 
-        CannonPhysics.prototype.removePhysicsComponent = function(component) {
-
+        CannonPhysics.prototype.removePhysicsComponent = function(component, gameEntity) {
+            gameEntity.spatial.rigidBodyComponent.cannonBody.sleep();
+            delete gameEntity.spatial.rigidBodyComponent;
+            // component.disable();
         };
 
         CannonPhysics.prototype.activatePhysicsComponent = function(component, pos, vel, radius) {

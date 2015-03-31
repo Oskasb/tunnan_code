@@ -75,8 +75,8 @@ define([
 			return translateParent;
 		}
 
-		function removePhysicsComponent(component) {
-            return physicsApi.removePhysicsComponent(component);
+		function removePhysicsComponent(component, gameEntity) {
+            return physicsApi.removePhysicsComponent(component, gameEntity);
 		}
 
         function activatePhysicsComponent(component, pos, vel, radius) {

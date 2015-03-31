@@ -48,6 +48,7 @@ define([
             event.fireEvent(event.list().ADD_KEYBINDINGS, {bindings:gameConfig.KEY_BINDINGS[entity.pieceData.keyBindings]});
 
             if (entity.moveSphere) {
+                entity.moveSphere.addToWorld();
                PhysicalWorld.createPhysicsSphere(entity.moveSphere, entity.pieceData.dimensions.mobRadius, entity.spatial.pos.data)
                PhysicalWorld.activatePhysicsComponent(entity.moveSphere.ammoComponent, entity.spatial.pos.data, entity.spatial.velocity.data, entity.pieceData.dimensions.mobRadius);
             }

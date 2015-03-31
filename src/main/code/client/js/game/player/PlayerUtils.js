@@ -2,11 +2,13 @@
 
 define([
     'application/EventManager',
+		'physics/PhysicalWorld',
     'game/characters/CharacterAnimator',
 	'game/player/PlayerPieceHandler'
 ],
     function(
         event,
+		PhysicalWorld,
         CharacterAnimator,
 		PlayerPieceHandler
         ) {
@@ -53,6 +55,19 @@ define([
 				console.log("Pilot transition failed! ", pilotEntity);
 			}
 
+			if (pilotEntity.spatial.rigidBodyComponent) {
+				console.log("remove RB from pilot")
+				PhysicalWorld.removePhysicsComponent(pilotEntity.spatial.rigidBodyComponent, pilotEntity);
+
+			}
+
+			if (pilotEntity.moveSphere) {
+				console.log("remove moveSphere from pilot")
+				pilotEntity.moveSphere.removeFromWorld();
+			//	delete pilotEntity.moveSphere;
+			}
+
+
 		//	pilotEntity.moveSphere.deactivate();
             vehicleEntity.pilot = pilotEntity;
 
@@ -87,7 +102,9 @@ define([
 			pilot.isPilot = true;
 
 			var unloadCallback = function() {
-				attachPilotToVehicle(pilot, vehicle)
+				attachPilotToVehicle(pilot, vehicle);
+
+
 			//	var attach = function() {
 
 					event.fireEvent(event.list().SET_PLAYER_CONTROLLED_ENTITY, {entity:vehicle, callback:vehicleReadyCB});
