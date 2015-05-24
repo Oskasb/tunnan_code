@@ -242,12 +242,41 @@ AABB.prototype.clone = function(){
  * @param  {AABB} aabb
  */
 AABB.prototype.extend = function(aabb){
-    this.lowerBound.x = Math.min(this.lowerBound.x, aabb.lowerBound.x);
-    this.upperBound.x = Math.max(this.upperBound.x, aabb.upperBound.x);
-    this.lowerBound.y = Math.min(this.lowerBound.y, aabb.lowerBound.y);
-    this.upperBound.y = Math.max(this.upperBound.y, aabb.upperBound.y);
-    this.lowerBound.z = Math.min(this.lowerBound.z, aabb.lowerBound.z);
-    this.upperBound.z = Math.max(this.upperBound.z, aabb.upperBound.z);
+    // Extend lower bound
+    var l = aabb.lowerBound.x;
+    if(this.lowerBound.x > l){
+        this.lowerBound.x = l;
+    }
+
+    // Upper
+    var u = aabb.upperBound.x;
+    if(this.upperBound.x < u){
+        this.upperBound.x = u;
+    }
+
+    // Extend lower bound
+    var l = aabb.lowerBound.y;
+    if(this.lowerBound.y > l){
+        this.lowerBound.y = l;
+    }
+
+    // Upper
+    var u = aabb.upperBound.y;
+    if(this.upperBound.y < u){
+        this.upperBound.y = u;
+    }
+
+    // Extend lower bound
+    var l = aabb.lowerBound.z;
+    if(this.lowerBound.z > l){
+        this.lowerBound.z = l;
+    }
+
+    // Upper
+    var u = aabb.upperBound.z;
+    if(this.upperBound.z < u){
+        this.upperBound.z = u;
+    }
 };
 
 /**
@@ -267,20 +296,10 @@ AABB.prototype.overlaps = function(aabb){
     // |--------|
     // l1       u1
 
-    var overlapsX = ((l2.x <= u1.x && u1.x <= u2.x) || (l1.x <= u2.x && u2.x <= u1.x));
-    var overlapsY = ((l2.y <= u1.y && u1.y <= u2.y) || (l1.y <= u2.y && u2.y <= u1.y));
-    var overlapsZ = ((l2.z <= u1.z && u1.z <= u2.z) || (l1.z <= u2.z && u2.z <= u1.z));
-
-    return overlapsX && overlapsY && overlapsZ;
+    return ((l2.x <= u1.x && u1.x <= u2.x) || (l1.x <= u2.x && u2.x <= u1.x)) &&
+           ((l2.y <= u1.y && u1.y <= u2.y) || (l1.y <= u2.y && u2.y <= u1.y)) &&
+           ((l2.z <= u1.z && u1.z <= u2.z) || (l1.z <= u2.z && u2.z <= u1.z));
 };
-
-// Mostly for debugging
-AABB.prototype.volume = function(){
-    var l = this.lowerBound,
-        u = this.upperBound;
-    return (u.x - l.x) * (u.y - l.y) * (u.z - l.z);
-};
-
 
 /**
  * Returns true if the given AABB is fully contained in this AABB.
@@ -1734,8 +1753,11 @@ Ray.prototype.intersectTrimesh = function intersectTrimesh(
 
     // Transform ray to local space!
     Transform.vectorToLocalFrame(position, quat, direction, localDirection);
+    //body.vectorToLocalFrame(direction, localDirection);
     Transform.pointToLocalFrame(position, quat, from, localFrom);
+    //body.pointToLocalFrame(from, localFrom);
     Transform.pointToLocalFrame(position, quat, to, localTo);
+    //body.pointToLocalFrame(to, localTo);
     var fromToDistanceSquared = localFrom.distanceSquared(localTo);
 
     mesh.tree.rayQuery(this, treeTransform, triangles);
@@ -1753,6 +1775,9 @@ Ray.prototype.intersectTrimesh = function intersectTrimesh(
 
         // ...but make it relative to the ray from. We'll fix this later.
         a.vsub(localFrom,vector);
+
+        // Get plane normal
+        // quat.vmult(normal, normal);
 
         // If this dot product is negative, we have something interesting
         var dot = localDirection.dot(normal);
@@ -1786,7 +1811,9 @@ Ray.prototype.intersectTrimesh = function intersectTrimesh(
 
         // transform intersectpoint and normal to world
         Transform.vectorToWorldFrame(quat, normal, worldNormal);
+        //body.vectorToWorldFrame(normal, worldNormal);
         Transform.pointToWorldFrame(position, quat, intersectPoint, worldIntersectPoint);
+        //body.pointToWorldFrame(intersectPoint, worldIntersectPoint);
         this.reportIntersection(worldNormal, worldIntersectPoint, mesh, body, trianglesIndex);
     }
     triangles.length = 0;
@@ -5715,12 +5742,15 @@ Body.prototype.computeAABB = function(){
     for(var i=0; i!==N; i++){
         var shape = shapes[i];
 
-        // Get shape world position
-        bodyQuat.vmult(shapeOffsets[i], offset);
-        offset.vadd(this.position, offset);
-
         // Get shape world quaternion
         shapeOrientations[i].mult(bodyQuat, orientation);
+
+        // Get shape world position
+        orientation.vmult(shapeOffsets[i], offset);
+        offset.vadd(this.position, offset);
+
+        // vec2.rotate(offset, shapeOffsets[i], bodyAngle);
+        // vec2.add(offset, offset, this.position);
 
         // Get shape AABB
         shape.calculateWorldAABB(offset, orientation, shapeAABB.lowerBound, shapeAABB.upperBound);
@@ -5759,7 +5789,13 @@ Body.prototype.updateInertiaWorld = function(force){
         m1.transpose(m2);
         m1.scale(I,m1);
         m1.mmult(m2,this.invInertiaWorld);
+        //m3.getTrace(this.invInertiaWorld);
     }
+
+    /*
+    this.quaternion.vmult(this.inertia,this.inertiaWorld);
+    this.quaternion.vmult(this.invInertia,this.invInertiaWorld);
+    */
 };
 
 /**

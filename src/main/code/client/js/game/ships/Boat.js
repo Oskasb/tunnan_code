@@ -373,7 +373,7 @@ define(['game/world/PhysicalWorld',
         Boat.prototype.updateBoat = function() {
             var boat = this.entity;
 
-			boat.spatial.rigidBodyComponent.setAngularVelocity(angVel);
+		//	boat.spatial.rigidBodyComponent.setAngularVelocity(angVel);
 
             for (var index in boat.turrets) {
                 GooJointAnimator.updateEntityBoneRotX(boat, boat.turrets[index].pivotBoneId, boat.turrets[index].direction);
